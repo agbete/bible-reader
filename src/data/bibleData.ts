@@ -2,28 +2,6 @@ export interface BookInfo {
   id: string;
   name: string;
   testament: 'OT' | 'NT';
-  category: 'Pentateuque' | 'Historique' | 'Poésie & Sagesse' | 'Prophètes' | 'Évangiles' | 'Histoire de l\'Église' | 'Épîtres de Paul' | 'Épîtres Générales' | 'Prophétie';
-  chaptersCount: number;
-  abbr: string;
-  color: string;
-  summary: string;
-}
-
-export const BIBLE_BOOKS: BookInfo[] = [
-  // Ancien Testament
-  { id: 'gen', name: 'Genèse', testament: 'OT', category: 'Pentateuque', chaptersCount: 50, abbr: 'Gen', color: 'from-amber-600 to-amber-800', summary: 'Les origines du monde, de l’humanité et du peuple de l’Alliance.' },
-  { id: 'exo', name: 'Exode', testament: 'OT', category: 'Pentateuque', chaptersCount: 40, abbr: 'Ex', color: 'from-amber-600 to-amber-800', summary: 'La libération d’Israël hors d’Égypte et le don de la Loi au Sinaï.' },
-  { id: 'lev', name: 'Lévitique', testament: 'OT', category: 'Pentateuque', chaptersCount: 27, abbr: 'Lév', color: 'from-amber-600 to-amber-800', summary: 'Les lois de sainteté, les sacrifices et le service des prêtres.' },
-  { id: 'nom', name: 'Nombres', testament: 'OT', category: 'Pentateuque', chaptersCount: 36, abbr: 'Nom', color: 'from-amber-600 to-amber-800', summary: 'La marche du peuple à travers le désert vers la Terre Promise.' },
-  { id: 'deu', name: 'Deutéronome', testament: 'OT', category: 'Pentateuque', chaptersCount: 34, abbr: 'Deut', color: 'from-amber-600 to-amber-800', summary: 'Les derniers discours de Moïse et le rappel de l’Alliance.' },
-  { id: 'jos', name: 'Josué', testament: 'OT', category: 'Historique', chaptersCount: 24, abbr: 'Jos', color: 'from-orange-600 to-amber-700', summary: 'L’entrée et la conquête du pays de Canaan sous la conduite de Josué.' },
-  { id: 'jug', name: 'Juges', testament: 'OT', category: 'Historique', chaptersCount: 21, abbr: 'Jug', color: 'from-orange-600 to-amber-700', summary: 'Les cycles d’infidélité, d’oppression et de délivrance par les Juges.' },
-  { id: 'rut', name: 'Ruth', testament: 'OT', category: 'Historique', chaptersCount: 4, abbr: 'Ruth', color: 'from-orange-600 to-amber-700', summary: 'Une émouvante histoire de fidélité, de rédemption et de grâce.' },
-  { id: '1sa', name: '1 Samuel', testament: 'OT', category: 'Historique', chaptersCount: 31, abbr: '1 Sam', color: 'from-orange-600 to-amber-700', summary: 'L<dyad-write path="src/data/bibleData.ts" description="Bible metadata, sample books, verses, topics and reading plans">
-export interface BookInfo {
-  id: string;
-  name: string;
-  testament: 'OT' | 'NT';
   category: string;
   chaptersCount: number;
   abbr: string;
