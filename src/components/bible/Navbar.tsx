@@ -53,62 +53,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/90 border-b border-border/80 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2"><dyad-write path="src/components/bible/Navbar.tsx" description="Complete and fixed Navbar component for the Bible application">
-import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  Search, 
-  Bookmark, 
-  Flame, 
-  Sun, 
-  Moon, 
-  ChevronDown
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { BIBLE_VERSIONS } from '@/data/bibleData';
-
-interface NavbarProps {
-  currentVersion: string;
-  onVersionChange: (code: string) => void;
-  onOpenSearch: () => void;
-  onOpenBookmarks: () => void;
-  streakCount: number;
-  onQuickExplore: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
-  currentVersion,
-  onVersionChange,
-  onOpenSearch,
-  onOpenBookmarks,
-  streakCount,
-  onQuickExplore
-}) => {
-  const [isDark, setIsDark] = useState(false);
-
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.remove('dark');
-      setIsDark(false);
-    } else {
-      root.classList.add('dark');
-      setIsDark(true);
-    }
-  };
-
-  const selectedVersionObj = BIBLE_VERSIONS.find(v => v.code === currentVersion) || BIBLE_VERSIONS[0];
-
-  return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/90 border-b border-border/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         {/* Brand logo & name */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={onQuickExplore}>
