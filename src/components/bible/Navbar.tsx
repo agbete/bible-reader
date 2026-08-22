@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   BookOpen, 
   Search, 
@@ -6,7 +6,8 @@ import {
   Flame, 
   Sun, 
   Moon, 
-  ChevronDown
+  ChevronDown,
+  Database
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,12 +19,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { BIBLE_VERSIONS } from '@/data/bibleData';
+import { testSupabaseConnection } from '@/services/bibleDb';
 
 interface NavbarProps {
   currentVersion: string;
   onVersionChange: (code: string) => void;
   onOpenSearch: () => void;
   onOpenBookmarks: () => void;
+  onOpenDbStatus: () => void;
   streakCount: number;
   onQuickExplore: () => void;
 }
@@ -33,10 +36,61 @@ export const Navbar: React.FC<NavbarProps> = ({
   onVersionChange,
   onOpenSearch,
   onOpenBookmarks,
+  onOpenDbStatus,
+  streakCount,
+  onQuickExplore
+}) => {
+  const [isDark, setIsDark]<dyad-write path="src/components/bible/Navbar.tsx" description="Navbar with live Supabase Database status indicator and modal trigger">
+import React, { useState, useEffect } from 'react';
+import { 
+  BookOpen, 
+  Search, 
+  Bookmark, 
+  Flame, 
+  Sun, 
+  Moon, 
+  ChevronDown,
+  Database
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { BIBLE_VERSIONS } from '@/data/bibleData';
+import { testSupabaseConnection } from '@/services/bibleDb';
+
+interface NavbarProps {
+  currentVersion: string;
+  onVersionChange: (code: string) => void;
+  onOpenSearch: () => void;
+  onOpenBookmarks: () => void;
+  onOpenDbStatus: () => void;
+  streakCount: number;
+  onQuickExplore: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  currentVersion,
+  onVersionChange,
+  onOpenSearch,
+  onOpenBookmarks,
+  onOpenDbStatus,
   streakCount,
   onQuickExplore
 }) => {
   const [isDark, setIsDark] = useState(false);
+  const [dbConnected, setDbConnected] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    testSupabaseConnection().then(res => {
+      setDbConnected(res.connected);
+    }).catch(() => setDbConnected(false));
+  }, []);
 
   const toggleTheme = () => {
     const root = document.documentElement;
@@ -92,6 +146,25 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right side controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Supabase Status Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onOpenDbStatus}
+            className={`h-9 px-2.5 sm:px-3 text-xs font-medium rounded-full border transition-colors flex items-center gap-1.5 ${
+              dbConnected === true
+                ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50'
+                : dbConnected === false
+                ? 'border-rose-200 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300'
+                : 'border-border bg-card text-muted-foreground'
+            }`}
+            title="Vérifier la connexion à Supabase"
+          >
+            <Database className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span className="hidden lg:inline">Base de données</span>
+            <span className={`w-2 h-2 rounded-full ${dbConnected ? 'bg-emerald-500' : 'bg-amber-400 animate-ping'}`} />
+          </Button>
+
           {/* Version Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
