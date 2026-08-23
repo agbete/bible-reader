@@ -15,7 +15,7 @@ import {
   DbStats
 } from '@/services/bibleDb';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/ui/input'; 
 import { 
   Globe, 
   BookMarked, 
@@ -89,6 +89,7 @@ export const BiblePage: React.FC = () => {
         }
       } catch (err) {
         console.error('Erreur lors du chargement des données Supabase:', err);
+        showError("Impossible de charger les données de la base de données. Vérifiez votre connexion Supabase.");
       } finally {
         setLoading(false);
       }
