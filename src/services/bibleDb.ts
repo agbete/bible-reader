@@ -41,6 +41,16 @@ export interface DbTreasureItem {
   target_texts?: string[];
 }
 
+export interface DbSearchResult {
+  id: number;
+  verse_id: number;
+  reference_code: string;
+  bookCode: string;
+  chapterNumber: number;
+  verseNumber: number;
+  text: string;
+}
+
 export interface DbStats {
   totalVerses: number;
   totalBooks: number;
@@ -258,7 +268,6 @@ export async function getDbChapterVerses(
  */
 export async function getDbVerseTreasures(referenceCode: string, langCode: string = 'fr', versionCode: string = 'LSG'): Promise<DbTreasureItem[]> {
   try {
-    // Essayer d'utiliser la fonction RPC get_verse_treasures si disponible
     const { data, error } = await supabase.rpc('get_verse_treasures', {
       p_reference_code: referenceCode,
       p_language_code: langCode,
@@ -269,7 +278,6 @@ export async function getDbVerseTreasures(referenceCode: string, langCode: strin
       return data;
     }
 
-    // Fallback manuel si la RPC n'est pas appelée
     const { data: verseData } = await supabase
       .from('verses')
       .select('id')
@@ -305,7 +313,66 @@ export async function getDbVerseTreasures(referenceCode: string, langCode: strin
 }
 
 /**
- * 6. Statistiques globales de la base de données
+ * 6. Recherche textuelle dans toute la Bible
+ */
+export async function searchDbVerses(searchTerm: string, versionCode: string = 'LSG', limit: number = 15): Promise<DbSearchResult[]> {
+  try {
+    const { data: verData } = await supabase
+      .from('bible_versions')
+      .select('id')
+      .ilike('code', versionCode.trim())
+      .maybeSingle();
+
+    let query = supabase
+      .from('verse_texts')
+      .select(`
+        id,
+        verse_id,
+        text,
+        verses:verse_id (
+          id,
+          verse_number,
+          reference_code,
+          chapter_id,
+          chapters:chapter_id (
+            number,
+            book_id,
+            books:book_id (code)
+          )
+        )
+      `)
+      .ilike('text', `%${searchTerm}%`)
+      .limit(limit);
+
+    if (verData?.id) {
+      query = query.eq('version_id', verData.id);
+    }
+
+    const { data, error } = await query;
+    if (error || !data) return [];
+
+    return data.map((item: any) => {
+      const v = item.verses;
+      const ch = v?.chapters;
+      const bk = ch?.books;
+      return {
+        id: item.id,
+        verse_id: item.verse_id,
+        reference_code: v?.reference_code || '',
+        bookCode: bk?.code || 'GEN',
+        chapterNumber: ch?.number || 1,
+        verseNumber: v?.verse_number || 1,
+        text: item.text
+      };
+    });
+  } catch (err) {
+    console.error('[bibleDb] Exception searchDbVerses:', err);
+    return [];
+  }
+}
+
+/**
+ * 7. Statistiques globales de la base de données
  */
 export async function getDbStats(): Promise<DbStats> {
   try {
@@ -336,7 +403,7 @@ export async function getDbStats(): Promise<DbStats> {
 }
 
 /**
- * 7. Test de connexion Supabase & diagnostic détaillé
+ * 8. Test de connexion Supabase & diagnostic détaillé
  */
 export async function testSupabaseConnection(): Promise<DbStatusReport> {
   const tablesToCheck = [
