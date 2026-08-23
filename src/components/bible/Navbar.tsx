@@ -40,49 +40,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   streakCount,
   onQuickExplore
 }) => {
-  const [isDark, setIsDark]<dyad-write path="src/components/bible/Navbar.tsx" description="Navbar with live Supabase Database status indicator and modal trigger">
-import React, { useState, useEffect } from 'react';
-import { 
-  BookOpen, 
-  Search, 
-  Bookmark, 
-  Flame, 
-  Sun, 
-  Moon, 
-  ChevronDown,
-  Database
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { BIBLE_VERSIONS } from '@/data/bibleData';
-import { testSupabaseConnection } from '@/services/bibleDb';
-
-interface NavbarProps {
-  currentVersion: string;
-  onVersionChange: (code: string) => void;
-  onOpenSearch: () => void;
-  onOpenBookmarks: () => void;
-  onOpenDbStatus: () => void;
-  streakCount: number;
-  onQuickExplore: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
-  currentVersion,
-  onVersionChange,
-  onOpenSearch,
-  onOpenBookmarks,
-  onOpenDbStatus,
-  streakCount,
-  onQuickExplore
-}) => {
   const [isDark, setIsDark] = useState(false);
   const [dbConnected, setDbConnected] = useState<boolean | null>(null);
 

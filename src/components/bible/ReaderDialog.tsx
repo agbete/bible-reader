@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Dialog, 
   DialogContent, 
@@ -14,13 +14,13 @@ import {
   Type, 
   ChevronLeft, 
   ChevronRight, 
-  Share2, 
   Copy, 
   Check,
-  BookOpen,
-  Sparkles
+  Database,
+  Loader2
 } from 'lucide-react';
 import { SAMPLE_CHAPTER_TEXTS, BIBLE_BOOKS, BibleVerseItem } from '@/data/bibleData';
+import { getDbChapterVerses } from '@/services/bibleDb';
 import { showSuccess } from '@/utils/toast';
 
 interface ReaderDialogProps {
@@ -48,18 +48,48 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
   const [readerTheme, setReaderTheme] = useState<'clean' | 'sepia' | 'dark'>('clean');
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [copiedVerse, setCopiedVerse] = useState<number | null>(null);
+  const [dbVerses, setDbVerses] = useState<{ num: number; text: string }[] | null>(null);
+  const [loadingDb, setLoadingDb] = useState(false);
 
   const book = BIBLE_BOOKS.find(b => b.id === bookId) || BIBLE_BOOKS[0];
   const chapterKey = `${bookId}-${chapterNumber}`;
-  
-  // Provide sample fallback verses if not specifically mapped
-  const chapterData = SAMPLE_CHAPTER_TEXTS[chapterKey] || {
-    title: `${book.name} ${chapterNumber}`,
-    verses: Array.from({ length: 12 }, (_, i) => ({
-      num: i + 1,
-      text: `Car l’Éternel est bon et sa miséricorde dure à toujours. Recommandez à Dieu toutes vos voies, car Il est la lumière de vos pas et le refuge au jour de détresse (Verset ${i + 1}).`
-    }))
-  };
+
+  // Fetch from Supabase if dialog opens
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let isMounted = true;
+    setLoadingDb(true);
+
+    getDbChapterVerses(book.abbr || bookId, chapterNumber, currentVersion)
+      .then(verses => {
+        if (!isMounted) return;
+        if (verses && verses.length > 0) {
+          setDbVerses(verses);
+        } else {
+          setDbVerses(null);
+        }
+      })
+      .catch(() => {
+        if (isMounted) setDbVerses(null);
+      })
+      .finally(() => {
+        if (isMounted) setLoadingDb(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen, bookId, chapterNumber, currentVersion, book.abbr]);
+
+  // Fallback verses if not in local sample or Supabase
+  const fallbackVerses = SAMPLE_CHAPTER_TEXTS[chapterKey]?.verses || Array.from({ length: 10 }, (_, i) => ({
+    num: i + 1,
+    text: `Car l’Éternel est bon et sa miséricorde dure à toujours. Recommandez à Dieu toutes vos voies, car Il est la lumière de vos pas et le refuge au jour de détresse (Verset ${i + 1}).`
+  }));
+
+  const versesToRender = dbVerses && dbVerses.length > 0 ? dbVerses : fallbackVerses;
+  const chapterTitle = SAMPLE_CHAPTER_TEXTS[chapterKey]?.title || `${book.name} ${chapterNumber}`;
 
   const handleAudio = () => {
     if (!('speechSynthesis' in window)) {
@@ -71,7 +101,7 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
       setIsPlayingAudio(false);
     } else {
       window.speechSynthesis.cancel();
-      const allText = `${chapterData.title}. ` + chapterData.verses.map(v => `${v.num}. ${v.text}`).join(' ');
+      const allText = `${chapterTitle}. ` + versesToRender.map(v => `${v.num}. ${v.text}`).join(' ');
       const utterance = new SpeechSynthesisUtterance(allText);
       utterance.lang = 'fr-FR';
       utterance.rate = 0.92;
@@ -147,8 +177,13 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
               {book.abbr}
             </span>
             <div>
-              <DialogTitle className="text-base sm:text-lg font-bold tracking-tight">
-                {book.name} {chapterNumber}
+              <DialogTitle className="text-base sm:text-lg font-bold tracking-tight flex items-center gap-2">
+                <span>{book.name} {chapterNumber}</span>
+                {dbVerses && dbVerses.length > 0 && (
+                  <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium">
+                    <Database className="w-3 h-3" /> Supabase
+                  </span>
+                )}
               </DialogTitle>
               <span className="text-[11px] text-muted-foreground font-medium">
                 Version : {currentVersion}
@@ -226,61 +261,68 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
                 {book.category}
               </span>
               <h2 className="text-2xl sm:text-3xl font-serif font-bold mt-1">
-                {chapterData.title}
+                {chapterTitle}
               </h2>
             </div>
 
-            <div className={`space-y-4 font-serif ${getFontSizeClass()}`}>
-              {chapterData.verses.map((v) => {
-                const verseUniqueId = `${bookId}-${chapterNumber}-${v.num}`;
-                const bookmarked = isBookmarked(verseUniqueId);
+            {loadingDb ? (
+              <div className="py-12 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                <span className="text-xs">Chargement des écritures...</span>
+              </div>
+            ) : (
+              <div className={`space-y-4 font-serif ${getFontSizeClass()}`}>
+                {versesToRender.map((v) => {
+                  const verseUniqueId = `${bookId}-${chapterNumber}-${v.num}`;
+                  const bookmarked = isBookmarked(verseUniqueId);
 
-                return (
-                  <div
-                    key={v.num}
-                    className="group relative flex items-start gap-3 p-2 -mx-2 rounded-xl transition-colors hover:bg-black/5 dark:hover:bg-white/5"
-                  >
-                    <sup className="text-xs font-sans font-bold text-amber-600 dark:text-amber-400 pt-1 shrink-0 select-none">
-                      {v.num}
-                    </sup>
-                    <p className="flex-1 select-text">
-                      {v.text}
-                    </p>
+                  return (
+                    <div
+                      key={v.num}
+                      className="group relative flex items-start gap-3 p-2 -mx-2 rounded-xl transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+                    >
+                      <sup className="text-xs font-sans font-bold text-amber-600 dark:text-amber-400 pt-1 shrink-0 select-none">
+                        {v.num}
+                      </sup>
+                      <p className="flex-1 select-text">
+                        {v.text}
+                      </p>
 
-                    {/* Verse quick actions */}
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0 pt-0.5">
-                      <button
-                        onClick={() => handleCopyVerse(v.num, v.text)}
-                        className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-                        title="Copier le verset"
-                      >
-                        {copiedVerse === v.num ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
+                      {/* Verse quick actions */}
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0 pt-0.5">
+                        <button
+                          onClick={() => handleCopyVerse(v.num, v.text)}
+                          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                          title="Copier le verset"
+                        >
+                          {copiedVerse === v.num ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                        </button>
 
-                      <button
-                        onClick={() => onToggleBookmark({
-                          id: verseUniqueId,
-                          reference: `${book.name} ${chapterNumber}:${v.num}`,
-                          book: book.name,
-                          chapter: chapterNumber,
-                          verse: v.num,
-                          text: v.text,
-                          translation: currentVersion
-                        })}
-                        className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-                        title={bookmarked ? "Retirer des favoris" : "Ajouter aux favoris"}
-                      >
-                        {bookmarked ? (
-                          <BookmarkCheck className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                        ) : (
-                          <Bookmark className="w-3.5 h-3.5" />
-                        )}
-                      </button>
+                        <button
+                          onClick={() => onToggleBookmark({
+                            id: verseUniqueId,
+                            reference: `${book.name} ${chapterNumber}:${v.num}`,
+                            book: book.name,
+                            chapter: chapterNumber,
+                            verse: v.num,
+                            text: v.text,
+                            translation: currentVersion
+                          })}
+                          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                          title={bookmarked ? "Retirer des favoris" : "Ajouter aux favoris"}
+                        >
+                          {bookmarked ? (
+                            <BookmarkCheck className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                          ) : (
+                            <Bookmark className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 

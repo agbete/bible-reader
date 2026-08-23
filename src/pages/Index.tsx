@@ -7,9 +7,10 @@ import { ReadingPlans } from '@/components/bible/ReadingPlans';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
+import { DbStatusModal } from '@/components/bible/DbStatusModal';
 import { BibleVerseItem, DAILY_VERSES } from '@/data/bibleData';
 import { showSuccess } from '@/utils/toast';
-import { BookOpen, Heart, Sparkles, Compass, Shield, Flame, BookCheck, Share2 } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 
 const Index = () => {
@@ -36,6 +37,7 @@ const Index = () => {
   // Dialogs
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
+  const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
 
   // Keyboard shortcut for search
   useEffect(() => {
@@ -96,6 +98,7 @@ const Index = () => {
         onVersionChange={setCurrentVersion}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
+        onOpenDbStatus={() => setIsDbStatusOpen(true)}
         streakCount={streakCount}
         onQuickExplore={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       />
@@ -165,6 +168,12 @@ const Index = () => {
         bookmarks={bookmarks}
         onRemoveBookmark={handleRemoveBookmark}
         onOpenVerseChapter={(bookId, chapter) => handleOpenReader(bookId, chapter)}
+      />
+
+      {/* Database Diagnostic Modal */}
+      <DbStatusModal
+        isOpen={isDbStatusOpen}
+        onClose={() => setIsDbStatusOpen(false)}
       />
 
       {/* Footer */}
