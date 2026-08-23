@@ -17,15 +17,18 @@ import {
   Copy, 
   Check,
   Database,
-  Loader2
+  Loader2,
+  Sparkles,
+  Layers,
+  X
 } from 'lucide-react';
-import { getDbChapterVerses, DbVerseItem } from '@/services/bibleDb';
+import { getDbChapterVerses, getDbVerseTreasures, DbVerseItem, DbTreasureItem } from '@/services/bibleDb';
 import { showSuccess } from '@/utils/toast';
 
 interface ReaderDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  bookId: string; // book code or id
+  bookId: string;
   chapterNumber: number;
   currentVersion: string;
   onChapterChange: (bookId: string, chapter: number) => void;
@@ -50,12 +53,18 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
   const [verses, setVerses] = useState<DbVerseItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Charger les vrais versets depuis Supabase à chaque changement de livre/chapitre/version
+  // État pour les références croisées / trésors
+  const [selectedVerseForTreasures, setSelectedVerseForTreasures] = useState<DbVerseItem | null>(null);
+  const [treasures, setTreasures] = useState<DbTreasureItem[]>([]);
+  const [loadingTreasures, setLoadingTreasures] = useState(false);
+
   useEffect(() => {
     if (!isOpen) return;
 
     let isMounted = true;
     setLoading(true);
+    setSelectedVerseForTreasures(null);
+    setTreasures([]);
 
     getDbChapterVerses(bookId, chapterNumber, currentVersion)
       .then(res => {
@@ -74,6 +83,19 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
       isMounted = false;
     };
   }, [isOpen, bookId, chapterNumber, currentVersion]);
+
+  const handleOpenTreasures = async (v: DbVerseItem) => {
+    setSelectedVerseForTreasures(v);
+    setLoadingTreasures(true);
+    try {
+      const items = await getDbVerseTreasures(v.reference_code, 'fr', currentVersion);
+      setTreasures(items);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingTreasures(false);
+    }
+  };
 
   const chapterTitle = `${bookId} ${chapterNumber}`;
 
@@ -153,8 +175,8 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
       }
       if (!open) onClose();
     }}>
-      <DialogContent className="max-w-3xl max-h-[92vh] h-[92vh] flex flex-col p-0 overflow-hidden border-border/80 rounded-3xl">
-        {/* Top bar control toolbar */}
+      <DialogContent className="max-w-4xl max-h-[92vh] h-[92vh] flex flex-col p-0 overflow-hidden border-border/80 rounded-3xl">
+        {/* Barre d'outils supérieure */}
         <div className="px-6 py-4 border-b border-border/80 flex items-center justify-between gap-2 bg-muted/30">
           <div className="flex items-center gap-2.5">
             <span className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-xs font-mono">
@@ -174,7 +196,6 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5">
-            {/* Audio Toggle */}
             <Button
               variant="outline"
               size="sm"
@@ -187,7 +208,6 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
               <span className="hidden sm:inline">{isPlayingAudio ? 'Pause' : 'Écouter'}</span>
             </Button>
 
-            {/* Font size toggle */}
             <Button
               variant="ghost"
               size="icon"
@@ -202,7 +222,6 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
               <Type className="w-4 h-4" />
             </Button>
 
-            {/* Reading theme */}
             <div className="flex items-center bg-muted p-0.5 rounded-full border border-border">
               <button
                 onClick={() => setReaderTheme('clean')}
@@ -235,85 +254,167 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
           </div>
         </div>
 
-        {/* Scrollable Reading Content */}
-        <div className={`flex-1 overflow-y-auto px-6 sm:px-12 py-8 transition-colors ${getThemeClasses()}`}>
-          <div className="max-w-2xl mx-auto space-y-6">
-            <div className="text-center pb-6 border-b border-border/40">
-              <span className="text-xs uppercase font-semibold tracking-widest text-amber-600 dark:text-amber-400">
-                Parole de Dieu
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold mt-1">
-                {chapterTitle}
-              </h2>
+        {/* Corps de lecture et panneau latéral de trésors */}
+        <div className="flex-1 flex overflow-hidden">
+          <div className={`flex-1 overflow-y-auto px-6 sm:px-12 py-8 transition-colors ${getThemeClasses()}`}>
+            <div className="max-w-2xl mx-auto space-y-6">
+              <div className="text-center pb-6 border-b border-border/40">
+                <span className="text-xs uppercase font-semibold tracking-widest text-amber-600 dark:text-amber-400">
+                  Parole de Dieu
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold mt-1">
+                  {chapterTitle}
+                </h2>
+              </div>
+
+              {loading ? (
+                <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                  <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                  <span className="text-xs font-medium">Chargement des versets depuis Supabase...</span>
+                </div>
+              ) : verses.length === 0 ? (
+                <div className="py-12 text-center text-muted-foreground space-y-2">
+                  <p className="text-sm font-semibold">Aucun verset trouvé pour ce chapitre dans la version {currentVersion}.</p>
+                  <p className="text-xs">Vérifiez que les tables `verses` et `verse_texts` contiennent les textes.</p>
+                </div>
+              ) : (
+                <div className={`space-y-4 font-serif ${getFontSizeClass()}`}>
+                  {verses.map((v) => {
+                    const verseUniqueId = `${bookId}-${chapterNumber}-${v.verse_number}`;
+                    const bookmarked = isBookmarked(verseUniqueId);
+                    const isSelected = selectedVerseForTreasures?.id === v.id;
+
+                    return (
+                      <div
+                        key={v.id || v.verse_number}
+                        className={`group relative flex items-start gap-3 p-2.5 -mx-2 rounded-2xl transition-colors cursor-pointer ${
+                          isSelected 
+                            ? 'bg-amber-500/15 border border-amber-500/30' 
+                            : 'hover:bg-black/5 dark:hover:bg-white/5'
+                        }`}
+                        onClick={() => handleOpenTreasures(v)}
+                      >
+                        <sup className="text-xs font-sans font-bold text-amber-600 dark:text-amber-400 pt-1 shrink-0 select-none">
+                          {v.verse_number}
+                        </sup>
+                        <p className="flex-1 select-text leading-relaxed">
+                          {v.text}
+                        </p>
+
+                        <div 
+                          className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0 pt-0.5"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            onClick={() => handleOpenTreasures(v)}
+                            className="p-1 rounded-md text-muted-foreground hover:text-amber-600 hover:bg-muted"
+                            title="Voir les références croisées / Trésors"
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                          </button>
+
+                          <button
+                            onClick={() => handleCopyVerse(v.verse_number, v.text)}
+                            className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                            title="Copier le verset"
+                          >
+                            {copiedVerse === v.verse_number ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                          </button>
+
+                          <button
+                            onClick={() => onToggleBookmark({
+                              id: verseUniqueId,
+                              reference: `${bookId} ${chapterNumber}:${v.verse_number}`,
+                              book: bookId,
+                              chapter: chapterNumber,
+                              verse: v.verse_number,
+                              text: v.text,
+                              translation: currentVersion
+                            })}
+                            className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                            title={bookmarked ? "Retirer des favoris" : "Ajouter aux favoris"}
+                          >
+                            {bookmarked ? (
+                              <BookmarkCheck className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                            ) : (
+                              <Bookmark className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
+          </div>
 
-            {loading ? (
-              <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-                <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
-                <span className="text-xs font-medium">Chargement des versets depuis Supabase...</span>
+          {/* Panneau latéral Trésors & Références Croisées */}
+          {selectedVerseForTreasures && (
+            <div className="w-80 border-l border-border bg-card p-4 overflow-y-auto hidden md:flex flex-col gap-3">
+              <div className="flex items-center justify-between pb-2 border-b border-border">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-600">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Trésors & Références</span>
+                </div>
+                <button
+                  onClick={() => setSelectedVerseForTreasures(null)}
+                  className="text-muted-foreground hover:text-foreground p-1"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-            ) : verses.length === 0 ? (
-              <div className="py-12 text-center text-muted-foreground space-y-2">
-                <p className="text-sm font-semibold">Aucun verset trouvé pour ce chapitre dans la version {currentVersion}.</p>
-                <p className="text-xs">Vérifiez que la table `verses` et `verse_texts` contiennent les textes pour cette version.</p>
+
+              <div className="text-xs">
+                <span className="font-semibold text-foreground">
+                  {bookId} {chapterNumber}:{selectedVerseForTreasures.verse_number}
+                </span>
+                <p className="text-muted-foreground italic text-[11px] mt-1 line-clamp-2">
+                  « {selectedVerseForTreasures.text} »
+                </p>
               </div>
-            ) : (
-              <div className={`space-y-4 font-serif ${getFontSizeClass()}`}>
-                {verses.map((v) => {
-                  const verseUniqueId = `${bookId}-${chapterNumber}-${v.verse_number}`;
-                  const bookmarked = isBookmarked(verseUniqueId);
 
-                  return (
-                    <div
-                      key={v.id || v.verse_number}
-                      className="group relative flex items-start gap-3 p-2 -mx-2 rounded-xl transition-colors hover:bg-black/5 dark:hover:bg-white/5"
-                    >
-                      <sup className="text-xs font-sans font-bold text-amber-600 dark:text-amber-400 pt-1 shrink-0 select-none">
-                        {v.verse_number}
-                      </sup>
-                      <p className="flex-1 select-text leading-relaxed">
-                        {v.text}
-                      </p>
-
-                      {/* Verse quick actions */}
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0 pt-0.5">
-                        <button
-                          onClick={() => handleCopyVerse(v.verse_number, v.text)}
-                          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-                          title="Copier le verset"
-                        >
-                          {copiedVerse === v.verse_number ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                        </button>
-
-                        <button
-                          onClick={() => onToggleBookmark({
-                            id: verseUniqueId,
-                            reference: `${bookId} ${chapterNumber}:${v.verse_number}`,
-                            book: bookId,
-                            chapter: chapterNumber,
-                            verse: v.verse_number,
-                            text: v.text,
-                            translation: currentVersion
-                          })}
-                          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-                          title={bookmarked ? "Retirer des favoris" : "Ajouter aux favoris"}
-                        >
-                          {bookmarked ? (
-                            <BookmarkCheck className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                          ) : (
-                            <Bookmark className="w-3.5 h-3.5" />
-                          )}
-                        </button>
+              <div className="flex-1 space-y-3 mt-2">
+                {loadingTreasures ? (
+                  <div className="py-8 flex flex-col items-center justify-center gap-2 text-muted-foreground text-xs">
+                    <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
+                    <span>Recherche des trésors...</span>
+                  </div>
+                ) : treasures.length === 0 ? (
+                  <div className="py-6 text-center text-muted-foreground text-xs">
+                    <Layers className="w-6 h-6 mx-auto mb-2 text-muted-foreground/50" />
+                    <span>Aucune référence croisée directe trouvée pour ce verset dans la table `treasures`.</span>
+                  </div>
+                ) : (
+                  treasures.map((t, idx) => (
+                    <div key={t.treasure_id || idx} className="p-3 rounded-2xl bg-muted/40 border border-border space-y-1.5">
+                      <span className="font-semibold text-xs text-foreground block">
+                        {t.title}
+                      </span>
+                      {t.description && (
+                        <p className="text-[11px] text-muted-foreground">
+                          {t.description}
+                        </p>
+                      )}
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {t.target_references?.map((ref) => (
+                          <span
+                            key={ref}
+                            className="px-2 py-0.5 rounded-lg bg-amber-500/10 text-amber-700 dark:text-amber-300 font-mono text-[10px] font-bold"
+                          >
+                            {ref}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  );
-                })}
+                  ))
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* Bottom Navigation footer */}
+        {/* Pied de page de navigation */}
         <div className="px-6 py-3 border-t border-border/80 flex items-center justify-between bg-muted/20">
           <Button
             variant="outline"
