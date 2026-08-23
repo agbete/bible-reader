@@ -12,12 +12,13 @@ import {
   CheckCircle2, 
   AlertCircle, 
   RefreshCw, 
-  Server, 
   ShieldAlert, 
-  BookOpen, 
-  Layers
+  Copy,
+  Check,
+  Code2
 } from 'lucide-react';
 import { testSupabaseConnection, DbStatusReport } from '@/services/bibleDb';
+import { showSuccess } from '@/utils/toast';
 
 interface DbStatusModalProps {
   isOpen: boolean;
@@ -27,6 +28,40 @@ interface DbStatusModalProps {
 export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose }) => {
   const [report, setReport] = useState<DbStatusReport | null>(null);
   const [loading, setLoading] = useState(false);
+  const [copiedSql, setCopiedSql] = useState(false);
+  const<dyad-write path="src/components/bible/DbStatusModal.tsx" description="Composant complet de diagnostic Supabase avec vérification des tables et assistant SQL">
+import React, { useEffect, useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { 
+  Database, 
+  CheckCircle2, 
+  AlertCircle, 
+  RefreshCw, 
+  ShieldAlert, 
+  Copy,
+  Check,
+  Code2
+} from 'lucide-react';
+import { testSupabaseConnection, DbStatusReport } from '@/services/bibleDb';
+import { showSuccess } from '@/utils/toast';
+
+interface DbStatusModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose }) => {
+  const [report, setReport] = useState<DbStatusReport | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [copiedSql, setCopiedSql] = useState(false);
+  const [showSqlHelper, setShowSqlHelper] = useState(false);
 
   const checkConnection = async () => {
     setLoading(true);
@@ -47,11 +82,33 @@ export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose })
   }, [isOpen]);
 
   const totalRowsCount = report?.tables.reduce((acc, t) => acc + (t.count || 0), 0) || 0;
-  const hasErrors = report?.tables.some(t => t.status === 'error' || t.status === 'rls_restricted');
+  const hasRlsErrors = report?.tables.some(t => t.status === 'rls_restricted' || t.status === 'error');
+
+  const fixSql = `-- SQL pour accorder la lecture publique à toutes les tables bibliques :
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon, authenticated;
+
+-- Activer les politiques RLS en lecture publique :
+DO $$
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'ALTER TABLE public.' || quote_ident(r.tablename) || ' ENABLE ROW LEVEL SECURITY;';
+        EXECUTE 'DROP POLICY IF EXISTS "Public read access" ON public.' || quote_ident(r.tablename) || ';';
+        EXECUTE 'CREATE POLICY "Public read access" ON public.' || quote_ident(r.tablename) || ' FOR SELECT USING (true);';
+    END LOOP;
+END $$;`;
+
+  const copySql = () => {
+    navigator.clipboard.writeText(fixSql);
+    setCopiedSql(true);
+    showSuccess("Script SQL copié ! Collez-le dans l'éditeur SQL de votre tableau de bord Supabase.");
+    setTimeout(() => setCopiedSql(false), 2500);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-xl max-h-[85vh] flex flex-col p-6 rounded-3xl">
+      <DialogContent className="max-w-2xl max-h-[88vh] flex flex-col p-6 rounded-3xl">
         <DialogHeader className="pb-3 border-b border-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -60,13 +117,13 @@ export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose })
               </div>
               <div>
                 <DialogTitle className="text-lg font-bold flex items-center gap-2">
-                  <span>Diagnostic Supabase</span>
+                  <span>Diagnostic Base Supabase</span>
                   <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                     report?.connected 
                       ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300' 
                       : 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300'
                   }`}>
-                    {report?.connected ? 'Connecté' : 'Non joignable'}
+                    {report?.connected ? 'Connecté' : 'Erreur de connexion'}
                   </span>
                 </DialogTitle>
                 <DialogDescription className="text-xs">
@@ -94,10 +151,10 @@ export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose })
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
             <div className="p-3 rounded-2xl bg-muted/40 border border-border">
               <span className="text-[11px] text-muted-foreground block">Tables vérifiées</span>
-              <span className="text-lg font-bold text-foreground">{report?.tables.length || 0}</span>
+              <span className="text-lg font-bold text-foreground">{report?.tables.length || 0} tables</span>
             </div>
             <div className="p-3 rounded-2xl bg-muted/40 border border-border">
-              <span className="text-[11px] text-muted-foreground block">Lignes comptées</span>
+              <span className="text-[11px] text-muted-foreground block">Lignes accessibles</span>
               <span className="text-lg font-bold text-amber-600 dark:text-amber-400">{totalRowsCount.toLocaleString()}</span>
             </div>
             <div className="p-3 rounded-2xl bg-muted/40 border border-border col-span-2 sm:col-span-1">
@@ -106,10 +163,49 @@ export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose })
             </div>
           </div>
 
+          {/* RLS or Permission Notice if tables are blocked */}
+          {hasRlsErrors && (
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-xs space-y-2">
+              <div className="flex items-center justify-between gap-2 text-amber-800 dark:text-amber-200 font-bold">
+                <div className="flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Accès bloqué par RLS / Grants PostgreSQL</span>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setShowSqlHelper(!showSqlHelper)}
+                  className="h-7 text-[11px] gap-1 rounded-lg"
+                >
+                  <Code2 className="w-3.5 h-3.5" />
+                  <span>{showSqlHelper ? 'Masquer SQL' : 'Afficher script SQL'}</span>
+                </Button>
+              </div>
+              <p className="text-muted-foreground text-[11px]">
+                Vos tables sont présentes mais Supabase bloque la lecture par l'application car les permissions `GRANT SELECT` ou les policies RLS ne sont pas encore accordées au rôle public.
+              </p>
+
+              {showSqlHelper && (
+                <div className="mt-2 pt-2 border-t border-amber-300/40 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-foreground text-[11px]">Exécutez ce script dans votre SQL Editor Supabase :</span>
+                    <Button size="sm" onClick={copySql} className="h-7 text-xs gap-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white">
+                      {copiedSql ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedSql ? 'Copié !' : 'Copier SQL'}</span>
+                    </Button>
+                  </div>
+                  <pre className="p-2.5 rounded-xl bg-background/80 border border-border font-mono text-[10px] overflow-x-auto text-foreground">
+                    {fixSql}
+                  </pre>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Table by Table inspection */}
           <div className="space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground px-1">
-              État par table
+              Détail par table dans Supabase
             </span>
 
             <div className="divide-y divide-border border border-border rounded-2xl overflow-hidden bg-card">
@@ -141,8 +237,8 @@ export const DbStatusModal: React.FC<DbStatusModalProps> = ({ isOpen, onClose })
                         {t.count.toLocaleString()} ligne{t.count > 1 ? 's' : ''}
                       </span>
                     ) : (
-                      <span className="text-[10px] uppercase font-semibold text-muted-foreground">
-                        {t.status === 'rls_restricted' ? 'RLS Actif' : 'Erreur'}
+                      <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400">
+                        {t.status === 'rls_restricted' ? 'RLS à autoriser' : 'Erreur'}
                       </span>
                     )}
                   </div>
