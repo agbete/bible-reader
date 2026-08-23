@@ -26,9 +26,11 @@ import {
   Check, 
   Loader2,
   Database,
-  Scroll
+  Scroll,
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
-import { showSuccess } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 
 export const BiblePage: React.FC = () => {
@@ -38,6 +40,7 @@ export const BiblePage: React.FC = () => {
   const [booksList, setBooksList] = useState<DbBookItem[]>([]);
   const [stats, setStats] = useState<DbStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   // Filters
   const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
@@ -68,15 +71,29 @@ export const BiblePage: React.FC = () => {
 
   // 1. Initialisation depuis Supabase
   useEffect(() => {
+    let mounted = true;
+    
     async function loadData() {
       setLoading(true);
+      setLoadError(null);
       try {
+        console.log('[BiblePage] Starting data load...');
+        
         const [langs, vers, books, dbStats] = await Promise.all([
           getDbLanguages(),
           getDbBibleVersions(),
           getDbAllBooks(),
           getDbStats()
         ]);
+
+        if (!mounted) return;
+
+        console.log('[BiblePage] Data loaded:', { 
+          langs: langs.length, 
+          vers: vers.length, 
+          books: books.length, 
+          stats: dbStats 
+        });
 
         setLanguages(langs);
         setVersions(vers);
@@ -86,30 +103,46 @@ export const BiblePage: React.FC = () => {
         if (vers && vers.length > 0) {
           const defaultVer = vers.find(v => v.is_default) || vers[0];
           setSelectedVersionCode(defaultVer.code);
+          console.log('[BiblePage] Default version set:', defaultVer.code);
+        } else {
+          console.warn('[BiblePage] No versions found in database');
         }
       } catch (err) {
-        console.error('Erreur lors du chargement des données Supabase:', err);
-        showError("Impossible de charger les données de la base de données. Vérifiez votre connexion Supabase.");
+        console.error('[BiblePage] Erreur lors du chargement des données Supabase:', err);
+        if (mounted) {
+          setLoadError("Impossible de charger les données de la base de données. Vérifiez votre connexion Supabase.");
+          showError("Erreur de chargement des données bibliques");
+        }
       } finally {
-        setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadData();
+    
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // Recharge les traductions des livres si la langue change
   useEffect(() => {
-    if (selectedLanguageId !== 'ALL') {
-      getDbAllBooks(selectedLanguageId).then(books => {
-        if (books.length > 0) setBooksList(books);
-      });
-    } else {
-      getDbAllBooks().then(books => {
-        if (books.length > 0) setBooksList(books);
-      });
+    if (!loading) {
+      console.log('[BiblePage] Language changed, reloading books:', selectedLanguageId);
+      getDbAllBooks(selectedLanguageId === 'ALL' ? undefined : selectedLanguageId)
+        .then(books => {
+          if (books.length > 0) {
+            setBooksList(books);
+            console.log('[BiblePage] Books reloaded for language:', books.length);
+          }
+        })
+        .catch(err => {
+          console.error('[BiblePage] Error reloading books:', err);
+        });
     }
-  }, [selectedLanguageId]);
+  }, [selectedLanguageId, loading]);
 
   // Filtrage des versions par langue
   const filteredVersions = versions.filter(v => {
@@ -144,6 +177,7 @@ export const BiblePage: React.FC = () => {
   });
 
   const handleOpenReader = (book: DbBookItem, chapter: number = 1) => {
+    console.log('[BiblePage] Opening reader:', book.code, chapter);
     setReaderState({
       isOpen: true,
       bookCode: book.code,
@@ -151,6 +185,13 @@ export const BiblePage: React.FC = () => {
       chapterNumber: chapter,
       totalChapters: book.chapters_count || 1
     });
+  };
+
+  const handleRetryLoad = () => {
+    setLoading(true);
+    setLoadError(null);
+    // Trigger reload by remounting - simplest is to reload page or call loadData again
+    window.location.reload();
   };
 
   return (
@@ -257,6 +298,25 @@ export const BiblePage: React.FC = () => {
 
       {/* Main Bible Explorer Body */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Error Banner */}
+        {loadError && (
+          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <span className="text-sm font-medium">{loadError}</span>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleRetryLoad}
+              className="h-8 px-3 text-xs gap-1.5"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              Réessayer
+            </Button>
+          </div>
+        )}
+
         {/* Banner with Supabase Live Data Statistics */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-3xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20">
           <div>
@@ -333,12 +393,18 @@ export const BiblePage: React.FC = () => {
           <div className="py-20 flex flex-col items-center justify-center gap-3 text-muted-foreground">
             <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
             <span className="text-sm font-medium">Chargement des 66 livres depuis Supabase...</span>
+            <span className="text-xs text-muted-foreground/60">Vérification de la connexion et récupération des données...</span>
           </div>
-        ) : filteredBooks.length === 0 ? (
+        ) : loadError ? null : filteredBooks.length === 0 ? (
           <div className="text-center py-16 border border-dashed rounded-3xl bg-card">
             <BookOpen className="w-10 h-10 mx-auto text-muted-foreground/40 mb-3" />
             <p className="text-sm font-semibold">Aucun livre ne correspond à votre recherche.</p>
             <p className="text-xs text-muted-foreground mt-1">Essayez un autre mot-clé ou changez de filtre.</p>
+            {booksList.length === 0 && (
+              <p className="text-xs text-rose-500 mt-2">
+                Attention: Aucun livre chargé depuis la base de données. Vérifiez la connexion Supabase.
+              </p>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
