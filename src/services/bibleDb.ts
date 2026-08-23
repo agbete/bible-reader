@@ -1,5 +1,20 @@
 import { supabase } from '@/integrations/supabase/client';
 
+export interface DbLanguage {
+  id: number;
+  code: string;
+  name: string;
+}
+
+export interface DbBibleVersion {
+  id: number;
+  language_id: number;
+  code: string;
+  name: string;
+  short_name: string | null;
+  is_default: boolean | null;
+}
+
 export interface DbStatusReport {
   connected: boolean;
   timestamp: string;
@@ -13,7 +28,61 @@ export interface DbStatusReport {
 }
 
 /**
- * Check connection to Supabase and inspect table counts & permissions
+ * Récupère la liste des langues disponibles
+ */
+export async function getDbLanguages(): Promise<DbLanguage[]> {
+  try {
+    const { data, error } = await supabase
+      .from('languages')
+      .select('id, code, name')
+      .order('name', { ascending: true });
+
+    if (error || !data) {
+      console.warn('[bibleDb] Impossible de charger les langues:', error);
+      return [
+        { id: 1, code: 'fr', name: 'Français' },
+        { id: 2, code: 'en', name: 'Anglais' },
+      ];
+    }
+    return data;
+  } catch (err) {
+    console.error('[bibleDb] Erreur langues:', err);
+    return [
+      { id: 1, code: 'fr', name: 'Français' },
+      { id: 2, code: 'en', name: 'Anglais' },
+    ];
+  }
+}
+
+/**
+ * Récupère toutes les versions bibliques avec leur langue
+ */
+export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
+  try {
+    const { data, error } = await supabase
+      .from('bible_versions')
+      .select('id, language_id, code, name, short_name, is_default')
+      .order('code', { ascending: true });
+
+    if (error || !data || data.length === 0) {
+      console.warn('[bibleDb] Impossible de charger les versions depuis Supabase:', error);
+      return [
+        { id: 1, language_id: 1, code: 'LSG', name: 'Louis Segond 1910', short_name: 'LSG', is_default: true },
+        { id: 2, language_id: 1, code: 'BDS', name: 'Bible du Semeur', short_name: 'BDS', is_default: false },
+        { id: 3, language_id: 1, code: 'NFC', name: 'Nouvelle Français Courant', short_name: 'NFC', is_default: false },
+        { id: 4, language_id: 1, code: 'TOB', name: 'Traduction Œcuménique de la Bible', short_name: 'TOB', is_default: false },
+        { id: 5, language_id: 2, code: 'KJV', name: 'King James Version', short_name: 'KJV', is_default: false },
+      ];
+    }
+    return data;
+  } catch (err) {
+    console.error('[bibleDb] Erreur versions:', err);
+    return [];
+  }
+}
+
+/**
+ * Test de connexion Supabase & diagnostic
  */
 export async function testSupabaseConnection(): Promise<DbStatusReport> {
   const tablesToCheck = [
@@ -75,7 +144,6 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
     }
   }
 
-  // Fetch available versions
   let versionsList: { code: string; name: string; short_name: string | null }[] = [];
   try {
     const { data, error } = await supabase
@@ -97,9 +165,9 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 }
 
 /**
- * Fetch books list with translations from Supabase
+ * Récupère les livres bibliques avec leurs traductions
  */
-export async function getDbBooks() {
+export async function getDbBooks(languageId?: number) {
   try {
     const { data: books, error } = await supabase
       .from('books')
@@ -125,30 +193,46 @@ export async function getDbBooks() {
 }
 
 /**
- * Fetch verses of a chapter from Supabase
+ * Récupère les chapitres d'un livre
+ */
+export async function getDbBookChapters(bookId: number) {
+  try {
+    const { data, error } = await supabase
+      .from('chapters')
+      .select('id, number')
+      .eq('book_id', bookId)
+      .order('number', { ascending: true });
+
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.error('[bibleDb] Erreur chapitres:', err);
+    return [];
+  }
+}
+
+/**
+ * Récupère les versets d'un chapitre pour une version donnée
  */
 export async function getDbChapterVerses(bookCode: string, chapterNum: number, versionCode: string = 'LSG') {
   try {
-    // 1. Get book
-    const { data: bookData, error: bookError } = await supabase
+    const { data: bookData } = await supabase
       .from('books')
       .select('id, code')
       .ilike('code', bookCode)
       .maybeSingle();
 
-    if (bookError || !bookData) return null;
+    if (!bookData) return null;
 
-    // 2. Get chapter
-    const { data: chapterData, error: chapError } = await supabase
+    const { data: chapterData } = await supabase
       .from('chapters')
       .select('id, number')
       .eq('book_id', bookData.id)
       .eq('number', chapterNum)
       .maybeSingle();
 
-    if (chapError || !chapterData) return null;
+    if (!chapterData) return null;
 
-    // 3. Get version
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id, code')
@@ -157,7 +241,6 @@ export async function getDbChapterVerses(bookCode: string, chapterNum: number, v
 
     const versionId = verData?.id;
 
-    // 4. Get verses with text
     const { data: verses, error: vError } = await supabase
       .from('verses')
       .select(`
@@ -181,7 +264,8 @@ export async function getDbChapterVerses(bookCode: string, chapterNum: number, v
 
       return {
         num: v.verse_number,
-        text: matchText
+        text: matchText,
+        reference: v.reference_code
       };
     });
   } catch (err) {
@@ -189,134 +273,3 @@ export async function getDbChapterVerses(bookCode: string, chapterNum: number, v
     return null;
   }
 }
-
-/**
- * Fetch a specific verse
- */
-export async function getDbVerse(bookCode: string, chapterNum: number, verseNum: number, versionCode: string = 'LSG') {
-  try {
-    // 1. Get book
-    const { data: bookData } = await supabase
-      .from('books')
-      .select('id, code')
-      .ilike('code', bookCode)
-      .maybeSingle();
-
-    if (!bookData) return null;
-
-    // 2. Get chapter
-    const { data: chapterData } = await supabase
-      .from('chapters')
-      .select('id, number')
-      .eq('book_id', bookData.id)
-      .eq('number', chapterNum)
-      .maybeSingle();
-
-    if (!chapterData) return null;
-
-    // 3. Get version
-    const { data: verData } = await supabase
-      .from('bible_versions')
-      .select('id, code')
-      .ilike('code', versionCode)
-      .maybeSingle();
-
-    const versionId = verData?.id;
-
-    // 4. Get verse with text
-    const { data: verse, error: vError } = await supabase
-      .from('verses')
-      .select(`
-        id,
-        verse_number,
-        reference_code,
-        verse_texts (
-          text,
-          version_id
-        )
-      `)
-      .eq('chapter_id', chapterData.id)
-      .eq('verse_number', verseNum)
-      .maybeSingle();
-
-    if (vError || !verse) return null;
-
-    const matchText = (verse.verse_texts as any[])?.find(t => !versionId || t.version_id === versionId)?.text 
-      || (verse.verse_texts as any[])?.[0]?.text 
-      || '';
-
-    return {
-      num: verse.verse_number,
-      text: matchText,
-      reference: verse.reference_code
-    };
-  } catch (err) {
-    console.error('[bibleDb] Erreur lors de la lecture du verset:', err);
-    return null;
-  }
-}
-
-/**
- * Search verses by keyword
- */
-export async function searchDbVerses(searchTerm: string, versionCode: string = 'LSG', limit: number = 50) {
-  try {
-    // Get version ID
-    const { data: verData } = await supabase
-      .from('bible_versions')
-      .select('id')
-      .ilike('code', versionCode)
-      .maybeSingle();
-
-    const versionId = verData?.id;
-
-    // Search in verse_texts
-    const { data: texts, error } = await supabase
-      .from('verse_texts')
-      .select(`
-        text,
-        verse_id,
-        version_id,
-        verses!inner (
-          verse_number,
-          reference_code,
-          chapters!inner (
-            number,
-            books!inner (
-              code,
-              book_translations (
-                name,
-                language_id
-              )
-            )
-          )
-        )
-      `)
-      .ilike('text', `%${searchTerm}%`)
-      .limit(limit);
-
-    if (error || !texts) return [];
-
-    // Filter by version if needed
-    const filteredTexts = versionId ? texts.filter(t => t.version_id === versionId) : texts;
-
-    return filteredTexts.map(t => ({
-      text: t.text,
-      verse: t.verses?.verse_number,
-      chapter: t.verses?.chapters?.number,
-      book: t.verses?.chapters?.books?.code,
-      reference: t.verses?.reference_code || `${t.verses?.chapters?.books?.code} ${t.verses?.chapters?.number}:${t.verses?.verse_number}`
-    }));
-  } catch (err) {
-    console.error('[bibleDb] Erreur lors de la recherche:', err);
-    return [];
-  }
-}
-
-export default {
-  testSupabaseConnection,
-  getDbBooks,
-  getDbChapterVerses,
-  getDbVerse,
-  searchDbVerses
-};
