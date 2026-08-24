@@ -9,6 +9,7 @@ import {
   getDbBibleVersions, 
   getDbAllBooks, 
   getDbStats,
+  getDbChapterVerses,
   DbLanguage, 
   DbBibleVersion, 
   DbBookItem,
@@ -53,7 +54,7 @@ export const BiblePage: React.FC = () => {
   // --- NEW STATE: Chapter and Version Selection ---
   const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
   const [selectedChapter, setSelectedChapter] = useState(1);
-  const [selectedVersions, setSelectedVersions] = useState<string[]>(['LSG']); // Default to LSG
+  const [selectedVersions, setSelectedVersions] = useState<string[]>([]); // Will be set after loading
   
   // Reader state
   const [readerState, setReaderState] = useState<{
@@ -69,6 +70,10 @@ export const BiblePage: React.FC = () => {
     chapterNumber: 1,
     totalChapters: 50
   });
+
+  // Verses data for display
+  const [versesData, setVersesData] = useState<Record<string, any[]>>({}); // versionCode => verses array
+  const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({}); // versionCode => loading state
 
   // Modal states
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -117,15 +122,21 @@ export const BiblePage: React.FC = () => {
           const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
           // Initialize selected versions with default
           setSelectedVersions([defaultVersion]);
+          // Also set the selectedVersionCode to match
+          setSelectedVersionCode(defaultVersion);
         } else {
           console.warn('[BiblePage] No versions found in database');
           setSelectedVersions(['LSG']);
+          setSelectedVersionCode('LSG');
         }
 
         if (books && books.length > 0) {
           // Set default book to first one
           setSelectedBook(books[0]);
           setSelectedChapter(1);
+          
+          // Load verses for the default book/chapter/version
+          await loadVersesForSelectedBook();
         }
       } catch (err) {
         console.error('[BiblePage] Erreur lors du chargement des données Supabase:', err);
@@ -164,6 +175,13 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedLanguageId, loading]);
 
+  // Load verses when book, chapter, or versions change
+  useEffect(() => {
+    if (selectedBook && !loading) {
+      loadVersesForSelectedBook();
+    }
+  }, [selectedBook, selectedChapter, selectedVersions, loading]);
+
   // Filtrage des versions par langue
   const filteredVersions = versions.filter(v => {
     if (selectedLanguageId === 'ALL') return true;
@@ -196,11 +214,74 @@ export const BiblePage: React.FC = () => {
     return matchesTestament && matchesSearch;
   });
 
+  // Load verses for the currently selected book/chapter/versions
+  const loadVersesForSelectedBook = async () => {
+    if (!selectedBook) return;
+    
+    // Reset verses data
+    setVersesData(prev => {
+      const newData = {};
+      selectedVersions.forEach(version => {
+        newData[version] = [];
+      });
+      return newData;
+    });
+    
+    // Set loading state for each version
+    setVersesLoading(prev => {
+      const newState = {};
+      selectedVersions.forEach(version => {
+        newState[version] = true;
+      });
+      return newState;
+    });
+    
+    try {
+      // Fetch verses for each selected version
+      const versesPromises = selectedVersions.map(async (versionCode) => {
+        try {
+          const verses = await getDbChapterVerses(
+            selectedBook.id, 
+            selectedChapter, 
+            versionCode
+          );
+          return { versionCode, verses };
+        } catch (error) {
+          console.error(`[BiblePage] Error loading verses for ${versionCode}:`, error);
+          return { versionCode, verses: [] };
+        }
+      });
+      
+      const results = await Promise.all(versesPromises);
+      
+      // Update verses data
+      setVersesData(prev => {
+        const newData = { ...prev };
+        results.forEach(({ versionCode, verses }) => {
+          newData[versionCode] = verses;
+        });
+        return newData;
+      });
+    } catch (error) {
+      console.error('[BiblePage] Error in loadVersesForSelectedBook:', error);
+    } finally {
+      // Set loading state to false for each version
+      setVersesLoading(prev => {
+        const newState = { ...prev };
+        selectedVersions.forEach(version => {
+          newState[version] = false;
+        });
+        return newState;
+      });
+    }
+  };
+
   const handleOpenReader = (book: DbBookItem, chapter: number = 1) => {
     console.log('[BiblePage] Opening reader:', book.code, chapter);
     setSelectedBook(book);
     setSelectedChapter(chapter);
     setSelectedVersions([activeVersion.code]); // Reset to default version
+    setSelectedVersionCode(activeVersion.code);
     
     setReaderState({
       isOpen: true,
@@ -209,12 +290,31 @@ export const BiblePage: React.FC = () => {
       chapterNumber: chapter,
       totalChapters: book.chapters_count || 1
     });
+    
+    // Load verses for the new selection
+    loadVersesForSelectedBook();
   };
 
   const handleRetryLoad = () => {
     setLoading(true);
     setLoadError(null);
     window.location.reload();
+  };
+
+  const handleChapterChange = (newChapter: number) => {
+    if (!selectedBook) return;
+    
+    const maxChapters = selectedBook.chapters_count || 1;
+    const clampedChapter = Math.max(1, Math.min(newChapter, maxChapters));
+    
+    setSelectedChapter(clampedChapter);
+    setReaderState(prev => ({
+      ...prev,
+      chapterNumber: clampedChapter
+    }));
+    
+    // Load verses for the new chapter
+    loadVersesForSelectedBook();
   };
 
   return (
@@ -291,9 +391,15 @@ export const BiblePage: React.FC = () => {
                   {/* Default version badge */}
                   <div className="relative">
                     <span 
-                      onClick={() => { setSelectedVersions(['LSG']); toast({ title: 'Version réinitialisée à LSG' }) }}
+                      onClick={() => { 
+                        const defaultVersion = filteredVersions.length > 0 ? filteredVersions[0].code : 'LSG';
+                        setSelectedVersions([defaultVersion]); 
+                        setSelectedVersionCode(defaultVersion);
+                        toast({ title: `Version réinitialisée à ${defaultVersion}` });
+                      }}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                        selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                        selectedVersions.length === 1 && 
+                        selectedVersions[0] === (filteredVersions.length > 0 ? filteredVersions[0].code : 'LSG')
                           ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
                           : 'bg-card text-foreground border-border hover:border-amber-500/60'
                       }`}
@@ -313,10 +419,25 @@ export const BiblePage: React.FC = () => {
                         onClick={() => {
                           if (isSelected) {
                             setSelectedVersions(prev => prev.filter(v => v !== ver.code));
-                          } else if (selectedVersions.length < 4) {
-                            setSelectedVersions(prev => [...prev, ver.code]);
+                            // Also update selectedVersionCode if we're removing the current version
+                            if (!selectedVersions.filter(v => v === ver.code).length && 
+                                selectedVersions.length > 0) {
+                              setSelectedVersionCode(selectedVersions[0]);
+                            } else if (!selectedVersions.filter(v => v === ver.code).length && 
+                                      selectedVersions.length === 0) {
+                              // If we unselected the last version, select the first available one
+                              const firstAvailable = filteredVersions.find(v => 
+                                !selectedVersions.includes(v.code)
+                              ) || filteredVersions[0];
+                              setSelectedVersions([firstAvailable.code]);
+                              setSelectedVersionCode(firstAvailable.code);
+                            }
                           }
-                        }}
+                        } else if (selectedVersions.length < 4) {
+                          setSelectedVersions(prev => [...prev, ver.code]);
+                          setSelectedVersionCode(ver.code); // Update to the newly selected version
+                        }
+                        }
                         className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
                           isSelected 
                             ? 'bg-amber-600 text-white border-amber-600' 
@@ -341,6 +462,7 @@ export const BiblePage: React.FC = () => {
                       onClick={() => {
                         const allCodes = filteredVersions.map(v => v.code);
                         setSelectedVersions(allCodes);
+                        setSelectedVersionCode(allCodes[0]); // Set to first version
                         toast({ title: `${allCodes.length} versions sélectionnées` });
                       }}
                       className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
@@ -455,8 +577,9 @@ export const BiblePage: React.FC = () => {
                     // Find the version object for display name
                     const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
                     
-                    // Load verses for this specific version and chapter
-                    const verses = /* Would need to fetch from state or fetch here */ [];
+                    // Get verses for this version
+                    const verses = versesData[versionCode] || [];
+                    const isLoading = versesLoading[versionCode] || false;
                     
                     return (
                       <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
@@ -469,10 +592,14 @@ export const BiblePage: React.FC = () => {
                           </span>
                         </div>
                         
-                        {verses.length === 0 ? (
+                        {isLoading ? (
                           <div className="py-8 text-center text-muted-foreground">
                             <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
                             <span>Chargement en cours...</span>
+                          </div>
+                        ) : verses.length === 0 ? (
+                          <div className="py-8 text-center text-muted-foreground">
+                            <span>Aucun verset trouvé pour ce chapitre dans cette version.</span>
                           </div>
                         ) : (
                           <div className="space-y-2 text-sm font-serif leading-relaxed">
@@ -510,7 +637,16 @@ export const BiblePage: React.FC = () => {
           chapterNumber={readerState.chapterNumber}
           currentVersion={selectedVersionCode}
           selectedVersions={selectedVersions}
-          onChapterChange={(bookId, chapter) => setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }))}
+          onChapterChange={(bookId, chapter) => {
+            setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }));
+            // Update selected book and chapter in main state when opening from reader
+            const matchedBook = booksList.find(b => b.code === bookId);
+            if (matchedBook) {
+              setSelectedBook(matchedBook);
+              setSelectedChapter(chapter);
+              loadVersesForSelectedBook();
+            }
+          }}
           isBookmarked={(id) => bookmarks.some(b => b.id === id)}
           onToggleBookmark={(verse) => {
             if (bookmarks.some(b => b.id === verse.id)) {
@@ -536,6 +672,15 @@ export const BiblePage: React.FC = () => {
               chapterNumber: chapter,
               totalChapters: matched?.chapters_count || 1
             });
+            
+            // Also update main state
+            if (matched) {
+              setSelectedBook(matched);
+              setSelectedChapter(chapter);
+              setSelectedVersions([activeVersion.code]); // Reset to default version
+              setSelectedVersionCode(activeVersion.code);
+              loadVersesForSelectedBook();
+            }
           }}
         />
 
@@ -553,6 +698,16 @@ export const BiblePage: React.FC = () => {
               chapterNumber: chapter,
               totalChapters: 50
             });
+            
+            // Also update main state
+            const matchedBook = booksList.find(b => b.code === bookId);
+            if (matchedBook) {
+              setSelectedBook(matchedBook);
+              setSelectedChapter(chapter);
+              setSelectedVersions([activeVersion.code]); // Reset to default version
+              setSelectedVersionCode(activeVersion.code);
+              loadVersesForSelectedBook();
+            }
           }}
         />
 
