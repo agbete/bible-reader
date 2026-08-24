@@ -392,14 +392,12 @@ export const BiblePage: React.FC = () => {
                   <div className="relative">
                     <span 
                       onClick={() => { 
-                        const defaultVersion = filteredVersions.length > 0 ? filteredVersions[0].code : 'LSG';
-                        setSelectedVersions([defaultVersion]); 
-                        setSelectedVersionCode(defaultVersion);
-                        toast({ title: `Version réinitialisée à ${defaultVersion}` });
+                        setSelectedVersions(['LSG']); 
+                        setSelectedVersionCode('LSG');
+                        toast({ title: 'Version réinitialisée à LSG' });
                       }}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                        selectedVersions.length === 1 && 
-                        selectedVersions[0] === (filteredVersions.length > 0 ? filteredVersions[0].code : 'LSG')
+                        selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
                           ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
                           : 'bg-card text-foreground border-border hover:border-amber-500/60'
                       }`}
@@ -413,31 +411,31 @@ export const BiblePage: React.FC = () => {
                   {/* Version selection pills */}
                   {filteredVersions.map((ver) => {
                     const isSelected = selectedVersions.includes(ver.code);
+                    // Determine the action based on current state
+                    const onClickHandler = () => {
+                      if (isSelected) {
+                        // Deselect this version
+                        setSelectedVersions(prev => prev.filter(v => v !== ver.code));
+                        // If we just removed the last version, select the first available one
+                        if (selectedVersions.filter(v => v === ver.code).length === 0 && selectedVersions.length === 0) {
+                          const firstAvailable = filteredVersions.find(v => !selectedVersions.includes(v.code)) || filteredVersions[0];
+                          setSelectedVersions([firstAvailable.code]);
+                          setSelectedVersionCode(firstAvailable.code);
+                        } else if (selectedVersions.filter(v => v === ver.code).length === 0) {
+                          // Update version code to the first remaining version
+                          setSelectedVersionCode(selectedVersions[0]);
+                        }
+                      } else if (selectedVersions.length < 4) {
+                        // Select this version
+                        setSelectedVersions(prev => [...prev, ver.code]);
+                        setSelectedVersionCode(ver.code);
+                      }
+                    };
+                    
                     return (
                       <button
                         key={ver.id || ver.code}
-                        onClick={() => {
-                          if (isSelected) {
-                            setSelectedVersions(prev => prev.filter(v => v !== ver.code));
-                            // Also update selectedVersionCode if we're removing the current version
-                            if (!selectedVersions.filter(v => v === ver.code).length && 
-                                selectedVersions.length > 0) {
-                              setSelectedVersionCode(selectedVersions[0]);
-                            } else if (!selectedVersions.filter(v => v === ver.code).length && 
-                                      selectedVersions.length === 0) {
-                              // If we unselected the last version, select the first available one
-                              const firstAvailable = filteredVersions.find(v => 
-                                !selectedVersions.includes(v.code)
-                              ) || filteredVersions[0];
-                              setSelectedVersions([firstAvailable.code]);
-                              setSelectedVersionCode(firstAvailable.code);
-                            }
-                          }
-                        } else if (selectedVersions.length < 4) {
-                          setSelectedVersions(prev => [...prev, ver.code]);
-                          setSelectedVersionCode(ver.code); // Update to the newly selected version
-                        }
-                        }
+                        onClick={onClickHandler}
                         className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
                           isSelected 
                             ? 'bg-amber-600 text-white border-amber-600' 
