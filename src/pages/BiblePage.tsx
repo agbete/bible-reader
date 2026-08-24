@@ -1,36 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar } from '@/components/bible/Navbar';
-import { SearchDialog } from '@/components/bible/SearchDialog';
-import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
-import { DbStatusModal } from '@/components/bible/DbStatusModal';
-import { ReaderDialog } from '@/components/bible/ReaderDialog';
-import { 
-  getDbLanguages, 
-  getDbBibleVersions, 
-  getDbAllBooks, 
-  getDbStats,
-  DbLanguage, 
-  DbBibleVersion, 
-  DbBookItem,
-  DbStats
-} from '@/services/bibleDb';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input'; 
-import { 
-  Globe, 
-  BookMarked, 
-  Search, 
-  ChevronRight, 
-  BookOpen, 
-  Layers, 
-  Check, 
-  Loader2,
-  Database,
-  Scroll,
-  AlertCircle,
-  RefreshCw
-} from 'lucide-react';
-import { showSuccess, showError } from '@/utils/to<dyad-write path="src/pages/BiblePage.tsx" description="Updated BiblePage to pass selectedVersions to ReaderDialog">
+
+That's clearly a broken import line. It seems the file got corrupted or there's a stray tag. The actual import should be:
+
+```tsx
+import { showSuccess, showError } from '@/utils/toast';
+```
+
+Looking at the context, the file path is "src/pages/BiblePage.tsx", and the import line is broken. The correct import should be from '@/utils/toast' (as seen in other files). Let's check other files:
+
+- In src/pages/NotFound.tsx: `import { showSuccess } from '@/utils/toast';`
+- In src/pages/BiblePage.tsx: earlier there's `import { showSuccess, showError } from '@/utils/to<dyad-write ...` which is wrong.
+
+So we need to fix that import line. Also ensure that the file is complete. Let's rewrite the import section properly.
+
+Also check if there are any other syntax issues. The file seems to have a broken import line. Let's fix it.
+</think><dyad-write path="src/pages/BiblePage.tsx" description="Fixed the broken import statement for showSuccess and showError">
 import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
@@ -366,148 +349,156 @@ export const BiblePage: React.FC = () => {
                       </button>
                     );
                   })}
+                  
+                  {/* Action button to select all */}
+                  {selectedVersions.length < filteredVersions.length && (
+                    <button
+                      onClick={() => {
+                        const allCodes = filteredVersions.map(v => v.code);
+                        setSelectedVersions(allCodes);
+                        toast({ title: `${allCodes.length} versions sélectionnées` });
+                      }}
+                      className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
+                    >
+                      +{filteredVersions.length - selectedVersions.length} autres
+                    </button>
+                  )}
                 </div>
               )}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Main Bible Explorer Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        {/* Error Banner */}
-        {loadError && (
-          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
-              <AlertCircle className="w-5 h-5 shrink-0" />
-              <span className="text-sm font-medium">{loadError}</span>
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleRetryLoad}
-              className="h-8 px-3 text-xs gap-1.5"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Réessayer
-            </Button>
-          </div>
-        )}
-
-        {/* Chapter Selector Section */}
-        <section className="p-4 rounded-2xl bg-card border border-border mb-6">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            {/* Book Selector */}
-            <div className="relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Rechercher un livre (ex: Jean, Psaumes, Romains...)"
-                value={selectedBook?.name || ''}
-                onChange={(e) => {
-                  const query = e.target.value.trim();
-                  if (query) {
-                    const matched = booksList.find(b => 
-                      b.name.toLowerCase().includes(query) || 
-                      b.code.toLowerCase().includes(query)
-                    );
-                    if (matched) {
-                      handleOpenReader(matched, 1);
-                    }
-                  }
-                }}
-                className="pl-10 h-11 rounded-2xl bg-card border-border text-sm"
-                disabled={!selectedBook}
-                placeholder={selectedBook ? `Lire ${selectedBook.name} chapitre...` : 'Rechercher un livre...'}
-              />
-            </div>
-
-            {/* Chapter Selector */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleChapterChange(1)}
-                className="h-9 px-3 rounded-full text-xs gap-1"
-                disabled={!selectedBook}
-              >
-                <ChevronLeft className="w-4 h-4" />
-                Debut
-              </Button>
-
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-muted-foreground">
-                  Chapitre {selectedChapter}
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                  / {selectedBook?.chapters_count}
-                </span>
-              </div>
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleChapterChange(selectedChapter + 1)}
-                className="h-9 px-3 rounded-full text-xs gap-1"
-                disabled={!selectedBook || selectedChapter >= (selectedBook?.chapters_count || 1)}
-              >
-                Fin
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
         </section>
 
-        {/* Verses Display Section */}
-        {selectedBook && !loading ? (
-          <section className="p-4 rounded-2xl bg-card border border-border">
-            {/* Verses Grid based on selected versions */}
-            <div className="space-y-4">
-              {selectedVersions.length > 0 && selectedBook ? (
-                <div className={`grid gap-4 ${
-                  selectedVersions.length === 1 ? 'grid-cols-1' :
-                  selectedVersions.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
-                  selectedVersions.length === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
-                  'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                }`}>
-                  {selectedVersions.map((versionCode, versionIndex) => {
-                    // Find the version object for display name
-                    const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
-                    
-                    // Load verses for this specific version and chapter
-                    const verses = /* Would need to fetch from state or fetch here */ [];
-                    
-                    return (
-                      <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
-                            {versionObj.name} ({versionCode})
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            {verses.length} versets
-                          </span>
-                        </div>
-                        
-                        {verses.length === 0 ? (
-                          <div className="py-8 text-center text-muted-foreground">
-                            <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
-                            <span>Chargement en cours...</span>
+        {/* Main Bible Explorer Body */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+          {/* Error Banner */}
+          {loadError && (
+            <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
+                <AlertCircle className="w-5 h-5 shrink-0" />
+                <span className="text-sm font-medium">{loadError}</span>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleRetryLoad}
+                className="h-8 px-3 text-xs gap-1.5"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                Réessayer
+              </Button>
+            </div>
+          )}
+
+          {/* Chapter Selector Section */}
+          <section className="p-4 rounded-2xl bg-card border border-border mb-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {/* Book Selector */}
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Rechercher un livre (ex: Jean, Psaumes, Romains...)"
+                  value={selectedBook?.name || ''}
+                  onChange={(e) => {
+                    const query = e.target.value.trim();
+                    if (query) {
+                      const matched = booksList.find(b => 
+                        b.name.toLowerCase().includes(query) || 
+                        b.code.toLowerCase().includes(query)
+                      );
+                      if (matched) {
+                        handleOpenReader(matched, 1);
+                      }
+                    }
+                  }}
+                  className="pl-10 h-11 rounded-2xl bg-card border-border text-sm"
+                  disabled={!selectedBook}
+                  placeholder={selectedBook ? `Lire ${selectedBook.name} chapitre...` : 'Rechercher un livre...'}
+                />
+              </div>
+
+              {/* Chapter Selector */}
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleChapterChange(1)}
+                  className="h-9 px-3 rounded-full text-xs gap-1"
+                  disabled={!selectedBook}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Debut
+                </Button>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    Chapitre {selectedChapter}
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                    / {selectedBook?.chapters_count}
+                  </span>
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleChapterChange(selectedChapter + 1)}
+                  className="h-9 px-3 rounded-full text-xs gap-1"
+                  disabled={!selectedBook || selectedChapter >= (selectedBook?.chapters_count || 1)}
+                >
+                  Fin
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* Verses Display Section */}
+          {selectedBook && !loading ? (
+            <section className="p-4 rounded-2xl bg-card border border-border">
+              {/* Verses Grid based on selected versions */}
+              <div className="space-y-4">
+                {selectedVersions.length > 0 && selectedBook ? (
+                  <div className="grid grid-cols-{selectedVersions.length > 4 ? 4 : selectedVersions.length} gap-4">
+                    {selectedVersions.map((versionCode, versionIndex) => {
+                      // Find the version object for display name
+                      const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+                      
+                      // Load verses for this specific version and chapter
+                      const verses = /* Would need to fetch from state or fetch here */ [];
+                      
+                      return (
+                        <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
+                              {versionObj.name} ({versionCode})
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {verses.length} versets
+                            </span>
                           </div>
-                        ) : (
-                          <div className="space-y-2 text-sm font-serif leading-relaxed">
-                            {verses.map((v, i) => (
-                              <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
-                                <span className="font-semibold text-amber-600 text-[11px] mr-2">
-                                  {v.verse_number}
-                                </span>
-                                <p className="whitespace-pre-wrap text-foreground">
-                                  {v.text}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
+                          
+                          {verses.length === 0 ? (
+                            <div className="py-8 text-center text-muted-foreground">
+                              <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                              <span>Chargement en cours...</span>
+                            </div>
+                          ) : (
+                            <div className="space-y-2 text-sm font-serif leading-relaxed">
+                              {verses.map((v, i) => (
+                                <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
+                                  <span className="font-semibold text-amber-600 text-[11px] mr-2">
+                                    {v.verse_number}
+                                  </span>
+                                  <p className="whitespace-pre-wrap text-foreground">
+                                    {v.text}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
                         )}
                       </div>
-                    );
+                    });
                   })}
                 </div>
               ) : (
