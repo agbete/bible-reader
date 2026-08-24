@@ -31,6 +31,7 @@ interface ReaderDialogProps {
   bookId: string;
   chapterNumber: number;
   currentVersion: string;
+  selectedVersions?: string[];
   onChapterChange: (bookId: string, chapter: number) => void;
   isBookmarked: (id: string) => boolean;
   onToggleBookmark: (verse: any) => void;
@@ -42,6 +43,7 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
   bookId,
   chapterNumber,
   currentVersion,
+  selectedVersions = ['LSG'],
   onChapterChange,
   isBookmarked,
   onToggleBookmark,
@@ -56,41 +58,41 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
 
   // State for multiple versions
   const [allVersionsVerses, setAllVersionsVerses] = useState<{ versionCode: string; verses: DbVerseItem[] }[]>([]);
-  const [isLoadingAllVersions, setIsLoadingAllVersions] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
 
     let isMounted = true;
     setLoading(true);
-    setSelectedVersionForDisplay('LSG');
+    setSelectedVersionForDisplay(selectedVersions[0] || 'LSG');
     setAllVersionsVerses([]);
 
     // Load verses for the selected chapter from all available versions
-    // For now, load for the default version and selected versions
-    const versionCodes = ['LSG', ...(selectedVersions?.filter(v => v !== 'LSG') || [])].filter(Boolean);
-    
-    const loadVersesPromises = versionCodes.map(code =>
-      getDbChapterVerses(bookId, chapterNumber, code)
-    );
+    const loadVersesForChapter = async () => {
+      const versionCodes = selectedVersions.length > 0 ? selectedVersions : ['LSG'];
+      
+      const loadVersesPromises = versionCodes.map(code =>
+        getDbChapterVerses(bookId, chapterNumber, code)
+      );
 
-    try {
-      const results = await Promise.all(loadVersesPromises);
-      
-      if (!isMounted) return;
-      
-      setAllVersionsVerses(results.map((verses, index) => ({
-        versionCode: versionCodes[index],
-        verses: verses
-      })));
-      setSelectedVersionForDisplay(versionCodes[0] || 'LSG');
-    } catch (err) {
-      console.error(err);
-      if (isMounted) setVerses([]);
-    }
-    finally {
-      if (isMounted) setLoading(false);
-    }
+      try {
+        const results = await Promise.all(loadVersesPromises);
+        
+        if (!isMounted) return;
+        
+        setAllVersionsVerses(results.map((verses, index) => ({
+          versionCode: versionCodes[index],
+          verses: verses
+        })));
+      } catch (err) {
+        console.error(err);
+        if (isMounted) setVerses([]);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    loadVersesForChapter();
 
     return () => {
       isMounted = false;
@@ -164,7 +166,7 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
             <Button
               variant="outline"
               size="sm"
-              onClick=handleAudio
+              onClick={handleAudio}
               className={`h-8 px-2.5 rounded-full text-xs gap-1.5 ${
                 isPlayingAudio ? 'bg-amber-500 text-stone-950 border-amber-500 font-semibold animate-pulse' : ''
               }`}
@@ -317,7 +319,7 @@ export const ReaderDialog: React.FC<ReaderDialogProps> = ({
           {/* ... existing code ... */}
         </div>
 
-        {/* Pied de page de navigation */}
+        {/* Pied de footer de navigation */}
         {/* ... existing code ... */}
       </DialogContent>
     </Dialog>

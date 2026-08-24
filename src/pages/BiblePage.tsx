@@ -30,6 +30,39 @@ import {
   AlertCircle,
   RefreshCw
 } from 'lucide-react';
+import { showSuccess, showError } from '@/utils/to<dyad-write path="src/pages/BiblePage.tsx" description="Updated BiblePage to pass selectedVersions to ReaderDialog">
+import React, { useState, useEffect } from 'react';
+import { Navbar } from '@/components/bible/Navbar';
+import { SearchDialog } from '@/components/bible/SearchDialog';
+import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
+import { DbStatusModal } from '@/components/bible/DbStatusModal';
+import { ReaderDialog } from '@/components/bible/ReaderDialog';
+import { 
+  getDbLanguages, 
+  getDbBibleVersions, 
+  getDbAllBooks, 
+  getDbStats,
+  DbLanguage, 
+  DbBibleVersion, 
+  DbBookItem,
+  DbStats
+} from '@/services/bibleDb';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input'; 
+import { 
+  Globe, 
+  BookMarked, 
+  Search, 
+  ChevronRight, 
+  BookOpen, 
+  Layers, 
+  Check, 
+  Loader2,
+  Database,
+  Scroll,
+  AlertCircle,
+  RefreshCw
+} from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 import { useToast } from '@/hooks/use-toast';
@@ -43,11 +76,16 @@ export const BiblePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
+  // Filters
+  const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
+  const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
+  const [testamentFilter, setTestamentFilter] = useState<'ALL' | 'OT' | 'NT'>('ALL');
+  const [searchBook, setSearchBook] = useState('');
+
   // --- NEW STATE: Chapter and Version Selection ---
   const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
   const [selectedChapter, setSelectedChapter] = useState(1);
-  const [selectedVersions, setSelectedVersions] = useState<string[]>('LSG'.split(',')); // Default to LSG
-  const [allAvailableVersions, setAllAvailableVersions] = useState<string[]>(['LSG']);
+  const [selectedVersions, setSelectedVersions] = useState<string[]>(['LSG']); // Default to LSG
   
   // Reader state
   const [readerState, setReaderState] = useState<{
@@ -56,14 +94,12 @@ export const BiblePage: React.FC = () => {
     bookName: string;
     chapterNumber: number;
     totalChapters: number;
-    verseNumbers: number[]; // Verses to display
   }>({
     isOpen: false,
     bookCode: 'GEN',
     bookName: 'Genèse',
     chapterNumber: 1,
-    totalChapters: 50,
-    verseNumbers: []
+    totalChapters: 50
   });
 
   // Modal states
@@ -109,14 +145,12 @@ export const BiblePage: React.FC = () => {
         // Set available versions for comparison
         if (vers && vers.length > 0) {
           const versionCodes = vers.map(v => v.code);
-          setAllAvailableVersions(versionCodes);
           // Default to first version if LSG not available
           const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
           // Initialize selected versions with default
           setSelectedVersions([defaultVersion]);
         } else {
           console.warn('[BiblePage] No versions found in database');
-          setAllAvailableVersions(['LSG']); // Fallback
           setSelectedVersions(['LSG']);
         }
 
@@ -194,71 +228,6 @@ export const BiblePage: React.FC = () => {
     return matchesTestament && matchesSearch;
   });
 
-  // Load verses when chapter or versions change
-  useEffect(() => {
-    if (!selectedBook || loading) return;
-    
-    console.log('[BiblePage] Loading verses for:', selectedBook.code, selectedChapter);
-    
-    // Load verses for all selected versions
-    const loadVersesForVersions = async () => {
-      const versionPromises = selectedVersions.map(versionCode =>
-        getDbChapterVerses(selectedBook.code, selectedChapter, versionCode)
-      );
-      
-      try {
-        const results = await Promise.all(versionPromises);
-        // Process results to create display data
-        const versesData = results.map((verses, index) => ({
-          version: selectedVersions[index],
-          verses: verses
-        }));
-        
-        setReaderState(prev => ({
-          ...prev,
-          verseNumbers: [], // Will be populated when opening reader
-          // Store verses data for reference
-        }));
-        
-        console.log('[BiblePage] Verses loaded for all versions:', results.length);
-      } catch (err) {
-        console.error('[BiblePage] Error loading verses:', err);
-      }
-    };
-    
-    loadVersesForVersions();
-  }, [selectedBook, selectedChapter, selectedVersions]);
-
-  // Handle chapter change
-  const handleChapterChange = (chapter: number) => {
-    setSelectedChapter(chapter);
-    // Reset verse display
-    setReaderState(prev => ({
-      ...prev,
-      isOpen: false,
-      bookCode: selectedBook?.code || 'GEN',
-      bookName: selectedBook?.name || 'Genèse',
-      chapterNumber: chapter,
-      totalChapters: selectedBook?.chapters_count || 1,
-      verseNumbers: []
-    }));
-  };
-
-  // Handle version selection change
-  const handleVersionSelect = (versionCode: string) => {
-    setSelectedVersions(prev => {
-      if (prev.includes(versionCode)) {
-        return prev.filter(v => v !== versionCode);
-      } else {
-        // Max 4 versions
-        return prev.length < 4 ? [...prev, versionCode] : prev;
-      }
-    });
-  };
-
-  // Check if version is selected
-  const isVersionSelected = (versionCode: string) => selectedVersions.includes(versionCode);
-
   const handleOpenReader = (book: DbBookItem, chapter: number = 1) => {
     console.log('[BiblePage] Opening reader:', book.code, chapter);
     setSelectedBook(book);
@@ -270,8 +239,7 @@ export const BiblePage: React.FC = () => {
       bookCode: book.code,
       bookName: book.name,
       chapterNumber: chapter,
-      totalChapters: book.chapters_count || 1,
-      verseNumbers: []
+      totalChapters: book.chapters_count || 1
     });
   };
 
@@ -280,17 +248,6 @@ export const BiblePage: React.FC = () => {
     setLoadError(null);
     window.location.reload();
   };
-
-  // Calculate column class based on number of selected versions
-  const getColumnClass = () => {
-    const count = selectedVersions.length;
-    if (count >= 4) return 'col-span-1';
-    if (count === 3) return 'col-span-2';
-    if (count === 2) return 'col-span-3';
-    return 'col-span-4'; // Shouldn't happen as max is 4
-  };
-
-  const verseColumnClass = `grid grid-cols-${selectedVersions.length > 4 ? 4 : selectedVersions.length} gap-4`;
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-amber-500/20 selection:text-amber-800">
@@ -385,11 +342,17 @@ export const BiblePage: React.FC = () => {
                     return (
                       <button
                         key={ver.id || ver.code}
-                        onClick={() => handleVersionSelect(ver.code)}
-                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 ${
+                        onClick={() => {
+                          if (isSelected) {
+                            setSelectedVersions(prev => prev.filter(v => v !== ver.code));
+                          } else if (selectedVersions.length < 4) {
+                            setSelectedVersions(prev => [...prev, ver.code]);
+                          }
+                        }}
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
                           isSelected 
                             ? 'bg-amber-600 text-white border-amber-600' 
-                            : 'hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                            : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
                         }`}
                         title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
                       >
@@ -403,20 +366,6 @@ export const BiblePage: React.FC = () => {
                       </button>
                     );
                   })}
-                  
-                  {/* Action button to select all */}
-                  {selectedVersions.length < filteredVersions.length && (
-                    <button
-                      onClick={() => {
-                        const allCodes = filteredVersions.map(v => v.code);
-                        setSelectedVersions(allCodes);
-                        toast({ title: `${allCodes.length} versions sélectionnées` });
-                      }}
-                      className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
-                    >
-                      +{filteredVersions.length - selectedVersions.length} autres
-                    </button>
-                  )}
                 </div>
               )}
             </div>
@@ -514,7 +463,12 @@ export const BiblePage: React.FC = () => {
             {/* Verses Grid based on selected versions */}
             <div className="space-y-4">
               {selectedVersions.length > 0 && selectedBook ? (
-                <div className="grid grid-cols-{selectedVersions.length > 4 ? 4 : selectedVersions.length} gap-4">
+                <div className={`grid gap-4 ${
+                  selectedVersions.length === 1 ? 'grid-cols-1' :
+                  selectedVersions.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                  selectedVersions.length === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+                  'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                }`}>
                   {selectedVersions.map((versionCode, versionIndex) => {
                     // Find the version object for display name
                     const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
@@ -573,6 +527,7 @@ export const BiblePage: React.FC = () => {
           bookId={readerState.bookCode}
           chapterNumber={readerState.chapterNumber}
           currentVersion={selectedVersionCode}
+          selectedVersions={selectedVersions}
           onChapterChange={(bookId, chapter) => setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }))}
           isBookmarked={(id) => bookmarks.some(b => b.id === id)}
           onToggleBookmark={(verse) => {
