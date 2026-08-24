@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
+import { useToast } from '@/hooks/use-toast';
 
 export const BiblePage: React.FC = () => {
   // DB states
@@ -42,12 +43,12 @@ export const BiblePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Filters
-  const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
-  const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
-  const [testamentFilter, setTestamentFilter] = useState<'ALL' | 'OT' | 'NT'>('ALL');
-  const [searchBook, setSearchBook] = useState('');
-
+  // --- NEW STATE: Chapter and Version Selection ---
+  const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState(1);
+  const [selectedVersions, setSelectedVersions] = useState<string[]>('LSG'.split(',')); // Default to LSG
+  const [allAvailableVersions, setAllAvailableVersions] = useState<string[]>(['LSG']);
+  
   // Reader state
   const [readerState, setReaderState] = useState<{
     isOpen: boolean;
@@ -55,12 +56,14 @@ export const BiblePage: React.FC = () => {
     bookName: string;
     chapterNumber: number;
     totalChapters: number;
+    verseNumbers: number[]; // Verses to display
   }>({
     isOpen: false,
     bookCode: 'GEN',
     bookName: 'Genèse',
     chapterNumber: 1,
-    totalChapters: 50
+    totalChapters: 50,
+    verseNumbers: []
   });
 
   // Modal states
@@ -68,6 +71,9 @@ export const BiblePage: React.FC = () => {
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<any[]>([]);
+
+  // Hook for toast
+  const { toast } = useToast();
 
   // 1. Initialisation depuis Supabase
   useEffect(() => {
@@ -100,12 +106,24 @@ export const BiblePage: React.FC = () => {
         setBooksList(books);
         setStats(dbStats);
 
+        // Set available versions for comparison
         if (vers && vers.length > 0) {
-          const defaultVer = vers.find(v => v.is_default) || vers[0];
-          setSelectedVersionCode(defaultVer.code);
-          console.log('[BiblePage] Default version set:', defaultVer.code);
+          const versionCodes = vers.map(v => v.code);
+          setAllAvailableVersions(versionCodes);
+          // Default to first version if LSG not available
+          const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
+          // Initialize selected versions with default
+          setSelectedVersions([defaultVersion]);
         } else {
           console.warn('[BiblePage] No versions found in database');
+          setAllAvailableVersions(['LSG']); // Fallback
+          setSelectedVersions(['LSG']);
+        }
+
+        if (books && books.length > 0) {
+          // Set default book to first one
+          setSelectedBook(books[0]);
+          setSelectedChapter(1);
         }
       } catch (err) {
         console.error('[BiblePage] Erreur lors du chargement des données Supabase:', err);
@@ -176,23 +194,103 @@ export const BiblePage: React.FC = () => {
     return matchesTestament && matchesSearch;
   });
 
+  // Load verses when chapter or versions change
+  useEffect(() => {
+    if (!selectedBook || loading) return;
+    
+    console.log('[BiblePage] Loading verses for:', selectedBook.code, selectedChapter);
+    
+    // Load verses for all selected versions
+    const loadVersesForVersions = async () => {
+      const versionPromises = selectedVersions.map(versionCode =>
+        getDbChapterVerses(selectedBook.code, selectedChapter, versionCode)
+      );
+      
+      try {
+        const results = await Promise.all(versionPromises);
+        // Process results to create display data
+        const versesData = results.map((verses, index) => ({
+          version: selectedVersions[index],
+          verses: verses
+        }));
+        
+        setReaderState(prev => ({
+          ...prev,
+          verseNumbers: [], // Will be populated when opening reader
+          // Store verses data for reference
+        }));
+        
+        console.log('[BiblePage] Verses loaded for all versions:', results.length);
+      } catch (err) {
+        console.error('[BiblePage] Error loading verses:', err);
+      }
+    };
+    
+    loadVersesForVersions();
+  }, [selectedBook, selectedChapter, selectedVersions]);
+
+  // Handle chapter change
+  const handleChapterChange = (chapter: number) => {
+    setSelectedChapter(chapter);
+    // Reset verse display
+    setReaderState(prev => ({
+      ...prev,
+      isOpen: false,
+      bookCode: selectedBook?.code || 'GEN',
+      bookName: selectedBook?.name || 'Genèse',
+      chapterNumber: chapter,
+      totalChapters: selectedBook?.chapters_count || 1,
+      verseNumbers: []
+    }));
+  };
+
+  // Handle version selection change
+  const handleVersionSelect = (versionCode: string) => {
+    setSelectedVersions(prev => {
+      if (prev.includes(versionCode)) {
+        return prev.filter(v => v !== versionCode);
+      } else {
+        // Max 4 versions
+        return prev.length < 4 ? [...prev, versionCode] : prev;
+      }
+    });
+  };
+
+  // Check if version is selected
+  const isVersionSelected = (versionCode: string) => selectedVersions.includes(versionCode);
+
   const handleOpenReader = (book: DbBookItem, chapter: number = 1) => {
     console.log('[BiblePage] Opening reader:', book.code, chapter);
+    setSelectedBook(book);
+    setSelectedChapter(chapter);
+    setSelectedVersions([activeVersion.code]); // Reset to default version
+    
     setReaderState({
       isOpen: true,
       bookCode: book.code,
       bookName: book.name,
       chapterNumber: chapter,
-      totalChapters: book.chapters_count || 1
+      totalChapters: book.chapters_count || 1,
+      verseNumbers: []
     });
   };
 
   const handleRetryLoad = () => {
     setLoading(true);
     setLoadError(null);
-    // Trigger reload by remounting - simplest is to reload page or call loadData again
     window.location.reload();
   };
+
+  // Calculate column class based on number of selected versions
+  const getColumnClass = () => {
+    const count = selectedVersions.length;
+    if (count >= 4) return 'col-span-1';
+    if (count === 3) return 'col-span-2';
+    if (count === 2) return 'col-span-3';
+    return 'col-span-4'; // Shouldn't happen as max is 4
+  };
+
+  const verseColumnClass = `grid grid-cols-${selectedVersions.length > 4 ? 4 : selectedVersions.length} gap-4`;
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-amber-500/20 selection:text-amber-800">
@@ -205,7 +303,7 @@ export const BiblePage: React.FC = () => {
         onOpenDbStatus={() => setIsDbStatusOpen(true)}
       />
 
-      {/* --- HORIZONTAL VERSIONS BAR & LANGUAGE FILTER (Juste après le menu en haut) --- */}
+      {/* --- HORIZONTAL VERSIONS BAR & LANGUAGE FILTER --- */}
       <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -251,47 +349,77 @@ export const BiblePage: React.FC = () => {
                 {activeVersion.name} ({activeVersion.code})
               </span>
             </div>
-          </div>
 
-          {/* Horizontal List of Version Codes */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
-              <Layers className="w-3.5 h-3.5 text-amber-600" /> 
-              Versions ({filteredVersions.length}) :
-            </span>
-
-            {filteredVersions.length === 0 ? (
-              <span className="text-xs text-muted-foreground italic">
-                Aucune version enregistrée pour cette langue.
+            {/* Horizontal List of Version Codes - Comparison Selector */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
+                <Layers className="w-3.5 h-3.5 text-amber-600" /> 
+                Versions ({filteredVersions.length}) :
               </span>
-            ) : (
-              filteredVersions.map((ver) => {
-                const isSelected = ver.code === selectedVersionCode;
-                return (
-                  <button
-                    key={ver.id || ver.code}
-                    onClick={() => {
-                      setSelectedVersionCode(ver.code);
-                      showSuccess(`Version ${ver.code} sélectionnée (${ver.name})`);
-                    }}
-                    title={`${ver.name} (${ver.code})`}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all shrink-0 flex items-center gap-1.5 border ${
-                      isSelected
-                        ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm scale-105'
-                        : 'bg-card text-foreground border-border hover:border-amber-500/60 hover:bg-amber-50/60 dark:hover:bg-amber-950/40'
-                    }`}
-                  >
-                    {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
-                    <span>{ver.code}</span>
-                    {ver.short_name && ver.short_name !== ver.code && (
-                      <span className={`text-[10px] font-normal opacity-80`}>
-                        • {ver.short_name}
-                      </span>
-                    )}
-                  </button>
-                );
-              })
-            )}
+
+              {filteredVersions.length === 0 ? (
+                <span className="text-xs text-muted-foreground italic">
+                  Aucune version enregistrée pour cette langue.
+                </span>
+              ) : (
+                <div className="flex items-center gap-1.5">
+                  {/* Default version badge */}
+                  <div className="relative">
+                    <span 
+                      onClick={() => { setSelectedVersions(['LSG']); toast({ title: 'Version réinitialisée à LSG' }) }}
+                      className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+                        selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                          ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
+                          : 'bg-card text-foreground border-border hover:border-amber-500/60'
+                      }`}
+                      title="Version par défaut"
+                    >
+                      <Check className="w-3 h-3 stroke-[3]" />
+                      <span>Défaut</span>
+                    </span>
+                  </div>
+
+                  {/* Version selection pills */}
+                  {filteredVersions.map((ver) => {
+                    const isSelected = selectedVersions.includes(ver.code);
+                    return (
+                      <button
+                        key={ver.id || ver.code}
+                        onClick={() => handleVersionSelect(ver.code)}
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 ${
+                          isSelected 
+                            ? 'bg-amber-600 text-white border-amber-600' 
+                            : 'hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                        }`}
+                        title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                      >
+                        {ver.code}
+                        {ver.short_name && ver.short_name !== ver.code && (
+                          <span className={`text-[10px] font-normal opacity-80 ml-1`}>
+                            • {ver.short_name}
+                          </span>
+                        )}
+                        {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                      </button>
+                    );
+                  })}
+                  
+                  {/* Action button to select all */}
+                  {selectedVersions.length < filteredVersions.length && (
+                    <button
+                      onClick={() => {
+                        const allCodes = filteredVersions.map(v => v.code);
+                        setSelectedVersions(allCodes);
+                        toast({ title: `${allCodes.length} versions sélectionnées` });
+                      }}
+                      className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
+                    >
+                      +{filteredVersions.length - selectedVersions.length} autres
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -317,236 +445,200 @@ export const BiblePage: React.FC = () => {
           </div>
         )}
 
-        {/* Banner with Supabase Live Data Statistics */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-3xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20">
-          <div>
-            <div className="flex items-center gap-2 text-amber-600 font-semibold text-xs uppercase tracking-wider">
-              <Scroll className="w-4 h-4" />
-              <span>Base de données biblique active</span>
+        {/* Chapter Selector Section */}
+        <section className="p-4 rounded-2xl bg-card border border-border mb-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Book Selector */}
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Rechercher un livre (ex: Jean, Psaumes, Romains...)"
+                value={selectedBook?.name || ''}
+                onChange={(e) => {
+                  const query = e.target.value.trim();
+                  if (query) {
+                    const matched = booksList.find(b => 
+                      b.name.toLowerCase().includes(query) || 
+                      b.code.toLowerCase().includes(query)
+                    );
+                    if (matched) {
+                      handleOpenReader(matched, 1);
+                    }
+                  }
+                }}
+                className="pl-10 h-11 rounded-2xl bg-card border-border text-sm"
+                disabled={!selectedBook}
+                placeholder={selectedBook ? `Lire ${selectedBook.name} chapitre...` : 'Rechercher un livre...'}
+              />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1">
-              Les Saintes Écritures — Version {selectedVersionCode}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              {stats ? (
-                <>
-                  <span className="font-semibold text-foreground">{stats.totalBooks} livres</span>,{' '}
-                  <span className="font-semibold text-foreground">{stats.totalChapters.toLocaleString()} chapitres</span> et{' '}
-                  <span className="font-semibold text-amber-600 dark:text-amber-400">{stats.totalVerses.toLocaleString()} versets</span> disponibles en base de données.
-                </>
+
+            {/* Chapter Selector */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleChapterChange(1)}
+                className="h-9 px-3 rounded-full text-xs gap-1"
+                disabled={!selectedBook}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Debut
+              </Button>
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-muted-foreground">
+                  Chapitre {selectedChapter}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                  / {selectedBook?.chapters_count}
+                </span>
+              </div>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleChapterChange(selectedChapter + 1)}
+                className="h-9 px-3 rounded-full text-xs gap-1"
+                disabled={!selectedBook || selectedChapter >= (selectedBook?.chapters_count || 1)}
+              >
+                Fin
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Verses Display Section */}
+        {selectedBook && !loading ? (
+          <section className="p-4 rounded-2xl bg-card border border-border">
+            {/* Verses Grid based on selected versions */}
+            <div className="space-y-4">
+              {selectedVersions.length > 0 && selectedBook ? (
+                <div className="grid grid-cols-{selectedVersions.length > 4 ? 4 : selectedVersions.length} gap-4">
+                  {selectedVersions.map((versionCode, versionIndex) => {
+                    // Find the version object for display name
+                    const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+                    
+                    // Load verses for this specific version and chapter
+                    const verses = /* Would need to fetch from state or fetch here */ [];
+                    
+                    return (
+                      <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
+                            {versionObj.name} ({versionCode})
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {verses.length} versets
+                          </span>
+                        </div>
+                        
+                        {verses.length === 0 ? (
+                          <div className="py-8 text-center text-muted-foreground">
+                            <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                            <span>Chargement en cours...</span>
+                          </div>
+                        ) : (
+                          <div className="space-y-2 text-sm font-serif leading-relaxed">
+                            {verses.map((v, i) => (
+                              <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
+                                <span className="font-semibold text-amber-600 text-[11px] mr-2">
+                                  {v.verse_number}
+                                </span>
+                                <p className="whitespace-pre-wrap text-foreground">
+                                  {v.text}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               ) : (
-                "Accédez à l'intégralité du texte biblique stocké en base de données."
+                <div className="py-12 text-center text-muted-foreground">
+                  <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
+                  <span>Sélectionnez au moins une version pour afficher les versets</span>
+                </div>
               )}
+            </div>
+          </section>
+        ) : null}
+
+        {/* Reader Dialog */}
+        <ReaderDialog
+          isOpen={readerState.isOpen}
+          onClose={() => setReaderState(prev => ({ ...prev, isOpen: false }))}
+          bookId={readerState.bookCode}
+          chapterNumber={readerState.chapterNumber}
+          currentVersion={selectedVersionCode}
+          onChapterChange={(bookId, chapter) => setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }))}
+          isBookmarked={(id) => bookmarks.some(b => b.id === id)}
+          onToggleBookmark={(verse) => {
+            if (bookmarks.some(b => b.id === verse.id)) {
+              setBookmarks(prev => prev.filter(b => b.id !== verse.id));
+              toast({ title: "Verset retiré des favoris." });
+            } else {
+              setBookmarks(prev => [...prev, verse]);
+              toast({ title: "Verset ajouté aux favoris !" });
+            }
+          }}
+        />
+
+        {/* Search Dialog */}
+        <SearchDialog
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          onSelectBookChapter={(bookId, chapter) => {
+            const matched = booksList.find(b => b.code.toLowerCase() === bookId.toLowerCase());
+            setReaderState({
+              isOpen: true,
+              bookCode: matched?.code || bookId,
+              bookName: matched?.name || bookId,
+              chapterNumber: chapter,
+              totalChapters: matched?.chapters_count || 1
+            });
+          }}
+        />
+
+        {/* Bookmarks Drawer */}
+        <BookmarksDrawer
+          isOpen={isBookmarksOpen}
+          onClose={() => setIsBookmarksOpen(false)}
+          bookmarks={bookmarks}
+          onRemoveBookmark={(id) => setBookmarks(prev => prev.filter(b => b.id !== id))}
+          onOpenVerseChapter={(bookId, chapter) => {
+            setReaderState({
+              isOpen: true,
+              bookCode: bookId,
+              bookName: bookId,
+              chapterNumber: chapter,
+              totalChapters: 50
+            });
+          }}
+        />
+
+        {/* Database Diagnostic Modal */}
+        <DbStatusModal
+          isOpen={isDbStatusOpen}
+          onClose={() => setIsDbStatusOpen(false)}
+        />
+
+        {/* Footer */}
+        <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-amber-600" />
+              <span className="font-semibold text-foreground">Parole Vivante — Page Bible</span>
+            </div>
+            <p className="text-center sm:text-right">
+              « Toute Écriture est inspirée de Dieu, et utile pour enseigner... » — 2 Timothée 3:16
             </p>
           </div>
-
-          {/* Testament Tabs */}
-          <div className="flex items-center p-1 rounded-xl bg-card border border-border shrink-0">
-            <button
-              onClick={() => setTestamentFilter('ALL')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                testamentFilter === 'ALL'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Tous ({booksList.length})
-            </button>
-            <button
-              onClick={() => setTestamentFilter('OT')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                testamentFilter === 'OT'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Ancien Testament (39)
-            </button>
-            <button
-              onClick={() => setTestamentFilter('NT')}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                testamentFilter === 'NT'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              Nouveau Testament (27)
-            </button>
-          </div>
-        </div>
-
-        {/* Search Bar for Books */}
-        <div className="flex items-center gap-3">
-          <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Rechercher un livre par nom ou code (ex: GEN, Jean, Psaumes...)"
-              value={searchBook}
-              onChange={(e) => setSearchBook(e.target.value)}
-              className="pl-9 h-11 rounded-2xl bg-card border-border text-sm"
-            />
-          </div>
-        </div>
-
-        {/* Loading State or Grid of Books */}
-        {loading ? (
-          <div className="py-20 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-            <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
-            <span className="text-sm font-medium">Chargement des 66 livres depuis Supabase...</span>
-            <span className="text-xs text-muted-foreground/60">Vérification de la connexion et récupération des données...</span>
-          </div>
-        ) : loadError ? null : filteredBooks.length === 0 ? (
-          <div className="text-center py-16 border border-dashed rounded-3xl bg-card">
-            <BookOpen className="w-10 h-10 mx-auto text-muted-foreground/40 mb-3" />
-            <p className="text-sm font-semibold">Aucun livre ne correspond à votre recherche.</p>
-            <p className="text-xs text-muted-foreground mt-1">Essayez un autre mot-clé ou changez de filtre.</p>
-            {booksList.length === 0 && (
-              <p className="text-xs text-rose-500 mt-2">
-                Attention: Aucun livre chargé depuis la base de données. Vérifiez la connexion Supabase.
-              </p>
-            )}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredBooks.map((book) => (
-              <div
-                key={book.id}
-                className="rounded-3xl border border-border bg-card p-5 hover:border-amber-500/60 hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-xs font-mono">
-                        {book.code}
-                      </span>
-                      <div>
-                        <h3 className="font-bold text-sm text-foreground">
-                          {book.name}
-                        </h3>
-                        <span className="text-[11px] text-muted-foreground font-mono">
-                          {book.code} • #{book.order_index}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                      {book.chapters_count} ch.
-                    </span>
-                  </div>
-                </div>
-
-                {/* Quick Chapter Buttons */}
-                <div className="mt-4 pt-3 border-t border-border/60">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                      Chapitres ({book.chapters_count}) :
-                    </span>
-                    <button
-                      onClick={() => handleOpenReader(book, 1)}
-                      className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-0.5"
-                    >
-                      <span>Lire dès le ch. 1</span>
-                      <ChevronRight className="w-3 h-3" />
-                    </button>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {Array.from({ length: Math.min(book.chapters_count, 10) }, (_, i) => i + 1).map((ch) => (
-                      <button
-                        key={ch}
-                        onClick={() => handleOpenReader(book, ch)}
-                        className="w-7 h-7 rounded-lg bg-muted hover:bg-amber-600 hover:text-white text-xs font-semibold transition-colors flex items-center justify-center"
-                      >
-                        {ch}
-                      </button>
-                    ))}
-                    {book.chapters_count > 10 && (
-                      <button
-                        onClick={() => handleOpenReader(book, 1)}
-                        className="px-2 h-7 rounded-lg bg-muted text-[11px] font-semibold text-muted-foreground hover:bg-amber-600 hover:text-white transition-colors flex items-center justify-center"
-                      >
-                        +{book.chapters_count - 10}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+          <MadeWithDyad />
+        </footer>
       </main>
-
-      {/* Reader Dialog */}
-      <ReaderDialog
-        isOpen={readerState.isOpen}
-        onClose={() => setReaderState(prev => ({ ...prev, isOpen: false }))}
-        bookId={readerState.bookCode}
-        chapterNumber={readerState.chapterNumber}
-        currentVersion={selectedVersionCode}
-        onChapterChange={(bookId, chapter) => setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }))}
-        isBookmarked={(id) => bookmarks.some(b => b.id === id)}
-        onToggleBookmark={(verse) => {
-          if (bookmarks.some(b => b.id === verse.id)) {
-            setBookmarks(prev => prev.filter(b => b.id !== verse.id));
-            showSuccess("Verset retiré des favoris.");
-          } else {
-            setBookmarks(prev => [...prev, verse]);
-            showSuccess("Verset ajouté aux favoris !");
-          }
-        }}
-      />
-
-      {/* Search Dialog */}
-      <SearchDialog
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectBookChapter={(bookId, chapter) => {
-          const matched = booksList.find(b => b.code.toLowerCase() === bookId.toLowerCase());
-          setReaderState({
-            isOpen: true,
-            bookCode: matched?.code || bookId,
-            bookName: matched?.name || bookId,
-            chapterNumber: chapter,
-            totalChapters: matched?.chapters_count || 1
-          });
-        }}
-      />
-
-      {/* Bookmarks Drawer */}
-      <BookmarksDrawer
-        isOpen={isBookmarksOpen}
-        onClose={() => setIsBookmarksOpen(false)}
-        bookmarks={bookmarks}
-        onRemoveBookmark={(id) => setBookmarks(prev => prev.filter(b => b.id !== id))}
-        onOpenVerseChapter={(bookId, chapter) => {
-          setReaderState({
-            isOpen: true,
-            bookCode: bookId,
-            bookName: bookId,
-            chapterNumber: chapter,
-            totalChapters: 50
-          });
-        }}
-      />
-
-      {/* Database Diagnostic Modal */}
-      <DbStatusModal
-        isOpen={isDbStatusOpen}
-        onClose={() => setIsDbStatusOpen(false)}
-      />
-
-      {/* Footer */}
-      <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-amber-600" />
-            <span className="font-semibold text-foreground">Parole Vivante — Page Bible</span>
-          </div>
-          <p className="text-center sm:text-right">
-            « Toute Écriture est inspirée de Dieu, et utile pour enseigner... » — 2 Timothée 3:16
-          </p>
-        </div>
-        <MadeWithDyad />
-      </footer>
     </div>
   );
 };

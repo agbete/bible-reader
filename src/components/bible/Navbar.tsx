@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="md:hidden rounded-full w-9 h-9 text-muted-foreground hover:text-foreground"
             >
               <Search className="w-4 h-4" />
-            </Button>
+            </button>
           )}
 
           {/* Bookmarks toggle */}

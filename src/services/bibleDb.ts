@@ -76,15 +76,26 @@ export interface DbStatusReport {
  */
 export async function getDbLanguages(): Promise<DbLanguage[]> {
   try {
+    console.log('[bibleDb] Fetching languages...');
     const { data, error } = await supabase
       .from('languages')
       .select('id, code, name')
       .order('id', { ascending: true });
 
     if (error) {
-      console.error('[bibleDb] Erreur langues:', error.message);
+      console.error('[bibleDb] Erreur langues:', error.message, error.details, error.hint);
+      // Try with schema specification
+      const { data: data2, error: error2 } = await supabase
+        .from('public.languages')
+        .select('id, code, name')
+        .order('id', { ascending: true });
+      if (!error2 && data2) {
+        console.log('[bibleDb] Languages loaded with schema:', data2.length);
+        return data2;
+      }
       return [];
     }
+    console.log('[bibleDb] Languages loaded:', data?.length || 0);
     return data || [];
   } catch (err) {
     console.error('[bibleDb] Exception getDbLanguages:', err);
@@ -97,15 +108,26 @@ export async function getDbLanguages(): Promise<DbLanguage[]> {
  */
 export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
   try {
+    console.log('[bibleDb] Fetching bible versions...');
     const { data, error } = await supabase
       .from('bible_versions')
       .select('id, language_id, code, name, short_name, is_default')
       .order('id', { ascending: true });
 
     if (error) {
-      console.error('[bibleDb] Erreur versions:', error.message);
+      console.error('[bibleDb] Erreur versions:', error.message, error.details, error.hint);
+      // Try with schema specification
+      const { data: data2, error: error2 } = await supabase
+        .from('public.bible_versions')
+        .select('id, language_id, code, name, short_name, is_default')
+        .order('id', { ascending: true });
+      if (!error2 && data2) {
+        console.log('[bibleDb] Versions loaded with schema:', data2.length);
+        return data2;
+      }
       return [];
     }
+    console.log('[bibleDb] Versions loaded:', data?.length || 0);
     return data || [];
   } catch (err) {
     console.error('[bibleDb] Exception getDbBibleVersions:', err);
@@ -118,6 +140,8 @@ export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
  */
 export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> {
   try {
+    console.log('[bibleDb] Fetching all books...', { languageId });
+    
     const { data: booksData, error: booksErr } = await supabase
       .from('books')
       .select('id, code, order_index, testament_id, classification_id')
@@ -128,12 +152,16 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
       return [];
     }
 
+    console.log('[bibleDb] Raw books data:', booksData.length);
+
+    // Récupérer les traductions des noms de livres
     let trQuery = supabase.from('book_translations').select('book_id, language_id, name');
     if (languageId) {
       trQuery = trQuery.eq('language_id', languageId);
     }
     const { data: transData } = await trQuery;
 
+    // Récupérer les codes des testaments
     const { data: testamentsData } = await supabase
       .from('testaments')
       .select('id, code');
@@ -141,6 +169,7 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
     const testamentsMap = new Map<number, string>();
     testamentsData?.forEach(t => testamentsMap.set(t.id, t.code));
 
+    // Récupérer le nombre de chapitres par livre
     const { data: chaptersData } = await supabase
       .from('chapters')
       .select('book_id, number');
@@ -153,6 +182,7 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
       }
     });
 
+    // Mapper les traductions
     const transMap = new Map<number, string>();
     transData?.forEach(t => {
       if (!transMap.has(t.book_id)) {
@@ -160,7 +190,7 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
       }
     });
 
-    return booksData.map((b) => {
+    const result = booksData.map((b) => {
       const translatedName = transMap.get(b.id) || b.code;
       const tCode = testamentsMap.get(b.testament_id) || (b.testament_id === 1 ? 'OT' : 'NT');
       const count = chaptersCountMap.get(b.id) || 1;
@@ -176,6 +206,9 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
         chapters_count: count
       };
     });
+
+    console.log('[bibleDb] Books processed:', result.length);
+    return result;
   } catch (err) {
     console.error('[bibleDb] Exception getDbAllBooks:', err);
     return [];
@@ -191,6 +224,8 @@ export async function getDbChapterVerses(
   versionCode: string = 'LSG'
 ): Promise<DbVerseItem[]> {
   try {
+    console.log('[bibleDb] Fetching chapter verses:', { bookIdOrCode, chapterNum, versionCode });
+    
     let bookQuery = supabase.from('books').select('id, code');
     if (typeof bookIdOrCode === 'number') {
       bookQuery = bookQuery.eq('id', bookIdOrCode);
@@ -231,6 +266,7 @@ export async function getDbChapterVerses(
       .order('verse_number', { ascending: true });
 
     if (vError || !verses || verses.length === 0) {
+      console.warn('[bibleDb] Aucun verset trouvé pour ce chapitre');
       return [];
     }
 
@@ -251,12 +287,15 @@ export async function getDbChapterVerses(
       textsMap.set(t.verse_id, t.text);
     });
 
-    return verses.map((v) => ({
+    const result = verses.map((v) => ({
       id: v.id,
       verse_number: v.verse_number,
       reference_code: v.reference_code,
       text: textsMap.get(v.id) || `[Texte non disponible - ${v.reference_code}]`
     }));
+
+    console.log('[bibleDb] Verses loaded:', result.length);
+    return result;
   } catch (err) {
     console.error('[bibleDb] Exception getDbChapterVerses:', err);
     return [];
@@ -268,6 +307,8 @@ export async function getDbChapterVerses(
  */
 export async function getDbVerseTreasures(referenceCode: string, langCode: string = 'fr', versionCode: string = 'LSG'): Promise<DbTreasureItem[]> {
   try {
+    console.log('[bibleDb] Fetching treasures for:', referenceCode);
+    
     const { data, error } = await supabase.rpc('get_verse_treasures', {
       p_reference_code: referenceCode,
       p_language_code: langCode,
@@ -275,9 +316,11 @@ export async function getDbVerseTreasures(referenceCode: string, langCode: strin
     });
 
     if (!error && data && data.length > 0) {
+      console.log('[bibleDb] Treasures via RPC:', data.length);
       return data;
     }
 
+    // Fallback: requête directe
     const { data: verseData } = await supabase
       .from('verses')
       .select('id')
@@ -300,12 +343,15 @@ export async function getDbVerseTreasures(referenceCode: string, langCode: strin
 
     if (!treasures) return [];
 
-    return treasures.map((t: any) => ({
+    const result = treasures.map((t: any) => ({
       treasure_id: t.id,
       title: t.treasure_translations?.[0]?.title || 'Référence croisée',
       description: t.treasure_translations?.[0]?.description || '',
       target_references: t.treasure_verses?.map((tv: any) => tv.verses?.reference_code).filter(Boolean) || []
     }));
+
+    console.log('[bibleDb] Treasures via direct query:', result.length);
+    return result;
   } catch (err) {
     console.error('[bibleDb] Erreur getDbVerseTreasures:', err);
     return [];
@@ -317,6 +363,8 @@ export async function getDbVerseTreasures(referenceCode: string, langCode: strin
  */
 export async function searchDbVerses(searchTerm: string, versionCode: string = 'LSG', limit: number = 15): Promise<DbSearchResult[]> {
   try {
+    console.log('[bibleDb] Searching verses:', { searchTerm, versionCode, limit });
+    
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id')
@@ -349,9 +397,12 @@ export async function searchDbVerses(searchTerm: string, versionCode: string = '
     }
 
     const { data, error } = await query;
-    if (error || !data) return [];
+    if (error || !data) {
+      console.error('[bibleDb] Search error:', error);
+      return [];
+    }
 
-    return data.map((item: any) => {
+    const result = data.map((item: any) => {
       const v = item.verses;
       const ch = v?.chapters;
       const bk = ch?.books;
@@ -365,6 +416,9 @@ export async function searchDbVerses(searchTerm: string, versionCode: string = '
         text: item.text
       };
     });
+
+    console.log('[bibleDb] Search results:', result.length);
+    return result;
   } catch (err) {
     console.error('[bibleDb] Exception searchDbVerses:', err);
     return [];
@@ -376,6 +430,7 @@ export async function searchDbVerses(searchTerm: string, versionCode: string = '
  */
 export async function getDbStats(): Promise<DbStats> {
   try {
+    console.log('[bibleDb] Fetching stats...');
     const [versesRes, booksRes, chaptersRes, versionsRes, languagesRes] = await Promise.all([
       supabase.from('verses').select('*', { count: 'exact', head: true }),
       supabase.from('books').select('*', { count: 'exact', head: true }),
@@ -384,14 +439,18 @@ export async function getDbStats(): Promise<DbStats> {
       supabase.from('languages').select('*', { count: 'exact', head: true }),
     ]);
 
-    return {
+    const stats = {
       totalVerses: versesRes.count || 31102,
       totalBooks: booksRes.count || 66,
       totalChapters: chaptersRes.count || 1189,
       totalVersions: versionsRes.count || 0,
       totalLanguages: languagesRes.count || 0,
     };
+    
+    console.log('[bibleDb] Stats:', stats);
+    return stats;
   } catch (err) {
+    console.error('[bibleDb] Exception getDbStats:', err);
     return {
       totalVerses: 31102,
       totalBooks: 66,
@@ -406,6 +465,8 @@ export async function getDbStats(): Promise<DbStats> {
  * 8. Test de connexion Supabase & diagnostic détaillé
  */
 export async function testSupabaseConnection(): Promise<DbStatusReport> {
+  console.log('[bibleDb] Testing Supabase connection...');
+  
   const tablesToCheck = [
     'languages',
     'bible_versions',
@@ -468,10 +529,13 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
     console.warn('[bibleDb] Impossible de charger les versions:', e);
   }
 
-  return {
+  const report = {
     connected: isConnected,
     timestamp: new Date().toLocaleTimeString('fr-FR'),
     tables: results,
     versions: versionsList
   };
+  
+  console.log('[bibleDb] Connection test result:', report);
+  return report;
 }
