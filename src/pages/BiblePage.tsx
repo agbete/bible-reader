@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
-import { DbStatusModal } from '@/src/components/bible/DbStatusModal';
+import { DbStatusModal } from '@/components/bible/DbStatusModal';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { 
   getDbLanguages, 
@@ -432,7 +432,7 @@ export const BiblePage: React.FC = () => {
                     <button
                       key={ver.id || ver.code}
                       onClick={onClickHandler}
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition_all shrink-0 ${
                         isSelected 
                           ? 'bg-amber-600 text-white border-amber-600' 
                           : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
