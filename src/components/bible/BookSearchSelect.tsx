@@ -152,9 +152,6 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
               books
             }]
           });
-          
-          // Actually we want one group per testament-classification pair
-          // Let's restructure: each group is a testament-classification pair
         });
       });
       
@@ -322,35 +319,58 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const item = flatResults[highlightedIndex];
-      if (item) {
-        if (item._category === 'testament-classification' && item.books) {
-          // Select first book of the group
-          const firstBook = item.books[0];
-          onSelectBook(firstBook, 1);
-          setIsOpen(false);
-          setQuery('');
-        } else if (item._category === 'verse' && item.verses) {
-          // Select first verse's book
-          const firstVerse = item.verses[0];
-          const book = booksList.find(b => 
-            b.code.toLowerCase() === firstVerse.bookCode.toLowerCase()
-          );
-          if (book) {
-            onSelectBook(book, firstVerse.chapterNumber);
-            setIsOpen(false);
-            setQuery('');
-          }
-        }
-      }
+      if (item) handleSelectItem(item._category, item);
     } else if (e.key === 'Escape') {
       setIsOpen(false);
       setQuery('');
     }
   };
 
-  const handleSelectItem = (category: string, item: any) => {
-    // This function is kept for compatibility but not used with new structure
-    // Handling is done in handleKeyDown for Enter key
+  const handleSelectItem = (category: SearchCategory, item: any) => {
+    switch (category) {
+      case 'testament': {
+        // Select first book of the testament
+        const firstBook = booksList.find(b => b.testament_id === item.id || b.testament_code === item.code);
+        if (firstBook) {
+          onSelectBook(firstBook, 1);
+          setIsOpen(false);
+          setQuery('');
+        }
+        break;
+      }
+      case 'classification': {
+        const firstBook = booksList.find(b => b.classification_id === item.id);
+        if (firstBook) {
+          onSelectBook(firstBook, 1);
+          setIsOpen(false);
+          setQuery('');
+        }
+        break;
+      }
+      case 'book': {
+        onSelectBook(item, 1);
+        setIsOpen(false);
+        setQuery('');
+        break;
+      }
+      case 'chapter': {
+        onSelectBook(item.book, item.chapter);
+        setIsOpen(false);
+        setQuery('');
+        break;
+      }
+      case 'verse': {
+        const matchedBook = booksList.find(b => 
+          b.code.toLowerCase() === item.bookCode.toLowerCase()
+        );
+        if (matchedBook) {
+          onSelectBook(matchedBook, item.chapterNumber);
+          setIsOpen(false);
+          setQuery('');
+        }
+        break;
+      }
+    }
   };
 
   // Calculate item index within the flat results
@@ -506,22 +526,35 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
               </div>
             ) : (
               <div className="py-1">
-                {searchGroups.map((group, groupIndex) => (
-                  <div key={groupIndex} className="mb-3">
-                    <div className="flex items-center justify-between px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30">
+                {searchGroups.map((group) => (
+                  <div key={group.category} className="mb-1">
+                    <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30 flex items-center gap-1.5 sticky top-0 backdrop-blur-sm">
                       {group.icon}
                       <span>{group.label}</span>
                     </div>
-                    <div className="space-y-1">
-                      {group.items.map((item: any, itemIndex) => (
-                        <div key={itemIndex} className="p-3 rounded border border-border/20 hover:bg-muted/50 transition-colors">
-                          {item._category === 'testament-classification' && (
+                    
+                    {group.items.map((item: any, localIndex: number) => {
+                      const globalIndex = getItemGlobalIndex(group.category, localIndex);
+                      const isHighlighted = globalIndex === highlightedIndex;
+                      
+                      return (
+                        <button
+                          key={`${group.category}-${localIndex}`}
+                          onClick={() => handleSelectItem(group.category, item)}
+                          onMouseEnter={() => setHighlightedIndex(globalIndex)}
+                          className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${
+                            isHighlighted 
+                              ? 'bg-amber-500/15' 
+                              : 'hover:bg-muted/40'
+                          }`}
+                        >
+                          {group.category === 'testament-classification' && (
                             <>
                               <div className="font-semibold text-amber-600">
                                 {item.books.length} livre{item.books.length > 1 ? 's' : ''}
                               </div>
                               <div className="space-y-1">
-                                {item.books.map((book: DbBookItem, bookIndex) => (
+                                {item.books.map((book: DbBookItem, bookIndex: number) => (
                                   <div key={bookIndex} className="flex items-center gap-2 px-3 py-1 text-sm">
                                     <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
                                       {book.code}
@@ -530,14 +563,16 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                                   </div>
                                 ))}
                               </div>
-                            )}
-                          {item._category === 'verse' && (
+                            </>
+                          )}
+                          
+                          {group.category === 'verse' && (
                             <>
                               <div className="font-semibold text-amber-600">
                                 {item.verses.length} verset{item.verses.length > 1 ? 's' : ''}
                               </div>
                               <div className="space-y-1">
-                                {item.verses.map((verse: DbSearchResult, verseIndex) => (
+                                {item.verses.map((verse: DbSearchResult, verseIndex: number) => (
                                   <div key={verseIndex} className="flex items-center gap-2 px-3 py-1 text-sm">
                                     <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
                                       {verse.bookCode}
@@ -546,11 +581,11 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                                   </div>
                                 ))}
                               </div>
-                            )}
+                            </>
                           )}
-                        </div>
-                      )}
-                    </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 ))}
               </div>
