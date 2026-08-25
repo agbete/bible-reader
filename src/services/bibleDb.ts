@@ -542,36 +542,64 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 
 /**
  * 9. Récupère les versions qui ont effectivement des versets dans la base de données
- * Fixed to first get distinct version_ids from verse_texts, then fetch matching bible_versions.
- * Uses a large range to avoid default row limits.
+ * Utilise la fonction RPC get_versions_with_verses() créée dans Supabase
  */
 export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
   try {
-    console.log('[bibleDb] Fetching versions with verses...');
+    console.log('[bibleDb] Fetching versions with verses via RPC...');
     
-    // Step 1: Get distinct version_ids from verse_texts
-    // Use a large range to ensure we get all rows (supabase may have a default limit)
+    // ✅ UTILISATION DE LA FONCTION RPC
+    const { data, error } = await supabase.rpc('get_versions_with_verses');
+    
+    if (error) {
+      console.error('[bibleDb] Erreur RPC get_versions_with_verses:', error);
+      console.log('[bibleDb] Fallback: using direct query...');
+      return await getDbVersionsWithVersesFallback();
+    }
+    
+    console.log('[bibleDb] Versions with verses:', data?.length || 0);
+    if (data && data.length > 0) {
+      console.log('[bibleDb] Versions found:', data.map(v => v.code).join(', '));
+    }
+    return data || [];
+  } catch (err) {
+    console.error('[bibleDb] Exception getDbVersionsWithVerses:', err);
+    return await getDbVersionsWithVersesFallback();
+  }
+}
+
+/**
+ * Fallback: Méthode alternative si RPC échoue
+ */
+async function getDbVersionsWithVersesFallback(): Promise<DbBibleVersion[]> {
+  try {
+    console.log('[bibleDb] Fallback: fetching versions with verses via direct query...');
+    
+    // Récupérer tous les version_id distincts de verse_texts
     const { data: verseTextsData, error: vtError } = await supabase
       .from('verse_texts')
-      .select('version_id')
-      .order('version_id', { ascending: true })
-      .range(0, 999999); // Adjust if you have more than 1 million rows
+      .select('version_id');
 
     if (vtError) {
-      console.error('[bibleDb] Erreur lecture verse_texts:', vtError);
+      console.error('[bibleDb] Fallback error:', vtError);
       return [];
     }
 
     if (!verseTextsData || verseTextsData.length === 0) {
-      console.warn('[bibleDb] Aucun verset trouvé dans verse_texts');
+      console.warn('[bibleDb] Fallback: no verses found in verse_texts');
       return [];
     }
 
-    // Extract distinct version_ids
+    // Extraire les ID distincts
     const versionIds = [...new Set(verseTextsData.map(item => item.version_id))];
-    console.log('[bibleDb] Distinct version_ids in verse_texts:', versionIds.length, versionIds);
+    console.log('[bibleDb] Fallback: distinct version_ids:', versionIds.length, versionIds);
 
-    // Step 2: Fetch bible_versions for those ids
+    if (versionIds.length === 0) {
+      console.warn('[bibleDb] Fallback: no distinct version_ids found');
+      return [];
+    }
+
+    // Récupérer les versions correspondantes
     const { data: versionsData, error: vError } = await supabase
       .from('bible_versions')
       .select('id, language_id, code, name, short_name, is_default')
@@ -579,19 +607,14 @@ export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
       .order('id', { ascending: true });
 
     if (vError) {
-      console.error('[bibleDb] Erreur récupération bible_versions:', vError);
+      console.error('[bibleDb] Fallback error fetching versions:', vError);
       return [];
     }
 
-    if (!versionsData || versionsData.length === 0) {
-      console.warn('[bibleDb] Aucune version trouvée pour les ids:', versionIds);
-      return [];
-    }
-
-    console.log('[bibleDb] Versions with verses:', versionsData.length);
-    return versionsData;
+    console.log('[bibleDb] Fallback: versions found:', versionsData?.length || 0);
+    return versionsData || [];
   } catch (err) {
-    console.error('[bibleDb] Exception getDbVersionsWithVerses:', err);
+    console.error('[bibleDb] Fallback exception:', err);
     return [];
   }
 }
