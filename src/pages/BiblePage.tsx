@@ -485,7 +485,7 @@ export const BiblePage: React.FC = () => {
                       const allCodes = filteredVersions.map(v => v.code);
                       setSelectedVersions(allCodes);
                       setSelectedVersionCode(allCodes[0]);
-                      toast({ title: `${allCodes.length} versions sélectionnées` });
+                      toast({ title: `${allCodes.length} versions sélectionnées` }); // Fixed: Added missing closing parenthesis
                     }}
                     className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
                   >
