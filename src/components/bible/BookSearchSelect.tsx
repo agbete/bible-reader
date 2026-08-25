@@ -19,6 +19,20 @@ import { DbBookItem } from '@/services/bibleDb';
 import { showSuccess } from '@/utils/toast';
 import { searchDbVerses, getDbAllBooks, DbSearchResult } from '@/services/bibleDb';
 
+// Helper to remove accents and diacritics
+const removeDiacritics = (str: string) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
+
+type SearchCategory = 'testament' | 'classification' | 'book' | 'chapter' | 'verse';
+
+interface SearchResultGroup {
+  category: SearchCategory;
+  label: string;
+  icon: React.ReactNode;
+  items: any[];
+}
+
 interface BookSearchSelectProps {
   booksList: DbBookItem[];
   selectedBook: DbBookItem | null;
@@ -26,17 +40,10 @@ interface BookSearchSelectProps {
   onSelectBook: (book: DbBookItem, chapter: number) => void;
   currentVersion: string;
   isLoading?: boolean;
-  testamentsList?: { id: number; code: string; name: string }[];
-  classificationsList?: { id: number; name: string; code?: string; testament_id: number }[];
-}
-
-type SearchCategory = 'all' | 'testament' | 'classification' | 'book' | 'chapter' | 'verse';
-
-interface SearchResultGroup {
-  category: SearchCategory;
-  label: string;
-  icon: React.ReactNode;
-  items: any[];
+  testamentsList: { id: number; code: string; name: string }[];
+  classificationsList: { id: number; name: string; code?: string; testament_id: number }[];
+  testamentNames: Map<number, string>; // language-specific names
+  classificationNames: Map<number, string>; // language-specific names
 }
 
 export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
@@ -46,8 +53,10 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
   onSelectBook,
   currentVersion,
   isLoading = false,
-  testamentsList = [],
-  classificationsList = []
+  testamentsList,
+  classificationsList,
+  testamentNames,
+  classificationNames
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -93,96 +102,205 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
     return () => clearTimeout(timer);
   }, [query, currentVersion]);
 
-  // Build search results grouped by category
+  // Build search results grouped by testament then classification
   const searchGroups = useMemo<SearchResultGroup[]>(() => {
-    const trimmed = query.trim().toLowerCase();
-    if (!trimmed) return [];
+    const trimmed = query.trim();
+    const normalizedQuery = removeDiacritics(trimmed.toLowerCase());
 
+    // If empty query, show all books grouped by testament then classification
+    if (!trimmed) {
+      // Group books by testament then classification
+      const testamentMap = new Map<number, Map<number, DbBookItem[]>>(); // testamentId -> classificationId -> books[]
+      
+      booksList.forEach(book => {
+        const testamentId = book.testament_id;
+        const classificationId = book.classification_id;
+        
+        if (!testamentMap.has(testamentId)) {
+          testamentMap.set(testamentId, new Map());
+        }
+        const classMap = testamentMap.get(testamentId)!;
+        if (!classMap.has(classificationId)) {
+          classMap.set(classificationId, []);
+        }
+        classMap.get(classificationId)!.push(book);
+      });
+
+      const groups: SearchResultGroup[] = [];
+      
+      testamentMap.forEach((classMap, testamentId) => {
+        // Get testament name
+        const testamentName = testamentNames.get(testamentId) || 
+          testamentsList.find(t => t.id === testamentId)?.name || 
+          `Testament ${testamentId}`;
+        
+        classMap.forEach((books, classificationId) => {
+          // Get classification name
+          const classificationName = classificationNames.get(classificationId) || 
+            classificationsList.find(c => c.id === classificationId)?.name || 
+            `Classification ${classificationId}`;
+          
+          groups.push({
+            category: 'testament',
+            label: testamentName,
+            icon: <Scroll className="w-3.5 h-3.5" />,
+            items: [{
+              testamentId,
+              classificationId,
+              testamentName,
+              classificationName,
+              books
+            }]
+          });
+          
+          // Actually we want one group per testament-classification pair
+          // Let's restructure: each group is a testament-classification pair
+        });
+      });
+      
+      // Flatten to one group per testament-classification
+      const flattenedGroups: SearchResultGroup[] = [];
+      testamentMap.forEach((classMap, testamentId) => {
+        const testamentName = testamentNames.get(testamentId) || 
+          testamentsList.find(t => t.id === testamentId)?.name || 
+          `Testament ${testamentId}`;
+          
+        classMap.forEach((books, classificationId) => {
+          const classificationName = classificationNames.get(classificationId) || 
+            classificationsList.find(c => c.id === classificationId)?.name || 
+            `Classification ${classificationId}`;
+          
+          flattenedGroups.push({
+            category: 'testament-classification',
+            label: `${testamentName} > ${classificationName}`,
+            icon: <Layers className="w-3.5 h-3.5" />,
+            items: [{
+              testamentId,
+              classificationId,
+              testamentName,
+              classificationName,
+              books
+            }]
+          });
+        });
+      });
+      
+      return flattenedGroups;
+    }
+
+    // Non-empty query: filter books and verses
+    const normalizedQueryNoAccents = removeDiacritics(trimmed.toLowerCase());
+    
+    // Filter books by name or code (accent-insensitive)
+    const matchingBooks = booksList.filter(book => {
+      const bookName = removeDiacritics(book.name.toLowerCase());
+      const bookCode = removeDiacritics(book.code.toLowerCase());
+      return bookName.includes(normalizedQueryNoAccents) || 
+             bookCode.includes(normalizedQueryNoAccents);
+    });
+    
+    // Group matching books by testament then classification
+    const bookGroupsMap = new Map<string, Map<string, DbBookItem[]>>(); // testamentName -> classificationName -> books
+    
+    matchingBooks.forEach(book => {
+      const testamentId = book.testament_id;
+      const classificationId = book.classification_id;
+      
+      const testamentName = testamentNames.get(testamentId) || 
+        testamentsList.find(t => t.id === testamentId)?.name || 
+        `Testament ${testamentId}`;
+      
+      const classificationName = classificationNames.get(classificationId) || 
+        classificationsList.find(c => c.id === classificationId)?.name || 
+        `Classification ${classificationId}`;
+      
+      if (!bookGroupsMap.has(testamentName)) {
+        bookGroupsMap.set(testamentName, new Map());
+      }
+      const classMap = bookGroupsMap.get(testamentName)!;
+      if (!classMap.has(classificationName)) {
+        classMap.set(classificationName, []);
+      }
+      classMap.get(classificationName)!.push(book);
+    });
+    
+    // Build groups from matching books
     const groups: SearchResultGroup[] = [];
-
-    // TESTAMENTS
-    if (testamentsList.length > 0) {
-      const matchingTestaments = testamentsList.filter(t => 
-        t.name.toLowerCase().includes(trimmed) || 
-        t.code.toLowerCase().includes(trimmed)
-      );
-      if (matchingTestaments.length > 0) {
+    
+    bookGroupsMap.forEach((classMap, testamentName) => {
+      classMap.forEach((books, classificationName) => {
         groups.push({
-          category: 'testament',
-          label: 'Testaments',
-          icon: <Scroll className="w-3.5 h-3.5" />,
-          items: matchingTestaments
-        });
-      }
-    }
-
-    // CLASSIFICATIONS
-    if (classificationsList.length > 0) {
-      const matchingClassifications = classificationsList.filter(c =>
-        c.name.toLowerCase().includes(trimmed) ||
-        (c.code && c.code.toLowerCase().includes(trimmed))
-      );
-      if (matchingClassifications.length > 0) {
-        groups.push({
-          category: 'classification',
-          label: 'Catégories',
+          category: 'testament-classification',
+          label: `${testamentName} > ${classificationName}`,
           icon: <Layers className="w-3.5 h-3.5" />,
-          items: matchingClassifications
+          items: [{
+            testamentName,
+            classificationName,
+            books
+          }]
         });
-      }
-    }
-
-    // BOOKS
-    const matchingBooks = booksList.filter(b =>
-      b.name.toLowerCase().includes(trimmed) ||
-      b.code.toLowerCase().includes(trimmed)
-    );
-    if (matchingBooks.length > 0) {
-      groups.push({
-        category: 'book',
-        label: 'Livres bibliques',
-        icon: <Book className="w-3.5 h-3.5" />,
-        items: matchingBooks.slice(0, 10)
       });
-    }
-
-    // CHAPTERS (e.g. "Jean 3" or "Psaumes 23")
-    const chapterMatch = trimmed.match(/^(.+?)\s+(\d+)$/);
-    if (chapterMatch) {
-      const bookQuery = chapterMatch[1];
-      const chapterNum = parseInt(chapterMatch[2], 10);
-      const bookMatch = booksList.find(b =>
-        b.name.toLowerCase().includes(bookQuery) ||
-        b.code.toLowerCase().includes(bookQuery)
-      );
-      if (bookMatch && chapterNum > 0 && chapterNum <= bookMatch.chapters_count) {
-        groups.push({
-          category: 'chapter',
-          label: 'Chapitre trouvé',
-          icon: <Hash className="w-3.5 h-3.5" />,
-          items: [{ book: bookMatch, chapter: chapterNum }]
-        });
-      }
-    }
-
-    // VERSES (if at least 3 characters and verse results loaded)
+    });
+    
+    // If we have verse results (length >= 3), add them under appropriate testament-classification
     if (verseResults.length > 0) {
-      groups.push({
-        category: 'verse',
-        label: `Versets correspondants (${verseResults.length})`,
-        icon: <Bookmark className="w-3.5 h-3.5" />,
-        items: verseResults
+      // Group verses by testament then classification of their book
+      const verseGroupsMap = new Map<string, Map<string, DbSearchResult[]>>();
+      
+      verseResults.forEach(verse => {
+        // Find book for this verse
+        const book = booksList.find(b => 
+          b.code.toLowerCase() === verse.bookCode.toLowerCase()
+        );
+        
+        if (book) {
+          const testamentId = book.testament_id;
+          const classificationId = book.classification_id;
+          
+          const testamentName = testamentNames.get(testamentId) || 
+            testamentsList.find(t => t.id === testamentId)?.name || 
+            `Testament ${testamentId}`;
+          
+          const classificationName = classificationNames.get(classificationId) || 
+            classificationsList.find(c => c.id === classificationId)?.name || 
+            `Classification ${classificationId}`;
+          
+          if (!verseGroupsMap.has(testamentName)) {
+            verseGroupsMap.set(testamentName, new Map());
+          }
+          const classMap = verseGroupsMap.get(testamentName)!;
+          if (!classMap.has(classificationName)) {
+            classMap.set(classificationName, []);
+          }
+          classMap.get(classificationName)!.push(verse);
+        }
+      });
+      
+      // Add verse groups
+      verseGroupsMap.forEach((classMap, testamentName) => {
+        classMap.forEach((verses, classificationName) => {
+          groups.push({
+            category: 'verse',
+            label: `${testamentName} > ${classificationName} (Versets)`,
+            icon: <Bookmark className="w-3.5 h-3.5" />,
+            items: [{
+              testamentName,
+              classificationName,
+              verses
+            }]
+          });
+        });
       });
     }
-
+    
     return groups;
-  }, [query, booksList, testamentsList, classificationsList, verseResults]);
+  }, [query, booksList, testamentNames, classificationNames, testamentsList, classificationsList, verseResults]);
 
   // Flat list of all results for keyboard navigation
   const flatResults = useMemo(() => {
     const all: any[] = [];
     searchGroups.forEach(group => {
-      group.items.forEach(item => all.push({ ...item, _category: group.category }));
+      group.items.forEach(item => all.push({ ...item, _category: group.category, _groupLabel: group.label }));
     });
     return all;
   }, [searchGroups]);
@@ -204,56 +322,35 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const item = flatResults[highlightedIndex];
-      if (item) handleSelectItem(item._category, item);
+      if (item) {
+        if (item._category === 'testament-classification' && item.books) {
+          // Select first book of the group
+          const firstBook = item.books[0];
+          onSelectBook(firstBook, 1);
+          setIsOpen(false);
+          setQuery('');
+        } else if (item._category === 'verse' && item.verses) {
+          // Select first verse's book
+          const firstVerse = item.verses[0];
+          const book = booksList.find(b => 
+            b.code.toLowerCase() === firstVerse.bookCode.toLowerCase()
+          );
+          if (book) {
+            onSelectBook(book, firstVerse.chapterNumber);
+            setIsOpen(false);
+            setQuery('');
+          }
+        }
+      }
     } else if (e.key === 'Escape') {
       setIsOpen(false);
       setQuery('');
     }
   };
 
-  const handleSelectItem = (category: SearchCategory, item: any) => {
-    switch (category) {
-      case 'testament': {
-        // Select first book of the testament
-        const firstBook = booksList.find(b => b.testament_id === item.id || b.testament_code === item.code);
-        if (firstBook) {
-          onSelectBook(firstBook, 1);
-          setIsOpen(false);
-          setQuery('');
-        }
-        break;
-      }
-      case 'classification': {
-        const firstBook = booksList.find(b => b.classification_id === item.id);
-        if (firstBook) {
-          onSelectBook(firstBook, 1);
-          setIsOpen(false);
-          setQuery('');
-        }
-        break;
-      }
-      case 'book': {
-        onSelectBook(item, 1);
-        setIsOpen(false);
-        setQuery('');
-        break;
-      }
-      case 'chapter': {
-        onSelectBook(item.book, item.chapter);
-        setIsOpen(false);
-        setQuery('');
-        break;
-      }
-      case 'verse': {
-        const matchedBook = booksList.find(b => b.code.toLowerCase() === item.bookCode.toLowerCase());
-        if (matchedBook) {
-          onSelectBook(matchedBook, item.chapterNumber);
-          setIsOpen(false);
-          setQuery('');
-        }
-        break;
-      }
-    }
+  const handleSelectItem = (category: string, item: any) => {
+    // This function is kept for compatibility but not used with new structure
+    // Handling is done in handleKeyDown for Enter key
   };
 
   // Calculate item index within the flat results
@@ -360,26 +457,46 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
           {/* Results */}
           <div className="max-h-[400px] overflow-y-auto">
             {!query.trim() ? (
-              // EMPTY STATE - Show current book
-              <div className="p-4 space-y-3">
-                {selectedBook && (
-                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-xs">
-                      {selectedBook.code}
-                    </span>
-                    <div className="flex-1">
-                      <div className="font-semibold text-sm">{selectedBook.name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        Chapitre actuel : {selectedChapter} / {selectedBook.chapters_count}
+              // EMPTY STATE - Show testament-classification groups with all books
+              <div className="p-4">
+                {searchGroups.length > 0 ? (
+                  <div className="space-y-2">
+                    {searchGroups.map((group, groupIndex) => (
+                      <div key={groupIndex} className="mb-3">
+                        <div className="flex items-center justify-between px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30">
+                          {group.icon}
+                          <span>{group.label}</span>
+                        </div>
+                        <div className="space-y-1">
+                          {group.items.map((item: any, itemIndex) => (
+                            <div key={itemIndex} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
+                              <div className="flex items-center justify-between">
+                                <span className="font-semibold text-amber-600">
+                                  {item.books.length} livre{item.books.length > 1 ? 's' : ''}
+                                </span>
+                              </div>
+                              <div className="space-y-1">
+                                {item.books.map((book: DbBookItem, bookIndex) => (
+                                  <div key={bookIndex} className="flex items-center gap-2 px-3 py-1 text-sm">
+                                    <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
+                                      {book.code}
+                                    </span>
+                                    <span className="font-semibold truncate">{book.name}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <Check className="w-4 h-4 text-amber-600" />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <BookOpen className="w-8 h-8 mx-auto opacity-40" />
+                    <p className="text-sm">Aucun livre disponible</p>
                   </div>
                 )}
-                
-                <div className="text-center py-4 text-xs text-muted-foreground">
-                  Tapez au moins 2 caractères pour rechercher un livre, chapitre ou verset
-                </div>
               </div>
             ) : searchGroups.length === 0 ? (
               <div className="py-10 text-center text-muted-foreground space-y-2">
@@ -389,84 +506,51 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
               </div>
             ) : (
               <div className="py-1">
-                {searchGroups.map((group) => (
-                  <div key={group.category} className="mb-1">
-                    <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30 flex items-center gap-1.5 sticky top-0 backdrop-blur-sm">
+                {searchGroups.map((group, groupIndex) => (
+                  <div key={groupIndex} className="mb-3">
+                    <div className="flex items-center justify-between px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30">
                       {group.icon}
                       <span>{group.label}</span>
                     </div>
-                    
-                    {group.items.map((item: any, localIndex: number) => {
-                      const globalIndex = getItemGlobalIndex(group.category, localIndex);
-                      const isHighlighted = globalIndex === highlightedIndex;
-                      
-                      return (
-                        <button
-                          key={`${group.category}-${localIndex}`}
-                          onClick={() => handleSelectItem(group.category, item)}
-                          onMouseEnter={() => setHighlightedIndex(globalIndex)}
-                          className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${
-                            isHighlighted 
-                              ? 'bg-amber-500/15' 
-                              : 'hover:bg-muted/40'
-                          }`}
-                        >
-                          {group.category === 'testament' && (
+                    <div className="space-y-1">
+                      {group.items.map((item: any, itemIndex) => (
+                        <div key={itemIndex} className="p-3 rounded border border-border/20 hover:bg-muted/50 transition-colors">
+                          {item._category === 'testament-classification' && (
                             <>
-                              <Scroll className="w-4 h-4 text-amber-600 shrink-0" />
-                              <span className="font-semibold">{item.name}</span>
-                              <span className="text-xs text-muted-foreground font-mono">({item.code})</span>
-                            </>
-                          )}
-                          
-                          {group.category === 'classification' && (
-                            <>
-                              <Layers className="w-4 h-4 text-amber-600 shrink-0" />
-                              <span className="font-semibold">{item.name}</span>
-                            </>
-                          )}
-                          
-                          {group.category === 'book' && (
-                            <>
-                              <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
-                                {item.code}
-                              </span>
-                              <div className="flex-1 min-w-0">
-                                <div className="font-semibold truncate">{item.name}</div>
-                                <div className="text-[11px] text-muted-foreground">
-                                  {item.chapters_count} chapitres
-                                </div>
+                              <div className="font-semibold text-amber-600">
+                                {item.books.length} livre{item.books.length > 1 ? 's' : ''}
                               </div>
-                              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
-                            </>
-                          )}
-                          
-                          {group.category === 'chapter' && (
-                            <>
-                              <Hash className="w-4 h-4 text-amber-600 shrink-0" />
-                              <span className="font-semibold">{item.book.name}</span>
-                              <span className="text-xs text-amber-600 dark:text-amber-400 font-mono font-bold">
-                                Chapitre {item.chapter}
-                              </span>
-                            </>
-                          )}
-                          
-                          {group.category === 'verse' && (
-                            <>
-                              <Bookmark className="w-4 h-4 text-amber-600 shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <div className="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400">
-                                  {item.reference_code}
-                                </div>
-                                <div className="text-xs text-foreground/80 line-clamp-1 italic">
-                                  « {item.text} »
-                                </div>
+                              <div className="space-y-1">
+                                {item.books.map((book: DbBookItem, bookIndex) => (
+                                  <div key={bookIndex} className="flex items-center gap-2 px-3 py-1 text-sm">
+                                    <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
+                                      {book.code}
+                                    </span>
+                                    <span className="font-semibold truncate">{book.name}</span>
+                                  </div>
+                                ))}
                               </div>
-                            </>
+                            )}
+                          {item._category === 'verse' && (
+                            <>
+                              <div className="font-semibold text-amber-600">
+                                {item.verses.length} verset{item.verses.length > 1 ? 's' : ''}
+                              </div>
+                              <div className="space-y-1">
+                                {item.verses.map((verse: DbSearchResult, verseIndex) => (
+                                  <div key={verseIndex} className="flex items-center gap-2 px-3 py-1 text-sm">
+                                    <span className="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
+                                      {verse.bookCode}
+                                    </span>
+                                    <span className="font-semibold truncate">{verse.reference_code}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           )}
-                        </button>
-                      );
-                    })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>

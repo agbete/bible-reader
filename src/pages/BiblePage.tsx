@@ -96,7 +96,58 @@ export const BiblePage: React.FC = () => {
   const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<any[]>([]);
 
+  // Grouping language states
+  const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
+  const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
+
   const { toast } = useToast();
+
+  // Compute target language for groupings: if exactly one version selected, use its language; else use LSG (French) language id 2
+  const targetLanguageId = React.useMemo(() => {
+    if (selectedVersions.length === 1) {
+      const ver = versions.find(v => v.code === selectedVersions[0]);
+      return ver?.language_id ?? 2;
+    }
+    return 2; // default to French (LSG)
+  }, [selectedVersions, versions]);
+
+  // Fetch testament and classification translations for the target language
+  useEffect(() => {
+    let mounted = true;
+    async function loadGroupingTranslations() {
+      try {
+        // Testament translations
+        const { data: testData } = await supabase
+          .from('testament_translations')
+          .select('testament_id, name')
+          .eq('language_id', targetLanguageId);
+
+        if (mounted && testData) {
+          const map = new Map<number, string>();
+          testData.forEach(t => map.set(t.testament_id, t.name));
+          setTestamentNames(map);
+        }
+
+        // Classification translations
+        const { data: classData } = await supabase
+          .from('classification_translations')
+          .select('classification_id, name')
+          .eq('language_id', targetLanguageId);
+
+        if (mounted && classData) {
+          const map = new Map<number, string>();
+          classData.forEach(c => map.set(c.classification_id, c.name));
+          setClassificationNames(map);
+        }
+      } catch (err) {
+        console.error('[BiblePage] Error loading grouping translations:', err);
+      }
+    }
+
+    if (targetLanguageId !== undefined) {
+      loadGroupingTranslations();
+    }
+  }, [targetLanguageId]);
 
   // 1. Initialisation depuis Supabase
   useEffect(() => {
@@ -119,43 +170,12 @@ export const BiblePage: React.FC = () => {
 
         if (!mounted) return;
 
-        // Load testament translations (French)
-        const { data: testTransData } = await supabase
-          .from('testament_translations')
-          .select('testament_id, language_id, name')
-          .eq('language_id', 2);
-
-        const testTransMap = new Map<number, string>();
-        testTransData?.forEach(t => testTransMap.set(t.testament_id, t.name));
-
-        const testaments: DbTestament[] = (testamentsRes.data || []).map(t => ({
-          id: t.id,
-          code: t.code,
-          name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
-        }));
-
-        // Load classification translations (French)
-        const { data: classTransData } = await supabase
-          .from('classification_translations')
-          .select('classification_id, language_id, name')
-          .eq('language_id', 2);
-
-        const classTransMap = new Map<number, string>();
-        classTransData?.forEach(t => classTransMap.set(t.classification_id, t.name));
-
-        const classifications: DbClassification[] = (classificationsRes.data || []).map(c => ({
-          id: c.id,
-          code: c.code,
-          name: classTransMap.get(c.id) || c.code,
-          testament_id: c.testament_id
-        }));
-
         setLanguages(langs);
         setVersions(vers);
         setBooksList(books);
         setStats(dbStats);
-        setTestamentsList(testaments);
-        setClassificationsList(classifications);
+        setTestamentsList(testamentsRes.data || []);
+        setClassificationsList(classificationsRes.data || []);
 
         if (vers && vers.length > 0) {
           const versionCodes = vers.map(v => v.code);
@@ -459,6 +479,8 @@ export const BiblePage: React.FC = () => {
                 isLoading={loading}
                 testamentsList={testamentsList}
                 classificationsList={classificationsList}
+                testamentNames={testamentNames}
+                classificationNames={classificationNames}
               />
             </div>
 
