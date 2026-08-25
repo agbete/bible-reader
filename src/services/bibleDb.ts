@@ -539,3 +539,48 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
   console.log('[bibleDb] Connection test result:', report);
   return report;
 }
+
+/**
+ * 9. Récupère les versions qui ont effectivement des versets dans la base de données
+ */
+export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
+  try {
+    console.log('[bibleDb] Fetching versions with verses...');
+    
+    // Récupérer les IDs des versions qui ont au moins un verset dans verse_texts
+    const { data, error } = await supabase
+      .from('verse_texts')
+      .select(`
+        version_id,
+        bible_versions!inner (id, code, name, short_name, language_id, is_default)
+      `)
+      .order('version_id', { ascending: true });
+
+    if (error) {
+      console.error('[bibleDb] Erreur versions avec versets:', error);
+      return [];
+    }
+
+    // Déduplication par version_id
+    const uniqueVersions = new Map<number, DbBibleVersion>();
+    data?.forEach((item: any) => {
+      const version = item.bible_versions;
+      if (version && !uniqueVersions.has(version.id)) {
+        uniqueVersions.set(version.id, {
+          id: version.id,
+          code: version.code,
+          name: version.name,
+          short_name: version.short_name,
+          language_id: version.language_id,
+          is_default: version.is_default
+        });
+      }
+    });
+
+    console.log('[bibleDb] Versions with verses:', uniqueVersions.size);
+    return Array.from(uniqueVersions.values());
+  } catch (err) {
+    console.error('[bibleDb] Exception getDbVersionsWithVerses:', err);
+    return [];
+  }
+}

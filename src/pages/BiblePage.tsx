@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
-import { DbStatusModal } from '@/components/bible/DbStatusModal';
+import { DbStatusModal } from '@/src/components/bible/DbStatusModal';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { 
   getDbLanguages, 
@@ -10,6 +10,7 @@ import {
   getDbAllBooks, 
   getDbStats,
   getDbChapterVerses,
+  getDbVersionsWithVerses,
   DbLanguage, 
   DbBibleVersion, 
   DbBookItem,
@@ -115,9 +116,15 @@ export const BiblePage: React.FC = () => {
         setBooksList(books);
         setStats(dbStats);
 
-        // Set available versions for comparison
-        if (vers && vers.length > 0) {
-          const versionCodes = vers.map(v => v.code);
+        // Filter versions to only those that have verses
+        const versionsWithVerses = await getDbVersionsWithVerses();
+        const validVersionCodes = new Set(versionsWithVerses.map(v => v.code));
+        
+        // Filter versions to only include those with verses
+        const filteredVersions = vers.filter(v => validVersionCodes.has(v.code));
+        
+        if (filteredVersions.length > 0) {
+          const versionCodes = filteredVersions.map(v => v.code);
           // Default to first version if LSG not available
           const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
           // Initialize selected versions with default
@@ -125,7 +132,7 @@ export const BiblePage: React.FC = () => {
           // Also set the selectedVersionCode to match
           setSelectedVersionCode(defaultVersion);
         } else {
-          console.warn('[BiblePage] No versions found in database');
+          console.warn('[BiblePage] No versions with verses found');
           setSelectedVersions(['LSG']);
           setSelectedVersionCode('LSG');
         }
@@ -335,7 +342,7 @@ export const BiblePage: React.FC = () => {
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             <div className="flex items-center gap-1 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
-              <span>Langues :</span>
+              <span>Langues：</span>
             </div>
 
             <button
@@ -369,7 +376,7 @@ export const BiblePage: React.FC = () => {
           <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
               <Layers className="w-3.5 h-3.5 text-amber-600" /> 
-              Versions :
+              Versions：
             </span>
 
             {filteredVersions.length === 0 ? (
@@ -393,7 +400,6 @@ export const BiblePage: React.FC = () => {
                     }`}
                     title="Version par défaut"
                   >
-                    <Check className="w-3 h-3 stroke-[3]" />
                     <span>Défaut</span>
                   </span>
                 </div>
@@ -439,7 +445,6 @@ export const BiblePage: React.FC = () => {
                           • {ver.short_name}
                         </span>
                       )}
-                      {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                     </button>
                   );
                 })}
@@ -522,7 +527,7 @@ export const BiblePage: React.FC = () => {
                 disabled={!selectedBook}
               >
                 <ChevronLeft className="w-4 h-4" />
-                Debut
+                Début
               </Button>
 
               <div className="flex items-center gap-2">
