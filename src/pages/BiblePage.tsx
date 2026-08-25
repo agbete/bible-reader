@@ -331,146 +331,135 @@ export const BiblePage: React.FC = () => {
       {/* --- HORIZONTAL VERSIONS BAR & LANGUAGE FILTER --- */}
       <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            
-            {/* Langue Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-              <div className="flex items-center gap-1 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
-                <Globe className="w-3.5 h-3.5" />
-                <span>Langues ({languages.length}) :</span>
-              </div>
+          {/* Language Filter Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+            <div className="flex items-center gap-1 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
+              <Globe className="w-3.5 h-3.5" />
+              <span>Langues :</span>
+            </div>
 
+            <button
+              onClick={() => setSelectedLanguageId('ALL')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all shrink-0 ${
+                selectedLanguageId === 'ALL'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
+              }`}
+            >
+              Toutes les langues
+            </button>
+
+            {languages.map((lang) => (
               <button
-                onClick={() => setSelectedLanguageId('ALL')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all shrink-0 ${
-                  selectedLanguageId === 'ALL'
+                key={lang.id}
+                onClick={() => setSelectedLanguageId(lang.id)}
+                className={`px-3 py-1.5 text-xs font-mono font-bold rounded-full transition-all shrink-0 ${
+                  selectedLanguageId === lang.id
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
+                title={lang.name}
               >
-                Toutes les langues
+                {lang.code.toUpperCase()}
               </button>
+            ))}
+          </div>
 
-              {languages.map((lang) => (
-                <button
-                  key={lang.id}
-                  onClick={() => setSelectedLanguageId(lang.id)}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all shrink-0 ${
-                    selectedLanguageId === lang.id
-                      ? 'bg-amber-600 text-white shadow-xs'
-                      : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
-                  }`}
-                >
-                  {lang.name} ({lang.code})
-                </button>
-              ))}
-            </div>
+          {/* Version Selection Pills - Below Languages */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
+              <Layers className="w-3.5 h-3.5 text-amber-600" /> 
+              Versions :
+            </span>
 
-            {/* Current Active Version Info Badge */}
-            <div className="hidden sm:flex items-center gap-2 text-xs">
-              <span className="text-muted-foreground font-medium">Version active :</span>
-              <span className="px-3 py-1 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-200 font-bold border border-amber-500/30 flex items-center gap-1.5">
-                <Check className="w-3 h-3 text-amber-600" />
-                {activeVersion.name} ({activeVersion.code})
+            {filteredVersions.length === 0 ? (
+              <span className="text-xs text-muted-foreground italic">
+                Aucune version enregistrée pour cette langue.
               </span>
-            </div>
-
-            {/* Horizontal List of Version Codes - Comparison Selector */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
-                <Layers className="w-3.5 h-3.5 text-amber-600" /> 
-                Versions ({filteredVersions.length}) :
-              </span>
-
-              {filteredVersions.length === 0 ? (
-                <span className="text-xs text-muted-foreground italic">
-                  Aucune version enregistrée pour cette langue.
-                </span>
-              ) : (
-                <div className="flex items-center gap-1.5">
-                  {/* Default version badge */}
-                  <div className="relative">
-                    <span 
-                      onClick={() => { 
-                        setSelectedVersions(['LSG']); 
-                        setSelectedVersionCode('LSG');
-                        toast({ title: 'Version réinitialisée à LSG' });
-                      }}
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                        selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
-                          ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
-                          : 'bg-card text-foreground border-border hover:border-amber-500/60'
-                      }`}
-                      title="Version par défaut"
-                    >
-                      <Check className="w-3 h-3 stroke-[3]" />
-                      <span>Défaut</span>
-                    </span>
-                  </div>
-
-                  {/* Version selection pills */}
-                  {filteredVersions.map((ver) => {
-                    const isSelected = selectedVersions.includes(ver.code);
-                    // Determine the action based on current state
-                    const onClickHandler = () => {
-                      if (isSelected) {
-                        // Deselect this version
-                        setSelectedVersions(prev => prev.filter(v => v !== ver.code));
-                        // If we just removed the last version, select the first available one
-                        if (selectedVersions.filter(v => v === ver.code).length === 0 && selectedVersions.length === 0) {
-                          const firstAvailable = filteredVersions.find(v => !selectedVersions.includes(v.code)) || filteredVersions[0];
-                          setSelectedVersions([firstAvailable.code]);
-                          setSelectedVersionCode(firstAvailable.code);
-                        } else if (selectedVersions.filter(v => v === ver.code).length === 0) {
-                          // Update version code to the first remaining version
-                          setSelectedVersionCode(selectedVersions[0]);
-                        }
-                      } else if (selectedVersions.length < 4) {
-                        // Select this version
-                        setSelectedVersions(prev => [...prev, ver.code]);
-                        setSelectedVersionCode(ver.code);
-                      }
-                    };
-                    
-                    return (
-                      <button
-                        key={ver.id || ver.code}
-                        onClick={onClickHandler}
-                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                          isSelected 
-                            ? 'bg-amber-600 text-white border-amber-600' 
-                            : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                        }`}
-                        title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                      >
-                        {ver.code}
-                        {ver.short_name && ver.short_name !== ver.code && (
-                          <span className={`text-[10px] font-normal opacity-80 ml-1`}>
-                            • {ver.short_name}
-                          </span>
-                        )}
-                        {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
-                      </button>
-                    );
-                  })}
-                  
-                  {/* Action button to select all */}
-                  {selectedVersions.length < filteredVersions.length && (
-                    <button
-                      onClick={() => {
-                        const allCodes = filteredVersions.map(v => v.code);
-                        setSelectedVersions(allCodes);
-                        setSelectedVersionCode(allCodes[0]); // Set to first version
-                        toast({ title: `${allCodes.length} versions sélectionnées` });
-                      }}
-                      className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
-                    >
-                      +{filteredVersions.length - selectedVersions.length} autres
-                    </button>
-                  )}
+            ) : (
+              <div className="flex items-center gap-1.5">
+                {/* Default version badge */}
+                <div className="relative">
+                  <span 
+                    onClick={() => { 
+                      setSelectedVersions(['LSG']); 
+                      setSelectedVersionCode('LSG');
+                      toast({ title: 'Version réinitialisée à LSG' });
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+                      selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                        ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
+                        : 'bg-card text-foreground border-border hover:border-amber-500/60'
+                    }`}
+                    title="Version par défaut"
+                  >
+                    <Check className="w-3 h-3 stroke-[3]" />
+                    <span>Défaut</span>
+                  </span>
                 </div>
-              )}
-            </div>
+
+                {/* Version selection pills */}
+                {filteredVersions.map((ver) => {
+                  const isSelected = selectedVersions.includes(ver.code);
+                  // Determine the action based on current state
+                  const onClickHandler = () => {
+                    if (isSelected) {
+                      // Deselect this version
+                      setSelectedVersions(prev => prev.filter(v => v !== ver.code));
+                      // If we just removed the last version, select the first available one
+                      if (selectedVersions.filter(v => v === ver.code).length === 0 && selectedVersions.length === 0) {
+                        const firstAvailable = filteredVersions.find(v => !selectedVersions.includes(v.code)) || filteredVersions[0];
+                        setSelectedVersions([firstAvailable.code]);
+                        setSelectedVersionCode(firstAvailable.code);
+                      } else if (selectedVersions.filter(v => v === ver.code).length === 0) {
+                        // Update version code to the first remaining version
+                        setSelectedVersionCode(selectedVersions[0]);
+                      }
+                    } else if (selectedVersions.length < 4) {
+                      // Select this version
+                      setSelectedVersions(prev => [...prev, ver.code]);
+                      setSelectedVersionCode(ver.code);
+                    }
+                  };
+                  
+                  return (
+                    <button
+                      key={ver.id || ver.code}
+                      onClick={onClickHandler}
+                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                        isSelected 
+                          ? 'bg-amber-600 text-white border-amber-600' 
+                          : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                      }`}
+                      title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                    >
+                      {ver.code}
+                      {ver.short_name && ver.short_name !== ver.code && (
+                        <span className={`text-[10px] font-normal opacity-80 ml-1`}>
+                          • {ver.short_name}
+                        </span>
+                      )}
+                      {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                    </button>
+                  );
+                })}
+                
+                {/* Action button to select all */}
+                {selectedVersions.length < filteredVersions.length && (
+                  <button
+                    onClick={() => {
+                      const allCodes = filteredVersions.map(v => v.code);
+                      setSelectedVersions(allCodes);
+                      setSelectedVersionCode(allCodes[0]); // Set to first version
+                      toast({ title: `${allCodes.length} versions sélectionnées` });
+                    }}
+                    className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
+                  >
+                    +{filteredVersions.length - selectedVersions.length} autres
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
