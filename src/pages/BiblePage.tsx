@@ -135,9 +135,9 @@ export const BiblePage: React.FC = () => {
           .eq('language_id', targetLanguageId);
 
         if (mounted && classData) {
-          const map = new Map<number, string>();
-          classData.forEach(c => map.set(c.classification_id, c.name));
-          setClassificationNames(map);
+            const map = new Map<number, string>();
+            classData.forEach(c => map.set(c.classification_id, c.name));
+            setClassificationNames(map);
         }
       } catch (err) {
         console.error('[BiblePage] Error loading grouping translations:', err);
@@ -170,12 +170,43 @@ export const BiblePage: React.FC = () => {
 
         if (!mounted) return;
 
+        // Load testament translations (French)
+        const { data: testTransData } = await supabase
+          .from('testament_translations')
+          .select('testament_id, language_id, name')
+          .eq('language_id', targetLanguageId);
+
+        const testTransMap = new Map<number, string>();
+        testTransData?.forEach(t => testTransMap.set(t.testament_id, t.name));
+
+        const testaments: DbTestament[] = (testamentsRes.data || []).map(t => ({
+          id: t.id,
+          code: t.code,
+          name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
+        }));
+
+        // Load classification translations (French)
+        const { data: classTransData } = await supabase
+          .from('classification_translations')
+          .select('classification_id, language_id, name')
+          .eq('language_id', 2);
+
+        const classTransMap = new Map<number, string>();
+        classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
+
+        const classifications: DbClassification[] = (classificationsRes.data || []).map(c => ({
+          id: c.id,
+          code: c.code,
+          name: classTransMap.get(c.id) || c.code,
+          testament_id: c.testament_id
+        }));
+
         setLanguages(langs);
         setVersions(vers);
         setBooksList(books);
         setStats(dbStats);
-        setTestamentsList(testamentsRes.data || []);
-        setClassificationsList(classificationsRes.data || []);
+        setTestamentsList(testaments);
+        setClassificationsList(classifications);
 
         if (vers && vers.length > 0) {
           const versionCodes = vers.map(v => v.code);
@@ -274,7 +305,7 @@ export const BiblePage: React.FC = () => {
           console.error(`[BiblePage] Error loading verses for ${code}:`, err);
           return { code, verses: [] };
         }
-      });
+      };
       
       const results = await Promise.all(promises);
       
@@ -335,7 +366,8 @@ export const BiblePage: React.FC = () => {
       <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            <div className="flex items-center gap-1 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
+            {/* Languages section */}
+            <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
               <span>Langues：</span>
             </div>
@@ -351,81 +383,98 @@ export const BiblePage: React.FC = () => {
               Toutes les langues
             </button>
 
-            {languages.map((lang) => (
+            {/* Version codes */}
+            <div className="flex items-center gap-1.5">
               <button
-                key={lang.id}
-                onClick={() => setSelectedLanguageId(lang.id)}
-                className={`px-3 py-1.5 text-xs font-mono font-bold rounded-full transition-all shrink-0 ${
-                  selectedLanguageId === lang.id
-                    ? 'bg-amber-600 text-white shadow-xs'
-                    : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-                title={lang.name}
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version GO"
               >
-                {lang.code.toUpperCase()}
+                GO
               </button>
-            ))}
-          </div>
+              <button
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version HG"
+              >
+                HG
+              </button>
+              <button
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version FR"
+              >
+                FR
+              </button>
+              <button
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version EN"
+              >
+                EN
+              </button>
+              <button
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version FN"
+              >
+                FN
+              </button>
+              <button
+                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
+                title="Version YO"
+              >
+                YO
+              </button>
+            </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
-              <Layers className="w-3.5 h-3.5 text-amber-600" /> 
               Versions：
             </span>
 
-            {filteredVersions.length === 0 ? (
-              <span className="text-xs text-muted-foreground italic">
-                Aucune version enregistrée pour cette langue.
-              </span>
-            ) : (
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={() => { 
-                    setSelectedVersions(['LSG']); 
-                    setSelectedVersionCode('LSG');
-                    toast({ title: 'Version réinitialisée à LSG' });
-                  }}
-                  className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                    selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
-                      ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
-                      : 'bg-card text-foreground border-border hover:border-amber-500/60'
-                  }`}
-                  title="Version par défaut"
-                >
-                  <span>Défaut</span>
-                </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => { 
+                  setSelectedVersions(['LSG']); 
+                  setSelectedVersionCode('LSG');
+                  toast({ title: 'Version réinitialisée à LSG' });
+                }}
+                className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+                  selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                    ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
+                    : 'bg-card text-foreground border-border hover:border-amber-500/60'
+                }`}
+                title="Version par défaut"
+              >
+                <span>Défaut</span>
+              </button>
 
-                {filteredVersions.map((ver) => {
-                  const isSelected = selectedVersions.includes(ver.code);
-                  return (
-                    <button
-                      key={ver.id || ver.code}
-                      onClick={() => {
-                        if (isSelected) {
-                          const next = selectedVersions.filter(v => v !== ver.code);
-                          if (next.length === 0) {
-                            setSelectedVersions([ver.code]);
-                            setSelectedVersionCode(ver.code);
-                          } else {
-                            setSelectedVersions(next);
-                            setSelectedVersionCode(next[0]);
+              {filteredVersions.length > 0 && (
+                <div className="flex items-center gap-1.5">
+                  {filteredVersions.map((ver) => {
+                    const isSelected = selectedVersions.includes(ver.code);
+                    return (
+                      <button
+                        key={ver.id || ver.code}
+                        onClick={() => {
+                          if (isSelected) {
+                            const next = selectedVersions.filter(v => v !== ver.code);
+                            if (next.length === 0) {
+                              setSelectedVersions([ver.code]);
+                              setSelectedVersionCode(ver.code);
+                            } else if (selectedVersions.length < 4) {
+                              setSelectedVersions(prev => [...prev, ver.code]);
+                              setSelectedVersionCode(ver.code);
+                            }
                           }
-                        } else if (selectedVersions.length < 4) {
-                          setSelectedVersions(prev => [...prev, ver.code]);
-                          setSelectedVersionCode(ver.code);
-                        }
-                      }}
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                        isSelected 
-                          ? 'bg-amber-600 text-white border-amber-600' 
-                          : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                      }`}
-                      title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                    >
-                      {ver.code}
-                    </button>
-                  );
-                })}
+                          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                            isSelected 
+                              ? 'bg-amber-600 text-white border-amber-600' 
+                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                          }`}
+                          title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                        >
+                          {ver.code}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
                 
                 {selectedVersions.length < filteredVersions.length && (
                   <button
@@ -441,7 +490,7 @@ export const BiblePage: React.FC = () => {
                   </button>
                 )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
@@ -546,9 +595,9 @@ export const BiblePage: React.FC = () => {
                               </div>
                             ))}
                           </div>
-                        )}
+                        })
                       </div>
-                    );
+                    });
                   })}
                 </div>
               ) : (

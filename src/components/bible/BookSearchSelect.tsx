@@ -21,7 +21,7 @@ import { searchDbVerses, getDbAllBooks, DbSearchResult } from '@/services/bibleD
 
 // Helper to remove accents and diacritics
 const removeDiacritics = (str: string) => {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return str.normalize("NFD").replace(/[\u0300-\u36ff]/g, "");
 };
 
 type SearchCategory = 'testament' | 'classification' | 'book' | 'chapter' | 'verse';
@@ -138,7 +138,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
           // Get classification name
           const classificationName = classificationNames.get(classificationId) || 
             classificationsList.find(c => c.id === classificationId)?.name || 
-            `Classification ${classificationId}`;
+          `Classification ${classificationId}`;
           
           groups.push({
             category: 'testament',
@@ -236,7 +236,6 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
             books
           }]
         });
-      });
     });
     
     // If we have verse results (length >= 3), add them under appropriate testament-classification
@@ -271,7 +270,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
           }
           classMap.get(classificationName)!.push(verse);
         }
-      });
+      }
       
       // Add verse groups
       verseGroupsMap.forEach((classMap, testamentName) => {
@@ -287,11 +286,10 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
             }]
           });
         });
-      });
-    }
-    
-    return groups;
-  }, [query, booksList, testamentNames, classificationNames, testamentsList, classificationsList, verseResults]);
+      }
+      
+      return groups;
+    }, [query, booksList, testamentNames, classificationNames, testamentsList, classificationsList, verseResults]);
 
   // Flat list of all results for keyboard navigation
   const flatResults = useMemo(() => {
@@ -506,7 +504,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                                 ))}
                               </div>
                             </div>
-                          ))}
+                          });
                         </div>
                       </div>
                     ))}
@@ -516,19 +514,19 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                     <BookOpen className="w-8 h-8 mx-auto opacity-40" />
                     <p className="text-sm">Aucun livre disponible</p>
                   </div>
-                )}
+                )
               </div>
             ) : searchGroups.length === 0 ? (
-              <div className="py-10 text-center text-muted-foreground space-y-2">
+              <div className="py-10 text-center text-muted-foreground">
                 <BookOpen className="w-8 h-8 mx-auto opacity-40" />
-                <p className="text-sm font-medium">Aucun résultat pour « {query} »</p>
+                <p className="text-sm">Aucun résultat pour « {query} »</p>
                 <p className="text-xs">Essayez un nom de livre, « Jean 3 », ou un mot-clé</p>
               </div>
             ) : (
               <div className="py-1">
                 {searchGroups.map((group) => (
                   <div key={group.category} className="mb-1">
-                    <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30 flex items-center gap-1.5 sticky top-0 backdrop-blur-sm">
+                    <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted/30 flex items-center gap-1.5">
                       {group.icon}
                       <span>{group.label}</span>
                     </div>
@@ -561,10 +559,10 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                                     </span>
                                     <span className="font-semibold truncate">{book.name}</span>
                                   </div>
-                                ))}
+                                }))
                               </div>
                             </>
-                          )}
+                          }
                           
                           {group.category === 'verse' && (
                             <>
