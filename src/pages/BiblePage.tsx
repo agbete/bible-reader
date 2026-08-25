@@ -6,7 +6,6 @@ import { DbStatusModal } from '@/components/bible/DbStatusModal';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { 
   getDbLanguages, 
-  getDbBibleVersions, 
   getDbAllBooks, 
   getDbStats,
   getDbChapterVerses,
@@ -95,9 +94,10 @@ export const BiblePage: React.FC = () => {
       try {
         console.log('[BiblePage] Starting data load...');
         
+        // Load only versions that have verses
         const [langs, vers, books, dbStats] = await Promise.all([
           getDbLanguages(),
-          getDbBibleVersions(),
+          getDbVersionsWithVerses(),
           getDbAllBooks(),
           getDbStats()
         ]);
@@ -116,15 +116,8 @@ export const BiblePage: React.FC = () => {
         setBooksList(books);
         setStats(dbStats);
 
-        // Filter versions to only those that have verses
-        const versionsWithVerses = await getDbVersionsWithVerses();
-        const validVersionCodes = new Set(versionsWithVerses.map(v => v.code));
-        
-        // Filter versions to only include those with verses
-        const filteredVersions = vers.filter(v => validVersionCodes.has(v.code));
-        
-        if (filteredVersions.length > 0) {
-          const versionCodes = filteredVersions.map(v => v.code);
+        if (vers && vers.length > 0) {
+          const versionCodes = vers.map(v => v.code);
           // Default to first version if LSG not available
           const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
           // Initialize selected versions with default
