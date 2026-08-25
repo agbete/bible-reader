@@ -305,7 +305,7 @@ export const BiblePage: React.FC = () => {
           console.error(`[BiblePage] Error loading verses for ${code}:`, err);
           return { code, verses: [] };
         }
-      };
+      });
       
       const results = await Promise.all(promises);
       
@@ -457,21 +457,24 @@ export const BiblePage: React.FC = () => {
                             if (next.length === 0) {
                               setSelectedVersions([ver.code]);
                               setSelectedVersionCode(ver.code);
-                            } else if (selectedVersions.length < 4) {
-                              setSelectedVersions(prev => [...prev, ver.code]);
-                              setSelectedVersionCode(ver.code);
+                            } else {
+                              setSelectedVersions(next);
+                              setSelectedVersionCode(next[0]);
                             }
+                          } else if (selectedVersions.length < 4) {
+                            setSelectedVersions(prev => [...prev, ver.code]);
+                            setSelectedVersionCode(ver.code);
                           }
-                          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                            isSelected 
-                              ? 'bg-amber-600 text-white border-amber-600' 
-                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                          }`}
-                          title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                        >
-                          {ver.code}
-                        </button>
-                      </div>
+                        }}
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                          isSelected 
+                            ? 'bg-amber-600 text-white border-amber-600' 
+                            : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                        }`}
+                        title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                      >
+                        {ver.code}
+                      </button>
                     );
                   })}
                 </div>
@@ -595,9 +598,9 @@ export const BiblePage: React.FC = () => {
                               </div>
                             ))}
                           </div>
-                        })
+                        )}
                       </div>
-                    });
+                    );
                   })}
                 </div>
               ) : (
