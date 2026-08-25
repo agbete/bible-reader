@@ -542,43 +542,51 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 
 /**
  * 9. Récupère les versions qui ont effectivement des versets dans la base de données
+ * Fixed to first get distinct version_ids from verse_texts, then fetch matching bible_versions.
  */
 export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
   try {
     console.log('[bibleDb] Fetching versions with verses...');
     
-    // Récupérer les IDs des versions qui ont au moins un verset dans verse_texts
-    const { data, error } = await supabase
+    // Step 1: Get distinct version_ids from verse_texts
+    const { data: verseTextsData, error: vtError } = await supabase
       .from('verse_texts')
-      .select(`
-        version_id,
-        bible_versions!inner (id, code, name, short_name, language_id, is_default)
-      `)
+      .select('version_id')
       .order('version_id', { ascending: true });
 
-    if (error) {
-      console.error('[bibleDb] Erreur versions avec versets:', error);
+    if (vtError) {
+      console.error('[bibleDb] Erreur lecture verse_texts:', vtError);
       return [];
     }
 
-    // Déduplication par version_id
-    const uniqueVersions = new Map<number, DbBibleVersion>();
-    data?.forEach((item: any) => {
-      const version = item.bible_versions;
-      if (version && !uniqueVersions.has(version.id)) {
-        uniqueVersions.set(version.id, {
-          id: version.id,
-          code: version.code,
-          name: version.name,
-          short_name: version.short_name,
-          language_id: version.language_id,
-          is_default: version.is_default
-        });
-      }
-    });
+    if (!verseTextsData || verseTextsData.length === 0) {
+      console.warn('[bibleDb] Aucun verset trouvé dans verse_texts');
+      return [];
+    }
 
-    console.log('[bibleDb] Versions with verses:', uniqueVersions.size);
-    return Array.from(uniqueVersions.values());
+    // Extract distinct version_ids
+    const versionIds = [...new Set(verseTextsData.map(item => item.version_id))];
+    console.log('[bibleDb] Distinct version_ids in verse_texts:', versionIds.length, versionIds);
+
+    // Step 2: Fetch bible_versions for those ids
+    const { data: versionsData, error: vError } = await supabase
+      .from('bible_versions')
+      .select('id, language_id, code, name, short_name, is_default')
+      .in('id', versionIds)
+      .order('id', { ascending: true });
+
+    if (vError) {
+      console.error('[bibleDb] Erreur récupération bible_versions:', vError);
+      return [];
+    }
+
+    if (!versionsData || versionsData.length === 0) {
+      console.warn('[bibleDb] Aucune version trouvée pour les ids:', versionIds);
+      return [];
+    }
+
+    console.log('[bibleDb] Versions with verses:', versionsData.length);
+    return versionsData;
   } catch (err) {
     console.error('[bibleDb] Exception getDbVersionsWithVerses:', err);
     return [];
