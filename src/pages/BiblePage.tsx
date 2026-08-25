@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
@@ -20,20 +20,13 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { 
-  Globe, 
-  BookMarked, 
-  ChevronRight, 
-  ChevronLeft,
+  Globe,
   BookOpen, 
-  Layers, 
-  Check, 
   Loader2,
-  Database,
-  Scroll,
   AlertCircle,
   RefreshCw
 } from 'lucide-react';
-import { showSuccess, showError } from '@/utils/toast';
+import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 import { useToast } from '@/hooks/use-toast';
 
@@ -51,7 +44,6 @@ interface DbClassification {
 }
 
 export const BiblePage: React.FC = () => {
-  // DB states
   const [languages, setLanguages] = useState<DbLanguage[]>([]);
   const [versions, setVersions] = useState<DbBibleVersion[]>([]);
   const [booksList, setBooksList] = useState<DbBookItem[]>([]);
@@ -61,24 +53,14 @@ export const BiblePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Filters
   const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
   const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
-  const [testamentFilter, setTestamentFilter] = useState<'ALL' | 'OT' | 'NT'>('ALL');
   
-  // --- STATE: Chapter and Version Selection ---
   const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
   const [selectedChapter, setSelectedChapter] = useState(1);
   const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
   
-  // Reader state
-  const [readerState, setReaderState] = useState<{
-    isOpen: boolean;
-    bookCode: string;
-    bookName: string;
-    chapterNumber: number;
-    totalChapters: number;
-  }>({
+  const [readerState, setReaderState] = useState({
     isOpen: false,
     bookCode: 'GEN',
     bookName: 'Genèse',
@@ -86,37 +68,31 @@ export const BiblePage: React.FC = () => {
     totalChapters: 50
   });
 
-  // Verses data for display
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
 
-  // Modal states
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<any[]>([]);
 
-  // Grouping language states
   const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
   const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
 
   const { toast } = useToast();
 
-  // Compute target language for groupings: if exactly one version selected, use its language; else use LSG (French) language id 2
   const targetLanguageId = React.useMemo(() => {
     if (selectedVersions.length === 1) {
       const ver = versions.find(v => v.code === selectedVersions[0]);
       return ver?.language_id ?? 2;
     }
-    return 2; // default to French (LSG)
+    return 2;
   }, [selectedVersions, versions]);
 
-  // Fetch testament and classification translations for the target language
   useEffect(() => {
     let mounted = true;
     async function loadGroupingTranslations() {
       try {
-        // Testament translations
         const { data: testData } = await supabase
           .from('testament_translations')
           .select('testament_id, name')
@@ -128,16 +104,15 @@ export const BiblePage: React.FC = () => {
           setTestamentNames(map);
         }
 
-        // Classification translations
         const { data: classData } = await supabase
           .from('classification_translations')
           .select('classification_id, name')
           .eq('language_id', targetLanguageId);
 
         if (mounted && classData) {
-            const map = new Map<number, string>();
-            classData.forEach(c => map.set(c.classification_id, c.name));
-            setClassificationNames(map);
+          const map = new Map<number, string>();
+          classData.forEach(c => map.set(c.classification_id, c.name));
+          setClassificationNames(map);
         }
       } catch (err) {
         console.error('[BiblePage] Error loading grouping translations:', err);
@@ -149,7 +124,6 @@ export const BiblePage: React.FC = () => {
     }
   }, [targetLanguageId]);
 
-  // 1. Initialisation depuis Supabase
   useEffect(() => {
     let mounted = true;
     
@@ -170,7 +144,6 @@ export const BiblePage: React.FC = () => {
 
         if (!mounted) return;
 
-        // Load testament translations (French)
         const { data: testTransData } = await supabase
           .from('testament_translations')
           .select('testament_id, language_id, name')
@@ -185,7 +158,6 @@ export const BiblePage: React.FC = () => {
           name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
         }));
 
-        // Load classification translations (French)
         const { data: classTransData } = await supabase
           .from('classification_translations')
           .select('classification_id, language_id, name')
@@ -243,7 +215,6 @@ export const BiblePage: React.FC = () => {
     };
   }, []);
 
-  // Recharge les livres si la langue change
   useEffect(() => {
     if (!loading) {
       getDbAllBooks(selectedLanguageId === 'ALL' ? undefined : selectedLanguageId)
@@ -258,7 +229,6 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedLanguageId, loading]);
 
-  // Load verses when book, chapter, or versions change
   useEffect(() => {
     if (selectedBook && !loading) {
       loadVersesForSelectedBook(selectedBook, selectedChapter, selectedVersions);
@@ -279,14 +249,9 @@ export const BiblePage: React.FC = () => {
     is_default: true
   };
 
-  const loadVersesForSelectedBook = async (
-    book: DbBookItem,
-    chapter: number,
-    versionCodes: string[]
-  ) => {
+  const loadVersesForSelectedBook = async (book: DbBookItem, chapter: number, versionCodes: string[]) => {
     if (!book) return;
     
-    // Reset data
     const newData: Record<string, any[]> = {};
     const newLoading: Record<string, boolean> = {};
     versionCodes.forEach(v => {
@@ -352,24 +317,160 @@ export const BiblePage: React.FC = () => {
     window.location.reload();
   };
 
+  const handleSelectAllVersions = () => {
+    const allCodes = filteredVersions.map(v => v.code);
+    setSelectedVersions(allCodes);
+    setSelectedVersionCode(allCodes[0]);
+    toast({ title: `${allCodes.length} versions selectionnees` });
+  };
+
+  const handleToggleVersion = (ver: DbBibleVersion) => {
+    const isSelected = selectedVersions.includes(ver.code);
+    if (isSelected) {
+      const next = selectedVersions.filter(v => v !== ver.code);
+      if (next.length === 0) {
+        setSelectedVersions([ver.code]);
+        setSelectedVersionCode(ver.code);
+      } else {
+        setSelectedVersions(next);
+        setSelectedVersionCode(next[0]);
+      }
+    } else if (selectedVersions.length < 4) {
+      setSelectedVersions(prev => [...prev, ver.code]);
+      setSelectedVersionCode(ver.code);
+    }
+  };
+
+  const handleResetVersion = () => {
+    setSelectedVersions(['LSG']);
+    setSelectedVersionCode('LSG');
+    toast({ title: 'Version reinitialisee a LSG' });
+  };
+
+  const handleSearchVersion = () => {
+    setIsSearchOpen(true);
+  };
+
+  const handleOpenBookmarks = () => {
+    setIsBookmarksOpen(true);
+  };
+
+  const handleOpenDbStatus = () => {
+    setIsDbStatusOpen(true);
+  };
+
+  const handleReaderChapterChange = (bookId: string, chapter: number) => {
+    setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }));
+    const matchedBook = booksList.find(b => b.code === bookId);
+    if (matchedBook) {
+      setSelectedBook(matchedBook);
+      setSelectedChapter(chapter);
+    }
+  };
+
+  const handleToggleBookmark = (verse: any) => {
+    if (bookmarks.some(b => b.id === verse.id)) {
+      setBookmarks(prev => prev.filter(b => b.id !== verse.id));
+      toast({ title: "Verset retire des favoris." });
+    } else {
+      setBookmarks(prev => [...prev, verse]);
+      toast({ title: "Verset ajoute aux favoris !" });
+    }
+  };
+
+  const renderVersionButtons = () => {
+    return filteredVersions.map((ver) => {
+      const isSelected = selectedVersions.includes(ver.code);
+      return (
+        <button
+          key={ver.id || ver.code}
+          onClick={() => handleToggleVersion(ver)}
+          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+            isSelected 
+              ? 'bg-amber-600 text-white border-amber-600' 
+              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+          }`}
+          title={isSelected ? 'Deselectionner' : 'Selectionner pour comparaison'}
+        >
+          {ver.code}
+        </button>
+      );
+    });
+  };
+
+  const renderVersionsGrid = () => {
+    const colsClass = selectedVersions.length === 1 
+      ? 'grid-cols-1' 
+      : selectedVersions.length === 2 
+        ? 'grid-cols-1 md:grid-cols-2' 
+        : selectedVersions.length === 3 
+          ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+          : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+
+    return (
+      <div className={`grid gap-4 ${colsClass}`}>
+        {selectedVersions.map((versionCode) => {
+          const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+          const verses = versesData[versionCode] || [];
+          const isLoadingV = versesLoading[versionCode] || false;
+          
+          return (
+            <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
+                  {versionObj.name} ({versionCode})
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {verses.length} versets
+                </span>
+              </div>
+              
+              {isLoadingV ? (
+                <div className="py-8 text-center text-muted-foreground">
+                  <Loader2 className="w-6 h-6 animate-spin text-amber-600 mx-auto" />
+                  <span className="text-xs">Chargement en cours...</span>
+                </div>
+              ) : verses.length === 0 ? (
+                <div className="py-8 text-center text-muted-foreground">
+                  <span className="text-xs">Aucun verset trouve pour ce chapitre dans cette version.</span>
+                </div>
+              ) : (
+                <div className="space-y-2 text-sm font-serif leading-relaxed">
+                  {verses.map((v) => (
+                    <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
+                      <span className="font-semibold text-amber-600 text-[11px] mr-2">
+                        {v.verse_number}
+                      </span>
+                      <p className="whitespace-pre-wrap text-foreground">
+                        {v.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-amber-500/20 selection:text-amber-800">
       <Navbar
         currentVersion={selectedVersionCode}
         onVersionChange={setSelectedVersionCode}
-        onOpenSearch={() => setIsSearchOpen(true)}
-        onOpenBookmarks={() => setIsBookmarksOpen(true)}
-        onOpenDbStatus={() => setIsDbStatusOpen(true)}
+        onOpenSearch={handleSearchVersion}
+        onOpenBookmarks={handleOpenBookmarks}
+        onOpenDbStatus={handleOpenDbStatus}
       />
 
-      {/* --- HORIZONTAL VERSIONS BAR & LANGUAGE FILTER --- */}
       <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            {/* Languages section */}
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
-              <span>Langues：</span>
+              <span>Langues:</span>
             </div>
 
             <button
@@ -383,117 +484,35 @@ export const BiblePage: React.FC = () => {
               Toutes les langues
             </button>
 
-            {/* Version codes */}
-            <div className="flex items-center gap-1.5">
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version GO"
-              >
-                GO
-              </button>
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version HG"
-              >
-                HG
-              </button>
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version FR"
-              >
-                FR
-              </button>
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version EN"
-              >
-                EN
-              </button>
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version FN"
-              >
-                FN
-              </button>
-              <button
-                className="px-2.5 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-white dark:text-amber-300 hover:bg-amber-500/60"
-                title="Version YO"
-              >
-                YO
-              </button>
-            </div>
-
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
-              Versions：
+              Versions:
             </span>
 
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => { 
-                  setSelectedVersions(['LSG']); 
-                  setSelectedVersionCode('LSG');
-                  toast({ title: 'Version réinitialisée à LSG' });
-                }}
-                className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                  selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
-                    ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
-                    : 'bg-card text-foreground border-border hover:border-amber-500/60'
-                }`}
-                title="Version par défaut"
-              >
-                <span>Défaut</span>
-              </button>
+            <button
+              onClick={handleResetVersion}
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+                selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                  ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
+                  : 'bg-card text-foreground border-border hover:border-amber-500/60'
+              }`}
+            >
+              Defaut
+            </button>
 
-              {filteredVersions.length > 0 && (
-                <div className="flex items-center gap-1.5">
-                  {filteredVersions.map((ver) => {
-                    const isSelected = selectedVersions.includes(ver.code);
-                    return (
-                      <button
-                        key={ver.id || ver.code}
-                        onClick={() => {
-                          if (isSelected) {
-                            const next = selectedVersions.filter(v => v !== ver.code);
-                            if (next.length === 0) {
-                              setSelectedVersions([ver.code]);
-                              setSelectedVersionCode(ver.code);
-                            } else {
-                              setSelectedVersions(next);
-                              setSelectedVersionCode(next[0]);
-                            }
-                          } else if (selectedVersions.length < 4) {
-                            setSelectedVersions(prev => [...prev, ver.code]);
-                            setSelectedVersionCode(ver.code);
-                          }
-                        }}
-                        className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                          isSelected 
-                            ? 'bg-amber-600 text-white border-amber-600' 
-                            : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                        }`}
-                        title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                      >
-                        {ver.code}
-                      </button>
-                    );
-                  })}
-                </div>
-                
-                {selectedVersions.length < filteredVersions.length && (
-                  <button
-                    onClick={() => {
-                      const allCodes = filteredVersions.map(v => v.code);
-                      setSelectedVersions(allCodes);
-                      setSelectedVersionCode(allCodes[0]);
-                      toast({ title: `${allCodes.length} versions sélectionnées` }); // Fixed: Added missing closing parenthesis
-                    }}
-                    className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
-                  >
-                    +{filteredVersions.length - selectedVersions.length} autres
-                  </button>
-                )}
+            {filteredVersions.length > 0 && (
+              <div className="flex items-center gap-1.5">
+                {renderVersionButtons()}
               </div>
-            </div>
+            )}
+            
+            {filteredVersions.length > selectedVersions.length && (
+              <button
+                onClick={handleSelectAllVersions}
+                className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
+              >
+                +{filteredVersions.length - selectedVersions.length} autres
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -512,15 +531,13 @@ export const BiblePage: React.FC = () => {
               className="h-8 px-3 text-xs gap-1.5"
             >
               <RefreshCw className="w-3.5 h-3.5" />
-              Réessayer
+              Reessayer
             </Button>
           </div>
         )}
 
-        {/* === NEW NAVIGATION BAR === */}
         <section className="p-4 rounded-2xl bg-card border border-border shadow-sm">
           <div className="flex flex-col xl:flex-row gap-4">
-            {/* BOOK SEARCH/SELECT - Takes most space */}
             <div className="flex-1 min-w-0 relative">
               <BookSearchSelect
                 booksList={booksList}
@@ -536,7 +553,6 @@ export const BiblePage: React.FC = () => {
               />
             </div>
 
-            {/* CHAPTER / BOOK NAVIGATOR */}
             <div className="shrink-0">
               <ChapterNavigator
                 selectedBook={selectedBook}
@@ -549,64 +565,15 @@ export const BiblePage: React.FC = () => {
           </div>
         </section>
 
-        {/* === VERSES DISPLAY === */}
         {selectedBook && !loading && (
           <section className="p-4 rounded-2xl bg-card border border-border">
             <div className="space-y-4">
               {selectedVersions.length > 0 ? (
-                <div className={`grid gap-4 ${
-                  selectedVersions.length === 1 ? 'grid-cols-1' :
-                  selectedVersions.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
-                  selectedVersions.length === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
-                  'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                }`}>
-                  {selectedVersions.map((versionCode) => {
-                    const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
-                    const verses = versesData[versionCode] || [];
-                    const isLoadingV = versesLoading[versionCode] || false;
-                    
-                    return (
-                      <div key={versionCode} className="p-4 rounded-2xl border border-border bg-muted/30">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
-                            {versionObj.name} ({versionCode})
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            {verses.length} versets
-                          </span>
-                        </div>
-                        
-                        {isLoadingV ? (
-                          <div className="py-8 text-center text-muted-foreground">
-                            <Loader2 className="w-6 h-6 animate-spin text-amber-600 mx-auto" />
-                            <span className="text-xs">Chargement en cours...</span>
-                          </div>
-                        ) : verses.length === 0 ? (
-                          <div className="py-8 text-center text-muted-foreground">
-                            <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
-                          </div>
-                        ) : (
-                          <div className="space-y-2 text-sm font-serif leading-relaxed">
-                            {verses.map((v) => (
-                              <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
-                                <span className="font-semibold text-amber-600 text-[11px] mr-2">
-                                  {v.verse_number}
-                                </span>
-                                <p className="whitespace-pre-wrap text-foreground">
-                                  {v.text}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                renderVersionsGrid()
               ) : (
                 <div className="py-12 text-center text-muted-foreground">
                   <Loader2 className="w-8 h-8 animate-spin text-amber-600 mx-auto" />
-                  <span className="text-xs">Sélectionnez au moins une version pour afficher les versets</span>
+                  <span className="text-xs">Selectionnez au moins une version pour afficher les versets</span>
                 </div>
               )}
             </div>
@@ -620,24 +587,9 @@ export const BiblePage: React.FC = () => {
           chapterNumber={readerState.chapterNumber}
           currentVersion={selectedVersionCode}
           selectedVersions={selectedVersions}
-          onChapterChange={(bookId, chapter) => {
-            setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }));
-            const matchedBook = booksList.find(b => b.code === bookId);
-            if (matchedBook) {
-              setSelectedBook(matchedBook);
-              setSelectedChapter(chapter);
-            }
-          }}
+          onChapterChange={handleReaderChapterChange}
           isBookmarked={(id) => bookmarks.some(b => b.id === id)}
-          onToggleBookmark={(verse) => {
-            if (bookmarks.some(b => b.id === verse.id)) {
-              setBookmarks(prev => prev.filter(b => b.id !== verse.id));
-              toast({ title: "Verset retiré des favoris." });
-            } else {
-              setBookmarks(prev => [...prev, verse]);
-              toast({ title: "Verset ajouté aux favoris !" });
-            }
-          }}
+          onToggleBookmark={handleToggleBookmark}
         />
 
         <SearchDialog
@@ -679,10 +631,10 @@ export const BiblePage: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-amber-600" />
-              <span className="font-semibold text-foreground">Parole Vivante — Page Bible</span>
+              <span className="font-semibold text-foreground">Parole Vivante - Page Bible</span>
             </div>
             <p className="text-center sm:text-right">
-              « Toute Écriture est inspirée de Dieu, et utile pour enseigner... » — 2 Timothée 3:16
+              « Toute Ecriture est inspiree de Dieu, et utile pour enseigner... » - 2 Timothee 3:16
             </p>
           </div>
           <MadeWithDyad />
