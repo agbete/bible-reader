@@ -543,16 +543,19 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 /**
  * 9. Récupère les versions qui ont effectivement des versets dans la base de données
  * Fixed to first get distinct version_ids from verse_texts, then fetch matching bible_versions.
+ * Uses a large range to avoid default row limits.
  */
 export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
   try {
     console.log('[bibleDb] Fetching versions with verses...');
     
     // Step 1: Get distinct version_ids from verse_texts
+    // Use a large range to ensure we get all rows (supabase may have a default limit)
     const { data: verseTextsData, error: vtError } = await supabase
       .from('verse_texts')
       .select('version_id')
-      .order('version_id', { ascending: true });
+      .order('version_id', { ascending: true })
+      .range(0, 999999); // Adjust if you have more than 1 million rows
 
     if (vtError) {
       console.error('[bibleDb] Erreur lecture verse_texts:', vtError);
