@@ -468,6 +468,7 @@ export const BiblePage: React.FC = () => {
       <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+            {/* Language selection - KEEP THIS VISIBLE AS REQUESTED */}
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
               <span>Langues:</span>
@@ -484,6 +485,23 @@ export const BiblePage: React.FC = () => {
               Toutes les langues
             </button>
 
+            {/* Individual language buttons */}
+            {languages.map((lang) => (
+              <button
+                key={lang.id}
+                onClick={() => setSelectedLanguageId(lang.id)}
+                className={`px-2.5 py-1 rounded-full text-[10px] font-mono transition-all shrink-0 ${
+                  selectedLanguageId === lang.id
+                    ? 'bg-amber-600 text-white'
+                    : 'bg-card text-foreground border-border hover:bg-amber-50/20'
+                }`}
+                title={lang.name}
+              >
+                {lang.code.toUpperCase()}
+              </button>
+            ))}
+
+            {/* Version controls to the right as requested */}
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
               Versions:
             </span>
