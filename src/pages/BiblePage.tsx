@@ -91,6 +91,7 @@ export const BiblePage: React.FC = () => {
   // New state for title display and view mode
   const [showTitles, setShowTitles] = useState(true);
   const [viewMode, setViewMode] = useState<'compact' | 'list'>('compact');
+  // Using a plain object instead of Map to avoid type issues
   const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -285,9 +286,9 @@ export const BiblePage: React.FC = () => {
         .eq('language_id', targetLanguageId);
       
       if (titles) {
-        const titlesMap = new Map<number, TitleTranslation>();
-        titles.forEach(title => {
-          titlesMap.set(title.verse_id, title);
+        const titlesMap: Record<number, TitleTranslation> = {};
+        titles.forEach((title: any) => {
+          titlesMap[title.verse_id] = title as TitleTranslation;
         });
         setTitleTranslations(titlesMap);
       }
@@ -510,16 +511,16 @@ export const BiblePage: React.FC = () => {
                 }`}>
                   {verses.map((verse) => {
                     const verseId = verse.id;
-                    const titleData = titleTranslations.get(verseId);
+                    const titleData = titleTranslations[verseId];
                     
                     return (
                       <div key={verse.id} className="group relative">
                         {/* Title section */}
-                        {showTitles && titleData && (
+                        {showTitles && titleData && titleData.titles && (
                           <div className={`flex flex-wrap gap-2 mb-2 text-xs font-medium ${
                             viewMode === 'list' ? 'pl-0' : 'pl-0'
                           }`}>
-                            {titleData.titles && Object.entries(titleData.titles).map(([level, text]) => {
+                            {Object.entries(titleData.titles).map(([level, text]) => {
                               if (!text) return null;
                               
                               const levelNum = parseInt(level);
