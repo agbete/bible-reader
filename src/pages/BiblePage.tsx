@@ -24,7 +24,11 @@ import {
   BookOpen, 
   Loader2,
   AlertCircle,
-  RefreshCw
+  RefreshCw,
+  BookMarked,
+  BookOpen as BookOpenIcon,
+  List,
+  AlignJustify
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -41,6 +45,19 @@ interface DbClassification {
   code?: string;
   name: string;
   testament_id: number;
+}
+
+interface TitleTranslation {
+  id: number;
+  verse_id: number;
+  language_id: number;
+  titles: {
+    1?: string;
+    2?: string;
+    3?: string;
+    4?: string;
+    5?: string;
+  };
 }
 
 export const BiblePage: React.FC = () => {
@@ -70,6 +87,11 @@ export const BiblePage: React.FC = () => {
 
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
+  
+  // New state for title display and view mode
+  const [showTitles, setShowTitles] = useState(true);
+  const [viewMode, setViewMode] = useState<'compact' | 'list'>('compact');
+  const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
@@ -235,6 +257,45 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedBook, selectedChapter, selectedVersions, loading]);
 
+  // Load title translations for all verses
+  useEffect(() => {
+    if (!loading && selectedBook) {
+      loadTitleTranslations();
+    }
+  }, [selectedBook, selectedChapter, selectedVersions, loading]);
+
+  const loadTitleTranslations = async () => {
+    try {
+      // Get all verse IDs for the current chapter
+      const { data: verses } = await supabase
+        .from('verses')
+        .select('id')
+        .eq('chapter_id', selectedChapter)
+        .eq('book_id', selectedBook?.id);
+      
+      if (!verses || verses.length === 0) return;
+      
+      const verseIds = verses.map(v => v.id);
+      
+      // Load title translations for all verses
+      const { data: titles } = await supabase
+        .from('title_translations')
+        .select('*')
+        .in('verse_id', verseIds)
+        .eq('language_id', targetLanguageId);
+      
+      if (titles) {
+        const titlesMap = new Map<number, TitleTranslation>();
+        titles.forEach(title => {
+          titlesMap.set(title.verse_id, title);
+        });
+        setTitleTranslations(titlesMap);
+      }
+    } catch (err) {
+      console.error('[BiblePage] Error loading title translations:', err);
+    }
+  };
+
   const filteredVersions = versions.filter(v => {
     if (selectedLanguageId === 'ALL') return true;
     return v.language_id === selectedLanguageId;
@@ -378,6 +439,15 @@ export const BiblePage: React.FC = () => {
     }
   };
 
+  // Toggle functions
+  const toggleShowTitles = () => {
+    setShowTitles(prev => !prev);
+  };
+
+  const toggleViewMode = () => {
+    setViewMode(prev => prev === 'compact' ? 'list' : 'compact');
+  };
+
   const renderVersionButtons = () => {
     return filteredVersions.map((ver) => {
       const isSelected = selectedVersions.includes(ver.code);
@@ -435,17 +505,65 @@ export const BiblePage: React.FC = () => {
                   <span className="text-xs">Aucun verset trouve pour ce chapitre dans cette version.</span>
                 </div>
               ) : (
-                <div className="space-y-2 text-sm font-serif leading-relaxed">
-                  {verses.map((v) => (
-                    <div key={v.id} className="p-2 rounded border border-border/20 hover:bg-muted/50 transition-colors">
-                      <span className="font-semibold text-amber-600 text-[11px] mr-2">
-                        {v.verse_number}
-                      </span>
-                      <p className="whitespace-pre-wrap text-foreground">
-                        {v.text}
-                      </p>
-                    </div>
-                  ))}
+                <div className={`space-y-2 font-serif leading-relaxed ${
+                  viewMode === 'list' ? 'space-y-3' : 'space-y-1'
+                }`}>
+                  {verses.map((verse) => {
+                    const verseId = verse.id;
+                    const titleData = titleTranslations.get(verseId);
+                    
+                    return (
+                      <div key={verse.id} className="group relative">
+                        {/* Title section */}
+                        {showTitles && titleData && (
+                          <div className={`flex flex-wrap gap-2 mb-2 text-xs font-medium ${
+                            viewMode === 'list' ? 'pl-0' : 'pl-0'
+                          }`}>
+                            {titleData.titles && Object.entries(titleData.titles).map(([level, text]) => {
+                              if (!text) return null;
+                              
+                              const levelNum = parseInt(level);
+                              const baseClasses = "px-2 py-0.5 rounded-md border";
+                              
+                              const levelStyles = [
+                                "bg-amber-100 text-amber-800 border-amber-300 font-semibold text-sm", // Level 1
+                                "bg-orange-50 text-orange-700 border-orange-200 font-medium text-xs", // Level 2
+                                "bg-yellow-50 text-yellow-700 border-yellow-200 text-xs", // Level 3
+                                "bg-gray-50 text-gray-600 border-gray-200 text-[10px]", // Level 4
+                                "bg-slate-50 text-slate-500 border-slate-200 text-[10px]" // Level 5
+                              ];
+                              
+                              return (
+                                <span 
+                                  key={level}
+                                  className={`${baseClasses} ${levelStyles[levelNum - 1] || baseClasses}`}
+                                  style={{
+                                    marginLeft: `${(levelNum - 1) * 16}px`
+                                  }}
+                                >
+                                  {text}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        )}
+                        
+                        {/* Verse content */}
+                        <div className={`flex ${viewMode === 'list' ? 'block' : 'inline-flex items-start gap-2'} group-hover:bg-muted/30 p-2 rounded-lg transition-colors`}>
+                          <span className={`font-mono font-semibold text-amber-600 shrink-0 ${
+                            viewMode === 'list' ? 'block mb-1' : 'inline-block'
+                          }`}>
+                            {verse.verse_number}
+                          </span>
+                          <p className={`text-foreground ${
+                            viewMode === 'list' ? 'text-base leading-relaxed' : 'text-sm leading-snug'
+                          }`}>
+                            {verse.text}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -539,6 +657,37 @@ export const BiblePage: React.FC = () => {
                 +{filteredVersions.length - selectedVersions.length} autres
               </button>
             )}
+
+            {/* View mode toggle button */}
+            <button
+              onClick={toggleViewMode}
+              className="ml-2 px-2.5 py-1.5 rounded-xl bg-card border border-border hover:border-amber-500/60 transition-all flex items-center gap-1.5 shrink-0"
+              title={`Mode ${viewMode === 'compact' ? 'liste' : 'compact'}`}
+            >
+              {viewMode === 'compact' ? (
+                <>
+                  <AlignJustify className="w-3.5 h-3.5 text-amber-600" />
+                  <span className="text-[10px] font-medium text-muted-foreground">Compact</span>
+                </>
+              ) : (
+                <>
+                  <List className="w-3.5 h-3.5 text-amber-600" />
+                  <span className="text-[10px] font-medium text-muted-foreground">Liste</span>
+                </>
+              )}
+            </button>
+
+            {/* Titles toggle button */}
+            <button
+              onClick={toggleShowTitles}
+              className={`ml-2 px-2.5 py-1.5 rounded-xl bg-card border border-border hover:border-amber-500/60 transition-all flex items-center gap-1.5 shrink-0 ${
+                showTitles ? 'bg-amber-50/50 border-amber-300/60' : ''
+              }`}
+              title={showTitles ? 'Masquer les titres' : 'Afficher les titres'}
+            >
+              <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'text-amber-600 fill-amber-600' : 'text-muted-foreground'}`} />
+              <span className="text-[10px] font-medium text-muted-foreground">Titres</span>
+            </button>
           </div>
         </div>
       </section>
