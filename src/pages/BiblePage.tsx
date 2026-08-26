@@ -465,7 +465,8 @@ export const BiblePage: React.FC = () => {
         onOpenDbStatus={handleOpenDbStatus}
       />
 
-      <section className="border-b border-border/80 bg-card/70 backdrop-blur-md sticky top-16 z-30 shadow-xs">
+      {/* Added gap and background color to this section */}
+      <section className="border-b border-border/80 bg-amber-50 backdrop-blur-md sticky top-16 z-30 shadow-xs mb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             {/* Language selection - KEEP THIS VISIBLE AS REQUESTED */}
