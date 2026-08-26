@@ -26,9 +26,8 @@ import {
   AlertCircle,
   RefreshCw,
   BookMarked,
-  BookOpen as BookOpenIcon,
   List,
-  AlignJustify
+  LayoutGrid
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -88,10 +87,9 @@ export const BiblePage: React.FC = () => {
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
   
-  // New state for title display and view mode
+  // UI state for title display and view mode
   const [showTitles, setShowTitles] = useState(true);
-  const [viewMode, setViewMode] = useState<'compact' | 'list'>('compact');
-  // Using a plain object instead of Map to avoid type issues
+  const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
   const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -440,15 +438,6 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  // Toggle functions
-  const toggleShowTitles = () => {
-    setShowTitles(prev => !prev);
-  };
-
-  const toggleViewMode = () => {
-    setViewMode(prev => prev === 'compact' ? 'list' : 'compact');
-  };
-
   const renderVersionButtons = () => {
     return filteredVersions.map((ver) => {
       const isSelected = selectedVersions.includes(ver.code);
@@ -507,7 +496,7 @@ export const BiblePage: React.FC = () => {
                 </div>
               ) : (
                 <div className={`space-y-2 font-serif leading-relaxed ${
-                  viewMode === 'list' ? 'space-y-3' : 'space-y-1'
+                  displayMode === 'list' ? 'space-y-3' : 'space-y-1'
                 }`}>
                   {verses.map((verse) => {
                     const verseId = verse.id;
@@ -515,11 +504,9 @@ export const BiblePage: React.FC = () => {
                     
                     return (
                       <div key={verse.id} className="group relative">
-                        {/* Title section */}
+                        {/* Title section - displayed above verse if showTitles is true and title exists */}
                         {showTitles && titleData && titleData.titles && (
-                          <div className={`flex flex-wrap gap-2 mb-2 text-xs font-medium ${
-                            viewMode === 'list' ? 'pl-0' : 'pl-0'
-                          }`}>
+                          <div className="flex flex-wrap gap-2 mb-2 text-xs font-medium">
                             {Object.entries(titleData.titles).map(([level, text]) => {
                               if (!text) return null;
                               
@@ -549,15 +536,15 @@ export const BiblePage: React.FC = () => {
                           </div>
                         )}
                         
-                        {/* Verse content */}
-                        <div className={`flex ${viewMode === 'list' ? 'block' : 'inline-flex items-start gap-2'} group-hover:bg-muted/30 p-2 rounded-lg transition-colors`}>
+                        {/* Verse content - compact vs list mode */}
+                        <div className={`flex ${displayMode === 'list' ? 'block' : 'inline-flex items-start gap-2'} group-hover:bg-muted/30 p-2 rounded-lg transition-colors`}>
                           <span className={`font-mono font-semibold text-amber-600 shrink-0 ${
-                            viewMode === 'list' ? 'block mb-1' : 'inline-block'
+                            displayMode === 'list' ? 'block mb-1' : 'inline-block'
                           }`}>
                             {verse.verse_number}
                           </span>
                           <p className={`text-foreground ${
-                            viewMode === 'list' ? 'text-base leading-relaxed' : 'text-sm leading-snug'
+                            displayMode === 'list' ? 'text-base leading-relaxed' : 'text-sm leading-snug'
                           }`}>
                             {verse.text}
                           </p>
@@ -584,11 +571,11 @@ export const BiblePage: React.FC = () => {
         onOpenDbStatus={handleOpenDbStatus}
       />
 
-      {/* Added gap and background color to this section */}
+      {/* Language and version selection bar */}
       <section className="border-b border-border/80 bg-amber-50 backdrop-blur-md sticky top-16 z-30 shadow-xs mb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            {/* Language selection - KEEP THIS VISIBLE AS REQUESTED */}
+            {/* Language selection */}
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
               <span>Langues:</span>
@@ -605,7 +592,6 @@ export const BiblePage: React.FC = () => {
               Toutes les langues
             </button>
 
-            {/* Individual language buttons */}
             {languages.map((lang) => (
               <button
                 key={lang.id}
@@ -628,7 +614,7 @@ export const BiblePage: React.FC = () => {
               <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
             </div>
 
-            {/* Version controls to the right as requested */}
+            {/* Version controls */}
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
               Versions:
             </span>
@@ -658,37 +644,6 @@ export const BiblePage: React.FC = () => {
                 +{filteredVersions.length - selectedVersions.length} autres
               </button>
             )}
-
-            {/* View mode toggle button */}
-            <button
-              onClick={toggleViewMode}
-              className="ml-2 px-2.5 py-1.5 rounded-xl bg-card border border-border hover:border-amber-500/60 transition-all flex items-center gap-1.5 shrink-0"
-              title={`Mode ${viewMode === 'compact' ? 'liste' : 'compact'}`}
-            >
-              {viewMode === 'compact' ? (
-                <>
-                  <AlignJustify className="w-3.5 h-3.5 text-amber-600" />
-                  <span className="text-[10px] font-medium text-muted-foreground">Compact</span>
-                </>
-              ) : (
-                <>
-                  <List className="w-3.5 h-3.5 text-amber-600" />
-                  <span className="text-[10px] font-medium text-muted-foreground">Liste</span>
-                </>
-              )}
-            </button>
-
-            {/* Titles toggle button */}
-            <button
-              onClick={toggleShowTitles}
-              className={`ml-2 px-2.5 py-1.5 rounded-xl bg-card border border-border hover:border-amber-500/60 transition-all flex items-center gap-1.5 shrink-0 ${
-                showTitles ? 'bg-amber-50/50 border-amber-300/60' : ''
-              }`}
-              title={showTitles ? 'Masquer les titres' : 'Afficher les titres'}
-            >
-              <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'text-amber-600 fill-amber-600' : 'text-muted-foreground'}`} />
-              <span className="text-[10px] font-medium text-muted-foreground">Titres</span>
-            </button>
           </div>
         </div>
       </section>
@@ -712,9 +667,10 @@ export const BiblePage: React.FC = () => {
           </div>
         )}
 
+        {/* Navigation section with BookSearchSelect, ChapterNavigator, and toggle buttons on same line */}
         <section className="p-4 rounded-2xl bg-card border border-border shadow-sm">
-          <div className="flex flex-col xl:flex-row gap-4">
-            <div className="flex-1 min-w-0 relative">
+          <div className="flex flex-col xl:flex-row gap-4 items-center">
+            <div className="flex-1 min-w-0 w-full">
               <BookSearchSelect
                 booksList={booksList}
                 selectedBook={selectedBook}
@@ -737,6 +693,39 @@ export const BiblePage: React.FC = () => {
                 onChapterChange={handleChapterChange}
                 onBookChange={handleBookChange}
               />
+            </div>
+
+            {/* Toggle buttons - on the same line as navigation */}
+            <div className="flex items-center gap-1 border-l border-border pl-2 ml-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowTitles(!showTitles)}
+                className={`h-9 px-2.5 rounded-full text-xs gap-1.5 transition-all ${
+                  showTitles 
+                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+                title={showTitles ? 'Masquer les titres' : 'Afficher les titres'}
+              >
+                {showTitles ? <BookMarked className="w-3.5 h-3.5 fill-amber-500" /> : <BookOpen className="w-3.5 h-3.5" />}
+                <span className="hidden sm:inline">{showTitles ? 'Titres' : 'Titres'}</span>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setDisplayMode(displayMode === 'compact' ? 'list' : 'compact')}
+                className={`h-9 px-2.5 rounded-full text-xs gap-1.5 transition-all ${
+                  displayMode === 'compact'
+                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+                title={displayMode === 'compact' ? 'Mode liste' : 'Mode compact'}
+              >
+                {displayMode === 'compact' ? <List className="w-3.5 h-3.5" /> : <LayoutGrid className="w-3.5 h-3.5" />}
+                <span className="hidden sm:inline">{displayMode === 'compact' ? 'Compact' : 'Liste'}</span>
+              </Button>
             </div>
           </div>
         </section>
