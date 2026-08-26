@@ -502,6 +502,13 @@ export const BiblePage: React.FC = () => {
               </button>
             ))}
 
+            {/* Pipe separator between language and version sections */}
+            <div className="flex items-center px-3 shrink-0" aria-hidden="true">
+              <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
+              <span className="text-amber-400 dark:text-amber-600 font-bold text-lg mx-2 select-none">|</span>
+              <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
+            </div>
+
             {/* Version controls to the right as requested */}
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
               Versions:
