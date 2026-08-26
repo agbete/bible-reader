@@ -12,6 +12,7 @@ import {
   getDbStats,
   getDbChapterVerses,
   getDbVersionsWithVerses,
+  getDbVerseTitles,
   DbLanguage, 
   DbBibleVersion, 
   DbBookItem,
@@ -250,50 +251,291 @@ export const BiblePage: React.FC = () => {
   const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
     if (!verseIds || verseIds.length === 0) return;
     try {
-      console.log('[BiblePage] Fetching title_translations for verseIds:', verseIds.length, 'language_id:', targetLanguageId);
+      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
       
-      const { data: titles, error } = await supabase
-        .from('title_translations')
-        .select('verse_id, language_id, titles')
-        .in('verse_id', verseIds);
+      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
+      
+      const formatted: Record<number, TitleTranslation> = {};
+      Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
+        formatted[Number(vId)] = {
+          verse_id: Number(vId),
+          language_id: targetLanguageId,
+          titles: titlesObj
+        };
+      });
 
-      if (error) {
-        console.error('[BiblePage] Error fetching title_translations:', error);
-        return;
+      console.log('[BiblePage] Titles successfully assigned to state:', Object.keys(formatted).length);
+      setTitleTranslations(formatted);
+    } catch (err) {
+      console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:',<dyad-write path="src/pages/BiblePage.tsx" description="Finalisation et complétion du composant BiblePage">
+import React, { useState, useEffect } from 'react';
+import { Navbar } from '@/components/bible/Navbar';
+import { SearchDialog } from '@/components/bible/SearchDialog';
+import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
+import { DbStatusModal } from '@/components/bible/DbStatusModal';
+import { ReaderDialog } from '@/components/bible/ReaderDialog';
+import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
+import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
+import { 
+  getDbLanguages, 
+  getDbAllBooks, 
+  getDbStats,
+  getDbChapterVerses,
+  getDbVersionsWithVerses,
+  getDbVerseTitles,
+  DbLanguage, 
+  DbBibleVersion, 
+  DbBookItem,
+  DbStats
+} from '@/services/bibleDb';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { 
+  Globe,
+  BookOpen, 
+  Loader2,
+  AlertCircle,
+  RefreshCw,
+  BookMarked,
+  List,
+  LayoutGrid
+} from 'lucide-react';
+import { showError } from '@/utils/toast';
+import { MadeWithDyad } from '@/components/made-with-dyad';
+import { useToast } from '@/hooks/use-toast';
+
+interface DbTestament {
+  id: number;
+  code: string;
+  name: string;
+}
+
+interface DbClassification {
+  id: number;
+  code?: string;
+  name: string;
+  testament_id: number;
+}
+
+interface TitleTranslation {
+  id?: number;
+  verse_id: number;
+  language_id: number;
+  titles: Record<string, string>;
+}
+
+export const BiblePage: React.FC = () => {
+  const [languages, setLanguages] = useState<DbLanguage[]>([]);
+  const [versions, setVersions] = useState<DbBibleVersion[]>([]);
+  const [booksList, setBooksList] = useState<DbBookItem[]>([]);
+  const [testamentsList, setTestamentsList] = useState<DbTestament[]>([]);
+  const [classificationsList, setClassificationsList] = useState<DbClassification[]>([]);
+  const [stats, setStats] = useState<DbStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
+  const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
+  
+  const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState(1);
+  const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
+  
+  const [readerState, setReaderState] = useState({
+    isOpen: false,
+    bookCode: 'GEN',
+    bookName: 'Genèse',
+    chapterNumber: 1,
+    totalChapters: 50
+  });
+
+  const [versesData, setVersesData] = useState<Record<string, any[]>>({});
+  const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
+  
+  // UI state for title display and view mode
+  const [showTitles, setShowTitles] = useState<boolean>(true);
+  const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
+  const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
+  const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
+  const [bookmarks, setBookmarks] = useState<any[]>([]);
+
+  const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
+  const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
+
+  const { toast } = useToast();
+
+  const targetLanguageId = React.useMemo(() => {
+    if (selectedVersions.length === 1) {
+      const ver = versions.find(v => v.code === selectedVersions[0]);
+      return ver?.language_id ?? 2;
+    }
+    return 2;
+  }, [selectedVersions, versions]);
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadGroupingTranslations() {
+      try {
+        const { data: testData } = await supabase
+          .from('testament_translations')
+          .select('testament_id, name')
+          .eq('language_id', targetLanguageId);
+
+        if (mounted && testData) {
+          const map = new Map<number, string>();
+          testData.forEach(t => map.set(t.testament_id, t.name));
+          setTestamentNames(map);
+        }
+
+        const { data: classData } = await supabase
+          .from('classification_translations')
+          .select('classification_id, name')
+          .eq('language_id', targetLanguageId);
+
+        if (mounted && classData) {
+          const map = new Map<number, string>();
+          classData.forEach(c => map.set(c.classification_id, c.name));
+          setClassificationNames(map);
+        }
+      } catch (err) {
+        console.error('[BiblePage] Error loading grouping translations:', err);
       }
+    }
 
-      console.log('[BiblePage] Raw title_translations received from Supabase:', titles?.length || 0);
+    if (targetLanguageId !== undefined) {
+      loadGroupingTranslations();
+    }
+  }, [targetLanguageId]);
 
-      if (titles && titles.length > 0) {
-        const titlesMap: Record<number, TitleTranslation> = {};
-        titles.forEach((t: any) => {
-          let parsedTitles: Record<string, string> = {};
-          if (typeof t.titles === 'string') {
-            try {
-              parsedTitles = JSON.parse(t.titles);
-            } catch (e) {
-              console.warn('[BiblePage] Failed to parse title json string:', t.titles);
-            }
-          } else if (typeof t.titles === 'object' && t.titles !== null) {
-            parsedTitles = t.titles;
-          }
-
-          // Filter by language preference or fallback
-          if (t.language_id === targetLanguageId || !titlesMap[t.verse_id]) {
-            titlesMap[t.verse_id] = {
-              verse_id: t.verse_id,
-              language_id: t.language_id,
-              titles: parsedTitles
-            };
-          }
-        });
+  useEffect(() => {
+    let mounted = true;
+    
+    async function loadData() {
+      setLoading(true);
+      setLoadError(null);
+      try {
+        console.log('[BiblePage] Starting initial data load...');
         
-        console.log('[BiblePage] Parsed valid titles for verses count:', Object.keys(titlesMap).length, titlesMap);
-        setTitleTranslations(titlesMap);
-      } else {
-        console.log('[BiblePage] No titles found for this chapter.');
-        setTitleTranslations({});
+        const [langs, vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
+          getDbLanguages(),
+          getDbVersionsWithVerses(),
+          getDbAllBooks(),
+          getDbStats(),
+          supabase.from('testaments').select('id, code, order_index'),
+          supabase.from('classifications').select('id, code, testament_id, order_index')
+        ]);
+
+        if (!mounted) return;
+
+        const { data: testTransData } = await supabase
+          .from('testament_translations')
+          .select('testament_id, language_id, name')
+          .eq('language_id', targetLanguageId);
+
+        const testTransMap = new Map<number, string>();
+        testTransData?.forEach(t => testTransMap.set(t.testament_id, t.name));
+
+        const testaments: DbTestament[] = (testamentsRes.data || []).map(t => ({
+          id: t.id,
+          code: t.code,
+          name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
+        }));
+
+        const { data: classTransData } = await supabase
+          .from('classification_translations')
+          .select('classification_id, language_id, name')
+          .eq('language_id', 2);
+
+        const classTransMap = new Map<number, string>();
+        classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
+
+        const classifications: DbClassification[] = (classificationsRes.data || []).map(c => ({
+          id: c.id,
+          code: c.code,
+          name: classTransMap.get(c.id) || c.code,
+          testament_id: c.testament_id
+        }));
+
+        setLanguages(langs);
+        setVersions(vers);
+        setBooksList(books);
+        setStats(dbStats);
+        setTestamentsList(testaments);
+        setClassificationsList(classifications);
+
+        const versionCodes = vers.map(v => v.code);
+        const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : (versionCodes[0] || 'LSG');
+        setSelectedVersions([defaultVersion]);
+        setSelectedVersionCode(defaultVersion);
+
+        if (books && books.length > 0) {
+          const firstBook = books[0];
+          setSelectedBook(firstBook);
+          setSelectedChapter(1);
+          await loadVersesForSelectedBook(firstBook, 1, [defaultVersion]);
+        }
+      } catch (err) {
+        console.error('[BiblePage] Erreur lors du chargement:', err);
+        if (mounted) {
+          setLoadError("Impossible de charger les données de la base de données.");
+          showError("Erreur de chargement des données bibliques");
+        }
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
       }
+    }
+
+    loadData();
+    
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      getDbAllBooks(selectedLanguageId === 'ALL' ? undefined : selectedLanguageId)
+        .then(books => {
+          if (books.length > 0) {
+            setBooksList(books);
+          }
+        })
+        .catch(err => {
+          console.error('[BiblePage] Error reloading books:', err);
+        });
+    }
+  }, [selectedLanguageId, loading]);
+
+  useEffect(() => {
+    if (selectedBook && !loading && selectedVersions.length > 0) {
+      loadVersesForSelectedBook(selectedBook, selectedChapter, selectedVersions);
+    }
+  }, [selectedBook, selectedChapter, selectedVersions]);
+
+  // Load title translations for the current verses
+  const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
+    if (!verseIds || verseIds.length === 0) return;
+    try {
+      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
+      
+      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
+      
+      const formatted: Record<number, TitleTranslation> = {};
+      Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
+        formatted[Number(vId)] = {
+          verse_id: Number(vId),
+          language_id: targetLanguageId,
+          titles: titlesObj
+        };
+      });
+
+      console.log('[BiblePage] Titles successfully assigned to state:', Object.keys(formatted).length);
+      setTitleTranslations(formatted);
     } catch (err) {
       console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:', err);
     }
