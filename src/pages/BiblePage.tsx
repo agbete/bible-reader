@@ -146,7 +146,7 @@ export const BiblePage: React.FC = () => {
       setLoading(true);
       setLoadError(null);
       try {
-        console.log('[BiblePage] Starting data load...');
+        console.log('[BiblePage] Starting initial data load...');
         
         const [langs, vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
           getDbLanguages(),
@@ -195,20 +195,16 @@ export const BiblePage: React.FC = () => {
         setTestamentsList(testaments);
         setClassificationsList(classifications);
 
-        if (vers && vers.length > 0) {
-          const versionCodes = vers.map(v => v.code);
-          const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : versionCodes[0];
-          setSelectedVersions([defaultVersion]);
-          setSelectedVersionCode(defaultVersion);
-        } else {
-          setSelectedVersions(['LSG']);
-          setSelectedVersionCode('LSG');
-        }
+        const versionCodes = vers.map(v => v.code);
+        const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : (versionCodes[0] || 'LSG');
+        setSelectedVersions([defaultVersion]);
+        setSelectedVersionCode(defaultVersion);
 
         if (books && books.length > 0) {
-          setSelectedBook(books[0]);
+          const firstBook = books[0];
+          setSelectedBook(firstBook);
           setSelectedChapter(1);
-          await loadVersesForSelectedBook(books[0], 1, [selectedVersionCode]);
+          await loadVersesForSelectedBook(firstBook, 1, [defaultVersion]);
         }
       } catch (err) {
         console.error('[BiblePage] Erreur lors du chargement:', err);
@@ -245,10 +241,10 @@ export const BiblePage: React.FC = () => {
   }, [selectedLanguageId, loading]);
 
   useEffect(() => {
-    if (selectedBook && !loading) {
+    if (selectedBook && !loading && selectedVersions.length > 0) {
       loadVersesForSelectedBook(selectedBook, selectedChapter, selectedVersions);
     }
-  }, [selectedBook, selectedChapter, selectedVersions, loading]);
+  }, [selectedBook, selectedChapter, selectedVersions]);
 
   // Load title translations for the current verses
   const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
@@ -266,21 +262,37 @@ export const BiblePage: React.FC = () => {
         return;
       }
 
-      console.log('[BiblePage] Raw title_translations received:', titles?.length || 0);
+      console.log('[BiblePage] Raw title_translations received from Supabase:', titles?.length || 0);
 
-      if (titles) {
+      if (titles && titles.length > 0) {
         const titlesMap: Record<number, TitleTranslation> = {};
         titles.forEach((t: any) => {
+          let parsedTitles: Record<string, string> = {};
+          if (typeof t.titles === 'string') {
+            try {
+              parsedTitles = JSON.parse(t.titles);
+            } catch (e) {
+              console.warn('[BiblePage] Failed to parse title json string:', t.titles);
+            }
+          } else if (typeof t.titles === 'object' && t.titles !== null) {
+            parsedTitles = t.titles;
+          }
+
+          // Filter by language preference or fallback
           if (t.language_id === targetLanguageId || !titlesMap[t.verse_id]) {
             titlesMap[t.verse_id] = {
               verse_id: t.verse_id,
               language_id: t.language_id,
-              titles: typeof t.titles === 'object' && t.titles !== null ? t.titles : {}
+              titles: parsedTitles
             };
           }
         });
-        console.log('[BiblePage] Titles successfully parsed for verses:', Object.keys(titlesMap).length);
+        
+        console.log('[BiblePage] Parsed valid titles for verses count:', Object.keys(titlesMap).length, titlesMap);
         setTitleTranslations(titlesMap);
+      } else {
+        console.log('[BiblePage] No titles found for this chapter.');
+        setTitleTranslations({});
       }
     } catch (err) {
       console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:', err);
@@ -327,21 +339,22 @@ export const BiblePage: React.FC = () => {
       
       const results = await Promise.all(promises);
       
-      let allVerseIds: number[] = [];
-      setVersesData(prev => {
-        const updated = { ...prev };
-        results.forEach(({ code, verses }) => {
-          updated[code] = verses;
-          if (verses.length > 0 && allVerseIds.length === 0) {
-            allVerseIds = verses.map(v => v.id).filter(Boolean);
-          }
-        });
-        return updated;
+      // Update state with loaded verses
+      const updatedMap: Record<string, any[]> = {};
+      results.forEach(({ code, verses }) => {
+        updatedMap[code] = verses;
       });
+      setVersesData(updatedMap);
 
-      // Load section titles after getting verse IDs
+      // Directly extract verse IDs from the query results for title loading
+      const firstValidResult = results.find(r => r.verses && r.verses.length > 0);
+      const allVerseIds = firstValidResult ? firstValidResult.verses.map(v => v.id).filter(Boolean) : [];
+
+      console.log('[BiblePage] Extracted verse IDs for title lookup:', allVerseIds.length);
       if (allVerseIds.length > 0) {
         await loadTitleTranslationsForVerses(allVerseIds);
+      } else {
+        setTitleTranslations({});
       }
     } finally {
       setVersesLoading(prev => {
@@ -464,28 +477,28 @@ export const BiblePage: React.FC = () => {
     const titleData = titleTranslations[verseId];
     if (!titleData || !titleData.titles) return null;
 
-    const entries = Object.entries(titleData.titles).filter(([_, text]) => Boolean(text && text.trim()));
+    const entries = Object.entries(titleData.titles).filter(([_, text]) => Boolean(text && String(text).trim()));
     if (entries.length === 0) return null;
 
     return (
-      <div className="w-full my-3 space-y-1">
+      <div className="w-full my-3 space-y-1.5 border-b border-amber-500/20 pb-2">
         {entries.map(([level, text]) => {
           const lvl = parseInt(level, 10);
           if (lvl === 1) {
             return (
-              <h3 key={level} className="text-base sm:text-lg font-bold font-serif text-amber-800 dark:text-amber-300 pt-3 pb-1 border-b border-amber-500/20">
+              <h3 key={level} className="text-base sm:text-lg font-bold font-serif text-amber-900 dark:text-amber-200 pt-2 tracking-tight">
                 {text}
               </h3>
             );
           } else if (lvl === 2) {
             return (
-              <h4 key={level} className="text-sm sm:text-base font-semibold font-serif text-amber-700 dark:text-amber-400 pt-2">
+              <h4 key={level} className="text-sm sm:text-base font-semibold font-serif text-amber-800 dark:text-amber-300 pt-1">
                 {text}
               </h4>
             );
           } else {
             return (
-              <h5 key={level} className="text-xs sm:text-sm font-medium italic text-muted-foreground pt-1">
+              <h5 key={level} className="text-xs sm:text-sm font-medium italic text-muted-foreground pt-0.5">
                 {text}
               </h5>
             );
