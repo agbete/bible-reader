@@ -103,6 +103,8 @@ export const BiblePage: React.FC = () => {
   const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const { toast } = useToast();
 
   // Calculer le language_id dynamiquement pour chaque version
@@ -120,6 +122,28 @@ export const BiblePage: React.FC = () => {
   useEffect(() => {
     debugTitleTranslations();
   }, []);
+
+  // Surveiller le défilement horizontal pour activer/désactiver les flèches
+  const updateScrollState = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (el) {
+      updateScrollState();
+      el.addEventListener('scroll', updateScrollState, { passive: true });
+      window.addEventListener('resize', updateScrollState);
+      return () => {
+        el.removeEventListener('scroll', updateScrollState);
+        window.removeEventListener('resize', updateScrollState);
+      };
+    }
+  }, [selectedVersions, versesData]);
 
   useEffect(() => {
     let mounted = true;
@@ -493,6 +517,21 @@ export const BiblePage: React.FC = () => {
     );
   };
 
+  const handleScrollPrev = () => {
+    if (scrollContainerRef.current) {
+      // Défilement équivalent à une colonne ou 25% de la largeur
+      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
+      scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollNext = () => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   const renderVersionsGrid = () => {
     const hasMultiple = selectedVersions.length > 4;
 
@@ -521,7 +560,9 @@ export const BiblePage: React.FC = () => {
             <div 
               key={versionCode} 
               className={`p-4 rounded-2xl border border-border bg-card shadow-xs flex flex-col ${
-                hasMultiple ? 'w-[320px] sm:w-[360px] md:w-[400px] shrink-0' : 'w-full'
+                hasMultiple 
+                  ? 'w-full md:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)] shrink-0' 
+                  : 'w-full'
               }`}
             >
               <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
@@ -585,33 +626,29 @@ export const BiblePage: React.FC = () => {
     if (hasMultiple) {
       return (
         <div className="relative group">
-          <button
-            onClick={() => {
-              if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollBy({ left: -360, behavior: 'smooth' });
-              }
-            }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/90 border border-border shadow-lg flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-white transition-colors"
-            title="Versions précédentes"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+          {canScrollLeft && (
+            <button
+              onClick={handleScrollPrev}
+              className="absolute -left-3.5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-background border border-border shadow-xl flex items-center justify-center text-foreground hover:bg-amber-600 hover:text-white transition-all hover:scale-105"
+              title="Versions précédentes"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
 
-          <button
-            onClick={() => {
-              if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollBy({ left: 360, behavior: 'smooth' });
-              }
-            }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/90 border border-border shadow-lg flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-white transition-colors"
-            title="Versions suivantes"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          {canScrollRight && (
+            <button
+              onClick={handleScrollNext}
+              className="absolute -right-3.5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-background border border-border shadow-xl flex items-center justify-center text-foreground hover:bg-amber-600 hover:text-white transition-all hover:scale-105"
+              title="Versions suivantes"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
 
           <div
             ref={scrollContainerRef}
-            className="overflow-x-auto no-scrollbar scroll-smooth px-1"
+            className="overflow-x-auto no-scrollbar scroll-smooth px-0.5"
           >
             {gridContent}
           </div>
@@ -896,7 +933,7 @@ export const BiblePage: React.FC = () => {
           </div>
           <MadeWithDyad />
         </footer>
-      </main>
+      </main><dyad-write path="src/pages/BiblePage.tsx" description="Complete the closing tags and export for BiblePage">
     </div>
   );
 };
