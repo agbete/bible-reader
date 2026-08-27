@@ -429,13 +429,9 @@ export async function getDbVerseTreasures(
       .maybeSingle();
 
     const versionId = verData?.id;
-    
-    // ✅ FIX: Always use French (language_id = 2) for treasure translations
-    // The treasures table has French translations, not the version's language
-    const TREASURES_FRENCH_LANG_ID = 2;
-    const targetLangId = TREASURES_FRENCH_LANG_ID;
+    const versionLangId = verData?.language_id;
 
-    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'targetLangId:', targetLangId, 'langCode:', langCode);
+    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'versionLangId:', versionLangId, 'langCode:', langCode);
 
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
@@ -476,26 +472,48 @@ export async function getDbVerseTreasures(
       texts?.forEach(t => targetTextsMap.set(t.verse_id, t.text));
     }
 
-    console.log('[bibleDb] Found', treasures.length, 'treasures, targetLangId for translations:', targetLangId);
+    console.log('[bibleDb] Found', treasures.length, 'treasures');
 
     return treasures.map(t => {
-      // Find translation matching French (language_id = 2)
-      let trans = t.treasure_translations?.find(
-        (tr: any) => tr.language_id === targetLangId
+      // ✅ FIX: Cherche la traduction disponible qui correspond au mieux
+      // Priorité : 
+      //   1. La langue du `langCode` demandé (par défaut 'fr')
+      //   2. La langue de la version Bible active
+      //   3. La première traduction disponible
+      const availableTranslations = t.treasure_translations || [];
+      
+      console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
+      
+      // 1. Essayer de trouver la traduction par language_id via langCode
+      const langIdMap: Record<string, number> = {
+        'fr': 2, 'en': 4, 'es': 5, 'yo': 3, 'go': 1
+      };
+      const desiredLangId = langIdMap[langCode] || languageId;
+      
+      let trans = availableTranslations.find(
+        (tr: any) => tr.language_id === desiredLangId
       );
-      if (!trans && t.treasure_translations && t.treasure_translations.length > 0) {
-        // Fallback: try by langCode
-        console.log('[bibleDb] No French translation found for languageId', targetLangId, ', available:', t.treasure_translations.map((tr: any) => ({ langId: tr.language_id, title: tr.title })));
-        trans = t.treasure_translations[0];
+      
+      // 2. Sinon, essayer par la langue de la version
+      if (!trans && versionLangId) {
+        trans = availableTranslations.find(
+          (tr: any) => tr.language_id === versionLangId
+        );
+      }
+      
+      // 3. Sinon, prendre la première traduction disponible
+      if (!trans && availableTranslations.length > 0) {
+        trans = availableTranslations[0];
       }
 
-      console.log('[bibleDb] Treasure', t.id, '- selected translation:', trans?.title, 'languageId:', trans?.language_id);
+      console.log('[bibleDb] Treasure', t.id, '- selected translation langId:', trans?.language_id, 'title:', trans?.title?.substring(0, 30));
 
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
         const v = tv.verses;
         const ch = v?.chapters;
         const bk = ch?.books;
-        const bTrans = bk?.book_translations?.find((bt: any) => targetLangId ? bt.language_id === targetLangId : true);
+        // Pour les noms de livres, utiliser la langue de la version active ou fallback
+        const bTrans = bk?.book_translations?.find((bt: any) => versionLangId ? bt.language_id === versionLangId : true);
         const bookName = bTrans?.name || bk?.code || '';
 
         return {
