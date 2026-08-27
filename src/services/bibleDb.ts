@@ -284,43 +284,67 @@ export async function getDbChapterVerses(
 
 /**
  * 5. Récupère les titres de sections (title_translations) pour une liste de versets
+ * CORRECTION: Utilise le code de langue (ex: 'fr', 'en') au lieu de l'ID pour un mapping fiable
  */
-export async function getDbVerseTitles(verseIds: number[], languageId?: number): Promise<Record<number, Record<string, string>>> {
+export async function getDbVerseTitles(verseIds: number[], languageCode?: string): Promise<Record<number, Record<string, string>>> {
   if (!verseIds || verseIds.length === 0) return {};
   
   try {
-    console.log('[bibleDb] Fetching titles for verseIds:', verseIds.length, 'languageId:', languageId);
+    console.log('[bibleDb] Fetching titles for verseIds:', verseIds.length, 'languageCode:', languageCode);
     
+    // Si on a un code de langue, on récupère l'ID correspondant
+    let targetLanguageId: number | undefined;
+    if (languageCode) {
+      const { data: langData } = await supabase
+        .from('languages')
+        .select('id')
+        .eq('code', languageCode)
+        .maybeSingle();
+      targetLanguageId = langData?.id;
+      console.log('[bibleDb] Mapped languageCode', languageCode, 'to languageId:', targetLanguageId);
+    }
+    
+    // Essayer d'abord avec le language_id mappé
     let query = supabase
       .from('title_translations')
       .select('verse_id, language_id, titles')
       .in('verse_id', verseIds);
 
-    if (languageId) {
-      query = query.eq('language_id', languageId);
+    if (targetLanguageId) {
+      query = query.eq('language_id', targetLanguageId);
     }
 
     const { data, error } = await query;
 
     if (error) {
       console.error('[bibleDb] Erreur récupération title_translations:', error.message, error.details);
-      // Tentative sans filtre de langue si restriction
-      if (languageId) {
-        console.log('[bibleDb] Tentative sans filtre language_id...');
-        const { data: fallbackData } = await supabase
-          .from('title_translations')
-          .select('verse_id, language_id, titles')
-          .in('verse_id', verseIds);
-        
-        if (fallbackData) {
-          return formatTitlesMap(fallbackData);
-        }
-      }
-      return {};
     }
 
-    console.log('[bibleDb] Title rows received:', data?.length || 0);
-    return formatTitlesMap(data || []);
+    // Si pas de résultats avec le language_id spécifique, essayer sans filtre de langue
+    // (les titres peuvent être stockés sous un language_id différent)
+    let finalData = data;
+    if (!finalData || finalData.length === 0) {
+      console.log('[bibleDb] Aucun titre avec language_id, tentative sans filtre de langue...');
+      const { data: fallbackData } = await supabase
+        .from('title_translations')
+        .select('verse_id, language_id, titles')
+        .in('verse_id', verseIds);
+      finalData = fallbackData;
+    }
+
+    // Si toujours rien, essayer avec les language_id courants (fr=2, en=1, etc.)
+    if (!finalData || finalData.length === 0) {
+      console.log('[bibleDb] Tentative avec language_id courants (1, 2, 3)...');
+      const { data: commonLangData } = await supabase
+        .from('title_translations')
+        .select('verse_id, language_id, titles')
+        .in('verse_id', verseIds)
+        .in('language_id', [1, 2, 3, 4, 5]);
+      finalData = commonLangData;
+    }
+
+    console.log('[bibleDb] Title rows received (final):', finalData?.length || 0);
+    return formatTitlesMap(finalData || []);
   } catch (err) {
     console.error('[bibleDb] Exception getDbVerseTitles:', err);
     return {};
@@ -364,6 +388,15 @@ export async function debugTitleTranslations(): Promise<void> {
     if (!langError && langData) {
       const langIds = [...new Set(langData.map(l => l.language_id))];
       console.log('Language IDs found in title_translations:', langIds);
+      
+      // Récupérer les codes de langue correspondants
+      if (langIds.length > 0) {
+        const { data: langCodes } = await supabase
+          .from('languages')
+          .select('id, code, name')
+          .in('id', langIds);
+        console.log('Language codes for those IDs:', langCodes);
+      }
     }
 
     // 4. Vérifier les versets disponibles
