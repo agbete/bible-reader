@@ -98,25 +98,9 @@ export const BiblePage: React.FC = () => {
 
   const { toast } = useToast();
 
-  // NOUVEAU: Calculer le code de langue cible à partir des versions sélectionnées
-  const targetLanguageCode = React.useMemo(() => {
-    if (selectedVersions.length === 0) return 'fr';
-    const ver = versions.find(v => v.code === selectedVersions[0]);
-    if (!ver) return 'fr';
-    
-    // Trouver le code de langue correspondant
-    const lang = languages.find(l => l.id === ver.language_id);
-    return lang?.code || 'fr';
-  }, [selectedVersions, versions, languages]);
-
-  // Ancien targetLanguageId gardé pour les autres traductions (testaments, classifications)
-  const targetLanguageId = React.useMemo(() => {
-    if (selectedVersions.length === 1) {
-      const ver = versions.find(v => v.code === selectedVersions[0]);
-      return ver?.language_id ?? 2;
-    }
-    return 2;
-  }, [selectedVersions, versions]);
+  // ✅ CORRECTION : Récupérer le language_id de la version sélectionnée
+  const currentVersionObj = versions.find(v => v.code === selectedVersionCode);
+  const targetLanguageId = currentVersionObj?.language_id;
 
   // Diagnostic automatique au chargement
   useEffect(() => {
@@ -195,7 +179,7 @@ export const BiblePage: React.FC = () => {
         const { data: classTransData } = await supabase
           .from('classification_translations')
           .select('classification_id, language_id, name')
-          .eq('language_id', 2);
+          .eq('language_id', targetLanguageId);
 
         const classTransMap = new Map<number, string>();
         classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
@@ -265,18 +249,18 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedBook, selectedChapter, selectedVersions]);
 
-  // Load title translations for the current verses - UTILISE LE CODE DE LANGUE
+  // ✅ CORRECTION : Load title translations using language_id from selected version
   const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
     if (!verseIds || verseIds.length === 0) {
       console.warn('[BiblePage] loadTitleTranslationsForVerses: empty verseIds list');
       return;
     }
     try {
-      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageCode:', targetLanguageCode);
+      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
       console.log('[BiblePage] First 5 verse IDs:', verseIds.slice(0, 5));
       
-      // Passer le code de langue (ex: 'fr', 'en') au lieu de l'ID
-      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageCode);
+      // ✅ Utiliser le language_id de la version sélectionnée
+      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
       
       console.log('[BiblePage] Raw titlesMap from getDbVerseTitles:', titlesMap);
       console.log('[BiblePage] Number of verses with titles:', Object.keys(titlesMap).length);
@@ -285,7 +269,7 @@ export const BiblePage: React.FC = () => {
       Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
         formatted[Number(vId)] = {
           verse_id: Number(vId),
-          language_id: 0, // Non utilisé pour l'affichage
+          language_id: targetLanguageId || 0,
           titles: titlesObj
         };
       });
@@ -299,18 +283,18 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  // Recharger les titres quand la langue change (via changement de version)
+  // ✅ CORRECTION : Recharger les titres quand la version change (targetLanguageId)
   useEffect(() => {
     if (versesData && Object.keys(versesData).length > 0) {
       const firstVersion = Object.keys(versesData)[0];
       const verses = versesData[firstVersion];
       if (verses && verses.length > 0) {
         const allVerseIds = verses.map(v => v.id).filter(Boolean);
-        console.log('[BiblePage] Language/version changed, reloading titles for', allVerseIds.length, 'verses');
+        console.log('[BiblePage] Version/language changed, reloading titles for', allVerseIds.length, 'verses');
         loadTitleTranslationsForVerses(allVerseIds);
       }
     }
-  }, [targetLanguageCode, versesData]);
+  }, [targetLanguageId, versesData]);
 
   const filteredVersions = versions.filter(v => {
     if (selectedLanguageId === 'ALL') return true;
@@ -533,6 +517,8 @@ export const BiblePage: React.FC = () => {
     console.log('Number of verses:', verses.length);
     console.log('Title translations in state:', Object.keys(titleTranslations).length);
     console.log('Title translations:', titleTranslations);
+    console.log('Current version:', selectedVersionCode);
+    console.log('Current language_id:', targetLanguageId);
     
     if (verses.length > 0) {
       const firstVerse = verses[0];
