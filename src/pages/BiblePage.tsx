@@ -6,6 +6,7 @@ import { DbStatusModal } from '@/components/bible/DbStatusModal';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
 import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
+import { VerseTreasuresModal } from '@/components/bible/VerseTreasuresModal';
 import { 
   getDbLanguages, 
   getDbAllBooks, 
@@ -31,7 +32,8 @@ import {
   List,
   LayoutGrid,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -74,6 +76,17 @@ export const BiblePage: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState(1);
   const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
   
+  // Verse Treasures Modal state
+  const [selectedVerseForTreasures, setSelectedVerseForTreasures] = useState<{
+    id: number;
+    verse_number: number;
+    reference_code: string;
+    text: string;
+    book: DbBookItem;
+    chapter: number;
+    versionCode: string;
+  } | null>(null);
+
   const [readerState, setReaderState] = useState({
     isOpen: false,
     bookCode: 'GEN',
@@ -85,9 +98,9 @@ export const BiblePage: React.FC = () => {
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
   
-  // UI state for title display and view mode
+  // UI state for title display and view mode (defaults: list mode & titles enabled)
   const [showTitles, setShowTitles] = useState<boolean>(true);
-  const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
+  const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('list');
   
   // Stocker les titres par version (et par verse_id)
   const [titleTranslations, setTitleTranslations] = useState<
@@ -107,7 +120,6 @@ export const BiblePage: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const { toast } = useToast();
 
-  // Calculer le language_id dynamiquement pour chaque version
   const versionLanguageMap = useMemo(() => {
     const map = new Map<string, number>();
     versions.forEach(v => {
@@ -123,7 +135,6 @@ export const BiblePage: React.FC = () => {
     debugTitleTranslations();
   }, []);
 
-  // Surveiller le défilement horizontal pour activer/désactiver les flèches
   const updateScrollState = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -187,8 +198,6 @@ export const BiblePage: React.FC = () => {
       setLoading(true);
       setLoadError(null);
       try {
-        console.log('[BiblePage] Starting initial data load...');
-        
         const [langs, vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
           getDbLanguages(),
           getDbVersionsWithVerses(),
@@ -288,14 +297,10 @@ export const BiblePage: React.FC = () => {
   }, [selectedBook, selectedChapter, selectedVersions]);
 
   const loadTitleTranslationsForVerses = async (verseIds: number[], versionCode: string) => {
-    if (!verseIds || verseIds.length === 0) {
-      return;
-    }
+    if (!verseIds || verseIds.length === 0) return;
     
     const langId = versionLanguageMap.get(versionCode);
-    if (!langId) {
-      return;
-    }
+    if (!langId) return;
     
     try {
       const titlesMap = await getDbVerseTitles(verseIds, langId);
@@ -443,35 +448,17 @@ export const BiblePage: React.FC = () => {
     toast({ title: 'Version réinitialisée à LSG' });
   };
 
-  const handleSearchVersion = () => {
-    setIsSearchOpen(true);
-  };
-
-  const handleOpenBookmarks = () => {
-    setIsBookmarksOpen(true);
-  };
-
-  const handleOpenDbStatus = () => {
-    setIsDbStatusOpen(true);
-  };
-
-  const handleReaderChapterChange = (bookId: string, chapter: number) => {
-    setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }));
-    const matchedBook = booksList.find(b => b.code === bookId);
-    if (matchedBook) {
-      setSelectedBook(matchedBook);
-      setSelectedChapter(chapter);
-    }
-  };
-
-  const handleToggleBookmark = (verse: any) => {
-    if (bookmarks.some(b => b.id === verse.id)) {
-      setBookmarks(prev => prev.filter(b => b.id !== verse.id));
-      toast({ title: "Verset retiré des favoris." });
-    } else {
-      setBookmarks(prev => [...prev, verse]);
-      toast({ title: "Verset ajouté aux favoris !" });
-    }
+  const handleVerseClick = (verse: any, versionCode: string) => {
+    if (!selectedBook) return;
+    setSelectedVerseForTreasures({
+      id: verse.id || verse.verse_number,
+      verse_number: verse.verse_number,
+      reference_code: verse.reference_code || `${selectedBook.code}.${selectedChapter}.${verse.verse_number}`,
+      text: verse.text,
+      book: selectedBook,
+      chapter: selectedChapter,
+      versionCode: versionCode
+    });
   };
 
   const renderVerseTitles = (verseId: number, versionCode: string) => {
@@ -583,17 +570,22 @@ export const BiblePage: React.FC = () => {
                   <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
                 </div>
               ) : displayMode === 'list' ? (
-                <div className="space-y-3 font-serif text-sm sm:text-base leading-relaxed flex-1">
+                <div className="space-y-2 font-serif text-sm sm:text-base leading-relaxed flex-1">
                   {verses.map((verse) => (
                     <div key={verse.id || verse.verse_number} className="group">
                       {renderVerseTitles(verse.id, versionCode)}
-                      <div className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-muted/40 transition-colors">
+                      <div 
+                        onClick={() => handleVerseClick(verse, versionCode)}
+                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
+                        title="Cliquez pour voir les Références & Trésors"
+                      >
                         <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-1 shrink-0 min-w-[1.75rem]">
                           {verse.verse_number}.
                         </span>
                         <p className="text-foreground flex-1">
                           {verse.text}
                         </p>
+                        <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1" />
                       </div>
                     </div>
                   ))}
@@ -605,7 +597,11 @@ export const BiblePage: React.FC = () => {
                     return (
                       <React.Fragment key={verse.id || verse.verse_number}>
                         {titlesHeader}
-                        <span className="inline hover:bg-amber-500/10 rounded px-0.5 transition-colors">
+                        <span 
+                          onClick={() => handleVerseClick(verse, versionCode)}
+                          className="inline hover:bg-amber-500/15 dark:hover:bg-amber-500/20 rounded px-1 py-0.5 cursor-pointer transition-colors"
+                          title="Cliquez pour voir les Références & Trésors"
+                        >
                           <sup className="font-sans font-bold text-xs text-amber-600 dark:text-amber-400 font-mono mr-1 select-none">
                             {verse.verse_number}
                           </sup>
@@ -625,7 +621,6 @@ export const BiblePage: React.FC = () => {
     if (hasMultiple) {
       return (
         <div className="relative">
-          {/* Flèche gauche positionnée à l'extérieur dans la marge */}
           {canScrollLeft && (
             <button
               onClick={handleScrollPrev}
@@ -637,7 +632,6 @@ export const BiblePage: React.FC = () => {
             </button>
           )}
 
-          {/* Flèche droite positionnée à l'extérieur dans la marge */}
           {canScrollRight && (
             <button
               onClick={handleScrollNext}
@@ -649,7 +643,6 @@ export const BiblePage: React.FC = () => {
             </button>
           )}
 
-          {/* Flèches pour petits écrans (tablette/mobile) placées au-dessus du conteneur */}
           <div className="lg:hidden flex items-center justify-end gap-2 mb-2">
             <Button
               variant="outline"
@@ -689,9 +682,9 @@ export const BiblePage: React.FC = () => {
       <Navbar
         currentVersion={selectedVersionCode}
         onVersionChange={setSelectedVersionCode}
-        onOpenSearch={handleSearchVersion}
-        onOpenBookmarks={handleOpenBookmarks}
-        onOpenDbStatus={handleOpenDbStatus}
+        onOpenSearch={() => setIsSearchOpen(true)}
+        onOpenBookmarks={() => setIsBookmarksOpen(true)}
+        onOpenDbStatus={() => setIsDbStatusOpen(true)}
       />
 
       {/* Language and version selection bar */}
@@ -784,7 +777,7 @@ export const BiblePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Section de contrôle avec background 100% viewport width */}
+      {/* Section de contrôle (data-dyad-id 788) */}
       <section className="w-full bg-gray-50 dark:bg-gray-900 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
@@ -899,6 +892,27 @@ export const BiblePage: React.FC = () => {
           </section>
         )}
 
+        {/* Modal Références Croisées & Trésors */}
+        <VerseTreasuresModal
+          isOpen={!!selectedVerseForTreasures}
+          onClose={() => setSelectedVerseForTreasures(null)}
+          selectedVerse={selectedVerseForTreasures}
+          booksList={booksList}
+          currentVersion={selectedVersionCode}
+          testamentsList={testamentsList}
+          classificationsList={classificationsList}
+          testamentNames={testamentNames}
+          classificationNames={classificationNames}
+          showTitles={showTitles}
+          onToggleShowTitles={() => setShowTitles(prev => !prev)}
+          displayMode={displayMode}
+          onToggleDisplayMode={() => setDisplayMode(prev => prev === 'compact' ? 'list' : 'compact')}
+          onNavigateToPassage={(book, chapter) => {
+            setSelectedBook(book);
+            setSelectedChapter(chapter);
+          }}
+        />
+
         <ReaderDialog
           isOpen={readerState.isOpen}
           onClose={() => setReaderState(prev => ({ ...prev, isOpen: false }))}
@@ -906,9 +920,24 @@ export const BiblePage: React.FC = () => {
           chapterNumber={readerState.chapterNumber}
           currentVersion={selectedVersionCode}
           selectedVersions={selectedVersions}
-          onChapterChange={handleReaderChapterChange}
+          onChapterChange={(bookId, chapter) => {
+            setReaderState(prev => ({ ...prev, bookCode: bookId, chapterNumber: chapter }));
+            const matchedBook = booksList.find(b => b.code === bookId);
+            if (matchedBook) {
+              setSelectedBook(matchedBook);
+              setSelectedChapter(chapter);
+            }
+          }}
           isBookmarked={(id) => bookmarks.some(b => b.id === id)}
-          onToggleBookmark={handleToggleBookmark}
+          onToggleBookmark={(verse) => {
+            if (bookmarks.some(b => b.id === verse.id)) {
+              setBookmarks(prev => prev.filter(b => b.id !== verse.id));
+              toast({ title: "Verset retiré des favoris." });
+            } else {
+              setBookmarks(prev => [...prev, verse]);
+              toast({ title: "Verset ajouté aux favoris !" });
+            }
+          }}
         />
 
         <SearchDialog
