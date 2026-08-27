@@ -86,7 +86,12 @@ export const BiblePage: React.FC = () => {
   // UI state for title display and view mode
   const [showTitles, setShowTitles] = useState<boolean>(true);
   const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
-  const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
+  
+  // ✅ CORRECTION : Stocker les titres par version (et par verse_id)
+  // Structure: { versionCode: { verseId: { titles: {...}, language_id: number } } }
+  const [titleTranslations, setTitleTranslations] = useState<
+    Record<string, Record<number, TitleTranslation>>
+  >({});
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
@@ -260,7 +265,7 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedBook, selectedChapter, selectedVersions]);
 
-  // ✅ CORRECTION : Load title translations using language_id from the CURRENT version
+  // ✅ CORRECTION : Charger les titres pour chaque version séparément
   const loadTitleTranslationsForVerses = async (verseIds: number[], versionCode: string) => {
     if (!verseIds || verseIds.length === 0) {
       console.warn('[BiblePage] loadTitleTranslationsForVerses: empty verseIds list');
@@ -282,6 +287,7 @@ export const BiblePage: React.FC = () => {
       console.log('[BiblePage] Raw titlesMap from getDbVerseTitles:', titlesMap);
       console.log('[BiblePage] Number of verses with titles:', Object.keys(titlesMap).length);
       
+      // ✅ CORRECTION : Stocker les titres par version
       const formatted: Record<number, TitleTranslation> = {};
       Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
         formatted[Number(vId)] = {
@@ -291,28 +297,30 @@ export const BiblePage: React.FC = () => {
         };
       });
 
-      console.log('[BiblePage] Titles successfully assigned to state:', Object.keys(formatted).length);
-      console.log('[BiblePage] Formatted state keys:', Object.keys(formatted));
+      console.log('[BiblePage] Titles successfully assigned to state for version', versionCode, ':', Object.keys(formatted).length);
       
-      setTitleTranslations(formatted);
+      // ✅ CORRECTION : Mettre à jour les titres pour cette version spécifique
+      setTitleTranslations(prev => ({
+        ...prev,
+        [versionCode]: formatted
+      }));
     } catch (err) {
       console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:', err);
     }
   };
 
-  // ✅ CORRECTION : Recharger les titres quand la version active change
+  // ✅ CORRECTION : Recharger les titres pour toutes les versions sélectionnées
   useEffect(() => {
     if (versesData && Object.keys(versesData).length > 0) {
-      // Prendre la première version de la liste (version active)
-      const activeVersion = selectedVersions[0];
-      if (activeVersion) {
-        const verses = versesData[activeVersion];
+      // Pour chaque version sélectionnée, charger ses titres
+      selectedVersions.forEach(versionCode => {
+        const verses = versesData[versionCode];
         if (verses && verses.length > 0) {
           const allVerseIds = verses.map(v => v.id).filter(Boolean);
-          console.log('[BiblePage] Version changed, reloading titles for', allVerseIds.length, 'verses. Active version:', activeVersion);
-          loadTitleTranslationsForVerses(allVerseIds, activeVersion);
+          console.log('[BiblePage] Loading titles for version', versionCode, 'with', allVerseIds.length, 'verses');
+          loadTitleTranslationsForVerses(allVerseIds, versionCode);
         }
-      }
+      });
     }
   }, [selectedVersions, versesData]);
 
@@ -363,17 +371,13 @@ export const BiblePage: React.FC = () => {
       });
       setVersesData(updatedMap);
 
-      // Directly extract verse IDs from the query results for title loading
-      const firstValidResult = results.find(r => r.verses && r.verses.length > 0);
-      const allVerseIds = firstValidResult ? firstValidResult.verses.map(v => v.id).filter(Boolean) : [];
-
-      console.log('[BiblePage] Extracted verse IDs for title lookup:', allVerseIds.length);
-      if (allVerseIds.length > 0) {
-        // ✅ CORRECTION : Charger les titres pour la version active (première version de la liste)
-        const activeVersion = versionCodes[0];
-        await loadTitleTranslationsForVerses(allVerseIds, activeVersion);
-      } else {
-        setTitleTranslations({});
+      // ✅ CORRECTION : Charger les titres pour chaque version séparément
+      for (const { code, verses } of results) {
+        if (verses && verses.length > 0) {
+          const allVerseIds = verses.map(v => v.id).filter(Boolean);
+          console.log('[BiblePage] Extracted verse IDs for title lookup for version', code, ':', allVerseIds.length);
+          await loadTitleTranslationsForVerses(allVerseIds, code);
+        }
       }
     } finally {
       setVersesLoading(prev => {
@@ -490,10 +494,15 @@ export const BiblePage: React.FC = () => {
     });
   };
 
-  // Render title header for a verse
-  const renderVerseTitles = (verseId: number) => {
+  // ✅ CORRECTION : Render title header for a verse, en utilisant la version spécifique
+  const renderVerseTitles = (verseId: number, versionCode: string) => {
     if (!showTitles) return null;
-    const titleData = titleTranslations[verseId];
+    
+    // ✅ CORRECTION : Récupérer les titres pour cette version spécifique
+    const versionTitles = titleTranslations[versionCode];
+    if (!versionTitles) return null;
+    
+    const titleData = versionTitles[verseId];
     if (!titleData || !titleData.titles) return null;
 
     // Trier les niveaux par ordre croissant
@@ -533,25 +542,28 @@ export const BiblePage: React.FC = () => {
 
   // Fonction de diagnostic pour tester le rendu des titres
   const debugTitles = () => {
-    const verses = versesData[selectedVersionCode] || [];
     console.group('🔍 [BiblePage] TITLES DIAGNOSTIC');
     console.log('Show titles:', showTitles);
-    console.log('Number of verses:', verses.length);
-    console.log('Title translations in state:', Object.keys(titleTranslations).length);
-    console.log('Title translations:', titleTranslations);
-    console.log('Current version:', selectedVersionCode);
-    console.log('Current language_id:', targetLanguageId);
+    console.log('Selected versions:', selectedVersions);
+    console.log('Title translations by version:', Object.keys(titleTranslations));
     
-    if (verses.length > 0) {
-      const firstVerse = verses[0];
-      console.log('First verse:', firstVerse);
-      console.log('First verse ID:', firstVerse.id);
-      console.log('Titles for first verse:', titleTranslations[firstVerse.id]);
+    selectedVersions.forEach(versionCode => {
+      const verses = versesData[versionCode] || [];
+      const versionTitles = titleTranslations[versionCode] || {};
+      console.log(`--- Version ${versionCode} ---`);
+      console.log('Number of verses:', verses.length);
+      console.log('Number of title entries:', Object.keys(versionTitles).length);
       
-      // Compter combien de versets ont des titres
-      const versesWithTitles = verses.filter(v => titleTranslations[v.id] && Object.keys(titleTranslations[v.id].titles).length > 0);
-      console.log('Verses with titles:', versesWithTitles.length, '/', verses.length);
-    }
+      if (verses.length > 0) {
+        const firstVerse = verses[0];
+        console.log('First verse ID:', firstVerse.id);
+        console.log('Titles for first verse:', versionTitles[firstVerse.id]);
+        
+        // Compter combien de versets ont des titres
+        const versesWithTitles = verses.filter(v => versionTitles[v.id] && Object.keys(versionTitles[v.id].titles).length > 0);
+        console.log('Verses with titles:', versesWithTitles.length, '/', verses.length);
+      }
+    });
     console.groupEnd();
   };
 
@@ -603,7 +615,8 @@ export const BiblePage: React.FC = () => {
                 <div className="space-y-3 font-serif text-sm sm:text-base leading-relaxed">
                   {verses.map((verse) => (
                     <div key={verse.id || verse.verse_number} className="group">
-                      {renderVerseTitles(verse.id)}
+                      {/* ✅ CORRECTION : Passer le versionCode pour afficher les bons titres */}
+                      {renderVerseTitles(verse.id, versionCode)}
                       <div className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-muted/40 transition-colors">
                         <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-1 shrink-0 min-w-[1.75rem]">
                           {verse.verse_number}.
@@ -619,7 +632,8 @@ export const BiblePage: React.FC = () => {
                 /* === MODE COMPACT : Versets en continu dans un flux de paragraphe === */
                 <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground">
                   {verses.map((verse) => {
-                    const titlesHeader = renderVerseTitles(verse.id);
+                    /* ✅ CORRECTION : Passer le versionCode pour afficher les bons titres */
+                    const titlesHeader = renderVerseTitles(verse.id, versionCode);
                     return (
                       <React.Fragment key={verse.id || verse.verse_number}>
                         {titlesHeader}
