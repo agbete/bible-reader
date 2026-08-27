@@ -9,7 +9,9 @@ import {
   Copy, 
   Check, 
   Loader2, 
-  Scroll
+  Link2,
+  Gem,
+  Bookmark
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
@@ -17,6 +19,8 @@ import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
 import { 
   DbBookItem, 
   DbTreasureItem, 
+  DbCrossReferenceItem,
+  getDbVerseCrossReferences,
   getDbVerseTreasures,
   getDbChapterVerses 
 } from '@/services/bibleDb';
@@ -69,8 +73,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [activeVerseText, setActiveVerseText] = useState<string>('');
   const [activeReferenceCode, setActiveReferenceCode] = useState<string>('');
 
+  const [crossReferences, setCrossReferences] = useState<DbCrossReferenceItem[]>([]);
   const [treasures, setTreasures] = useState<DbTreasureItem[]>([]);
-  const [loadingTreasures, setLoadingTreasures] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   // Sync state when selected verse changes or modal opens
@@ -84,28 +89,33 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   }, [selectedVerse, isOpen]);
 
-  // Load treasures whenever active verse reference changes
+  // Load both cross references AND treasures in parallel whenever reference code changes
   useEffect(() => {
     if (!isOpen || !activeReferenceCode) return;
 
     let isMounted = true;
-    setLoadingTreasures(true);
+    setLoading(true);
 
-    getDbVerseTreasures(activeReferenceCode, 'fr', currentVersion)
-      .then((res) => {
+    Promise.all([
+      getDbVerseCrossReferences(activeReferenceCode, currentVersion),
+      getDbVerseTreasures(activeReferenceCode, 'fr', currentVersion)
+    ])
+      .then(([crossRes, treasuresRes]) => {
         if (isMounted) {
-          setTreasures(res || []);
+          setCrossReferences(crossRes || []);
+          setTreasures(treasuresRes || []);
         }
       })
       .catch((err) => {
-        console.error('[VerseTreasuresModal] Error loading treasures:', err);
+        console.error('[VerseTreasuresModal] Error loading references/treasures:', err);
         if (isMounted) {
+          setCrossReferences([]);
           setTreasures([]);
         }
       })
       .finally(() => {
         if (isMounted) {
-          setLoadingTreasures(false);
+          setLoading(false);
         }
       });
 
@@ -128,7 +138,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
     
-    // Fetch first verse text
     try {
       const verses = await getDbChapterVerses(book.id, chapter, currentVersion);
       if (verses && verses.length > 0) {
@@ -156,17 +165,12 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   };
 
-  const totalTargetsCount = treasures.reduce(
-    (acc, t) => acc + (t.target_items?.length || t.target_references?.length || 0), 
-    0
-  );
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-200">
       {/* Modal Container: 95vw by 95vh */}
       <div className="relative w-[95vw] h-[95vh] max-w-7xl bg-background rounded-3xl border border-border/80 shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
         
-        {/* HEADER: Section de contrôle identique à la section 788 */}
+        {/* 1. HEADER: Section de contrôle identique à la section 788 */}
         <div className="w-full bg-gray-50 dark:bg-gray-900/90 border-b border-border/80 px-4 sm:px-6 py-3 shrink-0">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center justify-between">
             {/* BookSearchSelect */}
@@ -248,142 +252,235 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
         </div>
 
-        {/* BODY: Deux colonnes (Gauche: Verset Source sélectionné, Droite: Trésors & Références) */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-background divide-y lg:divide-y-0 lg:divide-x divide-border">
-          
-          {/* Colonne Gauche: Verset Source (5 cols) */}
-          <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto bg-muted/10 space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 text-xs font-bold font-mono border border-amber-500/30">
-                    {activeBook.name} {activeChapter}:{activeVerseNumber}
-                  </span>
-                  <span className="text-xs text-muted-foreground font-medium">
-                    Version {currentVersion}
-                  </span>
-                </div>
-
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleCopy(activeVerseText, `${activeBook.name} ${activeChapter}:${activeVerseNumber}`)}
-                  className="h-8 px-2.5 rounded-full text-xs gap-1 text-muted-foreground hover:text-foreground"
-                >
-                  {copiedCode === `${activeBook.name} ${activeChapter}:${activeVerseNumber}` ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
-                  ) : (
-                    <Copy className="w-3.5 h-3.5" />
-                  )}
-                  <span>Copier</span>
-                </Button>
-              </div>
-
-              {/* Texte du verset source */}
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20 shadow-xs">
-                <blockquote className="text-lg sm:text-xl md:text-2xl font-serif leading-relaxed text-foreground tracking-wide">
-                  « {activeVerseText || 'Sélectionnez un verset pour explorer ses richesses.'} »
-                </blockquote>
-                <div className="mt-4 pt-3 border-t border-amber-500/20 flex items-center justify-between text-xs text-amber-700 dark:text-amber-300 font-semibold">
-                  <span>{activeReferenceCode}</span>
-                  <span className="font-sans text-[11px] text-muted-foreground font-normal">Verset source</span>
-                </div>
-              </div>
-
-              {/* Récapitulatif Trésors */}
-              <div className="p-4 rounded-2xl bg-card border border-border/80 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold block">Trésors & Liens Bibliques</span>
-                    <span className="text-[11px] text-muted-foreground">
-                      {treasures.length} groupe{treasures.length > 1 ? 's' : ''} thématique{treasures.length > 1 ? 's' : ''} • {totalTargetsCount} verset{totalTargetsCount > 1 ? 's' : ''} lié{totalTargetsCount > 1 ? 's' : ''}
-                    </span>
-                  </div>
-                </div>
-
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    onNavigateToPassage(activeBook, activeChapter);
-                    onClose();
-                  }}
-                  className="h-8 rounded-full text-xs gap-1 hover:bg-amber-600 hover:text-white transition-colors"
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>Lire tout le chapitre</span>
-                </Button>
-              </div>
-            </div>
-
-            <div className="text-[11px] text-muted-foreground italic text-center pt-4 border-t border-border/40">
-              « Scrutez les Écritures... ce sont elles qui rendent témoignage » — Jean 5:39
-            </div>
+        {/* 2. BANDEAU VERSET SOURCE: Juste après le header */}
+        <div className="w-full bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-4 sm:px-6 py-3 shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-start md:items-center gap-3 flex-1 min-w-0">
+            <span className="px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold font-mono shrink-0 shadow-xs">
+              {activeBook.name} {activeChapter}:{activeVerseNumber}
+            </span>
+            <blockquote className="font-serif text-xs sm:text-sm text-foreground italic leading-relaxed line-clamp-2 md:line-clamp-1">
+              « {activeVerseText || 'Sélectionnez un verset pour explorer ses richesses.'} »
+            </blockquote>
           </div>
 
-          {/* Colonne Droite: Trésors & Références Croisées (7 cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col overflow-hidden bg-background">
-            <div className="flex items-center justify-between pb-4 border-b border-border mb-4">
+          <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+            <span className="text-[11px] text-muted-foreground font-medium">
+              Version {currentVersion}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleCopy(activeVerseText, `${activeBook.name} ${activeChapter}:{activeVerseNumber}`)}
+              className="h-7 px-2.5 rounded-full text-xs gap-1"
+            >
+              {copiedCode === `${activeBook.name} ${activeChapter}:${activeVerseNumber}` ? (
+                <Check className="w-3 h-3 text-emerald-500" />
+              ) : (
+                <Copy className="w-3 h-3" />
+              )}
+              <span>Copier verset</span>
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => {
+                onNavigateToPassage(activeBook, activeChapter);
+                onClose();
+              }}
+              className="h-7 px-3 rounded-full text-xs gap-1 bg-amber-600 hover:bg-amber-700 text-white"
+            >
+              <BookOpen className="w-3 h-3" />
+              <span>Ouvrir chapitre</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* 3. BODY: DEUX COLONNES (Gauche: Références Croisées, Droite: Trésors) */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 overflow-hidden bg-background divide-y lg:divide-y-0 lg:divide-x divide-border">
+          
+          {/* COLONNE 1 : RÉFÉRENCES CROISÉES (cross_references) */}
+          <div className="p-4 sm:p-6 flex flex-col overflow-hidden bg-muted/5">
+            <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-                <h3 className="font-bold text-base sm:text-lg tracking-tight">
-                  Références Croisées & Trésors de la Parole
-                </h3>
+                <div className="w-7 h-7 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                  <Link2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">
+                    Références Croisées
+                  </h3>
+                  <span className="text-[10px] text-muted-foreground">
+                    Passages bibliques parallèles et citations directes
+                  </span>
+                </div>
               </div>
-              <span className="text-xs text-muted-foreground font-mono">
-                {totalTargetsCount} passage{totalTargetsCount > 1 ? 's' : ''}
+              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-300">
+                {crossReferences.length} référence{crossReferences.length > 1 ? 's' : ''}
               </span>
             </div>
 
-            {/* Contenu avec ascenseur indépendant */}
-            <div className="flex-1 overflow-y-auto pr-1 space-y-4">
-              {loadingTreasures ? (
-                <div className="py-20 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-                  <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
-                  <span className="text-sm font-medium">Recherche des trésors et versets croisés...</span>
+            {/* Contenu ascenseur Références */}
+            <div className="flex-1 overflow-y-auto pr-1 space-y-2.5">
+              {loading ? (
+                <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                  <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+                  <span className="text-xs">Chargement des références croisées...</span>
+                </div>
+              ) : crossReferences.length === 0 ? (
+                <div className="py-16 text-center text-muted-foreground space-y-2">
+                  <Link2 className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
+                  <p className="text-sm font-semibold">Aucune référence croisée directe</p>
+                  <p className="text-xs">Aucun lien direct trouvé dans la table `cross_references` pour ce verset.</p>
+                </div>
+              ) : displayMode === 'list' ? (
+                /* Mode Liste : Ligne par ligne */
+                crossReferences.map((refItem) => {
+                  const matchedBook = booksList.find(
+                    b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
+                  );
+
+                  return (
+                    <div
+                      key={refItem.id}
+                      className="p-3.5 rounded-2xl bg-card border border-border/80 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex flex-col gap-1.5 shadow-xs"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono font-bold text-xs text-blue-700 dark:text-blue-300">
+                          {refItem.reference_code || `${refItem.book_code} ${refItem.chapter}:${refItem.verse_number}`}
+                        </span>
+
+                        <div className="flex items-center gap-1.5">
+                          {refItem.text && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleCopy(refItem.text || '', refItem.reference_code)}
+                              className="h-6 px-2 text-[11px] rounded-full"
+                            >
+                              {copiedCode === refItem.reference_code ? (
+                                <Check className="w-3 h-3 text-emerald-500 mr-1" />
+                              ) : (
+                                <Copy className="w-3 h-3 mr-1" />
+                              )}
+                              <span>Copier</span>
+                            </Button>
+                          )}
+
+                          {matchedBook && (
+                            <Button
+                              size="sm"
+                              onClick={() => {
+                                onNavigateToPassage(matchedBook, refItem.chapter);
+                                onClose();
+                              }}
+                              className="h-6 px-2.5 text-[11px] rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                            >
+                              <BookOpen className="w-3 h-3 mr-1" />
+                              <span>Ouvrir</span>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+
+                      <p className="font-serif text-xs sm:text-sm text-foreground leading-relaxed">
+                        {refItem.text ? `« ${refItem.text} »` : `[Texte non disponible - ${refItem.reference_code}]`}
+                      </p>
+                    </div>
+                  );
+                })
+              ) : (
+                /* Mode Compact : Versets en continu */
+                <div className="p-4 rounded-2xl bg-card border border-border font-serif text-sm leading-relaxed space-y-2">
+                  {crossReferences.map((refItem) => {
+                    const matchedBook = booksList.find(
+                      b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
+                    );
+
+                    return (
+                      <span
+                        key={refItem.id}
+                        onClick={() => {
+                          if (matchedBook) {
+                            onNavigateToPassage(matchedBook, refItem.chapter);
+                            onClose();
+                          }
+                        }}
+                        className="inline-block mr-3 p-1 rounded hover:bg-blue-500/15 cursor-pointer transition-colors"
+                      >
+                        <span className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">
+                          [{refItem.reference_code}]
+                        </span>
+                        <span className="text-foreground">{refItem.text || ''}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* COLONNE 2 : TRÉSORS DE L'ÉCRITURE (treasures, treasure_translations, treasure_verses) */}
+          <div className="p-4 sm:p-6 flex flex-col overflow-hidden bg-background">
+            <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                  <Gem className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">
+                    Trésors de l'Écriture
+                  </h3>
+                  <span className="text-[10px] text-muted-foreground">
+                    Thèmes d'étude, chaînes doctrinales & trésors spirituels
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                {treasures.length} thème{treasures.length > 1 ? 's' : ''}
+              </span>
+            </div>
+
+            {/* Contenu ascenseur Trésors */}
+            <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
+              {loading ? (
+                <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                  <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
+                  <span className="text-xs">Chargement des trésors spirituels...</span>
                 </div>
               ) : treasures.length === 0 ? (
-                <div className="py-20 text-center text-muted-foreground space-y-3">
-                  <Scroll className="w-12 h-12 mx-auto text-muted-foreground/30 stroke-1" />
-                  <div className="space-y-1">
-                    <p className="text-base font-semibold text-foreground">Aucune référence croisée répertoriée</p>
-                    <p className="text-xs max-w-sm mx-auto">
-                      Ce verset ne comporte pas encore de trésor enregistré dans la table Supabase `treasures` ou `cross_references`.
-                    </p>
-                  </div>
+                <div className="py-16 text-center text-muted-foreground space-y-2">
+                  <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
+                  <p className="text-sm font-semibold">Aucun trésor répertorié</p>
+                  <p className="text-xs">Aucun groupe thématique trouvé dans la table `treasures` pour ce verset.</p>
                 </div>
               ) : (
                 treasures.map((treasure, index) => (
-                  <div 
+                  <div
                     key={treasure.treasure_id || index}
-                    className="p-5 rounded-3xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3"
+                    className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3"
                   >
-                    {/* Titre du thème / trésor (soumis à showTitles) */}
-                    {showTitles && treasure.title && (
+                    {/* Titre et description du trésor (soumis au mode showTitles) */}
+                    {showTitles && (
                       <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
                         <div className="flex items-center gap-2">
-                          <span className="w-6 h-6 rounded-lg bg-amber-500/15 text-amber-600 flex items-center justify-center font-bold text-xs">
+                          <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">
                             {index + 1}
                           </span>
-                          <h4 className="font-bold text-sm text-foreground font-serif">
+                          <h4 className="font-bold text-xs sm:text-sm text-foreground font-serif">
                             {treasure.title}
                           </h4>
                         </div>
                         {treasure.description && (
-                          <span className="text-xs text-muted-foreground italic line-clamp-1">
+                          <span className="text-[11px] text-muted-foreground italic line-clamp-1">
                             {treasure.description}
                           </span>
                         )}
                       </div>
                     )}
 
-                    {/* Versets cibles selon displayMode (list par défaut ou compact) */}
+                    {/* Versets associés au trésor */}
                     {treasure.target_items && treasure.target_items.length > 0 ? (
                       displayMode === 'list' ? (
-                        <div className="space-y-2.5">
+                        <div className="space-y-2">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(
                               b => b.code.toLowerCase() === target.book_code.toLowerCase()
@@ -392,20 +489,20 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             return (
                               <div
                                 key={tIdx}
-                                className="p-3 rounded-2xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all group flex flex-col gap-1.5"
+                                className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1"
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400">
                                     {target.reference_code || `${target.book_code} ${target.chapter}:${target.verse_number}`}
                                   </span>
 
-                                  <div className="flex items-center gap-1.5">
+                                  <div className="flex items-center gap-1">
                                     {target.text && (
                                       <Button
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => handleCopy(target.text || '', target.reference_code)}
-                                        className="h-6 px-2 text-[11px] rounded-full"
+                                        className="h-6 px-2 text-[10px] rounded-full"
                                       >
                                         {copiedCode === target.reference_code ? (
                                           <Check className="w-3 h-3 text-emerald-500 mr-1" />
@@ -423,7 +520,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                           onNavigateToPassage(matchedBook, target.chapter);
                                           onClose();
                                         }}
-                                        className="h-6 px-2.5 text-[11px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium"
+                                        className="h-6 px-2 text-[10px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium"
                                       >
                                         <BookOpen className="w-3 h-3 mr-1" />
                                         <span>Ouvrir</span>
@@ -432,50 +529,47 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                   </div>
                                 </div>
 
-                                <p className="font-serif text-xs sm:text-sm text-foreground leading-relaxed">
-                                  {target.text ? `« ${target.text} »` : `[Référence : ${target.reference_code}]`}
+                                <p className="font-serif text-xs text-foreground leading-relaxed">
+                                  {target.text ? `« ${target.text} »` : `[${target.reference_code}]`}
                                 </p>
                               </div>
                             );
                           })}
                         </div>
                       ) : (
-                        /* Mode Compact */
-                        <div className="font-serif text-sm leading-relaxed space-y-1">
+                        /* Mode compact */
+                        <div className="font-serif text-xs leading-relaxed space-y-1">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(
                               b => b.code.toLowerCase() === target.book_code.toLowerCase()
                             );
 
                             return (
-                              <span 
-                                key={tIdx} 
-                                className="inline-block mr-3 p-1 rounded hover:bg-amber-500/15 transition-colors cursor-pointer"
+                              <span
+                                key={tIdx}
                                 onClick={() => {
                                   if (matchedBook) {
                                     onNavigateToPassage(matchedBook, target.chapter);
                                     onClose();
                                   }
                                 }}
+                                className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors"
                               >
-                                <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 mr-1.5">
+                                <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">
                                   [{target.reference_code}]
                                 </span>
-                                <span className="text-foreground">
-                                  {target.text || ''}
-                                </span>
+                                <span className="text-foreground">{target.text || ''}</span>
                               </span>
                             );
                           })}
                         </div>
                       )
                     ) : (
-                      /* Fallback liste de codes de références */
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5">
                         {treasure.target_references.map((refCode, rIdx) => (
                           <span
                             key={rIdx}
-                            className="px-3 py-1.5 rounded-xl bg-muted font-mono text-xs font-bold text-amber-700 dark:text-amber-300 border border-border"
+                            className="px-2 py-1 rounded-lg bg-muted font-mono text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border"
                           >
                             {refCode}
                           </span>
@@ -486,15 +580,18 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 ))
               )}
             </div>
-
-            {/* Footer modal */}
-            <div className="pt-4 border-t border-border mt-3 flex items-center justify-between text-xs text-muted-foreground">
-              <span>Mode actif : {displayMode === 'list' ? 'Liste détaillée' : 'Compact'}</span>
-              <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">
-                Fermer
-              </Button>
-            </div>
           </div>
+        </div>
+
+        {/* 4. FOOTER DU MODAL */}
+        <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground shrink-0">
+          <div className="flex items-center gap-4">
+            <span>Mode : <strong className="text-foreground capitalize">{displayMode}</strong></span>
+            <span>Titres : <strong className="text-foreground">{showTitles ? 'Activés' : 'Masqués'}</strong></span>
+          </div>
+          <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">
+            Fermer
+          </Button>
         </div>
       </div>
     </div>

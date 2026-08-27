@@ -49,6 +49,16 @@ export interface DbTreasureItem {
   target_items?: DbTreasureTargetItem[];
 }
 
+export interface DbCrossReferenceItem {
+  id: number;
+  target_verse_id: number;
+  reference_code: string;
+  book_code: string;
+  chapter: number;
+  verse_number: number;
+  text?: string;
+}
+
 export interface DbSearchResult {
   id: number;
   verse_id: number;
@@ -339,7 +349,97 @@ function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
 }
 
 /**
- * 6. Récupère les références croisées et trésors pour un verset donné avec textes
+ * 6.A Récupère les RÉFÉRENCES CROISÉES directes (table cross_references)
+ */
+export async function getDbVerseCrossReferences(
+  referenceCodeOrId: string | number,
+  versionCode: string = 'LSG'
+): Promise<DbCrossReferenceItem[]> {
+  try {
+    let sourceVerseId: number | null = null;
+
+    if (typeof referenceCodeOrId === 'number') {
+      sourceVerseId = referenceCodeOrId;
+    } else {
+      const { data: vData } = await supabase
+        .from('verses')
+        .select('id')
+        .eq('reference_code', referenceCodeOrId.trim())
+        .maybeSingle();
+      if (vData) {
+        sourceVerseId = vData.id;
+      }
+    }
+
+    if (!sourceVerseId) return [];
+
+    const { data: crossRefs, error } = await supabase
+      .from('cross_references')
+      .select(`
+        id,
+        target_verse_id,
+        verses:target_verse_id (
+          id,
+          verse_number,
+          reference_code,
+          chapter_id,
+          chapters:chapter_id (
+            number,
+            book_id,
+            books:book_id (code)
+          )
+        )
+      `)
+      .eq('source_verse_id', sourceVerseId);
+
+    if (error || !crossRefs || crossRefs.length === 0) {
+      return [];
+    }
+
+    const targetVerseIds = crossRefs.map(cr => cr.target_verse_id).filter(Boolean);
+    const { data: verData } = await supabase
+      .from('bible_versions')
+      .select('id')
+      .ilike('code', versionCode.trim())
+      .maybeSingle();
+
+    const versionId = verData?.id;
+
+    let vtQuery = supabase
+      .from('verse_texts')
+      .select('verse_id, text')
+      .in('verse_id', targetVerseIds);
+
+    if (versionId) {
+      vtQuery = vtQuery.eq('version_id', versionId);
+    }
+
+    const { data: textsData } = await vtQuery;
+    const textMap = new Map<number, string>();
+    textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
+
+    return crossRefs.map((cr: any) => {
+      const v = cr.verses;
+      const ch = v?.chapters;
+      const bk = ch?.books;
+      return {
+        id: cr.id,
+        target_verse_id: cr.target_verse_id,
+        reference_code: v?.reference_code || '',
+        book_code: bk?.code || '',
+        chapter: ch?.number || 1,
+        verse_number: v?.verse_number || 1,
+        text: textMap.get(cr.target_verse_id) || undefined
+      };
+    });
+  } catch (err) {
+    console.error('[bibleDb] Erreur getDbVerseCrossReferences:', err);
+    return [];
+  }
+}
+
+/**
+ * 6.B Récupère les TRÉSORS DE LA PAROLE (tables treasures, treasure_translations, treasure_verses)
  */
 export async function getDbVerseTreasures(
   referenceCodeOrId: string | number,
@@ -347,9 +447,7 @@ export async function getDbVerseTreasures(
   versionCode: string = 'LSG'
 ): Promise<DbTreasureItem[]> {
   try {
-    // 1. Récupérer l'ID du verset source
     let sourceVerseId: number | null = null;
-    let sourceRefCode = '';
 
     if (typeof referenceCodeOrId === 'number') {
       sourceVerseId = referenceCodeOrId;
@@ -361,13 +459,11 @@ export async function getDbVerseTreasures(
         .maybeSingle();
       if (vData) {
         sourceVerseId = vData.id;
-        sourceRefCode = vData.reference_code;
       }
     }
 
     if (!sourceVerseId) return [];
 
-    // 2. Récupérer les trésors pour ce verset source
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
       .select(`
@@ -394,63 +490,9 @@ export async function getDbVerseTreasures(
       .eq('source_verse_id', sourceVerseId);
 
     if (tErr || !treasures || treasures.length === 0) {
-      // Vérifier les cross_references directes comme fallback
-      const { data: crossRefs } = await supabase
-        .from('cross_references')
-        .select(`
-          id,
-          target_verse_id,
-          verses:target_verse_id (
-            id,
-            verse_number,
-            reference_code,
-            chapter_id,
-            chapters:chapter_id (
-              number,
-              book_id,
-              books:book_id (code)
-            )
-          )
-        `)
-        .eq('source_verse_id', sourceVerseId);
-
-      if (crossRefs && crossRefs.length > 0) {
-        const targetVerseIds = crossRefs.map(cr => cr.target_verse_id).filter(Boolean);
-        const { data: textsData } = await supabase
-          .from('verse_texts')
-          .select('verse_id, text, bible_versions!inner(code)')
-          .in('verse_id', targetVerseIds)
-          .ilike('bible_versions.code', versionCode.trim());
-
-        const textMap = new Map<number, string>();
-        textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
-
-        const targetItems: DbTreasureTargetItem[] = crossRefs.map((cr: any) => {
-          const v = cr.verses;
-          const ch = v?.chapters;
-          const bk = ch?.books;
-          return {
-            reference_code: v?.reference_code || '',
-            book_code: bk?.code || '',
-            chapter: ch?.number || 1,
-            verse_number: v?.verse_number || 1,
-            text: textMap.get(cr.target_verse_id) || undefined
-          };
-        });
-
-        return [{
-          treasure_id: 0,
-          title: 'Références croisées',
-          description: '',
-          target_references: targetItems.map(ti => ti.reference_code),
-          target_items: targetItems
-        }];
-      }
-
       return [];
     }
 
-    // Récupérer la version_id
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id')
@@ -459,7 +501,6 @@ export async function getDbVerseTreasures(
 
     const versionId = verData?.id;
 
-    // Collecter tous les verse_ids cibles pour charger leurs textes
     const allTargetVerseIds: number[] = [];
     treasures.forEach(t => {
       t.treasure_verses?.forEach((tv: any) => {
@@ -482,7 +523,7 @@ export async function getDbVerseTreasures(
       texts?.forEach(t => targetTextsMap.set(t.verse_id, t.text));
     }
 
-    const results: DbTreasureItem[] = treasures.map(t => {
+    return treasures.map(t => {
       const trans = t.treasure_translations?.[0];
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
         const v = tv.verses;
@@ -499,14 +540,12 @@ export async function getDbVerseTreasures(
 
       return {
         treasure_id: t.id,
-        title: trans?.title || 'Référence croisée',
+        title: trans?.title || 'Trésor biblique',
         description: trans?.description || '',
         target_references: items.map(i => i.reference_code).filter(Boolean),
         target_items: items
       };
     });
-
-    return results;
   } catch (err) {
     console.error('[bibleDb] Erreur getDbVerseTreasures:', err);
     return [];
@@ -623,6 +662,7 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
     'verses',
     'verse_texts',
     'title_translations',
+    'cross_references',
     'treasures',
     'treasure_translations',
     'treasure_verses'
