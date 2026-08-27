@@ -11,7 +11,7 @@ import {
   Loader2, 
   Link2,
   Gem,
-  Bookmark
+  Scroll
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
@@ -78,6 +78,24 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
+  // Helper to format "Livre Chapitre:Verset" according to current language booksList
+  const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
+    const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
+    const name = book?.name || fallbackBookName || bookCode;
+    return `${name} ${chapter}:${verseNum}`;
+  };
+
+  // Helper for reference_code parse fallback
+  const parseRefCodeToHuman = (refCode: string): string => {
+    if (!refCode) return '';
+    const parts = refCode.split('.');
+    if (parts.length === 3) {
+      const [bCode, ch, v] = parts;
+      return formatHumanReference(bCode, parseInt(ch, 10), parseInt(v, 10));
+    }
+    return refCode;
+  };
+
   // Sync state when selected verse changes or modal opens
   useEffect(() => {
     if (selectedVerse && isOpen) {
@@ -126,9 +144,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   if (!isOpen || !activeBook) return null;
 
-  const handleCopy = (text: string, ref: string) => {
-    navigator.clipboard.writeText(`« ${text} » — ${ref} (${currentVersion})`);
-    setCopiedCode(ref);
+  const activeDisplayRef = `${activeBook.name} ${activeChapter}:${activeVerseNumber}`;
+
+  const handleCopy = (text: string, humanRef: string) => {
+    navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${currentVersion})`);
+    setCopiedCode(humanRef);
     showSuccess("Passage copié dans le presse-papier !");
     setTimeout(() => setCopiedCode(null), 2000);
   };
@@ -255,8 +275,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         {/* 2. BANDEAU VERSET SOURCE: Juste après le header */}
         <div className="w-full bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-4 sm:px-6 py-3 shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-start md:items-center gap-3 flex-1 min-w-0">
-            <span className="px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold font-mono shrink-0 shadow-xs">
-              {activeBook.name} {activeChapter}:{activeVerseNumber}
+            <span className="px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold font-serif shrink-0 shadow-xs">
+              {activeDisplayRef}
             </span>
             <blockquote className="font-serif text-xs sm:text-sm text-foreground italic leading-relaxed line-clamp-2 md:line-clamp-1">
               « {activeVerseText || 'Sélectionnez un verset pour explorer ses richesses.'} »
@@ -270,10 +290,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => handleCopy(activeVerseText, `${activeBook.name} ${activeChapter}:{activeVerseNumber}`)}
+              onClick={() => handleCopy(activeVerseText, activeDisplayRef)}
               className="h-7 px-2.5 rounded-full text-xs gap-1"
             >
-              {copiedCode === `${activeBook.name} ${activeChapter}:${activeVerseNumber}` ? (
+              {copiedCode === activeDisplayRef ? (
                 <Check className="w-3 h-3 text-emerald-500" />
               ) : (
                 <Copy className="w-3 h-3" />
@@ -313,7 +333,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   </span>
                 </div>
               </div>
-              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-300">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-300 font-serif">
                 {crossReferences.length} référence{crossReferences.length > 1 ? 's' : ''}
               </span>
             </div>
@@ -337,6 +357,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   const matchedBook = booksList.find(
                     b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
                   );
+                  const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
 
                   return (
                     <div
@@ -344,8 +365,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       className="p-3.5 rounded-2xl bg-card border border-border/80 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex flex-col gap-1.5 shadow-xs"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono font-bold text-xs text-blue-700 dark:text-blue-300">
-                          {refItem.reference_code || `${refItem.book_code} ${refItem.chapter}:${refItem.verse_number}`}
+                        <span className="font-serif font-bold text-xs text-blue-700 dark:text-blue-300">
+                          {humanRef}
                         </span>
 
                         <div className="flex items-center gap-1.5">
@@ -353,10 +374,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleCopy(refItem.text || '', refItem.reference_code)}
+                              onClick={() => handleCopy(refItem.text || '', humanRef)}
                               className="h-6 px-2 text-[11px] rounded-full"
                             >
-                              {copiedCode === refItem.reference_code ? (
+                              {copiedCode === humanRef ? (
                                 <Check className="w-3 h-3 text-emerald-500 mr-1" />
                               ) : (
                                 <Copy className="w-3 h-3 mr-1" />
@@ -382,7 +403,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       </div>
 
                       <p className="font-serif text-xs sm:text-sm text-foreground leading-relaxed">
-                        {refItem.text ? `« ${refItem.text} »` : `[Texte non disponible - ${refItem.reference_code}]`}
+                        {refItem.text ? `« ${refItem.text} »` : `[Texte non disponible - ${humanRef}]`}
                       </p>
                     </div>
                   );
@@ -394,6 +415,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     const matchedBook = booksList.find(
                       b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
                     );
+                    const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
 
                     return (
                       <span
@@ -406,8 +428,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         }}
                         className="inline-block mr-3 p-1 rounded hover:bg-blue-500/15 cursor-pointer transition-colors"
                       >
-                        <span className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">
-                          [{refItem.reference_code}]
+                        <span className="font-serif font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">
+                          [{humanRef}]
                         </span>
                         <span className="text-foreground">{refItem.text || ''}</span>
                       </span>
@@ -434,7 +456,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   </span>
                 </div>
               </div>
-              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 font-serif">
                 {treasures.length} thème{treasures.length > 1 ? 's' : ''}
               </span>
             </div>
@@ -458,7 +480,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     key={treasure.treasure_id || index}
                     className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3"
                   >
-                    {/* Titre et description du trésor (soumis au mode showTitles) */}
+                    {/* Titre (champ title) et description du trésor selon la langue */}
                     {showTitles && (
                       <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
                         <div className="flex items-center gap-2">
@@ -485,6 +507,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             const matchedBook = booksList.find(
                               b => b.code.toLowerCase() === target.book_code.toLowerCase()
                             );
+                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
 
                             return (
                               <div
@@ -492,8 +515,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                 className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1"
                               >
                                 <div className="flex items-center justify-between">
-                                  <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400">
-                                    {target.reference_code || `${target.book_code} ${target.chapter}:${target.verse_number}`}
+                                  <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400">
+                                    {humanRef}
                                   </span>
 
                                   <div className="flex items-center gap-1">
@@ -501,10 +524,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                       <Button
                                         variant="ghost"
                                         size="sm"
-                                        onClick={() => handleCopy(target.text || '', target.reference_code)}
+                                        onClick={() => handleCopy(target.text || '', humanRef)}
                                         className="h-6 px-2 text-[10px] rounded-full"
                                       >
-                                        {copiedCode === target.reference_code ? (
+                                        {copiedCode === humanRef ? (
                                           <Check className="w-3 h-3 text-emerald-500 mr-1" />
                                         ) : (
                                           <Copy className="w-3 h-3 mr-1" />
@@ -530,7 +553,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                 </div>
 
                                 <p className="font-serif text-xs text-foreground leading-relaxed">
-                                  {target.text ? `« ${target.text} »` : `[${target.reference_code}]`}
+                                  {target.text ? `« ${target.text} »` : `[${humanRef}]`}
                                 </p>
                               </div>
                             );
@@ -543,6 +566,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             const matchedBook = booksList.find(
                               b => b.code.toLowerCase() === target.book_code.toLowerCase()
                             );
+                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
 
                             return (
                               <span
@@ -555,8 +579,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                                 }}
                                 className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors"
                               >
-                                <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">
-                                  [{target.reference_code}]
+                                <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">
+                                  [{humanRef}]
                                 </span>
                                 <span className="text-foreground">{target.text || ''}</span>
                               </span>
@@ -569,9 +593,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         {treasure.target_references.map((refCode, rIdx) => (
                           <span
                             key={rIdx}
-                            className="px-2 py-1 rounded-lg bg-muted font-mono text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border"
+                            className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border"
                           >
-                            {refCode}
+                            {parseRefCodeToHuman(refCode)}
                           </span>
                         ))}
                       </div>
@@ -586,7 +610,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         {/* 4. FOOTER DU MODAL */}
         <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground shrink-0">
           <div className="flex items-center gap-4">
-            <span>Mode : <strong className="text-foreground capitalize">{displayMode}</strong></span>
+            <span>Mode : <strong className="text-foreground capitalize">{displayMode === 'list' ? 'Liste' : 'Compact'}</strong></span>
             <span>Titres : <strong className="text-foreground">{showTitles ? 'Activés' : 'Masqués'}</strong></span>
           </div>
           <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">

@@ -36,6 +36,7 @@ export interface DbVerseItem {
 export interface DbTreasureTargetItem {
   reference_code: string;
   book_code: string;
+  book_name?: string;
   chapter: number;
   verse_number: number;
   text?: string;
@@ -54,6 +55,7 @@ export interface DbCrossReferenceItem {
   target_verse_id: number;
   reference_code: string;
   book_code: string;
+  book_name?: string;
   chapter: number;
   verse_number: number;
   text?: string;
@@ -353,7 +355,8 @@ function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
  */
 export async function getDbVerseCrossReferences(
   referenceCodeOrId: string | number,
-  versionCode: string = 'LSG'
+  versionCode: string = 'LSG',
+  languageId?: number
 ): Promise<DbCrossReferenceItem[]> {
   try {
     let sourceVerseId: number | null = null;
@@ -386,7 +389,11 @@ export async function getDbVerseCrossReferences(
           chapters:chapter_id (
             number,
             book_id,
-            books:book_id (code)
+            books:book_id (
+              id,
+              code,
+              book_translations (name, language_id)
+            )
           )
         )
       `)
@@ -399,11 +406,12 @@ export async function getDbVerseCrossReferences(
     const targetVerseIds = crossRefs.map(cr => cr.target_verse_id).filter(Boolean);
     const { data: verData } = await supabase
       .from('bible_versions')
-      .select('id')
+      .select('id, language_id')
       .ilike('code', versionCode.trim())
       .maybeSingle();
 
     const versionId = verData?.id;
+    const targetLangId = languageId || verData?.language_id;
 
     let vtQuery = supabase
       .from('verse_texts')
@@ -422,11 +430,15 @@ export async function getDbVerseCrossReferences(
       const v = cr.verses;
       const ch = v?.chapters;
       const bk = ch?.books;
+      const trans = bk?.book_translations?.find((bt: any) => targetLangId ? bt.language_id === targetLangId : true);
+      const bookName = trans?.name || bk?.code || '';
+
       return {
         id: cr.id,
         target_verse_id: cr.target_verse_id,
         reference_code: v?.reference_code || '',
         book_code: bk?.code || '',
+        book_name: bookName,
         chapter: ch?.number || 1,
         verse_number: v?.verse_number || 1,
         text: textMap.get(cr.target_verse_id) || undefined
@@ -444,7 +456,8 @@ export async function getDbVerseCrossReferences(
 export async function getDbVerseTreasures(
   referenceCodeOrId: string | number,
   langCode: string = 'fr',
-  versionCode: string = 'LSG'
+  versionCode: string = 'LSG',
+  languageId?: number
 ): Promise<DbTreasureItem[]> {
   try {
     let sourceVerseId: number | null = null;
@@ -464,6 +477,16 @@ export async function getDbVerseTreasures(
 
     if (!sourceVerseId) return [];
 
+    // Récupérer la version_id et language_id
+    const { data: verData } = await supabase
+      .from('bible_versions')
+      .select('id, language_id')
+      .ilike('code', versionCode.trim())
+      .maybeSingle();
+
+    const versionId = verData?.id;
+    const targetLangId = languageId || verData?.language_id;
+
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
       .select(`
@@ -482,7 +505,11 @@ export async function getDbVerseTreasures(
             chapters:chapter_id (
               number,
               book_id,
-              books:book_id (code)
+              books:book_id (
+                id,
+                code,
+                book_translations (name, language_id)
+              )
             )
           )
         )
@@ -492,14 +519,6 @@ export async function getDbVerseTreasures(
     if (tErr || !treasures || treasures.length === 0) {
       return [];
     }
-
-    const { data: verData } = await supabase
-      .from('bible_versions')
-      .select('id')
-      .ilike('code', versionCode.trim())
-      .maybeSingle();
-
-    const versionId = verData?.id;
 
     const allTargetVerseIds: number[] = [];
     treasures.forEach(t => {
@@ -524,14 +543,27 @@ export async function getDbVerseTreasures(
     }
 
     return treasures.map(t => {
-      const trans = t.treasure_translations?.[0];
+      // Trouver la traduction du titre selon la langue cible
+      let trans = t.treasure_translations?.find(
+        (tr: any) => targetLangId ? tr.language_id === targetLangId : false
+      );
+      if (!trans && t.treasure_translations && t.treasure_translations.length > 0) {
+        trans = t.treasure_translations[0];
+      }
+
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
         const v = tv.verses;
         const ch = v?.chapters;
         const bk = ch?.books;
+        const bTrans = bk?.book_translations?.find(
+          (bt: any) => targetLangId ? bt.language_id === targetLangId : true
+        );
+        const bookName = bTrans?.name || bk?.code || '';
+
         return {
           reference_code: v?.reference_code || '',
           book_code: bk?.code || '',
+          book_name: bookName,
           chapter: ch?.number || 1,
           verse_number: v?.verse_number || 1,
           text: targetTextsMap.get(tv.target_verse_id) || undefined
