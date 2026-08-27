@@ -740,86 +740,84 @@ export const BiblePage: React.FC = () => {
       </section>
 
       {/* ✅ CORRECTION : Section de contrôle collée directement à la section précédente */}
-      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
-          <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
-            <div className="flex-1 min-w-0">
-              <BookSearchSelect
-                booksList={booksList}
-                selectedBook={selectedBook}
-                selectedChapter={selectedChapter}
-                onSelectBook={handleSelectBookAndChapter}
-                currentVersion={selectedVersionCode}
-                isLoading={loading}
-                testamentsList={testamentsList}
-                classificationsList={classificationsList}
-                testamentNames={testamentNames}
-                classificationNames={classificationNames}
-              />
-            </div>
+      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
+          <div className="flex-1 min-w-0">
+            <BookSearchSelect
+              booksList={booksList}
+              selectedBook={selectedBook}
+              selectedChapter={selectedChapter}
+              onSelectBook={handleSelectBookAndChapter}
+              currentVersion={selectedVersionCode}
+              isLoading={loading}
+              testamentsList={testamentsList}
+              classificationsList={classificationsList}
+              testamentNames={testamentNames}
+              classificationNames={classificationNames}
+            />
+          </div>
 
-            <div className="shrink-0">
-              <ChapterNavigator
-                selectedBook={selectedBook}
-                selectedChapter={selectedChapter}
-                booksList={booksList}
-                onChapterChange={handleChapterChange}
-                onBookChange={handleBookChange}
-              />
-            </div>
+          <div className="shrink-0">
+            <ChapterNavigator
+              selectedBook={selectedBook}
+              selectedChapter={selectedChapter}
+              booksList={booksList}
+              onChapterChange={handleChapterChange}
+              onBookChange={handleBookChange}
+            />
+          </div>
 
-            <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
-              <Button
-                variant={showTitles ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  console.log('[BiblePage] Toggle showTitles from:', showTitles, 'to:', !showTitles);
-                  console.log('[BiblePage] Current titleTranslations state:', titleTranslations);
-                  setShowTitles(prev => !prev);
-                  toast({
-                    title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
-                  });
-                }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
-                  showTitles 
-                    ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                title={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
-              >
-                <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white' : ''}`} />
-                <span>Titres</span>
-              </Button>
+          <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
+            <Button
+              variant={showTitles ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => {
+                console.log('[BiblePage] Toggle showTitles from:', showTitles, 'to:', !showTitles);
+                console.log('[BiblePage] Current titleTranslations state:', titleTranslations);
+                setShowTitles(prev => !prev);
+                toast({
+                  title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
+                });
+              }}
+              className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
+                showTitles 
+                  ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+              title={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
+            >
+              <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white' : ''}`} />
+              <span>Titres</span>
+            </Button>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  const nextMode = displayMode === 'compact' ? 'list' : 'compact';
-                  setDisplayMode(nextMode);
-                  toast({
-                    title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
-                  });
-                }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
-                  displayMode === 'list'
-                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {displayMode === 'compact' ? (
-                  <>
-                    <LayoutGrid className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Compact</span>
-                  </>
-                ) : (
-                  <>
-                    <List className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Liste</span>
-                  </>
-                )}
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const nextMode = displayMode === 'compact' ? 'list' : 'compact';
+                setDisplayMode(nextMode);
+                toast({
+                  title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
+                });
+              }}
+              className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
+                displayMode === 'list'
+                  ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {displayMode === 'compact' ? (
+                <>
+                  <LayoutGrid className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Compact</span>
+                </>
+              ) : (
+                <>
+                  <List className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Liste</span>
+                </>
+              )}
+            </Button>
           </div>
         </div>
       </section>
