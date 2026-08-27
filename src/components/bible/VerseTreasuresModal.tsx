@@ -8,10 +8,7 @@ import {
   BookOpen, 
   Copy, 
   Check, 
-  ArrowRight, 
   Loader2, 
-  ExternalLink,
-  Layers,
   Scroll
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,36 +16,6 @@ import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
 import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
 import { 
   DbBookItem, 
-  DbVerseItem, 
-  DbTreasureItem, 
-  getDbVerseTreasures,
-  getDbChapterVerses 
-} from '@/services/bibleDb';
-import { showSuccess } from '@/utils/toast';
-
-<dyad-write path="src/components/bible/VerseTreasuresModal.tsx" description="Create full-featured 95vw by 95vh modal for verse references and treasures with matching header and display modes">
-import React, { useState, useEffect } from 'react';
-import { 
-  X, 
-  Sparkles, 
-  BookMarked, 
-  LayoutGrid, 
-  List, 
-  BookOpen, 
-  Copy, 
-  Check, 
-  ArrowRight, 
-  Loader2, 
-  ExternalLink,
-  Layers,
-  Scroll
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
-import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
-import { 
-  DbBookItem, 
-  DbVerseItem, 
   DbTreasureItem, 
   getDbVerseTreasures,
   getDbChapterVerses 
