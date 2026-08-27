@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   Sparkles, 
@@ -78,6 +78,18 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
+  // ✅ FIX BUG : Ref pour stocker la version active en temps réel.
+  // Cela évite le bug de "stale closure" : la valeur figée de currentVersion
+  // pouvait rester celle d'un précédent verset pendant quelques cycles de rendu.
+  const activeVersionRef = useRef<string>(currentVersion);
+  useEffect(() => {
+    activeVersionRef.current = currentVersion;
+  }, [currentVersion]);
+
+  // ✅ Ref pour mémoriser la dernière requête (version + refCode combinés)
+  // afin d'ignorer les réponses en retard d'un précédent verset/version.
+  const latestRequestRef = useRef<string>('');
+
   // Helper to format "Livre Chapitre:Verset" according to current language booksList
   const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
     const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
@@ -85,7 +97,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     return `${name} ${chapter}:${verseNum}`;
   };
 
-  // Helper for reference_code parse fallback
   const parseRefCodeToHuman = (refCode: string): string => {
     if (!refCode) return '';
     const parts = refCode.split('.');
@@ -107,32 +118,47 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   }, [selectedVerse, isOpen]);
 
-  // Load both cross references AND treasures in parallel whenever reference code changes
+  // ✅ FIX BUG : Recharger explicitement quand la VERSION change,
+  // même si le verset reste identique. Cela réinitialise et force
+  // un nouveau chargement avec la bonne langue.
   useEffect(() => {
-    if (!isOpen || !activeReferenceCode) return;
+    if (!isOpen) return;
+    if (!activeReferenceCode) return;
+    // On ne déclenche pas de reload si la version n'a pas réellement changé
+    // par rapport à la dernière requête enregistrée dans latestRequestRef
+    const currentSnapshot = `${activeReferenceCode}__${currentVersion}`;
+    if (latestRequestRef.current === currentSnapshot) return;
+
+    latestRequestRef.current = currentSnapshot;
+    setLoading(true);
+    setCrossReferences([]);
+    setTreasures([]);
+
+    const versionToUse = currentVersion;
 
     let isMounted = true;
-    setLoading(true);
-
     Promise.all([
-      getDbVerseCrossReferences(activeReferenceCode, currentVersion),
-      getDbVerseTreasures(activeReferenceCode, 'fr', currentVersion)
+      getDbVerseCrossReferences(activeReferenceCode, versionToUse),
+      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse)
     ])
       .then(([crossRes, treasuresRes]) => {
-        if (isMounted) {
-          setCrossReferences(crossRes || []);
-          setTreasures(treasuresRes || []);
-        }
+        // Vérification supplémentaire anti-stale :
+        // ignorer la réponse si la requête n'est plus la plus récente
+        if (!isMounted) return;
+        if (latestRequestRef.current !== currentSnapshot) return;
+        setCrossReferences(crossRes || []);
+        setTreasures(treasuresRes || []);
       })
       .catch((err) => {
         console.error('[VerseTreasuresModal] Error loading references/treasures:', err);
-        if (isMounted) {
-          setCrossReferences([]);
-          setTreasures([]);
-        }
+        if (!isMounted) return;
+        if (latestRequestRef.current !== currentSnapshot) return;
+        setCrossReferences([]);
+        setTreasures([]);
       })
       .finally(() => {
-        if (isMounted) {
+        if (!isMounted) return;
+        if (latestRequestRef.current === currentSnapshot) {
           setLoading(false);
         }
       });
@@ -338,7 +364,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </span>
             </div>
 
-            {/* Contenu ascenseur Références */}
             <div className="flex-1 overflow-y-auto pr-1 space-y-2.5">
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
@@ -352,7 +377,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   <p className="text-xs">Aucun lien direct trouvé dans la table `cross_references` pour ce verset.</p>
                 </div>
               ) : displayMode === 'list' ? (
-                /* Mode Liste : Ligne par ligne */
                 crossReferences.map((refItem) => {
                   const matchedBook = booksList.find(
                     b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
@@ -409,7 +433,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   );
                 })
               ) : (
-                /* Mode Compact : Versets en continu */
                 <div className="p-4 rounded-2xl bg-card border border-border font-serif text-sm leading-relaxed space-y-2">
                   {crossReferences.map((refItem) => {
                     const matchedBook = booksList.find(
@@ -440,7 +463,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
             </div>
           </div>
 
-          {/* COLONNE 2 : TRÉSORS DE L'ÉCRITURE (treasures, treasure_translations, treasure_verses) */}
+          {/* COLONNE 2 : TRÉSORS DE L'ÉCRITURE */}
           <div className="p-4 sm:p-6 flex flex-col overflow-hidden bg-background">
             <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
               <div className="flex items-center gap-2">
@@ -461,7 +484,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </span>
             </div>
 
-            {/* Contenu ascenseur Trésors */}
             <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
@@ -480,7 +502,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     key={treasure.treasure_id || index}
                     className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3"
                   >
-                    {/* Titre (champ title) et description du trésor selon la langue */}
                     {showTitles && (
                       <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
                         <div className="flex items-center gap-2">
@@ -499,7 +520,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       </div>
                     )}
 
-                    {/* Versets associés au trésor */}
                     {treasure.target_items && treasure.target_items.length > 0 ? (
                       displayMode === 'list' ? (
                         <div className="space-y-2">
@@ -560,7 +580,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                           })}
                         </div>
                       ) : (
-                        /* Mode compact */
                         <div className="font-serif text-xs leading-relaxed space-y-1">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(
