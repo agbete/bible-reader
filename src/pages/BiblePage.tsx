@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
@@ -29,7 +29,9 @@ import {
   RefreshCw,
   BookMarked,
   List,
-  LayoutGrid
+  LayoutGrid,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -87,8 +89,7 @@ export const BiblePage: React.FC = () => {
   const [showTitles, setShowTitles] = useState<boolean>(true);
   const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
   
-  // ✅ CORRECTION : Stocker les titres par version (et par verse_id)
-  // Structure: { versionCode: { verseId: { titles: {...}, language_id: number } } }
+  // Stocker les titres par version (et par verse_id)
   const [titleTranslations, setTitleTranslations] = useState<
     Record<string, Record<number, TitleTranslation>>
   >({});
@@ -101,10 +102,10 @@ export const BiblePage: React.FC = () => {
   const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
   const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
 
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const { toast } = useToast();
 
-  // ✅ CORRECTION : Calculer le language_id dynamiquement pour chaque version
-  // Crée un map version_code -> language_id pour un accès rapide
+  // Calculer le language_id dynamiquement pour chaque version
   const versionLanguageMap = useMemo(() => {
     const map = new Map<string, number>();
     versions.forEach(v => {
@@ -113,12 +114,9 @@ export const BiblePage: React.FC = () => {
     return map;
   }, [versions]);
 
-  // ✅ CORRECTION : Récupérer le language_id de la version actuellement affichée
-  // Si plusieurs versions sont sélectionnées, utiliser la première version de la liste
   const currentVersionCode = selectedVersions.length > 0 ? selectedVersions[0] : selectedVersionCode;
   const targetLanguageId = versionLanguageMap.get(currentVersionCode);
 
-  // Diagnostic automatique au chargement
   useEffect(() => {
     debugTitleTranslations();
   }, []);
@@ -265,29 +263,18 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedBook, selectedChapter, selectedVersions]);
 
-  // ✅ CORRECTION : Charger les titres pour chaque version séparément
   const loadTitleTranslationsForVerses = async (verseIds: number[], versionCode: string) => {
     if (!verseIds || verseIds.length === 0) {
-      console.warn('[BiblePage] loadTitleTranslationsForVerses: empty verseIds list');
       return;
     }
     
     const langId = versionLanguageMap.get(versionCode);
     if (!langId) {
-      console.warn('[BiblePage] No language_id found for version:', versionCode);
       return;
     }
     
     try {
-      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. Version:', versionCode, 'LanguageId:', langId);
-      console.log('[BiblePage] First 5 verse IDs:', verseIds.slice(0, 5));
-      
       const titlesMap = await getDbVerseTitles(verseIds, langId);
-      
-      console.log('[BiblePage] Raw titlesMap from getDbVerseTitles:', titlesMap);
-      console.log('[BiblePage] Number of verses with titles:', Object.keys(titlesMap).length);
-      
-      // ✅ CORRECTION : Stocker les titres par version
       const formatted: Record<number, TitleTranslation> = {};
       Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
         formatted[Number(vId)] = {
@@ -297,9 +284,6 @@ export const BiblePage: React.FC = () => {
         };
       });
 
-      console.log('[BiblePage] Titles successfully assigned to state for version', versionCode, ':', Object.keys(formatted).length);
-      
-      // ✅ CORRECTION : Mettre à jour les titres pour cette version spécifique
       setTitleTranslations(prev => ({
         ...prev,
         [versionCode]: formatted
@@ -309,15 +293,12 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  // ✅ CORRECTION : Recharger les titres pour toutes les versions sélectionnées
   useEffect(() => {
     if (versesData && Object.keys(versesData).length > 0) {
-      // Pour chaque version sélectionnée, charger ses titres
       selectedVersions.forEach(versionCode => {
         const verses = versesData[versionCode];
         if (verses && verses.length > 0) {
           const allVerseIds = verses.map(v => v.id).filter(Boolean);
-          console.log('[BiblePage] Loading titles for version', versionCode, 'with', allVerseIds.length, 'verses');
           loadTitleTranslationsForVerses(allVerseIds, versionCode);
         }
       });
@@ -341,7 +322,6 @@ export const BiblePage: React.FC = () => {
   const loadVersesForSelectedBook = async (book: DbBookItem, chapter: number, versionCodes: string[]) => {
     if (!book) return;
     
-    console.log('[BiblePage] Loading verses for book:', book.code, 'chapter:', chapter, 'versions:', versionCodes);
     const newData: Record<string, any[]> = {};
     const newLoading: Record<string, boolean> = {};
     versionCodes.forEach(v => {
@@ -364,18 +344,15 @@ export const BiblePage: React.FC = () => {
       
       const results = await Promise.all(promises);
       
-      // Update state with loaded verses
       const updatedMap: Record<string, any[]> = {};
       results.forEach(({ code, verses }) => {
         updatedMap[code] = verses;
       });
       setVersesData(updatedMap);
 
-      // ✅ CORRECTION : Charger les titres pour chaque version séparément
       for (const { code, verses } of results) {
         if (verses && verses.length > 0) {
           const allVerseIds = verses.map(v => v.id).filter(Boolean);
-          console.log('[BiblePage] Extracted verse IDs for title lookup for version', code, ':', allVerseIds.length);
           await loadTitleTranslationsForVerses(allVerseIds, code);
         }
       }
@@ -391,7 +368,6 @@ export const BiblePage: React.FC = () => {
   };
 
   const handleSelectBookAndChapter = (book: DbBookItem, chapter: number) => {
-    console.log('[BiblePage] Book selected:', book.code, 'chapter:', chapter);
     setSelectedBook(book);
     setSelectedChapter(chapter);
   };
@@ -431,7 +407,7 @@ export const BiblePage: React.FC = () => {
         setSelectedVersions(next);
         setSelectedVersionCode(next[0]);
       }
-    } else if (selectedVersions.length < 4) {
+    } else {
       setSelectedVersions(prev => [...prev, ver.code]);
       setSelectedVersionCode(ver.code);
     }
@@ -474,100 +450,15 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  // ✅ NOUVEAU : Fonction pour rendre les boutons de version avec défilement horizontal
-  const renderVersionButtonsWithScroll = () => {
-    const MAX_VISIBLE = 4;
-    const totalVersions = filteredVersions.length;
-    const visibleVersions = selectedVersions.slice(0, MAX_VISIBLE);
-    const hasMore = selectedVersions.length > MAX_VISIBLE;
-    
-    // Calculer le défilement actuel (position de départ)
-    const scrollContainer = useRef(null);
-    
-    return (
-      <div className="relative overflow-hidden">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-          {/* Bouton gauche de défilement */}
-          {hasMore && (
-            <button
-              onClick={() => {
-                if (scrollContainer.current) {
-                  scrollContainer.current.scrollBy({ left: -200, behavior: 'smooth' });
-                }
-              }}
-              className="shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors hover:text-white"
-              title="Versions précédentes"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-          )}
-
-          {/* Conteneur des versions avec défilement */}
-          <div 
-            ref={scrollContainer}
-            className="flex gap-2 overflow-x-auto scroll-smooth no-scrollbar min-w-[max(calc(100% * 4), 400px)]"
-          >
-            {selectedVersions.map((versionCode, index) => {
-              const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
-              const isSelected = selectedVersions[index] === versionCode;
-              const verses = versesData[versionCode] || [];
-              
-              return (
-                <div 
-                  key={versionCode}
-                  className="shrink-0 flex items-center gap-1.5"
-                >
-                  <button
-                    onClick={() => handleToggleVersion(versionObj)}
-                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                      isSelected 
-                        ? 'bg-amber-600 text-white border-amber-600' 
-                        : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                    }`}
-                    title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                  >
-                    {versionObj.code}
-                  </button>
-                  
-                  <span className="text-xs text-muted-foreground font-mono">
-                    {verses.length} versets
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-          
-          {/* Bouton droit de défilement */}
-          {hasMore && (
-            <button
-              onClick={() => {
-                if (scrollContainer.current) {
-                  scrollContainer.current.scrollBy({ left: 200, behavior: 'smooth' });
-                }
-              }}
-              className="shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors hover:text-white"
-              title="Versions suivantes"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  // ✅ CORRECTION : Render title header for a verse, en utilisant la version spécifique
   const renderVerseTitles = (verseId: number, versionCode: string) => {
     if (!showTitles) return null;
     
-    // ✅ CORRECTION : Récupérer les titres pour cette version spécifique
     const versionTitles = titleTranslations[versionCode];
     if (!versionTitles) return null;
     
     const titleData = versionTitles[verseId];
     if (!titleData || !titleData.titles) return null;
 
-    // Trier les niveaux par ordre croissant
     const entries = Object.entries(titleData.titles)
       .filter(([_, text]) => Boolean(text && String(text).trim()))
       .sort(([a], [b]) => Number(a) - Number(b));
@@ -602,58 +493,37 @@ export const BiblePage: React.FC = () => {
     );
   };
 
-  // Fonction de diagnostic pour tester le rendu des titres
-  const debugTitles = () => {
-    console.group('🔍 [BiblePage] TITLES DIAGNOSTIC');
-    console.log('Show titles:', showTitles);
-    console.log('Selected versions:', selectedVersions);
-    console.log('Title translations by version:', Object.keys(titleTranslations));
-    
-    selectedVersions.forEach(versionCode => {
-      const verses = versesData[versionCode] || [];
-      const versionTitles = titleTranslations[versionCode] || {};
-      console.log(`--- Version ${versionCode} ---`);
-      console.log('Number of verses:', verses.length);
-      console.log('Number of title entries:', Object.keys(versionTitles).length);
-      
-      if (verses.length > 0) {
-        const firstVerse = verses[0];
-        console.log('First verse ID:', firstVerse.id);
-        console.log('Titles for first verse:', versionTitles[firstVerse.id]);
-        
-        // Compter combien de versets ont des titres
-        const versesWithTitles = verses.filter(v => versionTitles[v.id] && Object.keys(versionTitles[v.id].titles).length > 0);
-        console.log('Verses with titles:', versesWithTitles.length, '/', verses.length);
-      }
-    });
-    console.groupEnd();
-  };
-
-  // Exécuter le diagnostic après chaque mise à jour des titres
-  useEffect(() => {
-    if (Object.keys(titleTranslations).length > 0) {
-      debugTitles();
-    }
-  }, [titleTranslations]);
-
   const renderVersionsGrid = () => {
-    const colsClass = selectedVersions.length === 1 
-      ? 'grid-cols-1' 
-      : selectedVersions.length === 2 
-        ? 'grid-cols-1 md:grid-cols-2' 
-        : selectedVersions.length === 3 
-          ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-          : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+    const hasMultiple = selectedVersions.length > 4;
 
-    return (
-      <div className={`grid gap-4 ${colsClass}`}>
+    const gridContent = (
+      <div 
+        className={
+          hasMultiple 
+            ? "flex gap-4 min-w-full pb-2" 
+            : `grid gap-4 ${
+                selectedVersions.length === 1 
+                  ? 'grid-cols-1' 
+                  : selectedVersions.length === 2 
+                    ? 'grid-cols-1 md:grid-cols-2' 
+                    : selectedVersions.length === 3 
+                      ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+              }`
+        }
+      >
         {selectedVersions.map((versionCode) => {
           const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
           const verses = versesData[versionCode] || [];
           const isLoadingV = versesLoading[versionCode] || false;
           
           return (
-            <div key={versionCode} className="p-4 rounded-2xl border border-border bg-card shadow-xs">
+            <div 
+              key={versionCode} 
+              className={`p-4 rounded-2xl border border-border bg-card shadow-xs flex flex-col ${
+                hasMultiple ? 'w-[320px] sm:w-[360px] md:w-[400px] shrink-0' : 'w-full'
+              }`}
+            >
               <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
                 <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
                   {versionObj.name} ({versionCode})
@@ -673,11 +543,9 @@ export const BiblePage: React.FC = () => {
                   <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
                 </div>
               ) : displayMode === 'list' ? (
-                /* === MODE LISTE : Verset par verset sur sa propre ligne === */
-                <div className="space-y-3 font-serif text-sm sm:text-base leading-relaxed">
+                <div className="space-y-3 font-serif text-sm sm:text-base leading-relaxed flex-1">
                   {verses.map((verse) => (
                     <div key={verse.id || verse.verse_number} className="group">
-                      {/* ✅ CORRECTION : Passer le versionCode pour afficher les bons titres */}
                       {renderVerseTitles(verse.id, versionCode)}
                       <div className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-muted/40 transition-colors">
                         <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-1 shrink-0 min-w-[1.75rem]">
@@ -691,10 +559,8 @@ export const BiblePage: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                /* === MODE COMPACT : Versets en continu dans un flux de paragraphe === */
-                <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground">
+                <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground flex-1">
                   {verses.map((verse) => {
-                    /* ✅ CORRECTION : Passer le versionCode pour afficher les bons titres */
                     const titlesHeader = renderVerseTitles(verse.id, versionCode);
                     return (
                       <React.Fragment key={verse.id || verse.verse_number}>
@@ -715,6 +581,45 @@ export const BiblePage: React.FC = () => {
         })}
       </div>
     );
+
+    if (hasMultiple) {
+      return (
+        <div className="relative group">
+          <button
+            onClick={() => {
+              if (scrollContainerRef.current) {
+                scrollContainerRef.current.scrollBy({ left: -360, behavior: 'smooth' });
+              }
+            }}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/90 border border-border shadow-lg flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-white transition-colors"
+            title="Versions précédentes"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => {
+              if (scrollContainerRef.current) {
+                scrollContainerRef.current.scrollBy({ left: 360, behavior: 'smooth' });
+              }
+            }}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background/90 border border-border shadow-lg flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-white transition-colors"
+            title="Versions suivantes"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          <div
+            ref={scrollContainerRef}
+            className="overflow-x-auto no-scrollbar scroll-smooth px-1"
+          >
+            {gridContent}
+          </div>
+        </div>
+      );
+    }
+
+    return gridContent;
   };
 
   return (
@@ -785,32 +690,23 @@ export const BiblePage: React.FC = () => {
 
             {filteredVersions.length > 0 && (
               <div className="flex items-center gap-1.5">
-                {/* ✅ UTILISER NOUVEAU COMPOSANT AVEC DÉFILEMENT */}
-                {selectedVersions.length > 4 ? (
-                  <div>
-                    {renderVersionButtonsWithScroll()}
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1.5">
-                    {selectedVersions.map((versionCode) => {
-                      const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
-                      return (
-                        <button
-                          key={versionCode}
-                          onClick={() => handleToggleVersion(versionObj)}
-                          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                            selectedVersions.includes(versionCode)
-                              ? 'bg-amber-600 text-white border-amber-600' 
-                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                          }`}
-                          title={selectedVersions.includes(versionCode) ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                        >
-                          {versionObj.code}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
+                {filteredVersions.map((versionObj) => {
+                  const isSelected = selectedVersions.includes(versionObj.code);
+                  return (
+                    <button
+                      key={versionObj.code}
+                      onClick={() => handleToggleVersion(versionObj)}
+                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                        isSelected
+                          ? 'bg-amber-600 text-white border-amber-600' 
+                          : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                      }`}
+                      title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                    >
+                      {versionObj.code}
+                    </button>
+                  );
+                })}
               </div>
             )}
             
@@ -826,7 +722,7 @@ export const BiblePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ✅ CORRECTION : Section de contrôle avec background 100% viewport width */}
+      {/* Section de contrôle avec background 100% viewport width */}
       <section className="w-full bg-gray-50 dark:bg-gray-900 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
@@ -860,8 +756,6 @@ export const BiblePage: React.FC = () => {
                 variant={showTitles ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => {
-                  console.log('[BiblePage] Toggle showTitles from:', showTitles, 'to:', !showTitles);
-                  console.log('[BiblePage] Current titleTranslations state:', titleTranslations);
                   setShowTitles(prev => !prev);
                   toast({
                     title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
@@ -933,30 +827,7 @@ export const BiblePage: React.FC = () => {
         {selectedBook && !loading && (
           <section className="space-y-4">
             {selectedVersions.length > 0 ? (
-              {/* ✅ UTILISER NOUVEAU COMPOSANT AVEC DÉFILEMENT */}
-              {selectedVersions.length > 4 ? (
-                <div>
-                  {renderVersionButtonsWithScroll()}
-                </div>
-              ) : (
-                <div className="p-4 rounded-2xl border border-border bg-card shadow-xs">
-                  {selectedVersions.map((versionCode) => {
-                    const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
-                    const verses = versesData[versionCode] || [];
-                    
-                    return (
-                      <div key={versionCode} className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
-                          {versionObj.name} ({versionCode})
-                        </span>
-                        <span className="text-xs text-muted-foreground font-mono">
-                          {verses.length} versets
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              renderVersionsGrid()
             ) : (
               <div className="p-8 rounded-2xl bg-card border border-border text-center text-muted-foreground">
                 <Loader2 className="w-8 h-8 animate-spin text-amber-600 mx-auto mb-2" />
