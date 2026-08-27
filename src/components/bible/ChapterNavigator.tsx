@@ -99,6 +99,27 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {/* PREVIOUS BOOK - Always visible, disabled if no prev book */}
+      <Button
+        variant="ghost"
+        size="sm"
+        disabled={!prevBook}
+        onClick={() => {
+          if (prevBook) {
+            onBookChange(prevBook);
+            onChapterChange(1);
+          }
+        }}
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${
+          prevBook 
+            ? 'text-muted-foreground hover:text-foreground' 
+            : 'text-muted-foreground/40 cursor-not-allowed opacity-50'
+        }`}
+        title={prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun livre précédent'}
+      >
+        <ChevronLeft className="w-3 h-3" />
+      </Button>
+
       {/* FIRST CHAPTER (Début) */}
       <Button
         variant="outline"
@@ -109,7 +130,6 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         title="Premier chapitre"
       >
         <ChevronsLeft className="w-3.5 h-3.5" />
-        <span className="hidden lg:inline">Début</span>
       </Button>
 
       {/* PREVIOUS CHAPTER (←) */}
@@ -117,8 +137,9 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         variant="outline"
         size="sm"
         onClick={handlePrevChapter}
+        disabled={selectedChapter === 1 && !prevBook}
         className="h-9 w-9 rounded-full p-0"
-        title={selectedChapter > 1 ? "Chapitre précédent" : `Livre précédent: ${prevBook?.name || '-'}`}
+        title={selectedChapter > 1 ? "Chapitre précédent" : (prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun chapitre précédent')}
       >
         <ChevronLeft className="w-4 h-4" />
       </Button>
@@ -129,8 +150,8 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
           onClick={() => setIsChapterDropdownOpen(!isChapterDropdownOpen)}
           className="h-9 px-3 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/25 text-xs font-bold flex items-center gap-1.5 transition-colors"
         >
-          <Hash className="w-3.5 h-3.5" />
-          <span>Chapitre {selectedChapter}</span>
+          
+          <span>{selectedChapter}</span>
           <span className="text-[10px] text-amber-600/70 dark:text-amber-400/70 font-mono">
             / {maxChapters}
           </span>
@@ -196,8 +217,9 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         variant="outline"
         size="sm"
         onClick={handleNextChapter}
+        disabled={selectedChapter === maxChapters && !nextBook}
         className="h-9 w-9 rounded-full p-0"
-        title={selectedChapter < maxChapters ? "Chapitre suivant" : `Livre suivant: ${nextBook?.name || '-'}`}
+        title={selectedChapter < maxChapters ? "Chapitre suivant" : (nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun chapitre suivant')}
       >
         <ChevronRight className="w-4 h-4" />
       </Button>
@@ -211,84 +233,31 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         className="h-9 px-2.5 rounded-full text-xs gap-1"
         title="Dernier chapitre"
       >
-        <span className="hidden lg:inline">Fin</span>
         <ChevronsRight className="w-3.5 h-3.5" />
       </Button>
 
-      {/* DIVIDER */}
-      <div className="w-px h-6 bg-border mx-1" />
-
-      {/* PREVIOUS BOOK */}
-      {prevBook && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            onBookChange(prevBook);
-            onChapterChange(1);
-            showSuccess(`← ${prevBook.name}`);
-          }}
-          className="h-9 px-2.5 rounded-full text-xs gap-1 text-muted-foreground hover:text-foreground"
-          title={`Livre précédent: ${prevBook.name}`}
-        >
-          <ChevronLeft className="w-3 h-3" />
-          <span className="hidden xl:inline font-mono">{prevBook.code}</span>
-          <span className="hidden 2xl:inline">{prevBook.name}</span>
-        </Button>
-      )}
-
-      {/* PREV CLASSIFICATION BOOK */}
-      {prevClassifBook && prevClassifBook.id !== prevBook?.id && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            onBookChange(prevClassifBook);
-            onChapterChange(1);
-            showSuccess(`← ${prevClassifBook.name}`);
-          }}
-          className="h-9 w-9 rounded-full p-0 text-muted-foreground hover:text-foreground"
-          title={`Livre précédent dans la catégorie: ${prevClassifBook.name}`}
-        >
-          <ChevronsLeft className="w-3.5 h-3.5" />
-        </Button>
-      )}
-
-      {/* NEXT CLASSIFICATION BOOK */}
-      {nextClassifBook && nextClassifBook.id !== nextBook?.id && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            onBookChange(nextClassifBook);
-            onChapterChange(1);
-            showSuccess(`→ ${nextClassifBook.name}`);
-          }}
-          className="h-9 w-9 rounded-full p-0 text-muted-foreground hover:text-foreground"
-          title={`Livre suivant dans la catégorie: ${nextClassifBook.name}`}
-        >
-          <ChevronsRight className="w-3.5 h-3.5" />
-        </Button>
-      )}
-
-      {/* NEXT BOOK */}
-      {nextBook && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
+      {/* NEXT BOOK - Always visible, disabled if no next book */}
+      <Button
+        variant="ghost"
+        size="sm"
+        disabled={!nextBook}
+        onClick={() => {
+          if (nextBook) {
             onBookChange(nextBook);
             onChapterChange(1);
-            showSuccess(`→ ${nextBook.name}`);
-          }}
-          className="h-9 px-2.5 rounded-full text-xs gap-1 text-muted-foreground hover:text-foreground"
-          title={`Livre suivant: ${nextBook.name}`}
-        >
-          <span className="hidden 2xl:inline">{nextBook.name}</span>
-          <span className="hidden xl:inline font-mono">{nextBook.code}</span>
-          <ChevronRight className="w-3 h-3" />
-        </Button>
-      )}
+          }
+        }}
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${
+          nextBook 
+            ? 'text-muted-foreground hover:text-foreground' 
+            : 'text-muted-foreground/40 cursor-not-allowed opacity-50'
+        }`}
+        title={nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun livre suivant'}
+      >
+        <ChevronRight className="w-3 h-3" />
+      </Button>
     </div>
   );
 };
+
+export default ChapterNavigator;
