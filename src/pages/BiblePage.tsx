@@ -739,8 +739,8 @@ export const BiblePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ✅ CORRECTION : Section de contrôle collée directement à la section précédente */}
-      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      {/* ✅ CORRECTION : Section de contrôle avec background pleine largeur */}
+      <section className="max-w-7xl mx-auto w-full bg-gray-50 dark:bg-gray-900 py-3">
         <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
           <div className="flex-1 min-w-0">
             <BookSearchSelect
