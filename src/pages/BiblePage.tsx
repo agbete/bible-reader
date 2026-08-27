@@ -98,23 +98,25 @@ export const BiblePage: React.FC = () => {
 
   const { toast } = useToast();
 
-  // NOUVEAU: Calculer le languageId directement depuis la version sélectionnée
-  // Cela évite le mapping par code qui ne marche pas avec title_translations
-  const targetLanguageId = React.useMemo(() => {
-    if (selectedVersions.length === 0) return 3; // French par défaut
-    const ver = versions.find(v => v.code === selectedVersions[0]);
-    if (!ver) return 3;
-    return ver.language_id ?? 3;
-  }, [selectedVersions, versions]);
-
-  // Ancien targetLanguageCode gardé si besoin ailleurs
+  // NOUVEAU: Calculer le code de langue cible à partir des versions sélectionnées
   const targetLanguageCode = React.useMemo(() => {
     if (selectedVersions.length === 0) return 'fr';
     const ver = versions.find(v => v.code === selectedVersions[0]);
     if (!ver) return 'fr';
+    
+    // Trouver le code de langue correspondant
     const lang = languages.find(l => l.id === ver.language_id);
     return lang?.code || 'fr';
   }, [selectedVersions, versions, languages]);
+
+  // Ancien targetLanguageId gardé pour les autres traductions (testaments, classifications)
+  const targetLanguageId = React.useMemo(() => {
+    if (selectedVersions.length === 1) {
+      const ver = versions.find(v => v.code === selectedVersions[0]);
+      return ver?.language_id ?? 2;
+    }
+    return 2;
+  }, [selectedVersions, versions]);
 
   // Diagnostic automatique au chargement
   useEffect(() => {
@@ -193,10 +195,17 @@ export const BiblePage: React.FC = () => {
         const { data: classTransData } = await supabase
           .from('classification_translations')
           .select('classification_id, language_id, name')
-          .eq('language_id', targetLanguageId);
+          .eq('language_id', 2);
 
         const classTransMap = new Map<number, string>();
         classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
+
+        const classifications: DbClassification[] = (classificationsRes.data || []).map(c => ({
+          id: c.id,
+          code: c.code,
+          name: classTransMap.get(c.id) || c.code,
+          testament_id: c.testament_id
+        }));
 
         setLanguages(langs);
         setVersions(vers);
@@ -256,18 +265,18 @@ export const BiblePage: React.FC = () => {
     }
   }, [selectedBook, selectedChapter, selectedVersions]);
 
-  // Load title translations for the current verses - UTILISER languageId DIRECT
+  // Load title translations for the current verses - UTILISE LE CODE DE LANGUE
   const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
     if (!verseIds || verseIds.length === 0) {
       console.warn('[BiblePage] loadTitleTranslationsForVerses: empty verseIds list');
       return;
     }
     try {
-      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
+      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageCode:', targetLanguageCode);
       console.log('[BiblePage] First 5 verse IDs:', verseIds.slice(0, 5));
       
-      // Passer languageId DIRECT au lieu de languageCode
-      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
+      // Passer le code de langue (ex: 'fr', 'en') au lieu de l'ID
+      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageCode);
       
       console.log('[BiblePage] Raw titlesMap from getDbVerseTitles:', titlesMap);
       console.log('[BiblePage] Number of verses with titles:', Object.keys(titlesMap).length);
@@ -290,18 +299,18 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  // Recharger les titres quand la version change (via changement de languageId)
+  // Recharger les titres quand la langue change (via changement de version)
   useEffect(() => {
     if (versesData && Object.keys(versesData).length > 0) {
       const firstVersion = Object.keys(versesData)[0];
       const verses = versesData[firstVersion];
       if (verses && verses.length > 0) {
         const allVerseIds = verses.map(v => v.id).filter(Boolean);
-        console.log('[BiblePage] Version changed, reloading titles for', allVerseIds.length, 'verses with languageId:', targetLanguageId);
+        console.log('[BiblePage] Language/version changed, reloading titles for', allVerseIds.length, 'verses');
         loadTitleTranslationsForVerses(allVerseIds);
       }
     }
-  }, [targetLanguageId, versesData]);
+  }, [targetLanguageCode, versesData]);
 
   const filteredVersions = versions.filter(v => {
     if (selectedLanguageId === 'ALL') return true;
@@ -873,7 +882,7 @@ export const BiblePage: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-amber-600" />
-              <span className="font-semibold text-foreground">Parole Vivante — Application Sainte Bible</span>
+              <span className="font-semibold text-foreground">Parole Vivante — Page Bible</span>
             </div>
             <p className="text-center sm:text-right">
               « Toute Écriture est inspirée de Dieu, et utile pour enseigner... » — 2 Timothée 3:16
