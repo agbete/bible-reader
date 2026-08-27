@@ -13,6 +13,7 @@ import {
   getDbChapterVerses,
   getDbVersionsWithVerses,
   getDbVerseTitles,
+  debugTitleTranslations,
   DbLanguage, 
   DbBibleVersion, 
   DbBookItem,
@@ -104,6 +105,11 @@ export const BiblePage: React.FC = () => {
     }
     return 2;
   }, [selectedVersions, versions]);
+
+  // Diagnostic automatique au chargement
+  useEffect(() => {
+    debugTitleTranslations();
+  }, []);
 
   useEffect(() => {
     let mounted = true;
