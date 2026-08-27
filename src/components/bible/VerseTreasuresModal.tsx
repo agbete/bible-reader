@@ -78,19 +78,46 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  // ✅ FIX BUG : Ref pour stocker la version active en temps réel.
-  // Cela évite le bug de "stale closure" : la valeur figée de currentVersion
-  // pouvait rester celle d'un précédent verset pendant quelques cycles de rendu.
+  // Track what the modal received as version
+  const [receivedVersion, setReceivedVersion] = useState<string>('');
+
+  // ✅ Ref for current version (always fresh)
   const activeVersionRef = useRef<string>(currentVersion);
   useEffect(() => {
     activeVersionRef.current = currentVersion;
+    console.log('[VerseTreasuresModal] currentVersion prop changed to:', currentVersion);
   }, [currentVersion]);
 
-  // ✅ Ref pour mémoriser la dernière requête (version + refCode combinés)
-  // afin d'ignorer les réponses en retard d'un précédent verset/version.
+  // Ref to track latest request
   const latestRequestRef = useRef<string>('');
 
-  // Helper to format "Livre Chapitre:Verset" according to current language booksList
+  // Log when selectedVerse changes
+  useEffect(() => {
+    if (selectedVerse) {
+      console.log('[VerseTreasuresModal] selectedVerse changed:', {
+        reference: selectedVerse.reference_code,
+        verse: selectedVerse.verse_number,
+        text: selectedVerse.text?.substring(0, 50),
+        book: selectedVerse.book?.name,
+        versionCode: selectedVerse.versionCode,
+      });
+    }
+  }, [selectedVerse]);
+
+  // Sync state when selected verse changes or modal opens
+  useEffect(() => {
+    if (selectedVerse && isOpen) {
+      console.log('[VerseTreasuresModal] Syncing state from selectedVerse');
+      setActiveBook(selectedVerse.book);
+      setActiveChapter(selectedVerse.chapter);
+      setActiveVerseNumber(selectedVerse.verse_number);
+      setActiveVerseText(selectedVerse.text);
+      setActiveReferenceCode(selectedVerse.reference_code);
+      setReceivedVersion(selectedVerse.versionCode);
+    }
+  }, [selectedVerse, isOpen]);
+
+  // Helper to format "Livre Chapitre:Verset"
   const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
     const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
     const name = book?.name || fallbackBookName || bookCode;
@@ -107,65 +134,70 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     return refCode;
   };
 
-  // Sync state when selected verse changes or modal opens
+  // ✅ THE KEY EFFECT: Load references + treasures whenever reference OR version changes
   useEffect(() => {
-    if (selectedVerse && isOpen) {
-      setActiveBook(selectedVerse.book);
-      setActiveChapter(selectedVerse.chapter);
-      setActiveVerseNumber(selectedVerse.verse_number);
-      setActiveVerseText(selectedVerse.text);
-      setActiveReferenceCode(selectedVerse.reference_code);
+    if (!isOpen) {
+      console.log('[VerseTreasuresModal] isOpen=false, skipping load');
+      return;
     }
-  }, [selectedVerse, isOpen]);
+    if (!activeReferenceCode) {
+      console.log('[VerseTreasuresModal] No activeReferenceCode, skipping load');
+      return;
+    }
 
-  // ✅ FIX BUG : Recharger explicitement quand la VERSION change,
-  // même si le verset reste identique. Cela réinitialise et force
-  // un nouveau chargement avec la bonne langue.
-  useEffect(() => {
-    if (!isOpen) return;
-    if (!activeReferenceCode) return;
-    // On ne déclenche pas de reload si la version n'a pas réellement changé
-    // par rapport à la dernière requête enregistrée dans latestRequestRef
-    const currentSnapshot = `${activeReferenceCode}__${currentVersion}`;
-    if (latestRequestRef.current === currentSnapshot) return;
+    // Always use the CURRENT prop value (not stale ref) for the API call
+    const versionToUse = currentVersion;
+    
+    console.log('[VerseTreasuresModal] Loading data with:', {
+      referenceCode: activeReferenceCode,
+      versionToUse: versionToUse,
+      receivedVersionFromProps: receivedVersion,
+    });
 
+    const currentSnapshot = `${activeReferenceCode}__${versionToUse}`;
+    console.log('[VerseTreasuresModal] currentSnapshot:', currentSnapshot);
+    
+    if (latestRequestRef.current === currentSnapshot) {
+      console.log('[VerseTreasuresModal] Same snapshot, skipping (already loading this)');
+      return;
+    }
     latestRequestRef.current = currentSnapshot;
+
     setLoading(true);
     setCrossReferences([]);
     setTreasures([]);
 
-    const versionToUse = currentVersion;
-
-    let isMounted = true;
     Promise.all([
       getDbVerseCrossReferences(activeReferenceCode, versionToUse),
       getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse)
     ])
       .then(([crossRes, treasuresRes]) => {
-        // Vérification supplémentaire anti-stale :
-        // ignorer la réponse si la requête n'est plus la plus récente
-        if (!isMounted) return;
-        if (latestRequestRef.current !== currentSnapshot) return;
+        console.log('[VerseTreasuresModal] API responses:', {
+          crossCount: crossRes?.length,
+          treasuresCount: treasuresRes?.length,
+          snapshot: currentSnapshot,
+          latestRequest: latestRequestRef.current,
+        });
+        if (latestRequestRef.current !== currentSnapshot) {
+          console.log('[VerseTreasuresModal] STALE RESPONSE, ignoring!');
+          return;
+        }
         setCrossReferences(crossRes || []);
         setTreasures(treasuresRes || []);
       })
       .catch((err) => {
         console.error('[VerseTreasuresModal] Error loading references/treasures:', err);
-        if (!isMounted) return;
-        if (latestRequestRef.current !== currentSnapshot) return;
-        setCrossReferences([]);
-        setTreasures([]);
+        if (latestRequestRef.current === currentSnapshot) {
+          setCrossReferences([]);
+          setTreasures([]);
+        }
       })
       .finally(() => {
-        if (!isMounted) return;
         if (latestRequestRef.current === currentSnapshot) {
           setLoading(false);
         }
       });
 
-    return () => {
-      isMounted = false;
-    };
   }, [isOpen, activeReferenceCode, currentVersion]);
 
   if (!isOpen || !activeBook) return null;
@@ -180,6 +212,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   };
 
   const handleSelectBookFromHeader = async (book: DbBookItem, chapter: number) => {
+    console.log('[VerseTreasuresModal] handleSelectBookFromHeader:', book.name, chapter);
     setActiveBook(book);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
@@ -197,6 +230,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   const handleChapterChangeFromHeader = async (chapter: number) => {
     if (!activeBook) return;
+    console.log('[VerseTreasuresModal] handleChapterChangeFromHeader:', chapter);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
     
@@ -213,13 +247,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-200">
-      {/* Modal Container: 95vw by 95vh */}
       <div className="relative w-[95vw] h-[95vh] max-w-7xl bg-background rounded-3xl border border-border/80 shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
         
-        {/* 1. HEADER: Section de contrôle identique à la section 788 */}
+        {/* HEADER */}
         <div className="w-full bg-gray-50 dark:bg-gray-900/90 border-b border-border/80 px-4 sm:px-6 py-3 shrink-0">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center justify-between">
-            {/* BookSearchSelect */}
             <div className="flex-1 min-w-0">
               <BookSearchSelect
                 booksList={booksList}
@@ -234,7 +266,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               />
             </div>
 
-            {/* ChapterNavigator */}
             <div className="shrink-0">
               <ChapterNavigator
                 selectedBook={activeBook}
@@ -245,7 +276,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               />
             </div>
 
-            {/* Actions: Titres, Compact/Liste, et bouton Fermer */}
             <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
               <Button
                 variant={showTitles ? 'default' : 'outline'}
@@ -256,7 +286,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
-                title={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
               >
                 <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white' : ''}`} />
                 <span>Titres</span>
@@ -273,15 +302,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 }`}
               >
                 {displayMode === 'compact' ? (
-                  <>
-                    <LayoutGrid className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Compact</span>
-                  </>
+                  <><LayoutGrid className="w-3.5 h-3.5 text-amber-600" /><span>Compact</span></>
                 ) : (
-                  <>
-                    <List className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Liste</span>
-                  </>
+                  <><List className="w-3.5 h-3.5 text-amber-600" /><span>Liste</span></>
                 )}
               </Button>
 
@@ -290,7 +313,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 size="icon"
                 onClick={onClose}
                 className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted ml-1"
-                title="Fermer la fenêtre"
               >
                 <X className="w-5 h-5" />
               </Button>
@@ -298,18 +320,22 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
         </div>
 
-        {/* 2. BANDEAU VERSET SOURCE: Juste après le header */}
+        {/* BANDEAU VERSET SOURCE */}
         <div className="w-full bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-4 sm:px-6 py-3 shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex items-start md:items-center gap-3 flex-1 min-w-0">
             <span className="px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold font-serif shrink-0 shadow-xs">
               {activeDisplayRef}
             </span>
             <blockquote className="font-serif text-xs sm:text-sm text-foreground italic leading-relaxed line-clamp-2 md:line-clamp-1">
-              « {activeVerseText || 'Sélectionnez un verset pour explorer ses richesses.'} »
+              « {activeVerseText || 'Sélectionnez un verset...'} »
             </blockquote>
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+            {/* DEBUG: show which version is being used */}
+            <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-mono font-bold border border-rose-300">
+              DEBUG version: {currentVersion} | ref: {activeVersionRef.current} | received: {receivedVersion}
+            </span>
             <span className="text-[11px] text-muted-foreground font-medium">
               Version {currentVersion}
             </span>
@@ -319,19 +345,12 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               onClick={() => handleCopy(activeVerseText, activeDisplayRef)}
               className="h-7 px-2.5 rounded-full text-xs gap-1"
             >
-              {copiedCode === activeDisplayRef ? (
-                <Check className="w-3 h-3 text-emerald-500" />
-              ) : (
-                <Copy className="w-3 h-3" />
-              )}
+              {copiedCode === activeDisplayRef ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
               <span>Copier verset</span>
             </Button>
             <Button
               size="sm"
-              onClick={() => {
-                onNavigateToPassage(activeBook, activeChapter);
-                onClose();
-              }}
+              onClick={() => { onNavigateToPassage(activeBook, activeChapter); onClose(); }}
               className="h-7 px-3 rounded-full text-xs gap-1 bg-amber-600 hover:bg-amber-700 text-white"
             >
               <BookOpen className="w-3 h-3" />
@@ -340,10 +359,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
         </div>
 
-        {/* 3. BODY: DEUX COLONNES (Gauche: Références Croisées, Droite: Trésors) */}
+        {/* BODY: TWO COLUMNS */}
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 overflow-hidden bg-background divide-y lg:divide-y-0 lg:divide-x divide-border">
           
-          {/* COLONNE 1 : RÉFÉRENCES CROISÉES (cross_references) */}
+          {/* COLONNE 1: RÉFÉRENCES CROISÉES */}
           <div className="p-4 sm:p-6 flex flex-col overflow-hidden bg-muted/5">
             <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
               <div className="flex items-center gap-2">
@@ -351,16 +370,12 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   <Link2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">
-                    Références Croisées
-                  </h3>
-                  <span className="text-[10px] text-muted-foreground">
-                    Passages bibliques parallèles et citations directes
-                  </span>
+                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">Références Croisées</h3>
+                  <span className="text-[10px] text-muted-foreground">Passages bibliques parallèles</span>
                 </div>
               </div>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-300 font-serif">
-                {crossReferences.length} référence{crossReferences.length > 1 ? 's' : ''}
+                {crossReferences.length} réf{crossReferences.length > 1 ? 's' : ''}
               </span>
             </div>
 
@@ -368,66 +383,39 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-                  <span className="text-xs">Chargement des références croisées...</span>
+                  <span className="text-xs">Chargement... (version: {currentVersion})</span>
                 </div>
               ) : crossReferences.length === 0 ? (
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Link2 className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
-                  <p className="text-sm font-semibold">Aucune référence croisée directe</p>
-                  <p className="text-xs">Aucun lien direct trouvé dans la table `cross_references` pour ce verset.</p>
+                  <p className="text-sm font-semibold">Aucune référence croisée</p>
+                  <p className="text-xs">Version utilisée pour la recherche : <strong>{currentVersion}</strong></p>
                 </div>
               ) : displayMode === 'list' ? (
                 crossReferences.map((refItem) => {
-                  const matchedBook = booksList.find(
-                    b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
-                  );
+                  const matchedBook = booksList.find(b => b.code.toLowerCase() === refItem.book_code.toLowerCase());
                   const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
 
                   return (
-                    <div
-                      key={refItem.id}
-                      className="p-3.5 rounded-2xl bg-card border border-border/80 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex flex-col gap-1.5 shadow-xs"
-                    >
+                    <div key={refItem.id} className="p-3.5 rounded-2xl bg-card border border-border/80 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex flex-col gap-1.5 shadow-xs">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif font-bold text-xs text-blue-700 dark:text-blue-300">
-                          {humanRef}
-                        </span>
-
+                        <span className="font-serif font-bold text-xs text-blue-700 dark:text-blue-300">{humanRef}</span>
                         <div className="flex items-center gap-1.5">
                           {refItem.text && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleCopy(refItem.text || '', humanRef)}
-                              className="h-6 px-2 text-[11px] rounded-full"
-                            >
-                              {copiedCode === humanRef ? (
-                                <Check className="w-3 h-3 text-emerald-500 mr-1" />
-                              ) : (
-                                <Copy className="w-3 h-3 mr-1" />
-                              )}
+                            <Button variant="ghost" size="sm" onClick={() => handleCopy(refItem.text || '', humanRef)} className="h-6 px-2 text-[11px] rounded-full">
+                              {copiedCode === humanRef ? <Check className="w-3 h-3 text-emerald-500 mr-1" /> : <Copy className="w-3 h-3 mr-1" />}
                               <span>Copier</span>
                             </Button>
                           )}
-
                           {matchedBook && (
-                            <Button
-                              size="sm"
-                              onClick={() => {
-                                onNavigateToPassage(matchedBook, refItem.chapter);
-                                onClose();
-                              }}
-                              className="h-6 px-2.5 text-[11px] rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                            >
-                              <BookOpen className="w-3 h-3 mr-1" />
-                              <span>Ouvrir</span>
+                            <Button size="sm" onClick={() => { onNavigateToPassage(matchedBook, refItem.chapter); onClose(); }} className="h-6 px-2.5 text-[11px] rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium">
+                              <BookOpen className="w-3 h-3 mr-1" /><span>Ouvrir</span>
                             </Button>
                           )}
                         </div>
                       </div>
-
                       <p className="font-serif text-xs sm:text-sm text-foreground leading-relaxed">
-                        {refItem.text ? `« ${refItem.text} »` : `[Texte non disponible - ${humanRef}]`}
+                        {refItem.text ? `« ${refItem.text} »` : `[Texte non disponible]`}
                       </p>
                     </div>
                   );
@@ -435,25 +423,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               ) : (
                 <div className="p-4 rounded-2xl bg-card border border-border font-serif text-sm leading-relaxed space-y-2">
                   {crossReferences.map((refItem) => {
-                    const matchedBook = booksList.find(
-                      b => b.code.toLowerCase() === refItem.book_code.toLowerCase()
-                    );
+                    const matchedBook = booksList.find(b => b.code.toLowerCase() === refItem.book_code.toLowerCase());
                     const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
-
                     return (
-                      <span
-                        key={refItem.id}
-                        onClick={() => {
-                          if (matchedBook) {
-                            onNavigateToPassage(matchedBook, refItem.chapter);
-                            onClose();
-                          }
-                        }}
-                        className="inline-block mr-3 p-1 rounded hover:bg-blue-500/15 cursor-pointer transition-colors"
-                      >
-                        <span className="font-serif font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">
-                          [{humanRef}]
-                        </span>
+                      <span key={refItem.id} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, refItem.chapter); onClose(); } }} className="inline-block mr-3 p-1 rounded hover:bg-blue-500/15 cursor-pointer transition-colors">
+                        <span className="font-serif font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">[{humanRef}]</span>
                         <span className="text-foreground">{refItem.text || ''}</span>
                       </span>
                     );
@@ -463,7 +437,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
             </div>
           </div>
 
-          {/* COLONNE 2 : TRÉSORS DE L'ÉCRITURE */}
+          {/* COLONNE 2: TRÉSORS */}
           <div className="p-4 sm:p-6 flex flex-col overflow-hidden bg-background">
             <div className="flex items-center justify-between pb-3 border-b border-border mb-3">
               <div className="flex items-center gap-2">
@@ -471,12 +445,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   <Gem className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">
-                    Trésors de l'Écriture
-                  </h3>
-                  <span className="text-[10px] text-muted-foreground">
-                    Thèmes d'étude, chaînes doctrinales & trésors spirituels
-                  </span>
+                  <h3 className="font-bold text-sm sm:text-base tracking-tight text-foreground">Trésors de l'Écriture</h3>
+                  <span className="text-[10px] text-muted-foreground">Thèmes d'étude & trésors spirituels</span>
                 </div>
               </div>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 font-serif">
@@ -488,35 +458,24 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
-                  <span className="text-xs">Chargement des trésors spirituels...</span>
+                  <span className="text-xs">Chargement... (version: {currentVersion})</span>
                 </div>
               ) : treasures.length === 0 ? (
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucun trésor répertorié</p>
-                  <p className="text-xs">Aucun groupe thématique trouvé dans la table `treasures` pour ce verset.</p>
+                  <p className="text-xs">Version utilisée pour la recherche : <strong>{currentVersion}</strong></p>
                 </div>
               ) : (
                 treasures.map((treasure, index) => (
-                  <div
-                    key={treasure.treasure_id || index}
-                    className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3"
-                  >
+                  <div key={treasure.treasure_id || index} className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3">
                     {showTitles && (
                       <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
                         <div className="flex items-center gap-2">
-                          <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">
-                            {index + 1}
-                          </span>
-                          <h4 className="font-bold text-xs sm:text-sm text-foreground font-serif">
-                            {treasure.title}
-                          </h4>
+                          <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">{index + 1}</span>
+                          <h4 className="font-bold text-xs sm:text-sm text-foreground font-serif">{treasure.title}</h4>
                         </div>
-                        {treasure.description && (
-                          <span className="text-[11px] text-muted-foreground italic line-clamp-1">
-                            {treasure.description}
-                          </span>
-                        )}
+                        {treasure.description && <span className="text-[11px] text-muted-foreground italic line-clamp-1">{treasure.description}</span>}
                       </div>
                     )}
 
@@ -524,57 +483,28 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       displayMode === 'list' ? (
                         <div className="space-y-2">
                           {treasure.target_items.map((target, tIdx) => {
-                            const matchedBook = booksList.find(
-                              b => b.code.toLowerCase() === target.book_code.toLowerCase()
-                            );
+                            const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
                             const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
 
                             return (
-                              <div
-                                key={tIdx}
-                                className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1"
-                              >
+                              <div key={tIdx} className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1">
                                 <div className="flex items-center justify-between">
-                                  <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400">
-                                    {humanRef}
-                                  </span>
-
+                                  <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400">{humanRef}</span>
                                   <div className="flex items-center gap-1">
                                     {target.text && (
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => handleCopy(target.text || '', humanRef)}
-                                        className="h-6 px-2 text-[10px] rounded-full"
-                                      >
-                                        {copiedCode === humanRef ? (
-                                          <Check className="w-3 h-3 text-emerald-500 mr-1" />
-                                        ) : (
-                                          <Copy className="w-3 h-3 mr-1" />
-                                        )}
+                                      <Button variant="ghost" size="sm" onClick={() => handleCopy(target.text || '', humanRef)} className="h-6 px-2 text-[10px] rounded-full">
+                                        {copiedCode === humanRef ? <Check className="w-3 h-3 text-emerald-500 mr-1" /> : <Copy className="w-3 h-3 mr-1" />}
                                         <span>Copier</span>
                                       </Button>
                                     )}
-
                                     {matchedBook && (
-                                      <Button
-                                        size="sm"
-                                        onClick={() => {
-                                          onNavigateToPassage(matchedBook, target.chapter);
-                                          onClose();
-                                        }}
-                                        className="h-6 px-2 text-[10px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium"
-                                      >
-                                        <BookOpen className="w-3 h-3 mr-1" />
-                                        <span>Ouvrir</span>
+                                      <Button size="sm" onClick={() => { onNavigateToPassage(matchedBook, target.chapter); onClose(); }} className="h-6 px-2 text-[10px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
+                                        <BookOpen className="w-3 h-3 mr-1" /><span>Ouvrir</span>
                                       </Button>
                                     )}
                                   </div>
                                 </div>
-
-                                <p className="font-serif text-xs text-foreground leading-relaxed">
-                                  {target.text ? `« ${target.text} »` : `[${humanRef}]`}
-                                </p>
+                                <p className="font-serif text-xs text-foreground leading-relaxed">{target.text ? `« ${target.text} »` : `[${humanRef}]`}</p>
                               </div>
                             );
                           })}
@@ -582,25 +512,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       ) : (
                         <div className="font-serif text-xs leading-relaxed space-y-1">
                           {treasure.target_items.map((target, tIdx) => {
-                            const matchedBook = booksList.find(
-                              b => b.code.toLowerCase() === target.book_code.toLowerCase()
-                            );
+                            const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
                             const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
-
                             return (
-                              <span
-                                key={tIdx}
-                                onClick={() => {
-                                  if (matchedBook) {
-                                    onNavigateToPassage(matchedBook, target.chapter);
-                                    onClose();
-                                  }
-                                }}
-                                className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors"
-                              >
-                                <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">
-                                  [{humanRef}]
-                                </span>
+                              <span key={tIdx} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, target.chapter); onClose(); } }} className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors">
+                                <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">[{humanRef}]</span>
                                 <span className="text-foreground">{target.text || ''}</span>
                               </span>
                             );
@@ -610,10 +526,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     ) : (
                       <div className="flex flex-wrap gap-1.5">
                         {treasure.target_references.map((refCode, rIdx) => (
-                          <span
-                            key={rIdx}
-                            className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border"
-                          >
+                          <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
                             {parseRefCodeToHuman(refCode)}
                           </span>
                         ))}
@@ -626,15 +539,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
         </div>
 
-        {/* 4. FOOTER DU MODAL */}
+        {/* FOOTER */}
         <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground shrink-0">
           <div className="flex items-center gap-4">
             <span>Mode : <strong className="text-foreground capitalize">{displayMode === 'list' ? 'Liste' : 'Compact'}</strong></span>
             <span>Titres : <strong className="text-foreground">{showTitles ? 'Activés' : 'Masqués'}</strong></span>
           </div>
-          <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">
-            Fermer
-          </Button>
+          <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">Fermer</Button>
         </div>
       </div>
     </div>

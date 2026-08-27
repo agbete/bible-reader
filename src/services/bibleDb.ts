@@ -91,9 +91,6 @@ export interface DbStatusReport {
   versions: { code: string; name: string; short_name: string | null }[];
 }
 
-/**
- * 1. Récupère toutes les langues depuis la table `languages`
- */
 export async function getDbLanguages(): Promise<DbLanguage[]> {
   try {
     const { data, error } = await supabase
@@ -112,9 +109,6 @@ export async function getDbLanguages(): Promise<DbLanguage[]> {
   }
 }
 
-/**
- * 2. Récupère toutes les versions depuis `bible_versions`
- */
 export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
   try {
     const { data, error } = await supabase
@@ -133,9 +127,6 @@ export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
   }
 }
 
-/**
- * 3. Récupère tous les 66 livres avec leurs traductions et nombre de chapitres
- */
 export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> {
   try {
     const { data: booksData, error: booksErr } = await supabase
@@ -154,48 +145,31 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
     }
     const { data: transData } = await trQuery;
 
-    const { data: testamentsData } = await supabase
-      .from('testaments')
-      .select('id, code');
+    const { data: testamentsData } = await supabase.from('testaments').select('id, code');
 
     const testamentsMap = new Map<number, string>();
     testamentsData?.forEach(t => testamentsMap.set(t.id, t.code));
 
-    const { data: chaptersData } = await supabase
-      .from('chapters')
-      .select('book_id, number');
-
+    const { data: chaptersData } = await supabase.from('chapters').select('book_id, number');
     const chaptersCountMap = new Map<number, number>();
     chaptersData?.forEach(ch => {
       const current = chaptersCountMap.get(ch.book_id) || 0;
-      if (ch.number > current) {
-        chaptersCountMap.set(ch.book_id, ch.number);
-      }
+      if (ch.number > current) chaptersCountMap.set(ch.book_id, ch.number);
     });
 
     const transMap = new Map<number, string>();
-    transData?.forEach(t => {
-      if (!transMap.has(t.book_id)) {
-        transMap.set(t.book_id, t.name);
-      }
-    });
+    transData?.forEach(t => { if (!transMap.has(t.book_id)) transMap.set(t.book_id, t.name); });
 
-    const result = booksData.map((b) => {
-      const translatedName = transMap.get(b.id) || b.code;
-      const tCode = testamentsMap.get(b.testament_id) || (b.testament_id === 1 ? 'OT' : 'NT');
-      const count = chaptersCountMap.get(b.id) || 1;
-
-      return {
-        id: b.id,
-        code: b.code,
-        order_index: b.order_index,
-        testament_id: b.testament_id,
-        testament_code: tCode,
-        classification_id: b.classification_id,
-        name: translatedName,
-        chapters_count: count
-      };
-    });
+    const result = booksData.map((b) => ({
+      id: b.id,
+      code: b.code,
+      order_index: b.order_index,
+      testament_id: b.testament_id,
+      testament_code: testamentsMap.get(b.testament_id) || (b.testament_id === 1 ? 'OT' : 'NT'),
+      classification_id: b.classification_id,
+      name: transMap.get(b.id) || b.code,
+      chapters_count: chaptersCountMap.get(b.id) || 1
+    }));
 
     return result;
   } catch (err) {
@@ -204,9 +178,6 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
   }
 }
 
-/**
- * 4. Récupère tous les versets d'un chapitre pour une version donnée
- */
 export async function getDbChapterVerses(
   bookIdOrCode: number | string,
   chapterNum: number,
@@ -240,11 +211,12 @@ export async function getDbChapterVerses(
 
     const { data: verData } = await supabase
       .from('bible_versions')
-      .select('id, code')
+      .select('id, language_id')
       .ilike('code', versionCode.trim())
       .maybeSingle();
 
     const versionId = verData?.id;
+    const languageId = verData?.language_id;
 
     const { data: verses, error: vError } = await supabase
       .from('verses')
@@ -252,9 +224,7 @@ export async function getDbChapterVerses(
       .eq('chapter_id', chapterData.id)
       .order('verse_number', { ascending: true });
 
-    if (vError || !verses || verses.length === 0) {
-      return [];
-    }
+    if (vError || !verses || verses.length === 0) return [];
 
     const verseIds = verses.map(v => v.id);
     let vtQuery = supabase
@@ -262,60 +232,41 @@ export async function getDbChapterVerses(
       .select('verse_id, version_id, text')
       .in('verse_id', verseIds);
 
-    if (versionId) {
-      vtQuery = vtQuery.eq('version_id', versionId);
-    }
+    if (versionId) vtQuery = vtQuery.eq('version_id', versionId);
 
     const { data: textsData } = await vtQuery;
-
     const textsMap = new Map<number, string>();
-    textsData?.forEach(t => {
-      textsMap.set(t.verse_id, t.text);
-    });
+    textsData?.forEach(t => textsMap.set(t.verse_id, t.text));
 
-    const result = verses.map((v) => ({
+    return verses.map((v) => ({
       id: v.id,
       verse_number: v.verse_number,
       reference_code: v.reference_code,
       text: textsMap.get(v.id) || `[Texte non disponible - ${v.reference_code}]`
     }));
-
-    return result;
   } catch (err) {
     console.error('[bibleDb] Exception getDbChapterVerses:', err);
     return [];
   }
 }
 
-/**
- * 5. Récupère les titres de sections (title_translations) pour une liste de versets
- */
 export async function getDbVerseTitles(verseIds: number[], languageId?: number): Promise<Record<number, Record<string, string>>> {
   if (!verseIds || verseIds.length === 0) return {};
-  
   try {
     let query = supabase
       .from('title_translations')
       .select('verse_id, language_id, titles')
       .in('verse_id', verseIds);
 
-    if (languageId) {
-      query = query.eq('language_id', languageId);
-    }
+    if (languageId) query = query.eq('language_id', languageId);
 
     const { data, error } = await query;
-
-    if (error) {
-      console.error('[bibleDb] Erreur récupération title_translations:', error.message);
-    }
+    if (error) console.error('[bibleDb] Erreur title_translations:', error.message);
 
     let finalData = data;
     if (!finalData || finalData.length === 0) {
-      const { data: fallbackData } = await supabase
-        .from('title_translations')
-        .select('verse_id, language_id, titles')
-        .in('verse_id', verseIds);
-      finalData = fallbackData;
+      const { data: fb } = await supabase.from('title_translations').select('verse_id, language_id, titles').in('verse_id', verseIds);
+      finalData = fb;
     }
 
     return formatTitlesMap(finalData || []);
@@ -325,24 +276,17 @@ export async function getDbVerseTitles(verseIds: number[], languageId?: number):
   }
 }
 
-export async function debugTitleTranslations(): Promise<void> {
-  // Silent debug helper
-}
+export async function debugTitleTranslations(): Promise<void> {}
 
 function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
   const map: Record<number, Record<string, string>> = {};
   data.forEach((row) => {
     let parsed: Record<string, string> = {};
     if (typeof row.titles === 'string') {
-      try {
-        parsed = JSON.parse(row.titles);
-      } catch (e) {
-        console.warn('[bibleDb] Failed parsing titles string:', row.titles);
-      }
+      try { parsed = JSON.parse(row.titles); } catch (e) {}
     } else if (typeof row.titles === 'object' && row.titles !== null) {
       parsed = row.titles;
     }
-    
     if (!map[row.verse_id] || Object.keys(map[row.verse_id]).length === 0) {
       map[row.verse_id] = parsed;
     }
@@ -350,14 +294,17 @@ function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
   return map;
 }
 
-/**
- * 6.A Récupère les RÉFÉRENCES CROISÉES directes (table cross_references)
- */
 export async function getDbVerseCrossReferences(
   referenceCodeOrId: string | number,
   versionCode: string = 'LSG',
   languageId?: number
 ): Promise<DbCrossReferenceItem[]> {
+  console.log('[bibleDb] getDbVerseCrossReferences called with:', {
+    referenceCodeOrId,
+    versionCode,
+    languageId,
+    timestamp: new Date().toISOString(),
+  });
   try {
     let sourceVerseId: number | null = null;
 
@@ -369,12 +316,13 @@ export async function getDbVerseCrossReferences(
         .select('id')
         .eq('reference_code', referenceCodeOrId.trim())
         .maybeSingle();
-      if (vData) {
-        sourceVerseId = vData.id;
-      }
+      if (vData) sourceVerseId = vData.id;
     }
 
-    if (!sourceVerseId) return [];
+    if (!sourceVerseId) {
+      console.warn('[bibleDb] Source verse not found for cross refs:', referenceCodeOrId);
+      return [];
+    }
 
     const { data: crossRefs, error } = await supabase
       .from('cross_references')
@@ -382,16 +330,9 @@ export async function getDbVerseCrossReferences(
         id,
         target_verse_id,
         verses:target_verse_id (
-          id,
-          verse_number,
-          reference_code,
-          chapter_id,
-          chapters:chapter_id (
-            number,
-            book_id,
-            books:book_id (
-              id,
-              code,
+          id, verse_number, reference_code, chapter_id,
+          chapters:chapter_id ( number, book_id,
+            books:book_id ( id, code,
               book_translations (name, language_id)
             )
           )
@@ -400,10 +341,12 @@ export async function getDbVerseCrossReferences(
       .eq('source_verse_id', sourceVerseId);
 
     if (error || !crossRefs || crossRefs.length === 0) {
+      console.log('[bibleDb] No cross references found, returning empty array');
       return [];
     }
 
     const targetVerseIds = crossRefs.map(cr => cr.target_verse_id).filter(Boolean);
+
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id, language_id')
@@ -413,16 +356,12 @@ export async function getDbVerseCrossReferences(
     const versionId = verData?.id;
     const targetLangId = languageId || verData?.language_id;
 
-    let vtQuery = supabase
-      .from('verse_texts')
-      .select('verse_id, text')
-      .in('verse_id', targetVerseIds);
+    console.log('[bibleDb] Cross refs - versionId:', versionId, 'targetLangId:', targetLangId, 'crossRefCount:', crossRefs.length);
 
-    if (versionId) {
-      vtQuery = vtQuery.eq('version_id', versionId);
-    }
-
+    let vtQuery = supabase.from('verse_texts').select('verse_id, text').in('verse_id', targetVerseIds);
+    if (versionId) vtQuery = vtQuery.eq('version_id', versionId);
     const { data: textsData } = await vtQuery;
+
     const textMap = new Map<number, string>();
     textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
 
@@ -450,15 +389,19 @@ export async function getDbVerseCrossReferences(
   }
 }
 
-/**
- * 6.B Récupère les TRÉSORS DE LA PAROLE (tables treasures, treasure_translations, treasure_verses)
- */
 export async function getDbVerseTreasures(
   referenceCodeOrId: string | number,
   langCode: string = 'fr',
   versionCode: string = 'LSG',
   languageId?: number
 ): Promise<DbTreasureItem[]> {
+  console.log('[bibleDb] getDbVerseTreasures called with:', {
+    referenceCodeOrId,
+    langCode,
+    versionCode,
+    languageId,
+    timestamp: new Date().toISOString(),
+  });
   try {
     let sourceVerseId: number | null = null;
 
@@ -470,14 +413,15 @@ export async function getDbVerseTreasures(
         .select('id, reference_code')
         .eq('reference_code', referenceCodeOrId.trim())
         .maybeSingle();
-      if (vData) {
-        sourceVerseId = vData.id;
-      }
+      if (vData) sourceVerseId = vData.id;
     }
 
-    if (!sourceVerseId) return [];
+    if (!sourceVerseId) {
+      console.warn('[bibleDb] Source verse not found for treasures:', referenceCodeOrId);
+      return [];
+    }
 
-    // Récupérer la version_id et language_id
+    // Get version info to find the correct languageId for treasure translations
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id, language_id')
@@ -487,27 +431,19 @@ export async function getDbVerseTreasures(
     const versionId = verData?.id;
     const targetLangId = languageId || verData?.language_id;
 
+    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'targetLangId:', targetLangId, 'langCode:', langCode);
+
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
       .select(`
-        id,
-        source_verse_id,
+        id, source_verse_id,
         treasure_translations (title, description, language_id),
         treasure_verses (
-          id,
-          target_verse_id,
-          display_order,
+          id, target_verse_id, display_order,
           verses:target_verse_id (
-            id,
-            verse_number,
-            reference_code,
-            chapter_id,
-            chapters:chapter_id (
-              number,
-              book_id,
-              books:book_id (
-                id,
-                code,
+            id, verse_number, reference_code, chapter_id,
+            chapters:chapter_id ( number, book_id,
+              books:book_id ( id, code,
                 book_translations (name, language_id)
               )
             )
@@ -517,6 +453,7 @@ export async function getDbVerseTreasures(
       .eq('source_verse_id', sourceVerseId);
 
     if (tErr || !treasures || treasures.length === 0) {
+      console.log('[bibleDb] No treasures found for verse:', sourceVerseId);
       return [];
     }
 
@@ -529,35 +466,32 @@ export async function getDbVerseTreasures(
 
     const targetTextsMap = new Map<number, string>();
     if (allTargetVerseIds.length > 0) {
-      let vtQuery = supabase
-        .from('verse_texts')
-        .select('verse_id, text')
-        .in('verse_id', allTargetVerseIds);
-
-      if (versionId) {
-        vtQuery = vtQuery.eq('version_id', versionId);
-      }
-
+      let vtQuery = supabase.from('verse_texts').select('verse_id, text').in('verse_id', allTargetVerseIds);
+      if (versionId) vtQuery = vtQuery.eq('version_id', versionId);
       const { data: texts } = await vtQuery;
       texts?.forEach(t => targetTextsMap.set(t.verse_id, t.text));
     }
 
+    console.log('[bibleDb] Found', treasures.length, 'treasures, targetLangId for translations:', targetLangId);
+
     return treasures.map(t => {
-      // Trouver la traduction du titre selon la langue cible
+      // Find translation matching the TARGET LANGUAGE (from version's language_id)
       let trans = t.treasure_translations?.find(
         (tr: any) => targetLangId ? tr.language_id === targetLangId : false
       );
       if (!trans && t.treasure_translations && t.treasure_translations.length > 0) {
+        // Fallback: try by langCode
+        console.log('[bibleDb] No translation found for languageId', targetLangId, ', available:', t.treasure_translations.map((tr: any) => ({ langId: tr.language_id, title: tr.title })));
         trans = t.treasure_translations[0];
       }
+
+      console.log('[bibleDb] Treasure', t.id, '- selected translation:', trans?.title, 'languageId:', trans?.language_id);
 
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
         const v = tv.verses;
         const ch = v?.chapters;
         const bk = ch?.books;
-        const bTrans = bk?.book_translations?.find(
-          (bt: any) => targetLangId ? bt.language_id === targetLangId : true
-        );
+        const bTrans = bk?.book_translations?.find((bt: any) => targetLangId ? bt.language_id === targetLangId : true);
         const bookName = bTrans?.name || bk?.code || '';
 
         return {
@@ -584,48 +518,22 @@ export async function getDbVerseTreasures(
   }
 }
 
-/**
- * 7. Recherche textuelle dans toute la Bible
- */
 export async function searchDbVerses(searchTerm: string, versionCode: string = 'LSG', limit: number = 15): Promise<DbSearchResult[]> {
   try {
-    const { data: verData } = await supabase
-      .from('bible_versions')
-      .select('id')
-      .ilike('code', versionCode.trim())
-      .maybeSingle();
+    const { data: verData } = await supabase.from('bible_versions').select('id').ilike('code', versionCode.trim()).maybeSingle();
 
     let query = supabase
       .from('verse_texts')
-      .select(`
-        id,
-        verse_id,
-        text,
-        verses:verse_id (
-          id,
-          verse_number,
-          reference_code,
-          chapter_id,
-          chapters:chapter_id (
-            number,
-            book_id,
-            books:book_id (code)
-          )
-        )
-      `)
+      .select(`id, verse_id, text, verses:verse_id ( id, verse_number, reference_code, chapter_id, chapters:chapter_id ( number, book_id, books:book_id (code) ) )`)
       .ilike('text', `%${searchTerm}%`)
       .limit(limit);
 
-    if (verData?.id) {
-      query = query.eq('version_id', verData.id);
-    }
+    if (verData?.id) query = query.eq('version_id', verData.id);
 
     const { data, error } = await query;
-    if (error || !data) {
-      return [];
-    }
+    if (error || !data) return [];
 
-    const result = data.map((item: any) => {
+    return data.map((item: any) => {
       const v = item.verses;
       const ch = v?.chapters;
       const bk = ch?.books;
@@ -639,17 +547,12 @@ export async function searchDbVerses(searchTerm: string, versionCode: string = '
         text: item.text
       };
     });
-
-    return result;
   } catch (err) {
     console.error('[bibleDb] Exception searchDbVerses:', err);
     return [];
   }
 }
 
-/**
- * 8. Statistiques globales de la base de données
- */
 export async function getDbStats(): Promise<DbStats> {
   try {
     const [versesRes, booksRes, chaptersRes, versionsRes, languagesRes] = await Promise.all([
@@ -669,35 +572,15 @@ export async function getDbStats(): Promise<DbStats> {
     };
   } catch (err) {
     console.error('[bibleDb] Exception getDbStats:', err);
-    return {
-      totalVerses: 31102,
-      totalBooks: 66,
-      totalChapters: 1189,
-      totalVersions: 0,
-      totalLanguages: 0
-    };
+    return { totalVerses: 31102, totalBooks: 66, totalChapters: 1189, totalVersions: 0, totalLanguages: 0 };
   }
 }
 
-/**
- * 9. Test de connexion Supabase & diagnostic détaillé
- */
 export async function testSupabaseConnection(): Promise<DbStatusReport> {
   const tablesToCheck = [
-    'languages',
-    'bible_versions',
-    'testaments',
-    'classifications',
-    'books',
-    'book_translations',
-    'chapters',
-    'verses',
-    'verse_texts',
-    'title_translations',
-    'cross_references',
-    'treasures',
-    'treasure_translations',
-    'treasure_verses'
+    'languages','bible_versions','testaments','classifications','books',
+    'book_translations','chapters','verses','verse_texts',
+    'title_translations','cross_references','treasures','treasure_translations','treasure_verses'
   ];
 
   const results: DbStatusReport['tables'] = [];
@@ -705,65 +588,32 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 
   for (const tableName of tablesToCheck) {
     try {
-      const { count, error } = await supabase
-        .from(tableName)
-        .select('*', { count: 'exact', head: true });
-
+      const { count, error } = await supabase.from(tableName).select('*', { count: 'exact', head: true });
       if (error) {
         const isRls = error.code === '42501' || error.message?.toLowerCase().includes('permission') || error.message?.toLowerCase().includes('policy');
-        results.push({
-          name: tableName,
-          count: null,
-          status: isRls ? 'rls_restricted' : 'error',
-          error: error.message
-        });
+        results.push({ name: tableName, count: null, status: isRls ? 'rls_restricted' : 'error', error: error.message });
       } else {
         isConnected = true;
-        results.push({
-          name: tableName,
-          count: count ?? 0,
-          status: (count ?? 0) > 0 ? 'ok' : 'empty'
-        });
+        results.push({ name: tableName, count: count ?? 0, status: (count ?? 0) > 0 ? 'ok' : 'empty' });
       }
     } catch (err: any) {
-      results.push({
-        name: tableName,
-        count: null,
-        status: 'error',
-        error: err?.message || 'Erreur réseau'
-      });
+      results.push({ name: tableName, count: null, status: 'error', error: err?.message || 'Erreur réseau' });
     }
   }
 
   let versionsList: { code: string; name: string; short_name: string | null }[] = [];
   try {
-    const { data, error } = await supabase
-      .from('bible_versions')
-      .select('code, name, short_name');
-    if (data && !error) {
-      versionsList = data;
-    }
-  } catch (e) {
-    console.warn('[bibleDb] Impossible de charger les versions:', e);
-  }
+    const { data } = await supabase.from('bible_versions').select('code, name, short_name');
+    if (data && !data) versionsList = data;
+  } catch (e) {}
 
-  return {
-    connected: isConnected,
-    timestamp: new Date().toLocaleTimeString('fr-FR'),
-    tables: results,
-    versions: versionsList
-  };
+  return { connected: isConnected, timestamp: new Date().toLocaleTimeString('fr-FR'), tables: results, versions: versionsList };
 }
 
-/**
- * 10. Récupère les versions qui ont effectivement des versets dans la base de données
- */
 export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
   try {
     const { data, error } = await supabase.rpc('get_versions_with_verses');
-    if (!error && data && data.length > 0) {
-      return data;
-    }
+    if (!error && data && data.length > 0) return data;
     return await getDbVersionsWithVersesFallback();
   } catch (err) {
     return await getDbVersionsWithVersesFallback();
@@ -772,25 +622,13 @@ export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
 
 async function getDbVersionsWithVersesFallback(): Promise<DbBibleVersion[]> {
   try {
-    const { data: verseTextsData, error: vtError } = await supabase
-      .from('verse_texts')
-      .select('version_id');
-
-    if (vtError || !verseTextsData || verseTextsData.length === 0) {
-      return [];
-    }
-
-    const versionIds = [...new Set(verseTextsData.map(item => item.version_id))];
+    const { data: vtData, error } = await supabase.from('verse_texts').select('version_id');
+    if (error || !vtData || vtData.length === 0) return [];
+    const versionIds = [...new Set(vtData.map(item => item.version_id))];
     if (versionIds.length === 0) return [];
-
-    const { data: versionsData, error: vError } = await supabase
-      .from('bible_versions')
-      .select('id, language_id, code, name, short_name, is_default')
-      .in('id', versionIds)
-      .order('id', { ascending: true });
-
-    if (vError) return [];
-    return versionsData || [];
+    const { data, error: vErr } = await supabase.from('bible_versions').select('id, language_id, code, name, short_name, is_default').in('id', versionIds).order('id', { ascending: true });
+    if (vErr) return [];
+    return data || [];
   } catch (err) {
     return [];
   }

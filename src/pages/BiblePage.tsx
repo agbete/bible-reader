@@ -76,14 +76,12 @@ export const BiblePage: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState(1);
   const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
   
-  // ✅ FIX BUG : Ref pour suivre la version active en temps réel.
-  // Cela permet d'éviter le bug de "stale closure" où une ancienne version
-  // (par ex. MW au lieu de LSG) était utilisée dans les callbacks
-  // (notamment le clic sur un verset).
+  // Ref pour suivre la version active en temps réel
   const activeVersionRef = useRef<string>('LSG');
   useEffect(() => {
     activeVersionRef.current = selectedVersionCode;
-  }, [selectedVersionCode]);
+    console.log('[BiblePage] activeVersionRef updated to:', selectedVersionCode, 'selectedVersions:', selectedVersions);
+  }, [selectedVersionCode, selectedVersions]);
   
   // Verse Treasures Modal state
   const [selectedVerseForTreasures, setSelectedVerseForTreasures] = useState<{
@@ -132,6 +130,7 @@ export const BiblePage: React.FC = () => {
     versions.forEach(v => {
       map.set(v.code, v.language_id);
     });
+    console.log('[BiblePage] versionLanguageMap:', Object.fromEntries(map));
     return map;
   }, [versions]);
 
@@ -462,18 +461,22 @@ export const BiblePage: React.FC = () => {
   };
 
   /**
-   * ✅ FIX BUG : La versionCode passée par la grille (premier paramètre)
-   * pouvait correspondre à n'importe quelle version affichée en mode
-   * comparaison (par ex. "MW" en Goun), ce qui faisait charger les
-   * références / trésors dans cette langue-là.
-   *
-   * On force désormais TOUJOURS la version actuellement active (celle
-   * de `selectedVersionCode` / `activeVersionRef`) pour ce verset,
-   * peu importe la colonne de la grille d'où vient le clic.
+   * Log EVERYTHING when clicking a verse
    */
-  const handleVerseClick = (verse: any, _versionCodeFromGrid: string) => {
+  const handleVerseClick = (verse: any, versionCodeFromGrid: string) => {
     if (!selectedBook) return;
     const actualVersion = activeVersionRef.current || selectedVersionCode;
+    
+    console.group('[BiblePage] handleVerseClick');
+    console.log('  verse:', verse.verse_number, verse.reference_code);
+    console.log('  versionCodeFromGrid:', versionCodeFromGrid);
+    console.log('  activeVersionRef.current:', activeVersionRef.current);
+    console.log('  selectedVersionCode state:', selectedVersionCode);
+    console.log('  selectedVersions:', selectedVersions);
+    console.log('  selectedVersions[0]:', selectedVersions[0]);
+    console.log('  actualVersion (used):', actualVersion);
+    console.groupEnd();
+    
     setSelectedVerseForTreasures({
       id: verse.id || verse.verse_number,
       verse_number: verse.verse_number,
@@ -706,6 +709,7 @@ export const BiblePage: React.FC = () => {
       <Navbar
         currentVersion={selectedVersionCode}
         onVersionChange={(code) => {
+          console.log('[BiblePage] Navbar onVersionChange:', code);
           setSelectedVersionCode(code);
           activeVersionRef.current = code;
         }}
@@ -919,10 +923,13 @@ export const BiblePage: React.FC = () => {
           </section>
         )}
 
-        {/* Modal Références Croisées & Trésors */}
+        {/* Modal Références Croisées & Trésors - with log of props */}
         <VerseTreasuresModal
           isOpen={!!selectedVerseForTreasures}
-          onClose={() => setSelectedVerseForTreasures(null)}
+          onClose={() => {
+            console.log('[BiblePage] Closing VerseTreasuresModal');
+            setSelectedVerseForTreasures(null);
+          }}
           selectedVerse={selectedVerseForTreasures}
           booksList={booksList}
           currentVersion={selectedVersionCode}
