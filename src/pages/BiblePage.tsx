@@ -76,6 +76,15 @@ export const BiblePage: React.FC = () => {
   const [selectedChapter, setSelectedChapter] = useState(1);
   const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
   
+  // ✅ FIX BUG : Ref pour suivre la version active en temps réel.
+  // Cela permet d'éviter le bug de "stale closure" où une ancienne version
+  // (par ex. MW au lieu de LSG) était utilisée dans les callbacks
+  // (notamment le clic sur un verset).
+  const activeVersionRef = useRef<string>('LSG');
+  useEffect(() => {
+    activeVersionRef.current = selectedVersionCode;
+  }, [selectedVersionCode]);
+  
   // Verse Treasures Modal state
   const [selectedVerseForTreasures, setSelectedVerseForTreasures] = useState<{
     id: number;
@@ -98,11 +107,9 @@ export const BiblePage: React.FC = () => {
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
   
-  // UI state for title display and view mode (defaults: list mode & titles enabled)
   const [showTitles, setShowTitles] = useState<boolean>(true);
   const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('list');
   
-  // Stocker les titres par version (et par verse_id)
   const [titleTranslations, setTitleTranslations] = useState<
     Record<string, Record<number, TitleTranslation>>
   >({});
@@ -249,6 +256,7 @@ export const BiblePage: React.FC = () => {
         const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : (versionCodes[0] || 'LSG');
         setSelectedVersions([defaultVersion]);
         setSelectedVersionCode(defaultVersion);
+        activeVersionRef.current = defaultVersion;
 
         if (books && books.length > 0) {
           const firstBook = books[0];
@@ -422,34 +430,50 @@ export const BiblePage: React.FC = () => {
     const allCodes = filteredVersions.map(v => v.code);
     setSelectedVersions(allCodes);
     setSelectedVersionCode(allCodes[0]);
+    activeVersionRef.current = allCodes[0];
     toast({ title: `${allCodes.length} versions sélectionnées` });
   };
 
   const handleToggleVersion = (ver: DbBibleVersion) => {
     const isSelected = selectedVersions.includes(ver.code);
     if (isSelected) {
-      const next = selectedVersions.filter(v => v !== ver.code);
+      const next = selectedVersions.filter(v => v.code !== ver.code);
       if (next.length === 0) {
         setSelectedVersions([ver.code]);
         setSelectedVersionCode(ver.code);
+        activeVersionRef.current = ver.code;
       } else {
         setSelectedVersions(next);
         setSelectedVersionCode(next[0]);
+        activeVersionRef.current = next[0];
       }
     } else {
       setSelectedVersions(prev => [...prev, ver.code]);
       setSelectedVersionCode(ver.code);
+      activeVersionRef.current = ver.code;
     }
   };
 
   const handleResetVersion = () => {
     setSelectedVersions(['LSG']);
     setSelectedVersionCode('LSG');
+    activeVersionRef.current = 'LSG';
     toast({ title: 'Version réinitialisée à LSG' });
   };
 
-  const handleVerseClick = (verse: any, versionCode: string) => {
+  /**
+   * ✅ FIX BUG : La versionCode passée par la grille (premier paramètre)
+   * pouvait correspondre à n'importe quelle version affichée en mode
+   * comparaison (par ex. "MW" en Goun), ce qui faisait charger les
+   * références / trésors dans cette langue-là.
+   *
+   * On force désormais TOUJOURS la version actuellement active (celle
+   * de `selectedVersionCode` / `activeVersionRef`) pour ce verset,
+   * peu importe la colonne de la grille d'où vient le clic.
+   */
+  const handleVerseClick = (verse: any, _versionCodeFromGrid: string) => {
     if (!selectedBook) return;
+    const actualVersion = activeVersionRef.current || selectedVersionCode;
     setSelectedVerseForTreasures({
       id: verse.id || verse.verse_number,
       verse_number: verse.verse_number,
@@ -457,7 +481,7 @@ export const BiblePage: React.FC = () => {
       text: verse.text,
       book: selectedBook,
       chapter: selectedChapter,
-      versionCode: versionCode
+      versionCode: actualVersion
     });
   };
 
@@ -681,7 +705,10 @@ export const BiblePage: React.FC = () => {
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-amber-500/20 selection:text-amber-800">
       <Navbar
         currentVersion={selectedVersionCode}
-        onVersionChange={setSelectedVersionCode}
+        onVersionChange={(code) => {
+          setSelectedVersionCode(code);
+          activeVersionRef.current = code;
+        }}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenDbStatus={() => setIsDbStatusOpen(true)}
@@ -777,7 +804,7 @@ export const BiblePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Section de contrôle (data-dyad-id 788) */}
+      {/* Section de contrôle */}
       <section className="w-full bg-gray-50 dark:bg-gray-900 py-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
@@ -950,6 +977,7 @@ export const BiblePage: React.FC = () => {
               setSelectedChapter(chapter);
               setSelectedVersions([activeVersion.code]);
               setSelectedVersionCode(activeVersion.code);
+              activeVersionRef.current = activeVersion.code;
             }
           }}
         />
@@ -966,6 +994,7 @@ export const BiblePage: React.FC = () => {
               setSelectedChapter(chapter);
               setSelectedVersions([activeVersion.code]);
               setSelectedVersionCode(activeVersion.code);
+              activeVersionRef.current = activeVersion.code;
             }
           }}
         />
