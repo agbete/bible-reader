@@ -429,7 +429,11 @@ export async function getDbVerseTreasures(
       .maybeSingle();
 
     const versionId = verData?.id;
-    const targetLangId = languageId || verData?.language_id;
+    
+    // ✅ FIX: Always use French (language_id = 2) for treasure translations
+    // The treasures table has French translations, not the version's language
+    const TREASURES_FRENCH_LANG_ID = 2;
+    const targetLangId = TREASURES_FRENCH_LANG_ID;
 
     console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'targetLangId:', targetLangId, 'langCode:', langCode);
 
@@ -475,13 +479,13 @@ export async function getDbVerseTreasures(
     console.log('[bibleDb] Found', treasures.length, 'treasures, targetLangId for translations:', targetLangId);
 
     return treasures.map(t => {
-      // Find translation matching the TARGET LANGUAGE (from version's language_id)
+      // Find translation matching French (language_id = 2)
       let trans = t.treasure_translations?.find(
-        (tr: any) => targetLangId ? tr.language_id === targetLangId : false
+        (tr: any) => tr.language_id === targetLangId
       );
       if (!trans && t.treasure_translations && t.treasure_translations.length > 0) {
         // Fallback: try by langCode
-        console.log('[bibleDb] No translation found for languageId', targetLangId, ', available:', t.treasure_translations.map((tr: any) => ({ langId: tr.language_id, title: tr.title })));
+        console.log('[bibleDb] No French translation found for languageId', targetLangId, ', available:', t.treasure_translations.map((tr: any) => ({ langId: tr.language_id, title: tr.title })));
         trans = t.treasure_translations[0];
       }
 
