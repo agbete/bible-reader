@@ -474,24 +474,86 @@ export const BiblePage: React.FC = () => {
     }
   };
 
-  const renderVersionButtons = () => {
-    return filteredVersions.map((ver) => {
-      const isSelected = selectedVersions.includes(ver.code);
-      return (
-        <button
-          key={ver.id || ver.code}
-          onClick={() => handleToggleVersion(ver)}
-          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-            isSelected 
-              ? 'bg-amber-600 text-white border-amber-600' 
-              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-          }`}
-          title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-        >
-          {ver.code}
-        </button>
-      );
-    });
+  // ✅ NOUVEAU : Fonction pour rendre les boutons de version avec défilement horizontal
+  const renderVersionButtonsWithScroll = () => {
+    const MAX_VISIBLE = 4;
+    const totalVersions = filteredVersions.length;
+    const visibleVersions = selectedVersions.slice(0, MAX_VISIBLE);
+    const hasMore = selectedVersions.length > MAX_VISIBLE;
+    
+    // Calculer le défilement actuel (position de départ)
+    const scrollContainer = useRef(null);
+    
+    return (
+      <div className="relative overflow-hidden">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          {/* Bouton gauche de défilement */}
+          {hasMore && (
+            <button
+              onClick={() => {
+                if (scrollContainer.current) {
+                  scrollContainer.current.scrollBy({ left: -200, behavior: 'smooth' });
+                }
+              }}
+              className="shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors hover:text-white"
+              title="Versions précédentes"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
+
+          {/* Conteneur des versions avec défilement */}
+          <div 
+            ref={scrollContainer}
+            className="flex gap-2 overflow-x-auto scroll-smooth no-scrollbar min-w-[max(calc(100% * 4), 400px)]"
+          >
+            {selectedVersions.map((versionCode, index) => {
+              const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+              const isSelected = selectedVersions[index] === versionCode;
+              const verses = versesData[versionCode] || [];
+              
+              return (
+                <div 
+                  key={versionCode}
+                  className="shrink-0 flex items-center gap-1.5"
+                >
+                  <button
+                    onClick={() => handleToggleVersion(versionObj)}
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                      isSelected 
+                        ? 'bg-amber-600 text-white border-amber-600' 
+                        : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                    }`}
+                    title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                  >
+                    {versionObj.code}
+                  </button>
+                  
+                  <span className="text-xs text-muted-foreground font-mono">
+                    {verses.length} versets
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Bouton droit de défilement */}
+          {hasMore && (
+            <button
+              onClick={() => {
+                if (scrollContainer.current) {
+                  scrollContainer.current.scrollBy({ left: 200, behavior: 'smooth' });
+                }
+              }}
+              className="shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors hover:text-white"
+              title="Versions suivantes"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </div>
+    );
   };
 
   // ✅ CORRECTION : Render title header for a verse, en utilisant la version spécifique
@@ -723,7 +785,32 @@ export const BiblePage: React.FC = () => {
 
             {filteredVersions.length > 0 && (
               <div className="flex items-center gap-1.5">
-                {renderVersionButtons()}
+                {/* ✅ UTILISER NOUVEAU COMPOSANT AVEC DÉFILEMENT */}
+                {selectedVersions.length > 4 ? (
+                  <div>
+                    {renderVersionButtonsWithScroll()}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    {selectedVersions.map((versionCode) => {
+                      const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+                      return (
+                        <button
+                          key={versionCode}
+                          onClick={() => handleToggleVersion(versionObj)}
+                          className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
+                            selectedVersions.includes(versionCode)
+                              ? 'bg-amber-600 text-white border-amber-600' 
+                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                          }`}
+                          title={selectedVersions.includes(versionCode) ? 'Désélectionner' : 'Sélectionner pour comparaison'}
+                        >
+                          {versionObj.code}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
             
@@ -846,7 +933,30 @@ export const BiblePage: React.FC = () => {
         {selectedBook && !loading && (
           <section className="space-y-4">
             {selectedVersions.length > 0 ? (
-              renderVersionsGrid()
+              {/* ✅ UTILISER NOUVEAU COMPOSANT AVEC DÉFILEMENT */}
+              {selectedVersions.length > 4 ? (
+                <div>
+                  {renderVersionButtonsWithScroll()}
+                </div>
+              ) : (
+                <div className="p-4 rounded-2xl border border-border bg-card shadow-xs">
+                  {selectedVersions.map((versionCode) => {
+                    const versionObj = versions.find(v => v.code === versionCode) || { name: versionCode, code: versionCode };
+                    const verses = versesData[versionCode] || [];
+                    
+                    return (
+                      <div key={versionCode} className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                          {versionObj.name} ({versionCode})
+                        </span>
+                        <span className="text-xs text-muted-foreground font-mono">
+                          {verses.length} versets
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             ) : (
               <div className="p-8 rounded-2xl bg-card border border-border text-center text-muted-foreground">
                 <Loader2 className="w-8 h-8 animate-spin text-amber-600 mx-auto mb-2" />
