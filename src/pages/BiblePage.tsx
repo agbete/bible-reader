@@ -666,7 +666,7 @@ export const BiblePage: React.FC = () => {
       />
 
       {/* Language and version selection bar */}
-      <section className="border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-xs mb-6">
+      <section className="border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
@@ -739,26 +739,9 @@ export const BiblePage: React.FC = () => {
         </div>
       </section>
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        {loadError && (
-          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
-              <AlertCircle className="w-5 h-5 shrink-0" />
-              <span className="text-sm font-medium">{loadError}</span>
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleRetryLoad}
-              className="h-8 px-3 text-xs gap-1.5"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Réessayer
-            </Button>
-          </div>
-        )}
-
-        <section className="p-4 rounded-2xl bg-card border border-border shadow-sm">
+      {/* ✅ CORRECTION : Section de contrôle collée directement à la section précédente */}
+      <section className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
             <div className="flex-1 min-w-0">
               <BookSearchSelect
@@ -838,7 +821,27 @@ export const BiblePage: React.FC = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {loadError && (
+          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <span className="text-sm font-medium">{loadError}</span>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleRetryLoad}
+              className="h-8 px-3 text-xs gap-1.5"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              Réessayer
+            </Button>
+          </div>
+        )}
 
         {selectedBook && !loading && (
           <section className="space-y-4">
