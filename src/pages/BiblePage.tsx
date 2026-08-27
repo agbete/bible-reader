@@ -870,14 +870,20 @@ export const BiblePage: React.FC = () => {
         />
 
         <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-amber-600" />
+              <span className="font-semibold text-foreground">Parole Vivante — Application Sainte Bible</span>
+            </div>
+            <p className="text-center sm:text-right">
+              « Toute Écriture est inspirée de Dieu, et utile pour enseigner... » — 2 Timothée 3:16
+            </p>
+          </div>
+          <MadeWithDyad />
+        </footer>
+      </main>
+    </div>
+  );
+};
 
-<dyad-write path="src/pages/BiblePage.tsx" description="Compléter le fichier BiblePage.tsx - partie footer manquante">
-            <MadeWithDyad />
-          </footer>
-        </main>
-      </div>
-    );
-  };
-
-  export default BiblePage;
+export default BiblePage;
