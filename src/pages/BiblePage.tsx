@@ -249,11 +249,18 @@ export const BiblePage: React.FC = () => {
 
   // Load title translations for the current verses
   const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
-    if (!verseIds || verseIds.length === 0) return;
+    if (!verseIds || verseIds.length === 0) {
+      console.warn('[BiblePage] loadTitleTranslationsForVerses: empty verseIds list');
+      return;
+    }
     try {
       console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
+      console.log('[BiblePage] First 5 verse IDs:', verseIds.slice(0, 5));
       
       const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
+      
+      console.log('[BiblePage] Raw titlesMap from getDbVerseTitles:', titlesMap);
+      console.log('[BiblePage] Number of verses with titles:', Object.keys(titlesMap).length);
       
       const formatted: Record<number, TitleTranslation> = {};
       Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
@@ -265,281 +272,26 @@ export const BiblePage: React.FC = () => {
       });
 
       console.log('[BiblePage] Titles successfully assigned to state:', Object.keys(formatted).length);
-      setTitleTranslations(formatted);
-    } catch (err) {
-      console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:',<dyad-write path="src/pages/BiblePage.tsx" description="Finalisation et complétion du composant BiblePage">
-import React, { useState, useEffect } from 'react';
-import { Navbar } from '@/components/bible/Navbar';
-import { SearchDialog } from '@/components/bible/SearchDialog';
-import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
-import { DbStatusModal } from '@/components/bible/DbStatusModal';
-import { ReaderDialog } from '@/components/bible/ReaderDialog';
-import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
-import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
-import { 
-  getDbLanguages, 
-  getDbAllBooks, 
-  getDbStats,
-  getDbChapterVerses,
-  getDbVersionsWithVerses,
-  getDbVerseTitles,
-  DbLanguage, 
-  DbBibleVersion, 
-  DbBookItem,
-  DbStats
-} from '@/services/bibleDb';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
-import { 
-  Globe,
-  BookOpen, 
-  Loader2,
-  AlertCircle,
-  RefreshCw,
-  BookMarked,
-  List,
-  LayoutGrid
-} from 'lucide-react';
-import { showError } from '@/utils/toast';
-import { MadeWithDyad } from '@/components/made-with-dyad';
-import { useToast } from '@/hooks/use-toast';
-
-interface DbTestament {
-  id: number;
-  code: string;
-  name: string;
-}
-
-interface DbClassification {
-  id: number;
-  code?: string;
-  name: string;
-  testament_id: number;
-}
-
-interface TitleTranslation {
-  id?: number;
-  verse_id: number;
-  language_id: number;
-  titles: Record<string, string>;
-}
-
-export const BiblePage: React.FC = () => {
-  const [languages, setLanguages] = useState<DbLanguage[]>([]);
-  const [versions, setVersions] = useState<DbBibleVersion[]>([]);
-  const [booksList, setBooksList] = useState<DbBookItem[]>([]);
-  const [testamentsList, setTestamentsList] = useState<DbTestament[]>([]);
-  const [classificationsList, setClassificationsList] = useState<DbClassification[]>([]);
-  const [stats, setStats] = useState<DbStats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState<string | null>(null);
-
-  const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
-  const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
-  
-  const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
-  const [selectedChapter, setSelectedChapter] = useState(1);
-  const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
-  
-  const [readerState, setReaderState] = useState({
-    isOpen: false,
-    bookCode: 'GEN',
-    bookName: 'Genèse',
-    chapterNumber: 1,
-    totalChapters: 50
-  });
-
-  const [versesData, setVersesData] = useState<Record<string, any[]>>({});
-  const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
-  
-  // UI state for title display and view mode
-  const [showTitles, setShowTitles] = useState<boolean>(true);
-  const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('compact');
-  const [titleTranslations, setTitleTranslations] = useState<Record<number, TitleTranslation>>({});
-
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
-  const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
-  const [bookmarks, setBookmarks] = useState<any[]>([]);
-
-  const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
-  const [classificationNames, setClassificationNames] = useState<Map<number, string>>(new Map());
-
-  const { toast } = useToast();
-
-  const targetLanguageId = React.useMemo(() => {
-    if (selectedVersions.length === 1) {
-      const ver = versions.find(v => v.code === selectedVersions[0]);
-      return ver?.language_id ?? 2;
-    }
-    return 2;
-  }, [selectedVersions, versions]);
-
-  useEffect(() => {
-    let mounted = true;
-    async function loadGroupingTranslations() {
-      try {
-        const { data: testData } = await supabase
-          .from('testament_translations')
-          .select('testament_id, name')
-          .eq('language_id', targetLanguageId);
-
-        if (mounted && testData) {
-          const map = new Map<number, string>();
-          testData.forEach(t => map.set(t.testament_id, t.name));
-          setTestamentNames(map);
-        }
-
-        const { data: classData } = await supabase
-          .from('classification_translations')
-          .select('classification_id, name')
-          .eq('language_id', targetLanguageId);
-
-        if (mounted && classData) {
-          const map = new Map<number, string>();
-          classData.forEach(c => map.set(c.classification_id, c.name));
-          setClassificationNames(map);
-        }
-      } catch (err) {
-        console.error('[BiblePage] Error loading grouping translations:', err);
-      }
-    }
-
-    if (targetLanguageId !== undefined) {
-      loadGroupingTranslations();
-    }
-  }, [targetLanguageId]);
-
-  useEffect(() => {
-    let mounted = true;
-    
-    async function loadData() {
-      setLoading(true);
-      setLoadError(null);
-      try {
-        console.log('[BiblePage] Starting initial data load...');
-        
-        const [langs, vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
-          getDbLanguages(),
-          getDbVersionsWithVerses(),
-          getDbAllBooks(),
-          getDbStats(),
-          supabase.from('testaments').select('id, code, order_index'),
-          supabase.from('classifications').select('id, code, testament_id, order_index')
-        ]);
-
-        if (!mounted) return;
-
-        const { data: testTransData } = await supabase
-          .from('testament_translations')
-          .select('testament_id, language_id, name')
-          .eq('language_id', targetLanguageId);
-
-        const testTransMap = new Map<number, string>();
-        testTransData?.forEach(t => testTransMap.set(t.testament_id, t.name));
-
-        const testaments: DbTestament[] = (testamentsRes.data || []).map(t => ({
-          id: t.id,
-          code: t.code,
-          name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
-        }));
-
-        const { data: classTransData } = await supabase
-          .from('classification_translations')
-          .select('classification_id, language_id, name')
-          .eq('language_id', 2);
-
-        const classTransMap = new Map<number, string>();
-        classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
-
-        const classifications: DbClassification[] = (classificationsRes.data || []).map(c => ({
-          id: c.id,
-          code: c.code,
-          name: classTransMap.get(c.id) || c.code,
-          testament_id: c.testament_id
-        }));
-
-        setLanguages(langs);
-        setVersions(vers);
-        setBooksList(books);
-        setStats(dbStats);
-        setTestamentsList(testaments);
-        setClassificationsList(classifications);
-
-        const versionCodes = vers.map(v => v.code);
-        const defaultVersion = versionCodes.includes('LSG') ? 'LSG' : (versionCodes[0] || 'LSG');
-        setSelectedVersions([defaultVersion]);
-        setSelectedVersionCode(defaultVersion);
-
-        if (books && books.length > 0) {
-          const firstBook = books[0];
-          setSelectedBook(firstBook);
-          setSelectedChapter(1);
-          await loadVersesForSelectedBook(firstBook, 1, [defaultVersion]);
-        }
-      } catch (err) {
-        console.error('[BiblePage] Erreur lors du chargement:', err);
-        if (mounted) {
-          setLoadError("Impossible de charger les données de la base de données.");
-          showError("Erreur de chargement des données bibliques");
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    loadData();
-    
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      getDbAllBooks(selectedLanguageId === 'ALL' ? undefined : selectedLanguageId)
-        .then(books => {
-          if (books.length > 0) {
-            setBooksList(books);
-          }
-        })
-        .catch(err => {
-          console.error('[BiblePage] Error reloading books:', err);
-        });
-    }
-  }, [selectedLanguageId, loading]);
-
-  useEffect(() => {
-    if (selectedBook && !loading && selectedVersions.length > 0) {
-      loadVersesForSelectedBook(selectedBook, selectedChapter, selectedVersions);
-    }
-  }, [selectedBook, selectedChapter, selectedVersions]);
-
-  // Load title translations for the current verses
-  const loadTitleTranslationsForVerses = async (verseIds: number[]) => {
-    if (!verseIds || verseIds.length === 0) return;
-    try {
-      console.log('[BiblePage] Loading titles for', verseIds.length, 'verses. LanguageId:', targetLanguageId);
+      console.log('[BiblePage] Formatted state keys:', Object.keys(formatted));
       
-      const titlesMap = await getDbVerseTitles(verseIds, targetLanguageId);
-      
-      const formatted: Record<number, TitleTranslation> = {};
-      Object.entries(titlesMap).forEach(([vId, titlesObj]) => {
-        formatted[Number(vId)] = {
-          verse_id: Number(vId),
-          language_id: targetLanguageId,
-          titles: titlesObj
-        };
-      });
-
-      console.log('[BiblePage] Titles successfully assigned to state:', Object.keys(formatted).length);
       setTitleTranslations(formatted);
     } catch (err) {
       console.error('[BiblePage] Exception in loadTitleTranslationsForVerses:', err);
     }
   };
+
+  // Recharger les titres quand la langue change
+  useEffect(() => {
+    if (versesData && Object.keys(versesData).length > 0) {
+      const firstVersion = Object.keys(versesData)[0];
+      const verses = versesData[firstVersion];
+      if (verses && verses.length > 0) {
+        const allVerseIds = verses.map(v => v.id).filter(Boolean);
+        console.log('[BiblePage] Language changed, reloading titles for', allVerseIds.length, 'verses');
+        loadTitleTranslationsForVerses(allVerseIds);
+      }
+    }
+  }, [targetLanguageId]);
 
   const filteredVersions = versions.filter(v => {
     if (selectedLanguageId === 'ALL') return true;
@@ -719,7 +471,11 @@ export const BiblePage: React.FC = () => {
     const titleData = titleTranslations[verseId];
     if (!titleData || !titleData.titles) return null;
 
-    const entries = Object.entries(titleData.titles).filter(([_, text]) => Boolean(text && String(text).trim()));
+    // Trier les niveaux par ordre croissant
+    const entries = Object.entries(titleData.titles)
+      .filter(([_, text]) => Boolean(text && String(text).trim()))
+      .sort(([a], [b]) => Number(a) - Number(b));
+    
     if (entries.length === 0) return null;
 
     return (
@@ -749,6 +505,35 @@ export const BiblePage: React.FC = () => {
       </div>
     );
   };
+
+  // Fonction de diagnostic pour tester le rendu des titres
+  const debugTitles = () => {
+    const verses = versesData[selectedVersionCode] || [];
+    console.group('🔍 [BiblePage] TITLES DIAGNOSTIC');
+    console.log('Show titles:', showTitles);
+    console.log('Number of verses:', verses.length);
+    console.log('Title translations in state:', Object.keys(titleTranslations).length);
+    console.log('Title translations:', titleTranslations);
+    
+    if (verses.length > 0) {
+      const firstVerse = verses[0];
+      console.log('First verse:', firstVerse);
+      console.log('First verse ID:', firstVerse.id);
+      console.log('Titles for first verse:', titleTranslations[firstVerse.id]);
+      
+      // Compter combien de versets ont des titres
+      const versesWithTitles = verses.filter(v => titleTranslations[v.id] && Object.keys(titleTranslations[v.id].titles).length > 0);
+      console.log('Verses with titles:', versesWithTitles.length, '/', verses.length);
+    }
+    console.groupEnd();
+  };
+
+  // Exécuter le diagnostic après chaque mise à jour des titres
+  useEffect(() => {
+    if (Object.keys(titleTranslations).length > 0) {
+      debugTitles();
+    }
+  }, [titleTranslations]);
 
   const renderVersionsGrid = () => {
     const colsClass = selectedVersions.length === 1 
@@ -843,7 +628,6 @@ export const BiblePage: React.FC = () => {
       <section className="border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-xs mb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            {/* Language selection */}
             <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
               <Globe className="w-3.5 h-3.5" />
               <span>Langues:</span>
@@ -875,14 +659,12 @@ export const BiblePage: React.FC = () => {
               </button>
             ))}
 
-            {/* Pipe separator between language and version sections */}
             <div className="flex items-center px-3 shrink-0" aria-hidden="true">
               <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
               <span className="text-amber-400 dark:text-amber-600 font-bold text-lg mx-2 select-none">|</span>
               <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
             </div>
 
-            {/* Version controls */}
             <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
               Versions:
             </span>
@@ -935,10 +717,8 @@ export const BiblePage: React.FC = () => {
           </div>
         )}
 
-        {/* Navigation section with BookSearchSelect, ChapterNavigator, and toggle buttons on same line */}
         <section className="p-4 rounded-2xl bg-card border border-border shadow-sm">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
-            {/* 1. Book and Verse Search */}
             <div className="flex-1 min-w-0">
               <BookSearchSelect
                 booksList={booksList}
@@ -954,7 +734,6 @@ export const BiblePage: React.FC = () => {
               />
             </div>
 
-            {/* 2. Chapter Navigation Controls */}
             <div className="shrink-0">
               <ChapterNavigator
                 selectedBook={selectedBook}
@@ -965,14 +744,13 @@ export const BiblePage: React.FC = () => {
               />
             </div>
 
-            {/* 3. Action Buttons (Titres & Compact/Liste) placed on the exact same row */}
             <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
-              {/* Bouton 1 : Afficher / Masquer les titres */}
               <Button
                 variant={showTitles ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => {
                   console.log('[BiblePage] Toggle showTitles from:', showTitles, 'to:', !showTitles);
+                  console.log('[BiblePage] Current titleTranslations state:', titleTranslations);
                   setShowTitles(prev => !prev);
                   toast({
                     title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
@@ -989,13 +767,11 @@ export const BiblePage: React.FC = () => {
                 <span>Titres</span>
               </Button>
 
-              {/* Bouton 2 : Mode Compact / Mode Liste */}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => {
                   const nextMode = displayMode === 'compact' ? 'list' : 'compact';
-                  console.log('[BiblePage] Toggle displayMode from:', displayMode, 'to:', nextMode);
                   setDisplayMode(nextMode);
                   toast({
                     title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
@@ -1006,7 +782,6 @@ export const BiblePage: React.FC = () => {
                     ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
-                title={displayMode === 'compact' ? "Passer en mode liste (verset par ligne)" : "Passer en mode compact (paragraphe continu)"}
               >
                 {displayMode === 'compact' ? (
                   <>
