@@ -327,6 +327,85 @@ export async function getDbVerseTitles(verseIds: number[], languageId?: number):
   }
 }
 
+/**
+ * 5b. DIAGNOSTIC : Vérifier la structure et le contenu de title_translations
+ */
+export async function debugTitleTranslations(): Promise<void> {
+  console.group('🔍 [bibleDb] DIAGNOSTIC title_translations');
+  
+  try {
+    // 1. Compter les lignes totales
+    const { count, error: countError } = await supabase
+      .from('title_translations')
+      .select('*', { count: 'exact', head: true });
+    
+    console.log('Total rows in title_translations:', count);
+    if (countError) {
+      console.error('Count error:', countError);
+    }
+
+    // 2. Récupérer les 5 premières lignes
+    const { data: sampleData, error: sampleError } = await supabase
+      .from('title_translations')
+      .select('*')
+      .limit(5);
+    
+    console.log('Sample data (first 5 rows):', sampleData);
+    if (sampleError) {
+      console.error('Sample error:', sampleError);
+    }
+
+    // 3. Vérifier les langues disponibles
+    const { data: langData, error: langError } = await supabase
+      .from('title_translations')
+      .select('language_id')
+      .limit(20);
+    
+    if (!langError && langData) {
+      const langIds = [...new Set(langData.map(l => l.language_id))];
+      console.log('Language IDs found in title_translations:', langIds);
+    }
+
+    // 4. Vérifier les versets disponibles
+    const { data: verseData, error: verseError } = await supabase
+      .from('title_translations')
+      .select('verse_id')
+      .limit(20);
+    
+    if (!verseError && verseData) {
+      const verseIds = [...new Set(verseData.map(v => v.verse_id))];
+      console.log('Verse IDs found in title_translations (first 20):', verseIds);
+    }
+
+    // 5. Test direct avec les IDs 1-5
+    const { data: testIdsData, error: testIdsError } = await supabase
+      .from('title_translations')
+      .select('*')
+      .in('verse_id', [1, 2, 3, 4, 5]);
+    
+    console.log('Test with verse IDs 1-5:', testIdsData);
+    if (testIdsError) {
+      console.error('Test IDs error:', testIdsError);
+    }
+
+    // 6. Vérifier les politiques RLS
+    const { data: rlsData, error: rlsError } = await supabase
+      .from('title_translations')
+      .select('*')
+      .limit(1);
+    
+    console.log('RLS test (unfiltered):', rlsData);
+    if (rlsError) {
+      console.error('RLS error:', rlsError);
+    }
+
+  } catch (err) {
+    console.error('Diagnostic error:', err);
+  }
+  
+  console.groupEnd();
+}
+
 function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
   const map: Record<number, Record<string, string>> = {};
   data.forEach((row) => {
