@@ -519,15 +519,14 @@ export const BiblePage: React.FC = () => {
 
   const handleScrollPrev = () => {
     if (scrollContainerRef.current) {
-      // Défilement équivalent à une colonne ou 25% de la largeur
-      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
+      const scrollAmount = scrollContainerRef.current.clientWidth;
       scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
   };
 
   const handleScrollNext = () => {
     if (scrollContainerRef.current) {
-      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
+      const scrollAmount = scrollContainerRef.current.clientWidth;
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -933,7 +932,7 @@ export const BiblePage: React.FC = () => {
           </div>
           <MadeWithDyad />
         </footer>
-      </main><dyad-write path="src/pages/BiblePage.tsx" description="Complete the closing tags and export for BiblePage">
+      </main>
     </div>
   );
 };
