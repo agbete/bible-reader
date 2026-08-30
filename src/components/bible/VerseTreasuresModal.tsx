@@ -105,7 +105,16 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   }, [selectedVerse]);
 
-  // Sync state when selected verse changes or modal opens
+  // Set title language to match the currently selected version
+  useEffect(() => {
+    if (isOpen && displayVersionCode) {
+      const versionObj = versions.find(v => v.code === displayVersionCode);
+      const versionLanguageId = versionObj?.language_id ?? 2;
+      setTitleLanguageId(versionLanguageId);
+    }
+  }, [isOpen, displayVersionCode, versions]);
+
+  // Sync state when selected verse changes or modal opens (for book/chapter/etc.)
   useEffect(() => {
     if (selectedVerse && isOpen) {
       setActiveBook(selectedVerse.book);
@@ -113,13 +122,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
       setActiveVerseNumber(selectedVerse.verse_number);
       setActiveVerseText(selectedVerse.text);
       setActiveReferenceCode(selectedVerse.reference_code);
-      
-      // Reset title language to version's language when version changes
-      const versionObj = versions.find(v => v.code === selectedVerse.versionCode);
-      const versionLanguageId = versionObj?.language_id ?? 2;
-      setTitleLanguageId(versionLanguageId);
     }
-  }, [selectedVerse, isOpen, versions]);
+  }, [selectedVerse, isOpen]);
 
   // Update ref when version changes
   useEffect(() => {
@@ -268,7 +272,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const handleCopy = (text: string, humanRef: string) => {
     navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${displayVersionCode})`);
     setCopiedCode(humanRef);
-    showSuccess("Passage copié dans le presse-papier ?");
+    showSuccess("Passage copié dans le presse-papier !");
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
@@ -697,7 +701,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                           <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
                             {parseRefCodeToHuman(refCode)}
                           </span>
-                        ))}
+                        )}
                       </div>
                     )}
                     
