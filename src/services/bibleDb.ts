@@ -584,18 +584,18 @@ export async function getDbVerseTreasures(
       });
     });
 
-    // ✅ FIX: Use versionLangId as the primary language for book names
-    // This ensures book names match the selected version's language
+    // Use versionLangId as the primary language for book names
     const targetLangForBookName = versionLangId || languageId || desiredLangId || 1;
     console.log('[bibleDb] Using targetLangForBookName:', targetLangForBookName, '(versionLangId:', versionLangId, ', languageId:', languageId, ', desiredLangId:', desiredLangId, ')');
     const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangForBookName);
 
-    // ✅ FIX: Group treasures by title to avoid duplicates
+    // Group treasures by title to avoid duplicates
     const treasureGroups = new Map<string, {
       treasure_id: number;
       title: string;
       description: string;
       target_items: DbTreasureTargetItem[];
+      hasTranslationInRequestedLang: boolean;
     }>();
 
     treasures.forEach(t => {
@@ -603,34 +603,19 @@ export async function getDbVerseTreasures(
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
       
-      // ✅ FIX: Priority order for translation lookup:
-      // 1. languageId param (from version) - highest priority
-      // 2. versionLangId (from version) - second priority
-      // 3. desiredLangId (from langCode) - fallback
-      let trans = availableTranslations.find(
-        (tr: any) => tr.language_id === languageId
+      // Use the requested languageId (from version) as the primary language
+      // If not provided, use versionLangId, then desiredLangId
+      const requestedLangId = languageId ?? versionLangId ?? desiredLangId;
+      
+      // Find translation ONLY in the requested language - NO FALLBACK
+      const trans = availableTranslations.find(
+        (tr: any) => tr.language_id === requestedLangId
       );
-      
-      if (!trans && versionLangId) {
-        trans = availableTranslations.find(
-          (tr: any) => tr.language_id === versionLangId
-        );
-      }
-      
-      if (!trans && desiredLangId) {
-        trans = availableTranslations.find(
-          (tr: any) => tr.language_id === desiredLangId
-        );
-      }
-      
-      // Last resort: take first available translation
-      if (!trans && availableTranslations.length > 0) {
-        trans = availableTranslations[0];
-      }
 
-      console.log('[bibleDb] Treasure', t.id, '- selected translation langId:', trans?.language_id, 'title:', trans?.title?.substring(0, 30));
+      console.log('[bibleDb] Treasure', t.id, '- requested langId:', requestedLangId, 'selected translation langId:', trans?.language_id, 'title:', trans?.title?.substring(0, 30));
 
-      const title = trans?.title || 'Trésor biblique';
+      const hasTranslationInRequestedLang = !!trans;
+      const title = trans?.title || '';
       const description = trans?.description || '';
 
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
@@ -652,16 +637,22 @@ export async function getDbVerseTreasures(
         };
       });
 
-      // Group by title
-      if (treasureGroups.has(title)) {
-        const existing = treasureGroups.get(title)!;
+      // Group by title (or by treasure_id if no title)
+      const groupKey = title || `treasure_${t.id}`;
+      if (treasureGroups.has(groupKey)) {
+        const existing = treasureGroups.get(groupKey)!;
         existing.target_items.push(...items);
+        // If any treasure in the group has translation, mark it
+        if (hasTranslationInRequestedLang) {
+          existing.hasTranslationInRequestedLang = true;
+        }
       } else {
-        treasureGroups.set(title, {
+        treasureGroups.set(groupKey, {
           treasure_id: t.id,
           title,
           description,
-          target_items: items
+          target_items: items,
+          hasTranslationInRequestedLang
         });
       }
     });
@@ -672,7 +663,8 @@ export async function getDbVerseTreasures(
       title: group.title,
       description: group.description,
       target_references: group.target_items.map(i => i.reference_code).filter(Boolean),
-      target_items: group.target_items
+      target_items: group.target_items,
+      hasTranslationInRequestedLang: group.hasTranslationInRequestedLang
     }));
   } catch (err) {
     console.error('[bibleDb] Erreur getDbVerseTreasures:', err);
