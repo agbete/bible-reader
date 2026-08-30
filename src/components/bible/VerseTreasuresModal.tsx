@@ -80,25 +80,23 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  // Track what the modal received as version
-  const [receivedVersion, setReceivedVersion] = useState<string>('');
-
-  // Ref for current version (always fresh)
-  const activeVersionRef = useRef<string>('');
-  
-  // State for version selector (display version)
+  // Version selector state
   const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
-
-  // State for version dropdown open/close
   const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
+  const activeVersionRef = useRef<string>('');
 
-  // Ref to track latest request
+  // Title language state
+  const [titleLanguageId, setTitleLanguageId] = useState<number | null>(null);
+  const [titleLanguageOptions, setTitleLanguageOptions] = useState<Array<{id:number, name:string}>>([]);
+  const [titleLanguageDropdownOpen, setTitleLanguageDropdownOpen] = useState(false);
+  const [selectedTreasureForLanguage, setSelectedTreasureForLanguage] = useState<number | null>(null);
+
+  // Refs for click-outside detection
+  const versionSelectRef = useRef<HTMLDivElement>(null);
+  const titleSelectRef = useRef<HTMLDivElement>(null);
+
+  // Track latest request to avoid stale responses
   const latestRequestRef = useRef<string>('');
-
-  // Update ref when version changes
-  useEffect(() => {
-    activeVersionRef.current = displayVersionCode;
-  }, [displayVersionCode]);
 
   // Initialize display version from selectedVerse
   useEffect(() => {
@@ -115,54 +113,52 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
       setActiveVerseNumber(selectedVerse.verse_number);
       setActiveVerseText(selectedVerse.text);
       setActiveReferenceCode(selectedVerse.reference_code);
-      setReceivedVersion(selectedVerse.versionCode);
-      setDisplayVersionCode(selectedVerse.versionCode);
+      
+      // Reset title language to version's language when version changes
+      const versionObj = versions.find(v => v.code === selectedVerse.versionCode);
+      const versionLanguageId = versionObj?.language_id ?? 2;
+      setTitleLanguageId(versionLanguageId);
     }
-  }, [selectedVerse, isOpen]);
+  }, [selectedVerse, isOpen, versions]);
 
-  // ✅ FIX: Priority for book name display
-  // API book_name is in the correct language (from version), use it first
-  // booksList might be stale (loaded with different language)
-  const formatHumanReference = (
-    bookCode: string, 
-    chapter: number, 
-    verseNum: number, 
-    apiBookName?: string
-  ): string => {
-    // Priority 1: Use API-provided book name if it's different from the code
-    // (This ensures the correct language is shown when version changes)
-    if (apiBookName && apiBookName.toUpperCase() !== bookCode.toUpperCase()) {
-      return `${apiBookName} ${chapter}:${verseNum}`;
-    }
-    
-    // Priority 2: Check booksList for a matching book with a valid name
-    const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
-    if (book && book.name.toUpperCase() !== bookCode.toUpperCase()) {
-      return `${book.name} ${chapter}:${verseNum}`;
-    }
-    
-    // Priority 3: Fallback to code if no translated name available
-    return `${bookCode} ${chapter}:${verseNum}`;
-  };
+  // Update ref when version changes
+  useEffect(() => {
+    activeVersionRef.current = displayVersionCode;
+  }, [displayVersionCode]);
 
-  const parseRefCodeToHuman = (refCode: string): string => {
-    if (!refCode) return '';
-    const parts = refCode.split('.');
-    if (parts.length === 3) {
-      const [bCode, ch, v] = parts;
-      return formatHumanReference(bCode, parseInt(ch, 10), parseInt(v, 10));
-    }
-    return refCode;
-  };
+  // Load title language options (treasure translations languages)
+  useEffect(() => {
+    const loadTitleLanguageOptions = async () => {
+      try {
+        const { data } = await supabase
+          .from('treasure_translations')
+          .select('language_id, languages!inner(name, code)')
+          .order('language_id');
+        if (data) {
+          const langs = data
+            .map(d => ({
+              id: d.language_id,
+              name: d.languages?.name || d.languages?.code || `Langue ${d.language_id}`
+            }))
+            .filter((v, i, self) => self.findIndex(t => t.id === v.id) === i);
+          setTitleLanguageOptions(langs);
+        }
+      } catch (err) {
+        console.error('Failed to load title languages:', err);
+      }
+    };
+    loadTitleLanguageOptions();
+  }, []);
 
-  // Load references + treasures whenever reference OR version changes
+  // Load references + treasures whenever reference, version, or title language changes
   useEffect(() => {
     if (!isOpen) return;
     if (!activeReferenceCode) return;
 
     const versionToUse = displayVersionCode;
+    const langIdForTreasure = titleLanguageId ?? (versions.find(v => v.code === versionToUse)?.language_id ?? 2);
     
-    const currentSnapshot = `${activeReferenceCode}__${versionToUse}`;
+    const currentSnapshot = `${activeReferenceCode}__${versionToUse}__${langIdForTreasure}`;
     
     // Skip if same request is already in flight
     if (latestRequestRef.current === currentSnapshot) return;
@@ -172,15 +168,17 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setCrossReferences([]);
     setTreasures([]);
 
-    // Get language ID from version
+    // Get language ID from version for verse texts
     const versionObj = versions.find(v => v.code === versionToUse);
-    const languageId = versionObj?.language_id ?? 2;
+    const languageIdForVerses = versionObj?.language_id ?? 2;
 
-    console.log('[VerseTreasuresModal] Loading with version:', versionToUse, 'languageId:', languageId);
+    console.log('[VerseTreasuresModal] Loading with version:', versionToUse, 
+      'verseLanguageId:', languageIdForVerses, 
+      'titleLanguageId:', langIdForTreasure);
 
     Promise.all([
-      getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageId),
-      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId)
+      getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageIdForVerses),
+      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, langIdForTreasure) // langCode fr for treasure translations, but we now use languageId for book names inside
     ])
       .then(([crossRes, treasuresRes]) => {
         // Ignore stale responses
@@ -193,7 +191,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           crossCount: crossRes?.length,
           treasuresCount: treasuresRes?.length,
           version: versionToUse,
-          languageId: languageId
+          verseLanguageId: languageIdForVerses,
+          titleLanguageId: langIdForTreasure
         });
         
         // Log book names from API
@@ -223,7 +222,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         }
       });
 
-  }, [isOpen, activeReferenceCode, displayVersionCode, versions]);
+  }, [isOpen, activeReferenceCode, displayVersionCode, versions, titleLanguageId]);
 
   // Effect to fetch verse text when display version changes
   useEffect(() => {
@@ -246,6 +245,21 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
     fetchVerseText();
   }, [isOpen, activeBook, activeChapter, activeVerseNumber, displayVersionCode]);
+
+  // Click-outside handlers
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (versionSelectRef.current && !versionSelectRef.current.contains(event.target as Node)) {
+        setVersionDropdownOpen(false);
+      }
+      if (titleSelectRef.current && !titleSelectRef.current.contains(event.target as Node)) {
+        setTitleLanguageDropdownOpen(false);
+        setSelectedTreasureForLanguage(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   if (!isOpen || !activeBook) return null;
 
@@ -294,6 +308,66 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     console.log('[VerseTreasuresModal] Changing version from', displayVersionCode, 'to', newVersion);
     setDisplayVersionCode(newVersion);
     setVersionDropdownOpen(false);
+  };
+
+  const handleTitleLanguageChange = (languageId: number) => {
+    setTitleLanguageId(languageId);
+    setTitleLanguageDropdownOpen(false);
+    // Reset selected treasure language when language changes globally
+    setSelectedTreasureForLanguage(null);
+  };
+
+  const handleOpenTitleLanguageSelector = (treasureId: number) => {
+    setSelectedTreasureForLanguage(treasureId);
+    setTitleLanguageDropdownOpen(true);
+  };
+
+  const handleCloseTitleLanguageSelector = () => {
+    setTitleLanguageDropdownOpen(false);
+    setSelectedTreasureForLanguage(null);
+  };
+
+  // Helper to format "Livre Chapitre:Verset"
+  const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
+    // Priority 1: Use API-provided book name if it's different from the code
+    // (This ensures the correct language is shown when version changes)
+    if (fallbackBookName && fallbackBookName.toUpperCase() !== bookCode.toUpperCase()) {
+      return `${fallbackBookName} ${chapter}:${verseNum}`;
+    }
+    
+    // Priority 2: Check booksList for a matching book with a valid name
+    const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
+    if (book && book.name.toUpperCase() !== bookCode.toUpperCase()) {
+      return `${book.name} ${chapter}:${verseNum}`;
+    }
+    
+    // Priority 3: Fallback to code if no translated name available
+    return `${bookCode} ${chapter}:${verseNum}`;
+  };
+
+  const parseRefCodeToHuman = (refCode: string): string => {
+    if (!refCode) return '';
+    const parts = refCode.split('.');
+    if (parts.length === 3) {
+      const [bCode, ch, v] = parts;
+      return formatHumanReference(bCode, parseInt(ch, 10), parseInt(v, 10));
+    }
+    return refCode;
+  };
+
+  // Get language name from language_id
+  const getLanguageName = (languageId: number): string => {
+    const lang = titleLanguageOptions.find(opt => opt.id === languageId);
+    return lang ? lang.name : `Langue ${languageId}`;
+  };
+
+  // Get English language ID for fallback
+  const getEnglishLanguageId = (): number => {
+    const englishVersion = versions.find(v => 
+      v.code.toLowerCase() === 'en' || 
+      v.name.toLowerCase().includes('english')
+    );
+    return englishVersion?.language_id ?? 4; // fallback to 4 if not found
   };
 
   return (
@@ -366,7 +440,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </Button>
 
               {/* VERSION SELECTOR */}
-              <div className="relative">
+              <div className="relative" ref={versionSelectRef}>
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
@@ -379,12 +453,15 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 </div>
                 
                 {versionDropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-40 bg-card border border-border rounded-xl shadow-lg z-20 max-h-64 overflow-y-auto">
+                  <div className="absolute left-0 mt-1 w-32 bg-card border border-border rounded-xl shadow-lg z-20 max-h-64 overflow-y-auto">
                     {versions.map(v => (
                       <button
                         key={v.code}
-                        onClick={() => handleVersionChange(v.code)}
-                        className={`w-full px-3 py-2 text-left text-sm transition-colors flex items-center justify-between ${
+                        onClick={() => {
+                          setDisplayVersionCode(v.code);
+                          setVersionDropdownOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
                           v.code === displayVersionCode
                             ? 'bg-amber-500/15 text-amber-700 font-semibold'
                             : 'hover:bg-muted/40'
@@ -569,6 +646,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     )}
 
                     {treasure.target_items && treasure.target_items.length > 0 ? (
+                      // Check if we have a valid title (not empty)
+                      const hasValidTitle = treasure.title && treasure.title.trim() !== '';
+                      
                       displayMode === 'list' ? (
                         <div className="space-y-2">
                           {treasure.target_items.map((target, tIdx) => {
@@ -599,6 +679,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                           })}
                         </div>
                       ) : (
+                        // Display mode compact
                         <div className="font-serif text-xs leading-relaxed space-y-1">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
@@ -613,12 +694,72 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         </div>
                       )
                     ) : (
+                      // No targets
                       <div className="flex flex-wrap gap-1.5">
                         {treasure.target_references.map((refCode, rIdx) => (
                           <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
                             {parseRefCodeToHuman(refCode)}
                           </span>
                         ))}
+                      </div>
+                    )}
+                    
+                    {/* Handle missing title */}
+                    {!showTitles || (treasure.title && treasure.title.trim() !== '') ? null : (
+                      <div className="p-3 mt-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800">
+                        <div className="flex items-center justify-between space-x-2">
+                          <div>
+                            <span className="font-semibold text-xs text-amber-800 dark:text-amber-200">
+                              Titre non disponible en {getLanguageName(titleLanguageId ?? (versions.find(v => v.code === displayVersionCode)?.language_id ?? 2))}
+                            </span>
+                          </div>
+                          <div>
+                            {/* Button to change language for this treasure */}
+                            <Button
+                              variant="outline"
+                              size="xs"
+                              onClick={() => handleOpenTitleLanguageSelector(treasure.treasure_id ?? index)}
+                              className="h-6 px-2 text-[10px] rounded-full"
+                            >
+                              <span className="font-mono text-xs">Changer</span>
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        {/* Language selector popup */}
+                        {selectedTreasureForLanguage === (treasure.treasure_id ?? index) && titleLanguageDropdownOpen && (
+                          <div className="absolute z-20 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg p-2">
+                            <div className="mb-2 text-xs font-semibold text-foreground">
+                              Afficher les titres dans :
+                            </div>
+                            <div className="space-y-1">
+                              {titleLanguageOptions.map(opt => (
+                                <button
+                                  key={opt.id}
+                                  onClick={() => {
+                                    handleTitleLanguageChange(opt.id);
+                                    handleCloseTitleLanguageSelector();
+                                  }}
+                                  className={`w-full text-left px-2 py-1.5 text-sm font-mono transition-colors ${
+                                    opt.id === titleLanguageId
+                                      ? 'bg-amber-500/15 text-amber-700'
+                                      : 'hover:bg-muted/40'
+                                  }`}
+                                >
+                                  {opt.name}
+                                </button>
+                              ))}
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="xs"
+                              onClick={handleCloseTitleLanguageSelector}
+                              className="w-full mt-2 px-2 py-1.5 text-xs rounded-full"
+                            >
+                              Annuler
+                            </Button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
