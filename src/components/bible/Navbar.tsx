@@ -9,7 +9,8 @@ import {
   Moon, 
   ChevronDown,
   Database,
-  BookMarked
+  BookMarked,
+  BookText
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -104,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               Accueil
             </Link>
 
-            {/* Onglet BIBLE demandé */}
+            {/* Onglet BIBLE */}
             <Link
               to="/bible"
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
@@ -115,6 +116,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <BookMarked className="w-3.5 h-3.5" />
               <span>Bible</span>
+            </Link>
+
+            {/* Onglet DICTIONNAIRE */}
+            <Link
+              to="/dictionnaire"
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                location.pathname.startsWith('/dictionnaire')
+                  ? 'bg-amber-600 text-white shadow-xs font-bold'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+              }`}
+            >
+              <BookText className="w-3.5 h-3.5" />
+              <span>Dictionnaire</span>
             </Link>
           </nav>
 

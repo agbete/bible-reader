@@ -491,12 +491,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-            <span className="text-[11px] text-muted-foreground font-medium">
-              Langue: {versions.find(v => v.code === displayVersionCode)?.language_id === 1 ? 'Goun' : 
-                       versions.find(v => v.code === displayVersionCode)?.language_id === 3 ? 'Français' :
-                       versions.find(v => v.code === displayVersionCode)?.language_id === 5 ? 'Fon' :
-                       'Version ' + displayVersionCode}
-            </span>
             <Button
               variant="outline"
               size="sm"
@@ -504,15 +498,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               className="h-7 px-2.5 rounded-full text-xs gap-1"
             >
               {copiedCode === activeDisplayRef ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
-              <span>Copier verset</span>
-            </Button>
-            <Button
-              size="sm"
-              onClick={() => { onNavigateToPassage(activeBook, activeChapter); onClose(); }}
-              className="h-7 px-3 rounded-full text-xs gap-1 bg-amber-600 hover:bg-amber-700 text-white"
-            >
-              <BookOpen className="w-3 h-3 mr-1" />
-              <span>Ouvrir chapitre</span>
             </Button>
           </div>
         </div>
