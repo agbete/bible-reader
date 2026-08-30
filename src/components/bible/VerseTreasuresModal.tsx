@@ -11,7 +11,9 @@ import {
   Loader2, 
   Link2,
   Gem,
-  Scroll
+  Scroll,
+  ChevronDown,
+  Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
@@ -39,7 +41,7 @@ interface VerseTreasuresModalProps {
     versionCode: string;
   } | null;
   booksList: DbBookItem[];
-  currentVersion: string;
+  versions: DbBibleVersion[]; // Added: list of all versions
   testamentsList: { id: number; code: string; name: string }[];
   classificationsList: { id: number; name: string; code?: string; testament_id: number }[];
   testamentNames: Map<number, string>;
@@ -56,7 +58,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   onClose,
   selectedVerse,
   booksList,
-  currentVersion,
+  versions,
   testamentsList,
   classificationsList,
   testamentNames,
@@ -82,25 +84,22 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [receivedVersion, setReceivedVersion] = useState<string>('');
 
   // ✅ Ref for current version (always fresh)
-  const activeVersionRef = useRef<string>(currentVersion);
+  const activeVersionRef = useRef<string>('');
   useEffect(() => {
-    activeVersionRef.current = currentVersion;
-    console.log('[VerseTreasuresModal] currentVersion prop changed to:', currentVersion);
-  }, [currentVersion]);
+    activeVersionRef.current = selectedVerse?.versionCode ?? '';
+    console.log('[VerseTreasuresModal] currentVersion prop changed to:', selectedVerse?.versionCode);
+  }, [selectedVerse?.versionCode]);
+
+  // State for version selector (display version)
+  const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
 
   // Ref to track latest request
   const latestRequestRef = useRef<string>('');
 
-  // Log when selectedVerse changes
+  // Initialize display version from selectedVerse
   useEffect(() => {
     if (selectedVerse) {
-      console.log('[VerseTreasuresModal] selectedVerse changed:', {
-        reference: selectedVerse.reference_code,
-        verse: selectedVerse.verse_number,
-        text: selectedVerse.text?.substring(0, 50),
-        book: selectedVerse.book?.name,
-        versionCode: selectedVerse.versionCode,
-      });
+      setDisplayVersionCode(selectedVerse.versionCode);
     }
   }, [selectedVerse]);
 
@@ -114,6 +113,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
       setActiveVerseText(selectedVerse.text);
       setActiveReferenceCode(selectedVerse.reference_code);
       setReceivedVersion(selectedVerse.versionCode);
+      setDisplayVersionCode(selectedVerse.versionCode);
     }
   }, [selectedVerse, isOpen]);
 
@@ -146,7 +146,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
 
     // Always use the CURRENT prop value (not stale ref) for the API call
-    const versionToUse = currentVersion;
+    const versionToUse = displayVersionCode; // Use the selected version from dropdown
     
     console.log('[VerseTreasuresModal] Loading data with:', {
       referenceCode: activeReferenceCode,
@@ -167,9 +167,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setCrossReferences([]);
     setTreasures([]);
 
+    // Determine language ID for book names (from version)
+    const versionObj = versions.find(v => v.code === versionToUse);
+    const languageId = versionObj?.language_id ?? 2; // default French
+
     Promise.all([
-      getDbVerseCrossReferences(activeReferenceCode, versionToUse),
-      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse)
+      getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageId),
+      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId) // langCode fr for treasure translations, but we now use languageId for book names inside
     ])
       .then(([crossRes, treasuresRes]) => {
         console.log('[VerseTreasuresModal] API responses:', {
@@ -198,14 +202,37 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         }
       });
 
-  }, [isOpen, activeReferenceCode, currentVersion]);
+  }, [isOpen, activeReferenceCode, displayVersionCode, versions]);
+
+  // Effect to fetch verse text when display version changes
+  useEffect(() => {
+    if (!isOpen || !activeBook || !displayVersionCode) return;
+
+    const fetchVerseText = async () => {
+      try {
+        const verses = await getDbChapterVerses(activeBook.id, activeChapter, displayVersionCode);
+        const verse = verses.find(v => v.verse_number === activeVerseNumber);
+        if (verse) {
+          setActiveVerseText(verse.text);
+          // reference_code is universal, keep existing
+        } else {
+          setActiveVerseText('[Texte non disponible]');
+        }
+      } catch (err) {
+        console.error('[VerseTreasuresModal] Error fetching verse text:', err);
+        setActiveVerseText('[Erreur de chargement]');
+      }
+    };
+
+    fetchVerseText();
+  }, [isOpen, activeBook, activeChapter, activeVerseNumber, displayVersionCode]);
 
   if (!isOpen || !activeBook) return null;
 
   const activeDisplayRef = `${activeBook.name} ${activeChapter}:${activeVerseNumber}`;
 
   const handleCopy = (text: string, humanRef: string) => {
-    navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${currentVersion})`);
+    navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${displayVersionCode})`);
     setCopiedCode(humanRef);
     showSuccess("Passage copié dans le presse-papier !");
     setTimeout(() => setCopiedCode(null), 2000);
@@ -218,7 +245,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setActiveVerseNumber(1);
     
     try {
-      const verses = await getDbChapterVerses(book.id, chapter, currentVersion);
+      const verses = await getDbChapterVerses(book.id, chapter, displayVersionCode);
       if (verses && verses.length > 0) {
         setActiveVerseText(verses[0].text);
         setActiveReferenceCode(verses[0].reference_code);
@@ -235,7 +262,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setActiveVerseNumber(1);
     
     try {
-      const verses = await getDbChapterVerses(activeBook.id, chapter, currentVersion);
+      const verses = await getDbChapterVerses(activeBook.id, chapter, displayVersionCode);
       if (verses && verses.length > 0) {
         setActiveVerseText(verses[0].text);
         setActiveReferenceCode(verses[0].reference_code);
@@ -258,7 +285,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 selectedBook={activeBook}
                 selectedChapter={activeChapter}
                 onSelectBook={handleSelectBookFromHeader}
-                currentVersion={currentVersion}
+                currentVersion={displayVersionCode}
                 testamentsList={testamentsList}
                 classificationsList={classificationsList}
                 testamentNames={testamentNames}
@@ -308,6 +335,43 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 )}
               </Button>
 
+              {/* VERSION SELECTOR */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setVersionDropdownOpen(!versionDropdownOpen);
+                  }}
+                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border"
+                >
+                  <span>Version {displayVersionCode.toUpperCase()}</span>
+                  <ChevronDown className="w-3 h-3 transition-transform" />
+                </div>
+                
+                {versionDropdownOpen && (
+                  <div className="absolute left-0 mt-1 w-32 bg-card border border-border rounded-xl shadow-lg z-20">
+                    {versions.map(v => (
+                      <button
+                        key={v.code}
+                        onClick={() => {
+                          setDisplayVersionCode(v.code);
+                          setVersionDropdownOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
+                          v.code === displayVersionCode
+                            ? 'bg-amber-500/15 text-amber-700'
+                            : 'hover:bg-muted/40'
+                        }`}
+                      >
+                        {v.code.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -334,10 +398,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
             {/* DEBUG: show which version is being used */}
             <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-mono font-bold border border-rose-300">
-              DEBUG version: {currentVersion} | ref: {activeVersionRef.current} | received: {receivedVersion}
+              DEBUG version: {displayVersionCode} | ref: {activeVersionRef.current} | received: {receivedVersion}
             </span>
             <span className="text-[11px] text-muted-foreground font-medium">
-              Version {currentVersion}
+              Version {displayVersionCode}
             </span>
             <Button
               variant="outline"
@@ -383,13 +447,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-                  <span className="text-xs">Chargement... (version: {currentVersion})</span>
+                  <span className="text-xs">Chargement... (version: {displayVersionCode})</span>
                 </div>
               ) : crossReferences.length === 0 ? (
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Link2 className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucune référence croisée</p>
-                  <p className="text-xs">Version utilisée pour la recherche : <strong>{currentVersion}</strong></p>
+                  <p className="text-xs">Version utilisée pour la recherche : <strong>{displayVersionCode}</strong></p>
                 </div>
               ) : displayMode === 'list' ? (
                 crossReferences.map((refItem) => {
@@ -458,13 +522,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
-                  <span className="text-xs">Chargement... (version: {currentVersion})</span>
+                  <span className="text-xs">Chargement... (version: {displayVersionCode})</span>
                 </div>
               ) : treasures.length === 0 ? (
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucun trésor répertorié</p>
-                  <p className="text-xs">Version utilisée pour la recherche : <strong>{currentVersion}</strong></p>
+                  <p className="text-xs">Version utilisée pour la recherche : <strong>{displayVersionCode}</strong></p>
                 </div>
               ) : (
                 treasures.map((treasure, index) => (
@@ -551,5 +615,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     </div>
   );
 };
+
+// State for version dropdown
+let versionDropdownOpen = false;
 
 export default VerseTreasuresModal;
