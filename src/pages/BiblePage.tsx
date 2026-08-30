@@ -125,6 +125,23 @@ export const BiblePage: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const { toast } = useToast();
 
+  // ✅ FIX: Compute effective language_id for book loading based on selected version
+  const effectiveLanguageId = useMemo(() => {
+    // If a specific language is selected, use it
+    if (selectedLanguageId !== 'ALL') {
+      console.log('[BiblePage] effectiveLanguageId:', selectedLanguageId, '(from language filter)');
+      return selectedLanguageId;
+    }
+    // Otherwise, use the selected version's language_id
+    const versionObj = versions.find(v => v.code === selectedVersionCode);
+    if (versionObj) {
+      console.log('[BiblePage] effectiveLanguageId:', versionObj.language_id, '(from version', selectedVersionCode, ')');
+      return versionObj.language_id;
+    }
+    console.log('[BiblePage] effectiveLanguageId: undefined (no version found)');
+    return undefined;
+  }, [selectedLanguageId, selectedVersionCode, versions]);
+
   const versionLanguageMap = useMemo(() => {
     const map = new Map<string, number>();
     versions.forEach(v => {
@@ -284,11 +301,14 @@ export const BiblePage: React.FC = () => {
     };
   }, []);
 
+  // ✅ FIX: Reload books when effectiveLanguageId changes (includes version changes)
   useEffect(() => {
     if (!loading) {
-      getDbAllBooks(selectedLanguageId === 'ALL' ? undefined : selectedLanguageId)
+      console.log('[BiblePage] Reloading books with effectiveLanguageId:', effectiveLanguageId);
+      getDbAllBooks(effectiveLanguageId)
         .then(books => {
           if (books.length > 0) {
+            console.log('[BiblePage] Books loaded:', books.length, 'books, first book name:', books[0]?.name);
             setBooksList(books);
           }
         })
@@ -296,7 +316,7 @@ export const BiblePage: React.FC = () => {
           console.error('[BiblePage] Error reloading books:', err);
         });
     }
-  }, [selectedLanguageId, loading]);
+  }, [effectiveLanguageId, loading]);
 
   useEffect(() => {
     if (selectedBook && !loading && selectedVersions.length > 0) {
