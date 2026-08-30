@@ -11,7 +11,8 @@ import {
   Share2,
   Copy,
   Check,
-  AlertCircle
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -27,36 +28,36 @@ const DictionaryEntryPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
+  const loadEntry = async () => {
+    if (!dictionaryId || !entryId) {
+      setError('Paramètres invalides');
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const entryData = await getDictionaryEntryById(
+        parseInt(entryId, 10),
+        parseInt(dictionaryId, 10)
+      );
+
+      if (!entryData) {
+        setError('Entrée non trouvée');
+      } else {
+        setEntry(entryData);
+      }
+    } catch (err) {
+      console.error('Error loading entry:', err);
+      setError('Erreur lors du chargement de l\'entrée');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadEntry = async () => {
-      if (!dictionaryId || !entryId) {
-        setError('Paramètres invalides');
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      setError(null);
-
-      try {
-        const entryData = await getDictionaryEntryById(
-          parseInt(entryId, 10),
-          parseInt(dictionaryId, 10)
-        );
-
-        if (!entryData) {
-          setError('Entrée non trouvée');
-        } else {
-          setEntry(entryData);
-        }
-      } catch (err) {
-        console.error('Error loading entry:', err);
-        setError('Erreur lors du chargement de l\'entrée');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadEntry();
   }, [dictionaryId, entryId]);
 
@@ -73,8 +74,8 @@ const DictionaryEntryPage: React.FC = () => {
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <Navbar currentVersion="LSG" />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <Loader2 className="w-10 h-10 animate-spin text-amber-600 mx-auto mb-4" />
+          <div className="text-center space-y-4">
+            <Loader2 className="w-10 h-10 animate-spin text-amber-600 mx-auto" />
             <p className="text-muted-foreground">Chargement de l'entrée...</p>
           </div>
         </main>
@@ -87,16 +88,22 @@ const DictionaryEntryPage: React.FC = () => {
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <Navbar currentVersion="LSG" />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-center max-w-md mx-auto px-4">
-            <AlertCircle className="w-12 h-12 text-rose-500 mx-auto mb-4" />
+          <div className="text-center max-w-md mx-auto px-4 space-y-4">
+            <AlertCircle className="w-12 h-12 text-rose-500 mx-auto" />
             <h1 className="text-xl font-bold mb-2">{error || 'Entrée non trouvée'}</h1>
             <p className="text-muted-foreground mb-6">
               L'entrée que vous recherchez n'existe pas ou a été supprimée.
             </p>
-            <Button onClick={() => navigate('/dictionnaire')} className="rounded-full">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour au dictionnaire
-            </Button>
+            <div className="flex flex-col gap-2">
+              <Button onClick={() => navigate('/dictionnaire')} className="rounded-full gap-2">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Retour au dictionnaire
+              </Button>
+              <Button variant="outline" onClick={loadEntry} className="rounded-full gap-2">
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Réessayer
+              </Button>
+            </div>
           </div>
         </main>
       </div>

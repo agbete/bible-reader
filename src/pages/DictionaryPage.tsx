@@ -11,7 +11,8 @@ import {
   BookOpen,
   BookMarked,
   ArrowLeft,
-  AlertCircle
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -56,11 +57,14 @@ const DictionaryPage: React.FC = () => {
   // Loading state
   const [loading, setLoading] = useState(true);
   const [loadingEntries, setLoadingEntries] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Load dictionaries on mount
   useEffect(() => {
     const loadDictionaries = async () => {
       try {
+        setLoading(true);
+        setError(null);
         const dicts = await getDictionaries();
         setDictionaries(dicts);
         
@@ -68,8 +72,13 @@ const DictionaryPage: React.FC = () => {
         if (dicts.length > 0 && !selectedDictionary) {
           setSelectedDictionary(dicts[0].id);
         }
+        
+        if (dicts.length === 0) {
+          setError('Aucun dictionnaire trouvé dans la base de données.');
+        }
       } catch (err) {
         console.error('Error loading dictionaries:', err);
+        setError('Impossible de charger les dictionnaires.');
       } finally {
         setLoading(false);
       }
@@ -83,6 +92,7 @@ const DictionaryPage: React.FC = () => {
     if (!selectedDictionary) return;
 
     setLoadingEntries(true);
+    setError(null);
     try {
       const response = await getDictionaryEntries({
         dictionaryId: selectedDictionary,
@@ -95,8 +105,13 @@ const DictionaryPage: React.FC = () => {
       setEntries(response.entries);
       setTotalCount(response.totalCount);
       setTotalPages(response.totalPages);
+      
+      if (response.entries.length === 0 && response.totalCount === 0) {
+        // No error, just no results
+      }
     } catch (err) {
       console.error('Error loading entries:', err);
+      setError('Erreur lors du chargement des entrées.');
     } finally {
       setLoadingEntries(false);
     }
@@ -157,6 +172,65 @@ const DictionaryPage: React.FC = () => {
     }
   }, [selectedLetter]);
 
+  // Retry loading
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+    const loadDictionaries = async () => {
+      try {
+        const dicts = await getDictionaries();
+        setDictionaries(dicts);
+        if (dicts.length > 0 && !selectedDictionary) {
+          setSelectedDictionary(dicts[0].id);
+        }
+        if (dicts.length === 0) {
+          setError('Aucun dictionnaire trouvé dans la base de données.');
+        }
+      } catch (err) {
+        setError('Impossible de charger les dictionnaires.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadDictionaries();
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex flex-col">
+        <Navbar currentVersion="LSG" />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <Loader2 className="w-10 h-10 animate-spin text-amber-600 mx-auto" />
+            <p className="text-muted-foreground">Chargement du dictionnaire...</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error && dictionaries.length === 0) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex flex-col">
+        <Navbar currentVersion="LSG" />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center max-w-md mx-auto px-4 space-y-4">
+            <AlertCircle className="w-12 h-12 text-rose-500 mx-auto" />
+            <h1 className="text-xl font-bold">Erreur de chargement</h1>
+            <p className="text-muted-foreground">{error}</p>
+            <p className="text-xs text-muted-foreground">
+              Vérifiez que les tables <code className="px-1 py-0.5 rounded bg-muted">dictionaries</code> et <code className="px-1 py-0.5 rounded bg-muted">dictionary_entries</code> existent dans Supabase et que les permissions RLS sont configurées.
+            </p>
+            <Button onClick={handleRetry} className="rounded-full gap-2">
+              <RefreshCw className="w-4 h-4" />
+              Réessayer
+            </Button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar currentVersion="LSG" />
@@ -187,36 +261,29 @@ const DictionaryPage: React.FC = () => {
               <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">
                 Dictionnaire
               </label>
-              {loading ? (
-                <div className="h-10 flex items-center justify-center text-muted-foreground">
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  <span className="text-sm">Chargement...</span>
-                </div>
-              ) : (
-                <Select
-                  value={selectedDictionary?.toString() || ''}
-                  onValueChange={handleDictionaryChange}
-                >
-                  <SelectTrigger className="h-10 rounded-xl">
-                    <SelectValue placeholder="Sélectionner un dictionnaire" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {dictionaries.map((dict) => (
-                      <SelectItem key={dict.id} value={dict.id.toString()}>
-                        <div className="flex items-center gap-2">
-                          <BookMarked className="w-4 h-4 text-amber-600" />
-                          <span>{dict.name}</span>
-                          {dict.author && (
-                            <span className="text-xs text-muted-foreground">
-                              — {dict.author}
-                            </span>
-                          )}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
+              <Select
+                value={selectedDictionary?.toString() || ''}
+                onValueChange={handleDictionaryChange}
+              >
+                <SelectTrigger className="h-10 rounded-xl">
+                  <SelectValue placeholder="Sélectionner un dictionnaire" />
+                </SelectTrigger>
+                <SelectContent>
+                  {dictionaries.map((dict) => (
+                    <SelectItem key={dict.id} value={dict.id.toString()}>
+                      <div className="flex items-center gap-2">
+                        <BookMarked className="w-4 h-4 text-amber-600" />
+                        <span>{dict.name}</span>
+                        {dict.author && (
+                          <span className="text-xs text-muted-foreground">
+                            — {dict.author}
+                          </span>
+                        )}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Search Input */}
@@ -236,7 +303,7 @@ const DictionaryPage: React.FC = () => {
                     setCurrentPage(1);
                   }}
                   className="h-10 pl-9 rounded-xl"
-                  disabled={!selectedDictionary}
+                  disabled={dictionaries.length === 0}
                 />
               </div>
             </div>
@@ -393,12 +460,14 @@ const DictionaryPage: React.FC = () => {
           <div className="py-16 text-center text-muted-foreground">
             <BookOpen className="w-12 h-12 mx-auto opacity-40 mb-3" />
             <p className="text-sm font-semibold">
-              {selectedDictionary
-                ? 'Aucune entrée trouvée'
-                : 'Sélectionnez un dictionnaire pour commencer'}
+              {searchQuery || selectedLetter
+                ? 'Aucune entrée trouvée avec ces critères'
+                : selectedDictionary
+                  ? 'Ce dictionnaire est vide'
+                  : 'Sélectionnez un dictionnaire pour commencer'}
             </p>
             <p className="text-xs mt-1">
-              {selectedDictionary
+              {searchQuery || selectedLetter
                 ? 'Essayez de modifier vos critères de recherche'
                 : 'Choisissez parmi les dictionnaires disponibles ci-dessus'}
             </p>

@@ -61,17 +61,17 @@ export async function getDictionaries(): Promise<Dictionary[]> {
     const { data, error } = await supabase
       .from('dictionaries')
       .select('*')
-      .eq('is_active', true)
       .order('display_order', { ascending: true });
 
     if (error) {
-      console.error('[dictionaryDb] Error fetching dictionaries:', error.message);
+      console.error('[dictionaryDb] Error fetching dictionaries:', error.message, error.code);
       return [];
     }
 
+    console.log('[dictionaryDb] Dictionaries loaded:', data?.length, 'dictionaries');
     return data || [];
   } catch (err) {
-    console.error('[dictionaryDb] Exception:', err);
+    console.error('[dictionaryDb] Exception getDictionaries:', err);
     return [];
   }
 }
@@ -85,7 +85,6 @@ export async function getDictionariesByLanguage(languageId: number): Promise<Dic
       .from('dictionaries')
       .select('*')
       .eq('language_id', languageId)
-      .eq('is_active', true)
       .order('display_order', { ascending: true });
 
     if (error) {
@@ -103,17 +102,14 @@ export async function getDictionariesByLanguage(languageId: number): Promise<Dic
 /**
  * Get all available letters (A-Z) for a dictionary
  */
-export async function getAvailableLetters(dictionaryId?: number, languageId?: number): Promise<string[]> {
+export async function getAvailableLetters(dictionaryId?: number): Promise<string[]> {
   try {
-    let query = supabase
+    if (!dictionaryId) return [];
+    
+    const { data, error } = await supabase
       .from('dictionary_entries')
-      .select('entry_name');
-
-    if (dictionaryId) {
-      query = query.eq('dictionary_id', dictionaryId);
-    }
-
-    const { data, error } = await query;
+      .select('entry_name')
+      .eq('dictionary_id', dictionaryId);
 
     if (error) {
       console.error('[dictionaryDb] Error fetching letters:', error.message);
@@ -131,7 +127,9 @@ export async function getAvailableLetters(dictionaryId?: number, languageId?: nu
       }
     });
 
-    return Array.from(letters).sort();
+    const result = Array.from(letters).sort();
+    console.log('[dictionaryDb] Available letters:', result);
+    return result;
   } catch (err) {
     console.error('[dictionaryDb] Exception:', err);
     return [];
@@ -143,7 +141,6 @@ export async function getAvailableLetters(dictionaryId?: number, languageId?: nu
  */
 export async function getDictionaryEntries(filters: DictionaryFilters): Promise<DictionaryEntriesResponse> {
   const {
-    languageId,
     dictionaryId,
     searchQuery,
     letter,
@@ -183,7 +180,7 @@ export async function getDictionaryEntries(filters: DictionaryFilters): Promise<
     const { data, error, count } = await query;
 
     if (error) {
-      console.error('[dictionaryDb] Error fetching entries:', error.message);
+      console.error('[dictionaryDb] Error fetching entries:', error.message, error.code);
       return {
         entries: [],
         totalCount: 0,
@@ -196,6 +193,7 @@ export async function getDictionaryEntries(filters: DictionaryFilters): Promise<
     const totalCount = count || 0;
     const totalPages = Math.ceil(totalCount / pageSize);
 
+    console.log('[dictionaryDb] Entries loaded:', data?.length, 'of', totalCount);
     return {
       entries: data || [],
       totalCount,
@@ -232,7 +230,7 @@ export async function getDictionaryEntryById(
       .single();
 
     if (entryError || !entry) {
-      console.error('[dictionaryDb] Entry not found:', entryId);
+      console.error('[dictionaryDb] Entry not found:', entryId, entryError?.message);
       return null;
     }
 
@@ -263,7 +261,7 @@ export async function getDictionaryEntryById(
       .limit(1)
       .single();
 
-    return {
+    const result = {
       ...entry,
       dictionary_name: dictionary?.name || '',
       dictionary_code: dictionary?.code || '',
@@ -271,6 +269,9 @@ export async function getDictionaryEntryById(
       prev_entry: prevEntry ? { id: prevEntry.id, entry_name: prevEntry.entry_name } : undefined,
       next_entry: nextEntry ? { id: nextEntry.id, entry_name: nextEntry.entry_name } : undefined
     };
+
+    console.log('[dictionaryDb] Entry loaded:', result.entry_name);
+    return result;
   } catch (err) {
     console.error('[dictionaryDb] Exception:', err);
     return null;

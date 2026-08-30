@@ -65,7 +65,16 @@ BEGIN
         EXECUTE 'DROP POLICY IF EXISTS "Public read access" ON public.' || quote_ident(r.tablename) || ';';
         EXECUTE 'CREATE POLICY "Public read access" ON public.' || quote_ident(r.tablename) || ' FOR SELECT USING (true);';
     END LOOP;
-END $$;`;
+END $$;
+
+-- SQL spécifique pour les tables dictionnaire :
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon, authenticated;
+ALTER TABLE public.dictionaries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dictionary_entries ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public read access" ON public.dictionaries;
+DROP POLICY IF EXISTS "Public read access" ON public.dictionary_entries;
+CREATE POLICY "Public read access" ON public.dictionaries FOR SELECT USING (true);
+CREATE POLICY "Public read access" ON public.dictionary_entries FOR SELECT USING (true);`;
 
   const copySql = () => {
     navigator.clipboard.writeText(fixSql);
