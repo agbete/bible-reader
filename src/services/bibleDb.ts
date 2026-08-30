@@ -341,7 +341,6 @@ async function getBookNamesForLanguage(bookCodes: string[], languageId: number):
   if (bookCodes.length === 0) return bookNameMap;
   
   try {
-    // Get all book IDs for these codes
     const { data: booksData } = await supabase
       .from('books')
       .select('id, code')
@@ -356,7 +355,6 @@ async function getBookNamesForLanguage(bookCodes: string[], languageId: number):
     const codeToId = new Map<string, number>();
     booksData.forEach(b => codeToId.set(b.code, b.id));
     
-    // Get translations for these books in the target language
     const { data: transData, error } = await supabase
       .from('book_translations')
       .select('book_id, name')
@@ -365,12 +363,10 @@ async function getBookNamesForLanguage(bookCodes: string[], languageId: number):
     
     if (error || !transData || transData.length === 0) {
       console.warn(`[bibleDb] No book_translations found for language_id: ${languageId}`);
-      // Fallback to codes
       bookCodes.forEach(code => bookNameMap.set(code, code));
       return bookNameMap;
     }
     
-    // Map book codes to their names
     transData.forEach(t => {
       const code = Array.from(codeToId.entries()).find(([_, id]) => id === t.book_id)?.[0];
       if (code) {
@@ -378,7 +374,6 @@ async function getBookNamesForLanguage(bookCodes: string[], languageId: number):
       }
     });
     
-    // Fill in any missing with codes
     bookCodes.forEach(code => {
       if (!bookNameMap.has(code)) {
         bookNameMap.set(code, code);
@@ -463,7 +458,6 @@ export async function getDbVerseCrossReferences(
     const textMap = new Map<number, string>();
     textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
 
-    // ✅ FIX: Get book names for the correct language
     const uniqueBookCodes = new Set<string>();
     crossRefs.forEach((cr: any) => {
       const bk = cr.verses?.chapters?.books;
@@ -510,7 +504,6 @@ export async function getDbVerseTreasures(
     timestamp: new Date().toISOString(),
   });
   
-  // Get language ID from the cached languages table
   const desiredLangId = getLanguageIdFromCode(langCode);
   console.log('[bibleDb] desiredLangId for langCode', langCode, ':', desiredLangId);
   
@@ -533,7 +526,6 @@ export async function getDbVerseTreasures(
       return [];
     }
 
-    // Get version info to find the correct languageId for treasure translations
     const { data: verData } = await supabase
       .from('bible_versions')
       .select('id, language_id')
@@ -543,7 +535,7 @@ export async function getDbVerseTreasures(
     const versionId = verData?.id;
     const versionLangId = verData?.language_id;
 
-    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'versionLangId:', versionLangId, 'langCode:', langCode, 'desiredLangId:', desiredLangId);
+    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'versionLangId:', versionLangId, 'langCode:', langCode, 'desiredLangId:', desiredLangId, 'languageId param:', languageId);
 
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
@@ -584,7 +576,6 @@ export async function getDbVerseTreasures(
 
     console.log('[bibleDb] Found', treasures.length, 'treasures');
 
-    // ✅ FIX: Get book names for the correct language
     const uniqueBookCodes = new Set<string>();
     treasures.forEach(t => {
       t.treasure_verses?.forEach((tv: any) => {
@@ -593,8 +584,11 @@ export async function getDbVerseTreasures(
       });
     });
 
-    const targetLangForBookName = desiredLangId || versionLangId || languageId;
-    const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangForBookName || 1);
+    // ✅ FIX: Use versionLangId as the primary language for book names
+    // This ensures book names match the selected version's language
+    const targetLangForBookName = versionLangId || languageId || desiredLangId || 1;
+    console.log('[bibleDb] Using targetLangForBookName:', targetLangForBookName, '(versionLangId:', versionLangId, ', languageId:', languageId, ', desiredLangId:', desiredLangId, ')');
+    const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangForBookName);
 
     // ✅ FIX: Group treasures by title to avoid duplicates
     const treasureGroups = new Map<string, {
@@ -609,22 +603,23 @@ export async function getDbVerseTreasures(
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
       
-      // Try to find translation matching the desired language (from langCode)
+      // ✅ FIX: Priority order for translation lookup:
+      // 1. languageId param (from version) - highest priority
+      // 2. versionLangId (from version) - second priority
+      // 3. desiredLangId (from langCode) - fallback
       let trans = availableTranslations.find(
-        (tr: any) => tr.language_id === desiredLangId
+        (tr: any) => tr.language_id === languageId
       );
       
-      // If not found, try by version's language
       if (!trans && versionLangId) {
         trans = availableTranslations.find(
           (tr: any) => tr.language_id === versionLangId
         );
       }
       
-      // If still not found, try by passed languageId parameter
-      if (!trans && languageId) {
+      if (!trans && desiredLangId) {
         trans = availableTranslations.find(
-          (tr: any) => tr.language_id === languageId
+          (tr: any) => tr.language_id === desiredLangId
         );
       }
       
