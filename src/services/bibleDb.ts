@@ -96,7 +96,6 @@ let languagesCache: DbLanguage[] | null = null;
 
 /**
  * Get all languages from the database and cache them
- * Returns a mapping from language code to language ID
  */
 export async function getDbLanguages(): Promise<DbLanguage[]> {
   try {
@@ -110,7 +109,6 @@ export async function getDbLanguages(): Promise<DbLanguage[]> {
       return [];
     }
     
-    // Cache the results
     languagesCache = data || [];
     console.log('[bibleDb] Languages loaded:', languagesCache);
     return languagesCache;
@@ -333,6 +331,44 @@ function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
   return map;
 }
 
+/**
+ * Helper to get book name for a given book code and language ID
+ * Queries book_translations directly to ensure correct language
+ */
+async function getBookNameForLanguage(bookCode: string, languageId: number): Promise<string> {
+  try {
+    const { data, error } = await supabase
+      .from('book_translations')
+      .select('name, language_id')
+      .eq('language_id', languageId)
+      .limit(100);
+
+    if (error || !data || data.length === 0) {
+      console.warn(`[bibleDb] No book_translations found for language_id: ${languageId}`);
+      return bookCode;
+    }
+
+    // Get the book ID for this book code
+    const { data: bookData } = await supabase
+      .from('books')
+      .select('id')
+      .ilike('code', bookCode.trim())
+      .maybeSingle();
+
+    if (!bookData) {
+      console.warn(`[bibleDb] Book not found for code: ${bookCode}`);
+      return bookCode;
+    }
+
+    // Find the translation for this book
+    const trans = data.find(t => t.book_id === bookData.id);
+    return trans?.name || bookCode;
+  } catch (err) {
+    console.error('[bibleDb] Exception getBookNameForLanguage:', err);
+    return bookCode;
+  }
+}
+
 export async function getDbVerseCrossReferences(
   referenceCodeOrId: string | number,
   versionCode: string = 'LSG',
@@ -371,9 +407,7 @@ export async function getDbVerseCrossReferences(
         verses:target_verse_id (
           id, verse_number, reference_code, chapter_id,
           chapters:chapter_id ( number, book_id,
-            books:book_id ( id, code,
-              book_translations (name, language_id)
-            )
+            books:book_id ( id, code )
           )
         )
       `)
@@ -404,18 +438,33 @@ export async function getDbVerseCrossReferences(
     const textMap = new Map<number, string>();
     textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
 
+    // ✅ FIX: Get book names for the correct language by querying book_translations directly
+    const uniqueBookCodes = new Set<string>();
+    crossRefs.forEach((cr: any) => {
+      const bk = cr.verses?.chapters?.books;
+      if (bk?.code) uniqueBookCodes.add(bk.code);
+    });
+
+    const bookNameMap = new Map<string, string>();
+    if (targetLangId) {
+      for (const code of uniqueBookCodes) {
+        const name = await getBookNameForLanguage(code, targetLangId);
+        bookNameMap.set(code, name);
+      }
+    }
+
     return crossRefs.map((cr: any) => {
       const v = cr.verses;
       const ch = v?.chapters;
       const bk = ch?.books;
-      const trans = bk?.book_translations?.find((bt: any) => targetLangId ? bt.language_id === targetLangId : true);
-      const bookName = trans?.name || bk?.code || '';
+      const bookCode = bk?.code || '';
+      const bookName = bookNameMap.get(bookCode) || bookCode;
 
       return {
         id: cr.id,
         target_verse_id: cr.target_verse_id,
         reference_code: v?.reference_code || '',
-        book_code: bk?.code || '',
+        book_code: bookCode,
         book_name: bookName,
         chapter: ch?.number || 1,
         verse_number: v?.verse_number || 1,
@@ -487,9 +536,7 @@ export async function getDbVerseTreasures(
           verses:target_verse_id (
             id, verse_number, reference_code, chapter_id,
             chapters:chapter_id ( number, book_id,
-              books:book_id ( id, code,
-                book_translations (name, language_id)
-              )
+              books:book_id ( id, code )
             )
           )
         )
@@ -517,6 +564,24 @@ export async function getDbVerseTreasures(
     }
 
     console.log('[bibleDb] Found', treasures.length, 'treasures');
+
+    // ✅ FIX: Get book names for the correct language by querying book_translations directly
+    const uniqueBookCodes = new Set<string>();
+    treasures.forEach(t => {
+      t.treasure_verses?.forEach((tv: any) => {
+        const bk = tv.verses?.chapters?.books;
+        if (bk?.code) uniqueBookCodes.add(bk.code);
+      });
+    });
+
+    const bookNameMap = new Map<string, string>();
+    const targetLangForBookName = desiredLangId || versionLangId || languageId;
+    if (targetLangForBookName) {
+      for (const code of uniqueBookCodes) {
+        const name = await getBookNameForLanguage(code, targetLangForBookName);
+        bookNameMap.set(code, name);
+      }
+    }
 
     return treasures.map(t => {
       const availableTranslations = t.treasure_translations || [];
@@ -553,17 +618,14 @@ export async function getDbVerseTreasures(
         const v = tv.verses;
         const ch = v?.chapters;
         const bk = ch?.books;
-        
-        // For book names, use the version's language or desired language
-        const targetLangForBookName = desiredLangId || versionLangId || languageId;
-        const bTrans = bk?.book_translations?.find((bt: any) => targetLangForBookName ? bt.language_id === targetLangForBookName : true);
-        const bookName = bTrans?.name || bk?.code || '';
+        const bookCode = bk?.code || '';
+        const bookName = bookNameMap.get(bookCode) || bookCode;
 
-        console.log('[bibleDb] Treasure target - book_code:', bk?.code, 'book_translations:', bk?.book_translations, 'selected bookName:', bookName, 'targetLang:', targetLangForBookName);
+        console.log('[bibleDb] Treasure target - book_code:', bookCode, 'selected bookName:', bookName, 'targetLang:', targetLangForBookName);
 
         return {
           reference_code: v?.reference_code || '',
-          book_code: bk?.code || '',
+          book_code: bookCode,
           book_name: bookName,
           chapter: ch?.number || 1,
           verse_number: v?.verse_number || 1,
