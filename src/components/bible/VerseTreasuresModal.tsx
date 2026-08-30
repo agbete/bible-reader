@@ -85,7 +85,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
   const activeVersionRef = useRef<string>('');
 
-  // Title language state
+  // Title language state - NOW PROPERLY TRACKS VERSION CHANGES
   const [titleLanguageId, setTitleLanguageId] = useState<number | null>(null);
   const [titleLanguageOptions, setTitleLanguageOptions] = useState<Array<{id:number, name:string}>>([]);
   const [titleLanguageDropdownOpen, setTitleLanguageDropdownOpen] = useState(false);
@@ -105,7 +105,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   }, [selectedVerse]);
 
-  // Set title language to match the currently selected version
+  // Set title language to match the currently selected version WHEN MODAL OPENS
   useEffect(() => {
     if (isOpen && displayVersionCode) {
       const versionObj = versions.find(v => v.code === displayVersionCode);
@@ -197,17 +197,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           version: versionToUse,
           verseLanguageId: languageIdForVerses,
           titleLanguageId: langIdForTreasure
-        });
-        
-        // Log book names from API
-        crossRes?.forEach((ref, idx) => {
-          console.log(`[VerseTreasuresModal] CrossRef ${idx} book_name:`, ref.book_name);
-        });
-        
-        treasuresRes?.forEach((treasure, tIdx) => {
-          treasure.target_items?.forEach((target, tiIdx) => {
-            console.log(`[VerseTreasuresModal] Treasure ${tIdx} target ${tiIdx} book_name:`, target.book_name);
-          });
         });
         
         setCrossReferences(crossRes || []);
@@ -312,13 +301,16 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     console.log('[VerseTreasuresModal] Changing version from', displayVersionCode, 'to', newVersion);
     setDisplayVersionCode(newVersion);
     setVersionDropdownOpen(false);
+    // When version changes, reset title language to match new version
+    const versionObj = versions.find(v => v.code === newVersion);
+    const newLangId = versionObj?.language_id ?? 2;
+    setTitleLanguageId(newLangId);
   };
 
   const handleTitleLanguageChange = (languageId: number) => {
     setTitleLanguageId(languageId);
     setTitleLanguageDropdownOpen(false);
-    // Reset selected treasure language when language changes globally
-    setSelectedTreasureForLanguage(null);
+    // When language changes, we don't reset selected treasure - the titles will update on next render
   };
 
   const handleOpenTitleLanguageSelector = (treasureId: number) => {
@@ -334,7 +326,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   // Helper to format "Livre Chapitre:Verset"
   const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
     // Priority 1: Use API-provided book name if it's different from the code
-    // (This ensures the correct language is shown when version changes)
     if (fallbackBookName && fallbackBookName.toUpperCase() !== bookCode.toUpperCase()) {
       return `${fallbackBookName} ${chapter}:${verseNum}`;
     }
@@ -464,6 +455,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         onClick={() => {
                           setDisplayVersionCode(v.code);
                           setVersionDropdownOpen(false);
+                          // When version changes, reset title language to match new version
+                          const versionObj = versions.find(v => v.code === v.code);
+                          const newLangId = versionObj?.language_id ?? 2;
+                          setTitleLanguageId(newLangId);
                         }}
                         className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
                           v.code === displayVersionCode
@@ -705,7 +700,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       </div>
                     )}
                     
-                    {/* Handle missing title */}
+                    {/* Handle missing title - NOW WITH LANGUAGE SWITCHER */}
                     {showTitles && (!treasure.title || treasure.title.trim() === '') && (
                       <div className="p-3 mt-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800">
                         <div className="flex items-center justify-between space-x-2">
@@ -715,7 +710,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             </span>
                           </div>
                           <div>
-                            {/* Button to change language for this treasure */}
+                            {/* Button to change language for ALL treasures of this type */}
                             <Button
                               variant="outline"
                               size="xs"
@@ -727,8 +722,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                           </div>
                         </div>
                         
-                        {/* Language selector popup */}
-                        {selectedTreasureForLanguage === (treasure.treasure_id ?? index) && titleLanguageDropdownOpen && (
+                        {/* Language selector popup - NOW SHOWS ALL AVAILABLE LANGUAGES */}
+                        {titleLanguageDropdownOpen && selectedTreasureForLanguage !== null && (
                           <div className="absolute z-20 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg p-2">
                             <div className="mb-2 text-xs font-semibold text-foreground">
                               Afficher les titres dans :
@@ -761,6 +756,17 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             </Button>
                           </div>
                         )}
+                      </div>
+                    )}
+                    
+                    {/* Show title if available in current language */}
+                    {showTitles && treasure.title && treasure.title.trim() !== '' && (
+                      <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">{index + 1}</span>
+                          <h4 className="font-bold text-xs sm:text-sm text-foreground font-serif">{treasure.title}</h4>
+                        </div>
+                        {treasure.description && <span className="text-[11px] text-muted-foreground italic line-clamp-1">{treasure.description}</span>}
                       </div>
                     )}
                   </div>
