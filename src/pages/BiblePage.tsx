@@ -164,6 +164,7 @@ export const BiblePage: React.FC = () => {
 
   useEffect(() => {
     let mounted = true;
+    
     async function loadGroupingTranslations() {
       try {
         const { data: testData } = await supabase
@@ -932,7 +933,7 @@ export const BiblePage: React.FC = () => {
           }}
           selectedVerse={selectedVerseForTreasures}
           booksList={booksList}
-          currentVersion={selectedVersionCode}
+          versions={versions} // ADDED: pass versions prop
           testamentsList={testamentsList}
           classificationsList={classificationsList}
           testamentNames={testamentNames}
