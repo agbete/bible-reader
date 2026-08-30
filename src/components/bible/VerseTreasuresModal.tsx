@@ -174,6 +174,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     const versionObj = versions.find(v => v.code === versionToUse);
     const languageId = versionObj?.language_id ?? 2; // default French
 
+    console.log('[VerseTreasuresModal] versionObj:', versionObj, 'languageId:', languageId);
+
     Promise.all([
       getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageId),
       getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId) // langCode fr for treasure translations, but we now use languageId for book names inside
@@ -189,6 +191,27 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           console.log('[VerseTreasuresModal] STALE RESPONSE, ignoring!');
           return;
         }
+        
+        // Log cross references book names
+        crossRes?.forEach((ref, idx) => {
+          console.log(`[VerseTreasuresModal] CrossRef ${idx}:`, {
+            book_code: ref.book_code,
+            book_name: ref.book_name,
+            reference_code: ref.reference_code
+          });
+        });
+        
+        // Log treasures book names
+        treasuresRes?.forEach((treasure, tIdx) => {
+          treasure.target_items?.forEach((target, tiIdx) => {
+            console.log(`[VerseTreasuresModal] Treasure ${tIdx} target ${tiIdx}:`, {
+              book_code: target.book_code,
+              book_name: target.book_name,
+              reference_code: target.reference_code
+            });
+          });
+        });
+        
         setCrossReferences(crossRes || []);
         setTreasures(treasuresRes || []);
       })

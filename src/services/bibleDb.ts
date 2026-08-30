@@ -516,6 +516,8 @@ export async function getDbVerseTreasures(
         const bTrans = bk?.book_translations?.find((bt: any) => versionLangId ? bt.language_id === versionLangId : true);
         const bookName = bTrans?.name || bk?.code || '';
 
+        console.log('[bibleDb] Treasure target - book_code:', bk?.code, 'book_translations:', bk?.book_translations, 'selected bookName:', bookName, 'versionLangId:', versionLangId);
+
         return {
           reference_code: v?.reference_code || '',
           book_code: bk?.code || '',
