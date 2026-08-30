@@ -695,13 +695,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         </div>
                       )
                     ) : (
-                      // No targets
+                      // No targets - just display reference codes as pills
                       <div className="flex flex-wrap gap-1.5">
                         {treasure.target_references.map((refCode, rIdx) => (
                           <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
                             {parseRefCodeToHuman(refCode)}
                           </span>
-                        )}
+                        ))}
                       </div>
                     )}
                     
