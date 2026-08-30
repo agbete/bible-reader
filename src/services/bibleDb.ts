@@ -589,13 +589,16 @@ export async function getDbVerseTreasures(
     console.log('[bibleDb] Using targetLangForBookName:', targetLangForBookName, '(versionLangId:', versionLangId, ', languageId:', languageId, ', desiredLangId:', desiredLangId, ')');
     const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangForBookName);
 
-    // Group treasures by title to avoid duplicates
-    const treasureGroups = new Map<string, {
+    // Determine the requested language ID
+    const requestedLangId = languageId ?? versionLangId ?? desiredLangId;
+    console.log('[bibleDb] Requested language for titles:', requestedLangId);
+
+    // Group treasures by treasure_id (NOT by title)
+    const treasureGroups = new Map<number, {
       treasure_id: number;
       title: string;
       description: string;
       target_items: DbTreasureTargetItem[];
-      hasTranslationInRequestedLang: boolean;
     }>();
 
     treasures.forEach(t => {
@@ -603,18 +606,14 @@ export async function getDbVerseTreasures(
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
       
-      // Use the requested languageId (from version) as the primary language
-      // If not provided, use versionLangId, then desiredLangId
-      const requestedLangId = languageId ?? versionLangId ?? desiredLangId;
-      
-      // Find translation ONLY in the requested language - NO FALLBACK
+      // Find translation in the REQUESTED language only - NO FALLBACK
       const trans = availableTranslations.find(
         (tr: any) => tr.language_id === requestedLangId
       );
 
-      console.log('[bibleDb] Treasure', t.id, '- requested langId:', requestedLangId, 'selected translation langId:', trans?.language_id, 'title:', trans?.title?.substring(0, 30));
+      console.log('[bibleDb] Treasure', t.id, '- requested langId:', requestedLangId, 'selected translation:', trans?.title?.substring(0, 30) || 'NONE');
 
-      const hasTranslationInRequestedLang = !!trans;
+      // Use requested language translation, or empty string if not available
       const title = trans?.title || '';
       const description = trans?.description || '';
 
@@ -624,8 +623,6 @@ export async function getDbVerseTreasures(
         const bk = ch?.books;
         const bookCode = bk?.code || '';
         const bookName = bookNameMap.get(bookCode) || bookCode;
-
-        console.log('[bibleDb] Treasure target - book_code:', bookCode, 'selected bookName:', bookName, 'targetLang:', targetLangForBookName);
 
         return {
           reference_code: v?.reference_code || '',
@@ -637,35 +634,42 @@ export async function getDbVerseTreasures(
         };
       });
 
-      // Group by title (or by treasure_id if no title)
-      const groupKey = title || `treasure_${t.id}`;
-      if (treasureGroups.has(groupKey)) {
-        const existing = treasureGroups.get(groupKey)!;
-        existing.target_items.push(...items);
-        // If any treasure in the group has translation, mark it
-        if (hasTranslationInRequestedLang) {
-          existing.hasTranslationInRequestedLang = true;
-        }
+      // Group by treasure_id (ORIGINAL LOGIC - THIS IS THE KEY FIX)
+      if (treasureGroups.has(t.id)) {
+        const existing = treasureGroups.get(t.id)!;
+        // Merge target items, avoiding duplicates
+        items.forEach(newItem => {
+          if (!existing.target_items.some(existing => 
+            existing.reference_code === newItem.reference_code
+          )) {
+            existing.target_items.push(newItem);
+          }
+        });
       } else {
-        treasureGroups.set(groupKey, {
+        treasureGroups.set(t.id, {
           treasure_id: t.id,
           title,
           description,
-          target_items: items,
-          hasTranslationInRequestedLang
+          target_items: items
         });
       }
     });
 
     // Convert grouped treasures to array
-    return Array.from(treasureGroups.values()).map(group => ({
+    const result = Array.from(treasureGroups.values()).map(group => ({
       treasure_id: group.treasure_id,
       title: group.title,
       description: group.description,
       target_references: group.target_items.map(i => i.reference_code).filter(Boolean),
-      target_items: group.target_items,
-      hasTranslationInRequestedLang: group.hasTranslationInRequestedLang
+      target_items: group.target_items
     }));
+
+    console.log('[bibleDb] Returning', result.length, 'grouped treasures');
+    result.forEach((tr, i) => {
+      console.log(`[bibleDb] Treasure ${i}: id=${tr.treasure_id}, title="${tr.title}", targets=${tr.target_items.length}`);
+    });
+
+    return result;
   } catch (err) {
     console.error('[bibleDb] Erreur getDbVerseTreasures:', err);
     return [];
