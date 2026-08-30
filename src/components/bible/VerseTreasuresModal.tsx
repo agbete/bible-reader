@@ -93,6 +93,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   // State for version selector (display version)
   const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
 
+  // State for version dropdown open/close
+  const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
+
   // Ref to track latest request
   const latestRequestRef = useRef<string>('');
 
@@ -613,8 +616,5 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     </div>
   );
 };
-
-// State for version dropdown
-let versionDropdownOpen = false;
 
 export default VerseTreasuresModal;
