@@ -335,16 +335,14 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 )}
               </Button>
 
-              {/* VERSION SELECTOR */}
+              {/* VERSION SELECTOR - Fixed Button component syntax */}
               <div className="relative">
-                <Button
-                  variant="outline"
-                  size="sm"
+                <div
                   onClick={(e) => {
                     e.stopPropagation();
                     setVersionDropdownOpen(!versionDropdownOpen);
                   }}
-                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border"
+                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Version {displayVersionCode.toUpperCase()}</span>
                   <ChevronDown className="w-3 h-3 transition-transform" />
