@@ -14,6 +14,7 @@ import {
   Scroll,
   ChevronDown,
   Menu,
+  AlertCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
@@ -85,11 +86,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
   const activeVersionRef = useRef<string>('');
 
-  // Title language state - NOW PROPERLY TRACKS VERSION CHANGES
+  // Title language state
   const [titleLanguageId, setTitleLanguageId] = useState<number | null>(null);
   const [titleLanguageOptions, setTitleLanguageOptions] = useState<Array<{id:number, name:string}>>([]);
   const [titleLanguageDropdownOpen, setTitleLanguageDropdownOpen] = useState(false);
-  const [selectedTreasureForLanguage, setSelectedTreasureForLanguage] = useState<number | null>(null);
 
   // Refs for click-outside detection
   const versionSelectRef = useRef<HTMLDivElement>(null);
@@ -247,7 +247,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
       }
       if (titleSelectRef.current && !titleSelectRef.current.contains(event.target as Node)) {
         setTitleLanguageDropdownOpen(false);
-        setSelectedTreasureForLanguage(null);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -310,33 +309,19 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const handleTitleLanguageChange = (languageId: number) => {
     setTitleLanguageId(languageId);
     setTitleLanguageDropdownOpen(false);
-    // When language changes, we don't reset selected treasure - the titles will update on next render
-  };
-
-  const handleOpenTitleLanguageSelector = (treasureId: number) => {
-    setSelectedTreasureForLanguage(treasureId);
-    setTitleLanguageDropdownOpen(true);
-  };
-
-  const handleCloseTitleLanguageSelector = () => {
-    setTitleLanguageDropdownOpen(false);
-    setSelectedTreasureForLanguage(null);
   };
 
   // Helper to format "Livre Chapitre:Verset"
   const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
-    // Priority 1: Use API-provided book name if it's different from the code
     if (fallbackBookName && fallbackBookName.toUpperCase() !== bookCode.toUpperCase()) {
       return `${fallbackBookName} ${chapter}:${verseNum}`;
     }
     
-    // Priority 2: Check booksList for a matching book with a valid name
     const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
     if (book && book.name.toUpperCase() !== bookCode.toUpperCase()) {
       return `${book.name} ${chapter}:${verseNum}`;
     }
     
-    // Priority 3: Fallback to code if no translated name available
     return `${bookCode} ${chapter}:${verseNum}`;
   };
 
@@ -356,14 +341,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     return lang ? lang.name : `Langue ${languageId}`;
   };
 
-  // Get English language ID for fallback
-  const getEnglishLanguageId = (): number => {
-    const englishVersion = versions.find(v => 
-      v.code.toLowerCase() === 'en' || 
-      v.name.toLowerCase().includes('english')
-    );
-    return englishVersion?.language_id ?? 4; // fallback to 4 if not found
-  };
+  // Check if any treasures have missing titles
+  const hasMissingTitles = treasures.some(t => !t.title || t.title.trim() === '');
+  const currentTitleLanguageName = getLanguageName(titleLanguageId ?? (versions.find(v => v.code === displayVersionCode)?.language_id ?? 2));
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-200">
@@ -452,14 +432,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     {versions.map(v => (
                       <button
                         key={v.code}
-                        onClick={() => {
-                          setDisplayVersionCode(v.code);
-                          setVersionDropdownOpen(false);
-                          // When version changes, reset title language to match new version
-                          const versionObj = versions.find(v => v.code === v.code);
-                          const newLangId = versionObj?.language_id ?? 2;
-                          setTitleLanguageId(newLangId);
-                        }}
+                        onClick={() => handleVersionChange(v.code)}
                         className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
                           v.code === displayVersionCode
                             ? 'bg-amber-500/15 text-amber-700 font-semibold'
@@ -619,6 +592,53 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </span>
             </div>
 
+            {/* SINGLE WARNING MESSAGE for missing titles */}
+            {hasMissingTitles && (
+              <div className="mb-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span className="text-xs text-amber-800 dark:text-amber-200">
+                    Titre non disponible en {currentTitleLanguageName}
+                  </span>
+                </div>
+                <div className="relative" ref={titleSelectRef}>
+                  <Button
+                    variant="outline"
+                    size="xs"
+                    onClick={() => setTitleLanguageDropdownOpen(!titleLanguageDropdownOpen)}
+                    className="h-6 px-2 text-[10px] rounded-full"
+                  >
+                    <span className="font-mono">Changer</span>
+                    <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${titleLanguageDropdownOpen ? 'rotate-180' : ''}`} />
+                  </Button>
+                  
+                  {titleLanguageDropdownOpen && (
+                    <div className="absolute right-0 mt-1 w-48 bg-card border border-border rounded-xl shadow-lg z-20 max-h-64 overflow-y-auto">
+                      <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        Afficher les titres dans :
+                      </div>
+                      {titleLanguageOptions.map(opt => (
+                        <button
+                          key={opt.id}
+                          onClick={() => {
+                            handleTitleLanguageChange(opt.id);
+                            setTitleLanguageDropdownOpen(false);
+                          }}
+                          className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
+                            opt.id === titleLanguageId
+                              ? 'bg-amber-500/15 text-amber-700 font-semibold'
+                              : 'hover:bg-muted/40'
+                          }`}
+                        >
+                          {opt.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
@@ -697,76 +717,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             {parseRefCodeToHuman(refCode)}
                           </span>
                         ))}
-                      </div>
-                    )}
-                    
-                    {/* Handle missing title - NOW WITH LANGUAGE SWITCHER */}
-                    {showTitles && (!treasure.title || treasure.title.trim() === '') && (
-                      <div className="p-3 mt-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800">
-                        <div className="flex items-center justify-between space-x-2">
-                          <div>
-                            <span className="font-semibold text-xs text-amber-800 dark:text-amber-200">
-                              Titre non disponible en {getLanguageName(titleLanguageId ?? (versions.find(v => v.code === displayVersionCode)?.language_id ?? 2))}
-                            </span>
-                          </div>
-                          <div>
-                            {/* Button to change language for ALL treasures of this type */}
-                            <Button
-                              variant="outline"
-                              size="xs"
-                              onClick={() => handleOpenTitleLanguageSelector(treasure.treasure_id ?? index)}
-                              className="h-6 px-2 text-[10px] rounded-full"
-                            >
-                              <span className="font-mono text-xs">Changer</span>
-                            </Button>
-                          </div>
-                        </div>
-                        
-                        {/* Language selector popup - NOW SHOWS ALL AVAILABLE LANGUAGES */}
-                        {titleLanguageDropdownOpen && selectedTreasureForLanguage !== null && (
-                          <div className="absolute z-20 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg p-2">
-                            <div className="mb-2 text-xs font-semibold text-foreground">
-                              Afficher les titres dans :
-                            </div>
-                            <div className="space-y-1">
-                              {titleLanguageOptions.map(opt => (
-                                <button
-                                  key={opt.id}
-                                  onClick={() => {
-                                    handleTitleLanguageChange(opt.id);
-                                    handleCloseTitleLanguageSelector();
-                                  }}
-                                  className={`w-full text-left px-2 py-1.5 text-sm font-mono transition-colors ${
-                                    opt.id === titleLanguageId
-                                      ? 'bg-amber-500/15 text-amber-700'
-                                      : 'hover:bg-muted/40'
-                                  }`}
-                                >
-                                  {opt.name}
-                                </button>
-                              ))}
-                            </div>
-                            <Button
-                              variant="outline"
-                              size="xs"
-                              onClick={handleCloseTitleLanguageSelector}
-                              className="w-full mt-2 px-2 py-1.5 text-xs rounded-full"
-                            >
-                              Annuler
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    {/* Show title if available in current language */}
-                    {showTitles && treasure.title && treasure.title.trim() !== '' && (
-                      <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
-                        <div className="flex items-center gap-2">
-                          <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">{index + 1}</span>
-                          <h4 className="font-bold text-xs sm:text-sm text-foreground font-serif">{treasure.title}</h4>
-                        </div>
-                        {treasure.description && <span className="text-[11px] text-muted-foreground italic line-clamp-1">{treasure.description}</span>}
                       </div>
                     )}
                   </div>
