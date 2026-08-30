@@ -355,9 +355,15 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 }`}
               >
                 {displayMode === 'compact' ? (
-                  <><LayoutGrid className="w-3.5 h-3.5 text-amber-600" /><span>Compact</span></>
+                  <>
+                    <LayoutGrid className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Compact</span>
+                  </>
                 ) : (
-                  <><List className="w-3.5 h-3.5 text-amber-600" /><span>Liste</span></>
+                  <>
+                    <List className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Liste</span>
+                  </>
                 )}
               </Button>
 
@@ -441,7 +447,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               onClick={() => { onNavigateToPassage(activeBook, activeChapter); onClose(); }}
               className="h-7 px-3 rounded-full text-xs gap-1 bg-amber-600 hover:bg-amber-700 text-white"
             >
-              <BookOpen className="w-3 h-3" />
+              <BookOpen className="w-3 h-3 mr-1" />
               <span>Ouvrir chapitre</span>
             </Button>
           </div>
