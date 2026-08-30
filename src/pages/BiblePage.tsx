@@ -222,8 +222,12 @@ export const BiblePage: React.FC = () => {
       setLoading(true);
       setLoadError(null);
       try {
-        const [langs, vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
-          getDbLanguages(),
+        // ✅ IMPORTANT: Load languages FIRST to populate the cache
+        console.log('[BiblePage] Loading languages...');
+        const langs = await getDbLanguages();
+        console.log('[BiblePage] Languages loaded:', langs);
+        
+        const [vers, books, dbStats, testamentsRes, classificationsRes] = await Promise.all([
           getDbVersionsWithVerses(),
           getDbAllBooks(),
           getDbStats(),
@@ -481,9 +485,6 @@ export const BiblePage: React.FC = () => {
     toast({ title: 'Version réinitialisée à LSG' });
   };
 
-  /**
-   * Log EVERYTHING when clicking a verse
-   */
   const handleVerseClick = (verse: any, versionCodeFromGrid: string) => {
     if (!selectedBook) return;
     const actualVersion = activeVersionRef.current || selectedVersionCode;
@@ -944,7 +945,6 @@ export const BiblePage: React.FC = () => {
           </section>
         )}
 
-        {/* Modal Références Croisées & Trésors - with log of props */}
         <VerseTreasuresModal
           isOpen={!!selectedVerseForTreasures}
           onClose={() => {
@@ -953,7 +953,7 @@ export const BiblePage: React.FC = () => {
           }}
           selectedVerse={selectedVerseForTreasures}
           booksList={booksList}
-          versions={versions} // ADDED: pass versions prop
+          versions={versions}
           testamentsList={testamentsList}
           classificationsList={classificationsList}
           testamentNames={testamentNames}

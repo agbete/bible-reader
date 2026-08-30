@@ -91,6 +91,13 @@ export interface DbStatusReport {
   versions: { code: string; name: string; short_name: string | null }[];
 }
 
+// Cache for languages (code -> id mapping)
+let languagesCache: DbLanguage[] | null = null;
+
+/**
+ * Get all languages from the database and cache them
+ * Returns a mapping from language code to language ID
+ */
 export async function getDbLanguages(): Promise<DbLanguage[]> {
   try {
     const { data, error } = await supabase
@@ -102,11 +109,43 @@ export async function getDbLanguages(): Promise<DbLanguage[]> {
       console.error('[bibleDb] Erreur langues:', error.message);
       return [];
     }
-    return data || [];
+    
+    // Cache the results
+    languagesCache = data || [];
+    console.log('[bibleDb] Languages loaded:', languagesCache);
+    return languagesCache;
   } catch (err) {
     console.error('[bibleDb] Exception getDbLanguages:', err);
     return [];
   }
+}
+
+/**
+ * Get language ID from language code using cached languages
+ */
+export function getLanguageIdFromCode(code: string): number | null {
+  if (!languagesCache) {
+    console.warn('[bibleDb] Languages cache is empty, call getDbLanguages() first');
+    return null;
+  }
+  const lang = languagesCache.find(l => l.code.toLowerCase() === code.toLowerCase());
+  if (!lang) {
+    console.warn('[bibleDb] Language not found:', code, 'Available:', languagesCache.map(l => l.code));
+    return null;
+  }
+  return lang.id;
+}
+
+/**
+ * Get language code from language ID using cached languages
+ */
+export function getLanguageCodeFromId(id: number): string | null {
+  if (!languagesCache) {
+    console.warn('[bibleDb] Languages cache is empty, call getDbLanguages() first');
+    return null;
+  }
+  const lang = languagesCache.find(l => l.id === id);
+  return lang?.code || null;
 }
 
 export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
@@ -402,6 +441,11 @@ export async function getDbVerseTreasures(
     languageId,
     timestamp: new Date().toISOString(),
   });
+  
+  // Get language ID from the cached languages table
+  const desiredLangId = getLanguageIdFromCode(langCode);
+  console.log('[bibleDb] desiredLangId for langCode', langCode, ':', desiredLangId);
+  
   try {
     let sourceVerseId: number | null = null;
 
@@ -431,7 +475,7 @@ export async function getDbVerseTreasures(
     const versionId = verData?.id;
     const versionLangId = verData?.language_id;
 
-    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'versionLangId:', versionLangId, 'langCode:', langCode);
+    console.log('[bibleDb] Treasures - versionCode:', versionCode, 'versionId:', versionId, 'versionLangId:', versionLangId, 'langCode:', langCode, 'desiredLangId:', desiredLangId);
 
     const { data: treasures, error: tErr } = await supabase
       .from('treasures')
@@ -475,33 +519,30 @@ export async function getDbVerseTreasures(
     console.log('[bibleDb] Found', treasures.length, 'treasures');
 
     return treasures.map(t => {
-      // ✅ FIX: Cherche la traduction disponible qui correspond au mieux
-      // Priorité : 
-      //   1. La langue du `langCode` demandé (par défaut 'fr')
-      //   2. La langue de la version Bible active
-      //   3. La première traduction disponible
       const availableTranslations = t.treasure_translations || [];
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
       
-      // 1. Essayer de trouver la traduction par language_id via langCode
-      const langIdMap: Record<string, number> = {
-        'fr': 2, 'en': 4, 'es': 5, 'yo': 3, 'go': 1
-      };
-      const desiredLangId = langIdMap[langCode] || languageId;
-      
+      // Try to find translation matching the desired language (from langCode)
       let trans = availableTranslations.find(
         (tr: any) => tr.language_id === desiredLangId
       );
       
-      // 2. Sinon, essayer par la langue de la version
+      // If not found, try by version's language
       if (!trans && versionLangId) {
         trans = availableTranslations.find(
           (tr: any) => tr.language_id === versionLangId
         );
       }
       
-      // 3. Sinon, prendre la première traduction disponible
+      // If still not found, try by passed languageId parameter
+      if (!trans && languageId) {
+        trans = availableTranslations.find(
+          (tr: any) => tr.language_id === languageId
+        );
+      }
+      
+      // Last resort: take first available translation
       if (!trans && availableTranslations.length > 0) {
         trans = availableTranslations[0];
       }
@@ -512,11 +553,13 @@ export async function getDbVerseTreasures(
         const v = tv.verses;
         const ch = v?.chapters;
         const bk = ch?.books;
-        // Pour les noms de livres, utiliser la langue de la version active ou fallback
-        const bTrans = bk?.book_translations?.find((bt: any) => versionLangId ? bt.language_id === versionLangId : true);
+        
+        // For book names, use the version's language or desired language
+        const targetLangForBookName = desiredLangId || versionLangId || languageId;
+        const bTrans = bk?.book_translations?.find((bt: any) => targetLangForBookName ? bt.language_id === targetLangForBookName : true);
         const bookName = bTrans?.name || bk?.code || '';
 
-        console.log('[bibleDb] Treasure target - book_code:', bk?.code, 'book_translations:', bk?.book_translations, 'selected bookName:', bookName, 'versionLangId:', versionLangId);
+        console.log('[bibleDb] Treasure target - book_code:', bk?.code, 'book_translations:', bk?.book_translations, 'selected bookName:', bookName, 'targetLang:', targetLangForBookName);
 
         return {
           reference_code: v?.reference_code || '',
