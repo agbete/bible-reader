@@ -41,7 +41,7 @@ interface VerseTreasuresModalProps {
     versionCode: string;
   } | null;
   booksList: DbBookItem[];
-  versions: DbBibleVersion[]; // Added: list of all versions
+  versions: DbBibleVersion[];
   testamentsList: { id: number; code: string; name: string }[];
   classificationsList: { id: number; name: string; code?: string; testament_id: number }[];
   testamentNames: Map<number, string>;
@@ -83,13 +83,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   // Track what the modal received as version
   const [receivedVersion, setReceivedVersion] = useState<string>('');
 
-  // ✅ Ref for current version (always fresh)
+  // Ref for current version (always fresh)
   const activeVersionRef = useRef<string>('');
-  useEffect(() => {
-    activeVersionRef.current = selectedVerse?.versionCode ?? '';
-    console.log('[VerseTreasuresModal] currentVersion prop changed to:', selectedVerse?.versionCode);
-  }, [selectedVerse?.versionCode]);
-
+  
   // State for version selector (display version)
   const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
 
@@ -98,6 +94,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   // Ref to track latest request
   const latestRequestRef = useRef<string>('');
+
+  // Update ref when version changes
+  useEffect(() => {
+    activeVersionRef.current = displayVersionCode;
+  }, [displayVersionCode]);
 
   // Initialize display version from selectedVerse
   useEffect(() => {
@@ -109,7 +110,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   // Sync state when selected verse changes or modal opens
   useEffect(() => {
     if (selectedVerse && isOpen) {
-      console.log('[VerseTreasuresModal] Syncing state from selectedVerse');
       setActiveBook(selectedVerse.book);
       setActiveChapter(selectedVerse.chapter);
       setActiveVerseNumber(selectedVerse.verse_number);
@@ -120,11 +120,29 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     }
   }, [selectedVerse, isOpen]);
 
-  // Helper to format "Livre Chapitre:Verset"
-  const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
+  // ✅ FIX: Priority for book name display
+  // API book_name is in the correct language (from version), use it first
+  // booksList might be stale (loaded with different language)
+  const formatHumanReference = (
+    bookCode: string, 
+    chapter: number, 
+    verseNum: number, 
+    apiBookName?: string
+  ): string => {
+    // Priority 1: Use API-provided book name if it's different from the code
+    // (This ensures the correct language is shown when version changes)
+    if (apiBookName && apiBookName.toUpperCase() !== bookCode.toUpperCase()) {
+      return `${apiBookName} ${chapter}:${verseNum}`;
+    }
+    
+    // Priority 2: Check booksList for a matching book with a valid name
     const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
-    const name = book?.name || fallbackBookName || bookCode;
-    return `${name} ${chapter}:${verseNum}`;
+    if (book && book.name.toUpperCase() !== bookCode.toUpperCase()) {
+      return `${book.name} ${chapter}:${verseNum}`;
+    }
+    
+    // Priority 3: Fallback to code if no translated name available
+    return `${bookCode} ${chapter}:${verseNum}`;
   };
 
   const parseRefCodeToHuman = (refCode: string): string => {
@@ -137,78 +155,55 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     return refCode;
   };
 
-  // ✅ THE KEY EFFECT: Load references + treasures whenever reference OR version changes
+  // Load references + treasures whenever reference OR version changes
   useEffect(() => {
-    if (!isOpen) {
-      console.log('[VerseTreasuresModal] isOpen=false, skipping load');
-      return;
-    }
-    if (!activeReferenceCode) {
-      console.log('[VerseTreasuresModal] No activeReferenceCode, skipping load');
-      return;
-    }
+    if (!isOpen) return;
+    if (!activeReferenceCode) return;
 
-    // Always use the CURRENT prop value (not stale ref) for the API call
-    const versionToUse = displayVersionCode; // Use the selected version from dropdown
+    const versionToUse = displayVersionCode;
     
-    console.log('[VerseTreasuresModal] Loading data with:', {
-      referenceCode: activeReferenceCode,
-      versionToUse: versionToUse,
-      receivedVersionFromProps: receivedVersion,
-    });
-
     const currentSnapshot = `${activeReferenceCode}__${versionToUse}`;
-    console.log('[VerseTreasuresModal] currentSnapshot:', currentSnapshot);
     
-    if (latestRequestRef.current === currentSnapshot) {
-      console.log('[VerseTreasuresModal] Same snapshot, skipping (already loading this)');
-      return;
-    }
+    // Skip if same request is already in flight
+    if (latestRequestRef.current === currentSnapshot) return;
     latestRequestRef.current = currentSnapshot;
 
     setLoading(true);
     setCrossReferences([]);
     setTreasures([]);
 
-    // Determine language ID for book names (from version)
+    // Get language ID from version
     const versionObj = versions.find(v => v.code === versionToUse);
-    const languageId = versionObj?.language_id ?? 2; // default French
+    const languageId = versionObj?.language_id ?? 2;
 
-    console.log('[VerseTreasuresModal] versionObj:', versionObj, 'languageId:', languageId);
+    console.log('[VerseTreasuresModal] Loading with version:', versionToUse, 'languageId:', languageId);
 
     Promise.all([
       getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageId),
-      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId) // langCode fr for treasure translations, but we now use languageId for book names inside
+      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId)
     ])
       .then(([crossRes, treasuresRes]) => {
-        console.log('[VerseTreasuresModal] API responses:', {
-          crossCount: crossRes?.length,
-          treasuresCount: treasuresRes?.length,
-          snapshot: currentSnapshot,
-          latestRequest: latestRequestRef.current,
-        });
+        // Ignore stale responses
         if (latestRequestRef.current !== currentSnapshot) {
-          console.log('[VerseTreasuresModal] STALE RESPONSE, ignoring!');
+          console.log('[VerseTreasuresModal] Stale response ignored');
           return;
         }
         
-        // Log cross references book names
-        crossRes?.forEach((ref, idx) => {
-          console.log(`[VerseTreasuresModal] CrossRef ${idx}:`, {
-            book_code: ref.book_code,
-            book_name: ref.book_name,
-            reference_code: ref.reference_code
-          });
+        console.log('[VerseTreasuresModal] API responses:', {
+          crossCount: crossRes?.length,
+          treasuresCount: treasuresRes?.length,
+          version: versionToUse,
+          languageId: languageId
         });
         
-        // Log treasures book names
+        // Log book names from API
+        crossRes?.forEach((ref, idx) => {
+          console.log(`[VerseTreasuresModal] CrossRef ${idx} book_name:`, ref.book_name);
+        });
+        
         treasuresRes?.forEach((treasure, tIdx) => {
           treasure.target_items?.forEach((target, tiIdx) => {
-            console.log(`[VerseTreasuresModal] Treasure ${tIdx} target ${tiIdx}:`, {
-              book_code: target.book_code,
-              book_name: target.book_name,
-              reference_code: target.reference_code
-            });
+            console.log(`[VerseTreasuresModal] Treasure ${tIdx} target ${tiIdx} book_name:`, target.book_name);
           });
         });
         
@@ -216,7 +211,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         setTreasures(treasuresRes || []);
       })
       .catch((err) => {
-        console.error('[VerseTreasuresModal] Error loading references/treasures:', err);
+        console.error('[VerseTreasuresModal] Error:', err);
         if (latestRequestRef.current === currentSnapshot) {
           setCrossReferences([]);
           setTreasures([]);
@@ -240,7 +235,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         const verse = verses.find(v => v.verse_number === activeVerseNumber);
         if (verse) {
           setActiveVerseText(verse.text);
-          // reference_code is universal, keep existing
         } else {
           setActiveVerseText('[Texte non disponible]');
         }
@@ -265,7 +259,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   };
 
   const handleSelectBookFromHeader = async (book: DbBookItem, chapter: number) => {
-    console.log('[VerseTreasuresModal] handleSelectBookFromHeader:', book.name, chapter);
     setActiveBook(book);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
@@ -283,7 +276,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   const handleChapterChangeFromHeader = async (chapter: number) => {
     if (!activeBook) return;
-    console.log('[VerseTreasuresModal] handleChapterChangeFromHeader:', chapter);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
     
@@ -296,6 +288,12 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleVersionChange = (newVersion: string) => {
+    console.log('[VerseTreasuresModal] Changing version from', displayVersionCode, 'to', newVersion);
+    setDisplayVersionCode(newVersion);
+    setVersionDropdownOpen(false);
   };
 
   return (
@@ -367,35 +365,33 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 )}
               </Button>
 
-              {/* VERSION SELECTOR - Fixed Button component syntax */}
+              {/* VERSION SELECTOR */}
               <div className="relative">
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
                     setVersionDropdownOpen(!versionDropdownOpen);
                   }}
-                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
+                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer hover:bg-muted/50"
                 >
                   <span>Version {displayVersionCode.toUpperCase()}</span>
-                  <ChevronDown className="w-3 h-3 transition-transform" />
+                  <ChevronDown className={`w-3 h-3 transition-transform ${versionDropdownOpen ? 'rotate-180' : ''}`} />
                 </div>
                 
                 {versionDropdownOpen && (
-                  <div className="absolute left-0 mt-1 w-32 bg-card border border-border rounded-xl shadow-lg z-20">
+                  <div className="absolute right-0 mt-1 w-40 bg-card border border-border rounded-xl shadow-lg z-20 max-h-64 overflow-y-auto">
                     {versions.map(v => (
                       <button
                         key={v.code}
-                        onClick={() => {
-                          setDisplayVersionCode(v.code);
-                          setVersionDropdownOpen(false);
-                        }}
-                        className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors ${
+                        onClick={() => handleVersionChange(v.code)}
+                        className={`w-full px-3 py-2 text-left text-sm transition-colors flex items-center justify-between ${
                           v.code === displayVersionCode
-                            ? 'bg-amber-500/15 text-amber-700'
+                            ? 'bg-amber-500/15 text-amber-700 font-semibold'
                             : 'hover:bg-muted/40'
                         }`}
                       >
-                        {v.code.toUpperCase()}
+                        <span className="font-mono">{v.code.toUpperCase()}</span>
+                        <span className="text-xs text-muted-foreground truncate ml-2">{v.name}</span>
                       </button>
                     ))}
                   </div>
@@ -426,12 +422,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-            {/* DEBUG: show which version is being used */}
-            <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-mono font-bold border border-rose-300">
-              DEBUG version: {displayVersionCode} | ref: {activeVersionRef.current} | received: {receivedVersion}
-            </span>
             <span className="text-[11px] text-muted-foreground font-medium">
-              Version {displayVersionCode}
+              Langue: {versions.find(v => v.code === displayVersionCode)?.language_id === 1 ? 'Goun' : 
+                       versions.find(v => v.code === displayVersionCode)?.language_id === 3 ? 'Français' :
+                       versions.find(v => v.code === displayVersionCode)?.language_id === 5 ? 'Fon' :
+                       'Version ' + displayVersionCode}
             </span>
             <Button
               variant="outline"
@@ -483,7 +478,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Link2 className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucune référence croisée</p>
-                  <p className="text-xs">Version utilisée pour la recherche : <strong>{displayVersionCode}</strong></p>
+                  <p className="text-xs">Version: {displayVersionCode}</p>
                 </div>
               ) : displayMode === 'list' ? (
                 crossReferences.map((refItem) => {
@@ -558,7 +553,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucun trésor répertorié</p>
-                  <p className="text-xs">Version utilisée pour la recherche : <strong>{displayVersionCode}</strong></p>
+                  <p className="text-xs">Version: {displayVersionCode}</p>
                 </div>
               ) : (
                 treasures.map((treasure, index) => (
