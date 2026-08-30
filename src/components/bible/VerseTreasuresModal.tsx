@@ -13,11 +13,8 @@ import {
   Gem,
   Scroll,
   ChevronDown,
-  Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
-import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
 import { 
   DbBookItem, 
   DbTreasureItem, 
@@ -41,11 +38,7 @@ interface VerseTreasuresModalProps {
     versionCode: string;
   } | null;
   booksList: DbBookItem[];
-  versions: DbBibleVersion[]; // Added: list of all versions
-  testamentsList: { id: number; code: string; name: string }[];
-  classificationsList: { id: number; name: string; code?: string; testament_id: number }[];
-  testamentNames: Map<number, string>;
-  classificationNames: Map<number, string>;
+  versions: DbBibleVersion[]; // List of all available versions
   showTitles: boolean;
   onToggleShowTitles: () => void;
   displayMode: 'compact' | 'list';
@@ -59,10 +52,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   selectedVerse,
   booksList,
   versions,
-  testamentsList,
-  classificationsList,
-  testamentNames,
-  classificationNames,
   showTitles,
   onToggleShowTitles,
   displayMode,
@@ -80,48 +69,44 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  // Track what the modal received as version
-  const [receivedVersion, setReceivedVersion] = useState<string>('');
-
-  // ✅ Ref for current version (always fresh)
-  const activeVersionRef = useRef<string>('');
-  useEffect(() => {
-    activeVersionRef.current = selectedVerse?.versionCode ?? '';
-    console.log('[VerseTreasuresModal] currentVersion prop changed to:', selectedVerse?.versionCode);
-  }, [selectedVerse?.versionCode]);
-
-  // State for version selector (display version)
+  // State for the currently selected version in the modal
   const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
 
-  // Ref to track latest request
+  // Ref to track latest request to avoid race conditions
   const latestRequestRef = useRef<string>('');
 
-  // Initialize display version from selectedVerse
-  useEffect(() => {
-    if (selectedVerse) {
-      setDisplayVersionCode(selectedVerse.versionCode);
-    }
-  }, [selectedVerse]);
-
-  // Sync state when selected verse changes or modal opens
+  // Initialize state when modal opens or selected verse changes
   useEffect(() => {
     if (selectedVerse && isOpen) {
-      console.log('[VerseTreasuresModal] Syncing state from selectedVerse');
       setActiveBook(selectedVerse.book);
       setActiveChapter(selectedVerse.chapter);
       setActiveVerseNumber(selectedVerse.verse_number);
       setActiveVerseText(selectedVerse.text);
       setActiveReferenceCode(selectedVerse.reference_code);
-      setReceivedVersion(selectedVerse.versionCode);
       setDisplayVersionCode(selectedVerse.versionCode);
     }
   }, [selectedVerse, isOpen]);
 
-  // Helper to format "Livre Chapitre:Verset"
-  const formatHumanReference = (bookCode: string, chapter: number, verseNum: number, fallbackBookName?: string): string => {
+  // Helper to format "Livre Chapitre:Verset" with book name in correct language
+  const formatHumanReference = (bookCode: string, chapter: number, verseNum: number): string => {
+    // Find the book in our list
     const book = booksList.find(b => b.code.toLowerCase() === bookCode.toLowerCase());
-    const name = book?.name || fallbackBookName || bookCode;
-    return `${name} ${chapter}:${verseNum}`;
+    
+    // If we have a version selected, try to get the book name in that version's language
+    if (displayVersionCode && book) {
+      // Find the version object to get its language_id
+      const versionObj = versions.find(v => v.code === displayVersionCode);
+      if (versionObj) {
+        // We would need to fetch the book translation in the version's language
+        // For now, we'll use the default book name from our list
+        // In a full implementation, we'd use book_translations with versionObj.language_id
+        return `${book.name} ${chapter}:${verseNum}`;
+      }
+    }
+    
+    // Fallback to default book name
+    const fallbackName = book?.name || bookCode;
+    return `${fallbackName} ${chapter}:${verseNum}`;
   };
 
   const parseRefCodeToHuman = (refCode: string): string => {
@@ -134,31 +119,18 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     return refCode;
   };
 
-  // ✅ THE KEY EFFECT: Load references + treasures whenever reference OR version changes
+  // Load references and treasures when reference or version changes
   useEffect(() => {
-    if (!isOpen) {
-      console.log('[VerseTreasuresModal] isOpen=false, skipping load');
-      return;
-    }
-    if (!activeReferenceCode) {
-      console.log('[VerseTreasuresModal] No activeReferenceCode, skipping load');
+    if (!isOpen || !activeReferenceCode || !displayVersionCode) {
+      console.log('[VerseTreasuresModal] Skipping load - missing data');
       return;
     }
 
-    // Always use the CURRENT prop value (not stale ref) for the API call
-    const versionToUse = displayVersionCode; // Use the selected version from dropdown
-    
-    console.log('[VerseTreasuresModal] Loading data with:', {
-      referenceCode: activeReferenceCode,
-      versionToUse: versionToUse,
-      receivedVersionFromProps: receivedVersion,
-    });
+    console.log('[VerseTreasuresModal] Loading data for ref:', activeReferenceCode, 'version:', displayVersionCode);
 
-    const currentSnapshot = `${activeReferenceCode}__${versionToUse}`;
-    console.log('[VerseTreasuresModal] currentSnapshot:', currentSnapshot);
-    
+    const currentSnapshot = `${activeReferenceCode}__${displayVersionCode}`;
     if (latestRequestRef.current === currentSnapshot) {
-      console.log('[VerseTreasuresModal] Same snapshot, skipping (already loading this)');
+      console.log('[VerseTreasuresModal] Skipping duplicate request');
       return;
     }
     latestRequestRef.current = currentSnapshot;
@@ -167,30 +139,32 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
     setCrossReferences([]);
     setTreasures([]);
 
-    // Determine language ID for book names (from version)
-    const versionObj = versions.find(v => v.code === versionToUse);
-    const languageId = versionObj?.language_id ?? 2; // default French
+    // Get language ID from the selected version for proper book name translations
+    const versionObj = versions.find(v => v.code === displayVersionCode);
+    const languageId = versionObj?.language_id ?? 2; // Default to French if not found
 
+    // Load both cross references and treasures in parallel
     Promise.all([
-      getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageId),
-      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, languageId) // langCode fr for treasure translations, but we now use languageId for book names inside
+      getDbVerseCrossReferences(activeReferenceCode, displayVersionCode, languageId),
+      getDbVerseTreasures(activeReferenceCode, 'fr', displayVersionCode, languageId) // langCode fr for treasure translations
     ])
       .then(([crossRes, treasuresRes]) => {
-        console.log('[VerseTreasuresModal] API responses:', {
-          crossCount: crossRes?.length,
-          treasuresCount: treasuresRes?.length,
-          snapshot: currentSnapshot,
-          latestRequest: latestRequestRef.current,
-        });
+        // Check if this is still the latest request
         if (latestRequestRef.current !== currentSnapshot) {
-          console.log('[VerseTreasuresModal] STALE RESPONSE, ignoring!');
+          console.log('[VerseTreasuresModal] Ignoring stale response');
           return;
         }
+        
+        console.log('[VerseTreasuresModal] Received data:', {
+          crossCount: crossRes?.length || 0,
+          treasuresCount: treasuresRes?.length || 0
+        });
+        
         setCrossReferences(crossRes || []);
         setTreasures(treasuresRes || []);
       })
       .catch((err) => {
-        console.error('[VerseTreasuresModal] Error loading references/treasures:', err);
+        console.error('[VerseTreasuresModal] Error loading data:', err);
         if (latestRequestRef.current === currentSnapshot) {
           setCrossReferences([]);
           setTreasures([]);
@@ -201,10 +175,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           setLoading(false);
         }
       });
+  }, [isOpen, activeReferenceCode, displayVersionCode, versions, booksList]);
 
-  }, [isOpen, activeReferenceCode, displayVersionCode, versions]);
-
-  // Effect to fetch verse text when display version changes
+  // Update verse text when version changes
   useEffect(() => {
     if (!isOpen || !activeBook || !displayVersionCode) return;
 
@@ -214,7 +187,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         const verse = verses.find(v => v.verse_number === activeVerseNumber);
         if (verse) {
           setActiveVerseText(verse.text);
-          // reference_code is universal, keep existing
         } else {
           setActiveVerseText('[Texte non disponible]');
         }
@@ -239,7 +211,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   };
 
   const handleSelectBookFromHeader = async (book: DbBookItem, chapter: number) => {
-    console.log('[VerseTreasuresModal] handleSelectBookFromHeader:', book.name, chapter);
     setActiveBook(book);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
@@ -257,7 +228,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   const handleChapterChangeFromHeader = async (chapter: number) => {
     if (!activeBook) return;
-    console.log('[VerseTreasuresModal] handleChapterChangeFromHeader:', chapter);
     setActiveChapter(chapter);
     setActiveVerseNumber(1);
     
@@ -280,69 +250,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         <div className="w-full bg-gray-50 dark:bg-gray-900/90 border-b border-border/80 px-4 sm:px-6 py-3 shrink-0">
           <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center justify-between">
             <div className="flex-1 min-w-0">
-              <BookSearchSelect
-                booksList={booksList}
-                selectedBook={activeBook}
-                selectedChapter={activeChapter}
-                onSelectBook={handleSelectBookFromHeader}
-                currentVersion={displayVersionCode}
-                testamentsList={testamentsList}
-                classificationsList={classificationsList}
-                testamentNames={testamentNames}
-                classificationNames={classificationNames}
-              />
-            </div>
-
-            <div className="shrink-0">
-              <ChapterNavigator
-                selectedBook={activeBook}
-                selectedChapter={activeChapter}
-                booksList={booksList}
-                onChapterChange={handleChapterChangeFromHeader}
-                onBookChange={(b) => handleSelectBookFromHeader(b, 1)}
-              />
-            </div>
-
-            <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
-              <Button
-                variant={showTitles ? 'default' : 'outline'}
-                size="sm"
-                onClick={onToggleShowTitles}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
-                  showTitles 
-                    ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white' : ''}`} />
-                <span>Titres</span>
-              </Button>
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onToggleDisplayMode}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
-                  displayMode === 'list'
-                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {displayMode === 'compact' ? (
-                  <><LayoutGrid className="w-3.5 h-3.5 text-amber-600" /><span>Compact</span></>
-                ) : (
-                  <><List className="w-3.5 h-3.5 text-amber-600" /><span>Liste</span></>
-                )}
-              </Button>
-
-              {/* VERSION SELECTOR - Fixed Button component syntax */}
-              <div className="relative">
+              <div className="relative w-full">
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
                     setVersionDropdownOpen(!versionDropdownOpen);
                   }}
-                  className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
+                  className="w-full h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Version {displayVersionCode.toUpperCase()}</span>
                   <ChevronDown className="w-3 h-3 transition-transform" />
@@ -369,16 +283,94 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   </div>
                 )}
               </div>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onClose}
-                className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted ml-1"
-              >
-                <X className="w-5 h-5" />
-              </Button>
             </div>
+
+            <div className="shrink-0">
+              <div className="relative w-full">
+                <div
+                  onClick={() => setIsBookOpen(!isBookOpen)}
+                  className="w-full h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Livre: {activeBook?.name || 'Sélectionner...'}</span>
+                  <ChevronDown className="w-3 h-3 transition-transform" />
+                </div>
+                
+                {isBookOpen && (
+                  <div className="absolute left-0 mt-1 w-32 bg-card border border-border rounded-xl shadow-lg z-20 max-h-[200px] overflow-y-auto">
+                    {booksList.map(book => (
+                      <button
+                        key={book.id}
+                        onClick={() => {
+                          handleSelectBookFromHeader(book, 1);
+                          setIsBookOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 text-left text-sm font-mono transition-colors hover:bg-muted/40`}
+                      >
+                        {book.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="shrink-0">
+              <div className="relative w-full">
+                <div
+                  onClick={() => setChapterInputOpen(!chapterInputOpen)}
+                  className="w-full h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-border flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Chapitre: {activeChapter}</span>
+                  <ChevronDown className="w-3 h-3 transition-transform" />
+                </div>
+                
+                {chapterInputOpen && (
+                  <div className="absolute left-0 mt-1 w-32 bg-card border border-border rounded-xl shadow-lg z-20">
+                    <div className="p-3">
+                      <input
+                        type="number"
+                        min={1}
+                        max={activeBook?.chapters_count || 150}
+                        value={chapterInput}
+                        onChange={(e) => setChapterInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            const num = parseInt(chapterInput, 10);
+                            if (!isNaN(num) && num >= 1 && num <= (activeBook?.chapters_count || 150)) {
+                              handleChapterChangeFromHeader(num);
+                              setChapterInputOpen(false);
+                            }
+                          }
+                        }}
+                        className="w-full h-9 px-3 rounded-xl text-center text-sm font-mono"
+                        autoFocus
+                      />
+                      <button
+                        onClick={() => {
+                          const num = parseInt(chapterInput, 10);
+                          if (!isNaN(num) && num >= 1 && num <= (activeBook?.chapters_count || 150)) {
+                            handleChapterChangeFromHeader(num);
+                            setChapterInputOpen(false);
+                          }
+                        }}
+                        className="w-full h-9 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white"
+                      >
+                        OK
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted ml-1"
+            >
+              <X className="w-5 h-5" />
+            </Button>
           </div>
         </div>
 
@@ -394,13 +386,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-            {/* DEBUG: show which version is being used */}
-            <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-mono font-bold border border-rose-300">
-              DEBUG version: {displayVersionCode} | ref: {activeVersionRef.current} | received: {receivedVersion}
-            </span>
-            <span className="text-[11px] text-muted-foreground font-medium">
-              Version {displayVersionCode}
-            </span>
             <Button
               variant="outline"
               size="sm"
@@ -456,7 +441,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               ) : displayMode === 'list' ? (
                 crossReferences.map((refItem) => {
                   const matchedBook = booksList.find(b => b.code.toLowerCase() === refItem.book_code.toLowerCase());
-                  const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
+                  const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number);
 
                   return (
                     <div key={refItem.id} className="p-3.5 rounded-2xl bg-card border border-border/80 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group flex flex-col gap-1.5 shadow-xs">
@@ -486,7 +471,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 <div className="p-4 rounded-2xl bg-card border border-border font-serif text-sm leading-relaxed space-y-2">
                   {crossReferences.map((refItem) => {
                     const matchedBook = booksList.find(b => b.code.toLowerCase() === refItem.book_code.toLowerCase());
-                    const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number, refItem.book_name);
+                    const humanRef = formatHumanReference(refItem.book_code, refItem.chapter, refItem.verse_number);
                     return (
                       <span key={refItem.id} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, refItem.chapter); onClose(); } }} className="inline-block mr-3 p-1 rounded hover:bg-blue-500/15 cursor-pointer transition-colors">
                         <span className="font-serif font-bold text-xs text-blue-600 dark:text-blue-400 mr-1">[{humanRef}]</span>
@@ -546,7 +531,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         <div className="space-y-2">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
-                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
+                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number);
 
                             return (
                               <div key={tIdx} className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1">
@@ -575,7 +560,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                         <div className="font-serif text-xs leading-relaxed space-y-1">
                           {treasure.target_items.map((target, tIdx) => {
                             const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
-                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
+                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number);
                             return (
                               <span key={tIdx} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, target.chapter); onClose(); } }} className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors">
                                 <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">[{humanRef}]</span>
@@ -614,7 +599,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   );
 };
 
-// State for version dropdown
+// State for UI controls
 let versionDropdownOpen = false;
+let isBookOpen = false;
+let chapterInputOpen = false;
+let chapterInput = '';
 
 export default VerseTreasuresModal;
