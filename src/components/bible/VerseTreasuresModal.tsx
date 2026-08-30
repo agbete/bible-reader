@@ -178,7 +178,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
     Promise.all([
       getDbVerseCrossReferences(activeReferenceCode, versionToUse, languageIdForVerses),
-      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, langIdForTreasure) // langCode fr for treasure translations, but we now use languageId for book names inside
+      getDbVerseTreasures(activeReferenceCode, 'fr', versionToUse, langIdForTreasure)
     ])
       .then(([crossRes, treasuresRes]) => {
         // Ignore stale responses
@@ -268,7 +268,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const handleCopy = (text: string, humanRef: string) => {
     navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${displayVersionCode})`);
     setCopiedCode(humanRef);
-    showSuccess("Passage copié dans le presse-papier !");
+    showSuccess("Passage copié dans le presse-papier ?");
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
@@ -646,9 +646,6 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     )}
 
                     {treasure.target_items && treasure.target_items.length > 0 ? (
-                      // Check if we have a valid title (not empty)
-                      const hasValidTitle = treasure.title && treasure.title.trim() !== '';
-                      
                       displayMode === 'list' ? (
                         <div className="space-y-2">
                           {treasure.target_items.map((target, tIdx) => {
@@ -705,7 +702,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     )}
                     
                     {/* Handle missing title */}
-                    {!showTitles || (treasure.title && treasure.title.trim() !== '') ? null : (
+                    {showTitles && (!treasure.title || treasure.title.trim() === '') && (
                       <div className="p-3 mt-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800">
                         <div className="flex items-center justify-between space-x-2">
                           <div>
