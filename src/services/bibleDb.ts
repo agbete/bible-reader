@@ -332,40 +332,65 @@ function formatTitlesMap(data: any[]): Record<number, Record<string, string>> {
 }
 
 /**
- * Helper to get book name for a given book code and language ID
- * Queries book_translations directly to ensure correct language
+ * Helper to get book names for multiple book codes in a specific language
+ * Queries book_translations directly with the correct language_id
  */
-async function getBookNameForLanguage(bookCode: string, languageId: number): Promise<string> {
+async function getBookNamesForLanguage(bookCodes: string[], languageId: number): Promise<Map<string, string>> {
+  const bookNameMap = new Map<string, string>();
+  
+  if (bookCodes.length === 0) return bookNameMap;
+  
   try {
-    const { data, error } = await supabase
-      .from('book_translations')
-      .select('name, language_id')
-      .eq('language_id', languageId)
-      .limit(100);
-
-    if (error || !data || data.length === 0) {
-      console.warn(`[bibleDb] No book_translations found for language_id: ${languageId}`);
-      return bookCode;
-    }
-
-    // Get the book ID for this book code
-    const { data: bookData } = await supabase
+    // Get all book IDs for these codes
+    const { data: booksData } = await supabase
       .from('books')
-      .select('id')
-      .ilike('code', bookCode.trim())
-      .maybeSingle();
-
-    if (!bookData) {
-      console.warn(`[bibleDb] Book not found for code: ${bookCode}`);
-      return bookCode;
+      .select('id, code')
+      .in('code', bookCodes);
+    
+    if (!booksData || booksData.length === 0) {
+      console.warn('[bibleDb] No books found for codes:', bookCodes);
+      return bookNameMap;
     }
-
-    // Find the translation for this book
-    const trans = data.find(t => t.book_id === bookData.id);
-    return trans?.name || bookCode;
+    
+    const bookIds = booksData.map(b => b.id);
+    const codeToId = new Map<string, number>();
+    booksData.forEach(b => codeToId.set(b.code, b.id));
+    
+    // Get translations for these books in the target language
+    const { data: transData, error } = await supabase
+      .from('book_translations')
+      .select('book_id, name')
+      .eq('language_id', languageId)
+      .in('book_id', bookIds);
+    
+    if (error || !transData || transData.length === 0) {
+      console.warn(`[bibleDb] No book_translations found for language_id: ${languageId}`);
+      // Fallback to codes
+      bookCodes.forEach(code => bookNameMap.set(code, code));
+      return bookNameMap;
+    }
+    
+    // Map book codes to their names
+    transData.forEach(t => {
+      const code = Array.from(codeToId.entries()).find(([_, id]) => id === t.book_id)?.[0];
+      if (code) {
+        bookNameMap.set(code, t.name);
+      }
+    });
+    
+    // Fill in any missing with codes
+    bookCodes.forEach(code => {
+      if (!bookNameMap.has(code)) {
+        bookNameMap.set(code, code);
+      }
+    });
+    
+    console.log('[bibleDb] Book names for language', languageId, ':', Object.fromEntries(bookNameMap));
+    return bookNameMap;
   } catch (err) {
-    console.error('[bibleDb] Exception getBookNameForLanguage:', err);
-    return bookCode;
+    console.error('[bibleDb] Exception getBookNamesForLanguage:', err);
+    bookCodes.forEach(code => bookNameMap.set(code, code));
+    return bookNameMap;
   }
 }
 
@@ -438,20 +463,14 @@ export async function getDbVerseCrossReferences(
     const textMap = new Map<number, string>();
     textsData?.forEach((t: any) => textMap.set(t.verse_id, t.text));
 
-    // ✅ FIX: Get book names for the correct language by querying book_translations directly
+    // ✅ FIX: Get book names for the correct language
     const uniqueBookCodes = new Set<string>();
     crossRefs.forEach((cr: any) => {
       const bk = cr.verses?.chapters?.books;
       if (bk?.code) uniqueBookCodes.add(bk.code);
     });
 
-    const bookNameMap = new Map<string, string>();
-    if (targetLangId) {
-      for (const code of uniqueBookCodes) {
-        const name = await getBookNameForLanguage(code, targetLangId);
-        bookNameMap.set(code, name);
-      }
-    }
+    const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangId || 1);
 
     return crossRefs.map((cr: any) => {
       const v = cr.verses;
@@ -565,7 +584,7 @@ export async function getDbVerseTreasures(
 
     console.log('[bibleDb] Found', treasures.length, 'treasures');
 
-    // ✅ FIX: Get book names for the correct language by querying book_translations directly
+    // ✅ FIX: Get book names for the correct language
     const uniqueBookCodes = new Set<string>();
     treasures.forEach(t => {
       t.treasure_verses?.forEach((tv: any) => {
@@ -574,16 +593,18 @@ export async function getDbVerseTreasures(
       });
     });
 
-    const bookNameMap = new Map<string, string>();
     const targetLangForBookName = desiredLangId || versionLangId || languageId;
-    if (targetLangForBookName) {
-      for (const code of uniqueBookCodes) {
-        const name = await getBookNameForLanguage(code, targetLangForBookName);
-        bookNameMap.set(code, name);
-      }
-    }
+    const bookNameMap = await getBookNamesForLanguage(Array.from(uniqueBookCodes), targetLangForBookName || 1);
 
-    return treasures.map(t => {
+    // ✅ FIX: Group treasures by title to avoid duplicates
+    const treasureGroups = new Map<string, {
+      treasure_id: number;
+      title: string;
+      description: string;
+      target_items: DbTreasureTargetItem[];
+    }>();
+
+    treasures.forEach(t => {
       const availableTranslations = t.treasure_translations || [];
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
@@ -614,6 +635,9 @@ export async function getDbVerseTreasures(
 
       console.log('[bibleDb] Treasure', t.id, '- selected translation langId:', trans?.language_id, 'title:', trans?.title?.substring(0, 30));
 
+      const title = trans?.title || 'Trésor biblique';
+      const description = trans?.description || '';
+
       const items: DbTreasureTargetItem[] = (t.treasure_verses || []).map((tv: any) => {
         const v = tv.verses;
         const ch = v?.chapters;
@@ -633,14 +657,28 @@ export async function getDbVerseTreasures(
         };
       });
 
-      return {
-        treasure_id: t.id,
-        title: trans?.title || 'Trésor biblique',
-        description: trans?.description || '',
-        target_references: items.map(i => i.reference_code).filter(Boolean),
-        target_items: items
-      };
+      // Group by title
+      if (treasureGroups.has(title)) {
+        const existing = treasureGroups.get(title)!;
+        existing.target_items.push(...items);
+      } else {
+        treasureGroups.set(title, {
+          treasure_id: t.id,
+          title,
+          description,
+          target_items: items
+        });
+      }
     });
+
+    // Convert grouped treasures to array
+    return Array.from(treasureGroups.values()).map(group => ({
+      treasure_id: group.treasure_id,
+      title: group.title,
+      description: group.description,
+      target_references: group.target_items.map(i => i.reference_code).filter(Boolean),
+      target_items: group.target_items
+    }));
   } catch (err) {
     console.error('[bibleDb] Erreur getDbVerseTreasures:', err);
     return [];
