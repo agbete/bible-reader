@@ -12,7 +12,8 @@ import {
   Copy,
   Check,
   AlertCircle,
-  RefreshCw
+  RefreshCw,
+  BookOpen
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MadeWithDyad } from '@/components/made-with-dyad';
