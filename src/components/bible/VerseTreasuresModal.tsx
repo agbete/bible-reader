@@ -260,7 +260,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const handleCopy = (text: string, humanRef: string) => {
     navigator.clipboard.writeText(`« ${text} » — ${humanRef} (${displayVersionCode})`);
     setCopiedCode(humanRef);
-    showSuccess("Passage copié dans le presse-papier ?");
+    showSuccess("Passage copié dans le presse-papier !");
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
@@ -659,7 +659,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     {/* Show available languages for treasure titles during loading */}
                     {availableTitleLanguages.length > 0 ? (
                       <>
-                        <span className="text-xs font-medium">Titres disponibles dans：</span>
+                        <span className="text-xs font-medium">Titres disponibles dans :</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {availableTitleLanguages.map((lang, index) => (
                             <span key={index} className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 font-mono">
@@ -672,14 +672,79 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                       <span className="text-xs">Chargement des langues de titre...</span>
                     )}
                   </div>
-                ) : treasures.length === 0 ? (
-                  <div className="py-16 text-center text-muted-foreground space-y-2">
-                    <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
-                    <p className="text-sm font-semibold">Aucun trésor répertorié</p>
-                    <p className="text-xs">Version: {displayVersionCode}</p>
-                  </div>
-                ) : (
-                  treasures.map((treasure, index) => (
+                </div>
+              ) : treasures.length === 0 ? (
+                <div className="py-16 text-center text-muted-foreground space-y-2">
+                  <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
+                  <p className="text-sm font-semibold">Aucun trésor répertorié</p>
+                  <p className="text-xs">Version: {displayVersionCode}</p>
+                </div>
+              ) : (
+                treasures.map((treasure, index) => {
+                  const renderTargetItems = () => {
+                    if (!treasure.target_items || treasure.target_items.length === 0) {
+                      return (
+                        <div className="flex flex-wrap gap-1.5">
+                          {treasure.target_references.map((refCode, rIdx) => (
+                            <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
+                              {parseRefCodeToHuman(refCode)}
+                            </span>
+                          ))}
+                        </div>
+                      );
+                    }
+
+                    if (displayMode === 'list') {
+                      return (
+                        <div className="space-y-2">
+                          {treasure.target_items.map((target, tIdx) => {
+                            const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
+                            const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
+
+                            return (
+                              <div key={tIdx} className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1">
+                                <div className="flex items-center justify-between">
+                                  <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400">{humanRef}</span>
+                                  <div className="flex items-center gap-1">
+                                    {target.text && (
+                                      <Button variant="ghost" size="sm" onClick={() => handleCopy(target.text || '', humanRef)} className="h-6 px-2 text-[10px] rounded-full">
+                                        {copiedCode === humanRef ? <Check className="w-3 h-3 text-emerald-500 mr-1" /> : <Copy className="w-3 h-3 mr-1" />}
+                                        <span>Copier</span>
+                                      </Button>
+                                    )}
+                                    {matchedBook && (
+                                      <Button size="sm" onClick={() => { onNavigateToPassage(matchedBook, target.chapter); onClose(); }} className="h-6 px-2 text-[10px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
+                                        <BookOpen className="w-3 h-3 mr-1" /><span>Ouvrir</span>
+                                      </Button>
+                                    )}
+                                  </div>
+                                </div>
+                                <p className="font-serif text-xs text-foreground leading-relaxed">{target.text ? `« ${target.text} »` : `[${humanRef}]`}</p>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    }
+
+                    // Display mode compact
+                    return (
+                      <div className="font-serif text-xs leading-relaxed space-y-1">
+                        {treasure.target_items.map((target, tIdx) => {
+                          const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
+                          const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
+                          return (
+                            <span key={tIdx} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, target.chapter); onClose(); } }} className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors">
+                              <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">[{humanRef}]</span>
+                              <span className="text-foreground">{target.text || ''}</span>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    );
+                  };
+
+                  return (
                     <div key={treasure.treasure_id || index} className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3">
                       {showTitles && (
                         <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
@@ -690,66 +755,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                           {treasure.description && <span className="text-[11px] text-muted-foreground italic line-clamp-1">{treasure.description}</span>}
                         </div>
                       )}
-
-                      {treasure.target_items && treasure.target_items.length > 0 ? (
-                        displayMode === 'list' ? (
-                          <div className="space-y-2">
-                            {treasure.target_items.map((target, tIdx) => {
-                              const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
-                              const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
-
-                              return (
-                                <div key={tIdx} className="p-3 rounded-xl bg-muted/30 hover:bg-amber-500/10 border border-border/60 transition-all flex flex-col gap-1">
-                                  <div className="flex items-center justify-between">
-                                    <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400">{humanRef}</span>
-                                    <div className="flex items-center gap-1">
-                                      {target.text && (
-                                        <Button variant="ghost" size="sm" onClick={() => handleCopy(target.text || '', humanRef)} className="h-6 px-2 text-[10px] rounded-full">
-                                          {copiedCode === humanRef ? <Check className="w-3 h-3 text-emerald-500 mr-1" /> : <Copy className="w-3 h-3 mr-1" />}
-                                          <span>Copier</span>
-                                        </Button>
-                                      )}
-                                      {matchedBook && (
-                                        <Button size="sm" onClick={() => { onNavigateToPassage(matchedBook, target.chapter); onClose(); }} className="h-6 px-2 text-[10px] rounded-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
-                                          <BookOpen className="w-3 h-3 mr-1" /><span>Ouvrir</span>
-                                        </Button>
-                                      )}
-                                    </div>
-                                  </div>
-                                  <p className="font-serif text-xs text-foreground leading-relaxed">{target.text ? `« ${target.text} »` : `[${humanRef}]`}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        ) : (
-                          // Display mode compact
-                          <div className="font-serif text-xs leading-relaxed space-y-1">
-                            {treasure.target_items.map((target, tIdx) => {
-                              const matchedBook = booksList.find(b => b.code.toLowerCase() === target.book_code.toLowerCase());
-                              const humanRef = formatHumanReference(target.book_code, target.chapter, target.verse_number, target.book_name);
-                              return (
-                                <span key={tIdx} onClick={() => { if (matchedBook) { onNavigateToPassage(matchedBook, target.chapter); onClose(); } }} className="inline-block mr-2 p-1 rounded hover:bg-amber-500/15 cursor-pointer transition-colors">
-                                  <span className="font-serif font-bold text-xs text-amber-600 dark:text-amber-400 mr-1">[{humanRef}]</span>
-                                  <span className="text-foreground">{target.text || ''}</span>
-                                </span>
-                              );
-                            })}
-                          </div>
-                        )
-                      ) : (
-                        // No targets - just display reference codes as pills
-                        <div className="flex flex-wrap gap-1.5">
-                          {treasure.target_references.map((refCode, rIdx) => (
-                            <span key={rIdx} className="px-2 py-1 rounded-lg bg-muted font-serif text-[11px] font-bold text-amber-700 dark:text-amber-300 border border-border">
-                              {parseRefCodeToHuman(refCode)}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                      {renderTargetItems()}
                     </div>
-                  ))
-                )}
-              </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
