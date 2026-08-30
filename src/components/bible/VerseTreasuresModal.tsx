@@ -28,6 +28,7 @@ import {
   getDbChapterVerses 
 } from '@/services/bibleDb';
 import { showSuccess } from '@/utils/toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface VerseTreasuresModalProps {
   isOpen: boolean;
@@ -349,6 +350,13 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   const availableTitleLanguages = titleLanguageOptions
     .map(opt => opt.name)
     .filter((name, index, self) => self.indexOf(name) === index); // Remove duplicates
+
+  // Helper to check if a treasure has any non-empty titles
+  const hasValidTitles = (treasure: DbTreasureItem): boolean => {
+    if (!showTitles) return false;
+    if (!treasure.title || treasure.title.trim() === '') return false;
+    return true;
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-200">
@@ -744,9 +752,12 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     );
                   };
 
+                  // Check if this treasure should show the title number
+                  const showTitleNumber = hasValidTitles(treasure);
+
                   return (
                     <div key={treasure.treasure_id || index} className="p-4 sm:p-5 rounded-2xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/40 transition-all shadow-xs space-y-3">
-                      {showTitles && (
+                      {showTitleNumber && (
                         <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/50">
                           <div className="flex items-center gap-2">
                             <span className="w-5 h-5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-[11px]">{index + 1}</span>
