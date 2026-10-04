@@ -22,9 +22,9 @@ import {
 } from '@/services/bibleDb';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { 
+import {
   Globe,
-  BookOpen, 
+  BookOpen,
   Loader2,
   AlertCircle,
   RefreshCw,
@@ -33,7 +33,8 @@ import {
   LayoutGrid,
   ChevronLeft,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Menu
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -69,7 +70,7 @@ export const BiblePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const [selectedLanguageId, setSelectedLanguageId] = useState<number | 'ALL'>('ALL');
+  const [selectedLanguageIds, setSelectedLanguageIds] = useState<number[]>([]);
   const [selectedVersionCode, setSelectedVersionCode] = useState<string>('LSG');
   
   const [selectedBook, setSelectedBook] = useState<DbBookItem | null>(null);
@@ -115,6 +116,7 @@ export const BiblePage: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<any[]>([]);
 
   const [testamentNames, setTestamentNames] = useState<Map<number, string>>(new Map());
@@ -126,21 +128,21 @@ export const BiblePage: React.FC = () => {
   const { toast } = useToast();
 
   // ✅ FIX: Compute effective language_id for book loading based on selected version
-  const effectiveLanguageId = useMemo(() => {
-    // If a specific language is selected, use it
-    if (selectedLanguageId !== 'ALL') {
-      console.log('[BiblePage] effectiveLanguageId:', selectedLanguageId, '(from language filter)');
-      return selectedLanguageId;
-    }
-    // Otherwise, use the selected version's language_id
-    const versionObj = versions.find(v => v.code === selectedVersionCode);
-    if (versionObj) {
-      console.log('[BiblePage] effectiveLanguageId:', versionObj.language_id, '(from version', selectedVersionCode, ')');
-      return versionObj.language_id;
-    }
-    console.log('[BiblePage] effectiveLanguageId: undefined (no version found)');
-    return undefined;
-  }, [selectedLanguageId, selectedVersionCode, versions]);
+    const effectiveLanguageId = useMemo(() => {
+      // If specific languages are selected, use the first one for book loading
+      if (selectedLanguageIds.length > 0) {
+        console.log('[BiblePage] effectiveLanguageId:', selectedLanguageIds[0], '(from language filter)');
+        return selectedLanguageIds[0];
+      }
+      // Otherwise, use the selected version's language_id
+      const versionObj = versions.find(v => v.code === selectedVersionCode);
+      if (versionObj) {
+        console.log('[BiblePage] effectiveLanguageId:', versionObj.language_id, '(from version', selectedVersionCode, ')');
+        return versionObj.language_id;
+      }
+      console.log('[BiblePage] effectiveLanguageId: undefined (no version found)');
+      return undefined;
+    }, [selectedLanguageIds, selectedVersionCode, versions]);
 
   const versionLanguageMap = useMemo(() => {
     const map = new Map<string, number>();
@@ -367,8 +369,8 @@ export const BiblePage: React.FC = () => {
   }, [selectedVersions, versesData]);
 
   const filteredVersions = versions.filter(v => {
-    if (selectedLanguageId === 'ALL') return true;
-    return v.language_id === selectedLanguageId;
+    if (selectedLanguageIds.length === 0) return true;
+    return selectedLanguageIds.includes(v.language_id);
   });
 
   const activeVersion = versions.find(v => v.code === selectedVersionCode) || versions[0] || {
@@ -749,31 +751,65 @@ export const BiblePage: React.FC = () => {
               <span>Langues:</span>
             </div>
 
-            <button
-              onClick={() => setSelectedLanguageId('ALL')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all shrink-0 ${
-                selectedLanguageId === 'ALL'
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
+            <div
+              className="relative inline-block shrink-0"
+              onMouseEnter={() => setIsLanguageMenuOpen(true)}
+              onMouseLeave={() => setIsLanguageMenuOpen(false)}
             >
-              Toutes les langues
-            </button>
-
-            {languages.map((lang) => (
               <button
-                key={lang.id}
-                onClick={() => setSelectedLanguageId(lang.id)}
-                className={`px-2.5 py-1 rounded-full text-[10px] font-mono transition-all shrink-0 ${
-                  selectedLanguageId === lang.id
-                    ? 'bg-amber-600 text-white'
-                    : 'bg-card text-foreground border-border hover:bg-amber-50/20'
+                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 ${
+                  selectedLanguageIds.length > 0
+                    ? 'bg-amber-600 text-white shadow-xs'
+                    : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
-                title={lang.name}
               >
-                {lang.code.toUpperCase()}
+                <Menu className="w-3.5 h-3.5" />
+                {selectedLanguageIds.length > 0
+                  ? `${selectedLanguageIds.length} langue(s)`
+                  : 'Toutes les langues'}
               </button>
-            ))}
+              
+              {isLanguageMenuOpen && (
+                <div className="absolute top-full left-0 mt-2 w-64 z-50 bg-popover border border-border rounded-xl shadow-lg py-2 max-h-80 overflow-y-auto">
+                  <button
+                    onClick={() => setSelectedLanguageIds([])}
+                    className={`w-full px-3 py-2 text-left text-xs font-semibold rounded-t-xl transition-all ${
+                      selectedLanguageIds.length === 0
+                        ? 'bg-amber-600 text-white'
+                        : 'hover:bg-amber-50/20 text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    Toutes les langues
+                  </button>
+                  {languages.map((lang) => {
+                    const isSelected = selectedLanguageIds.includes(lang.id);
+                    return (
+                      <button
+                        key={lang.id}
+                        onClick={() => {
+                          if (isSelected) {
+                            setSelectedLanguageIds(prev => prev.filter(id => id !== lang.id));
+                          } else {
+                            setSelectedLanguageIds(prev => [...prev, lang.id]);
+                          }
+                        }}
+                        className={`w-full px-3 py-2 text-left text-xs font-mono transition-all ${
+                          isSelected
+                            ? 'bg-amber-600 text-white'
+                            : 'hover:bg-amber-50/20 text-foreground'
+                        }`}
+                        title={lang.name}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{lang.code.toUpperCase()}</span>
+                          <span className="text-[10px] opacity-70">{lang.name}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             <div className="flex items-center px-3 shrink-0" aria-hidden="true">
               <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
