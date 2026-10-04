@@ -23,7 +23,6 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import {
-  Globe,
   BookOpen,
   Loader2,
   AlertCircle,
@@ -372,6 +371,10 @@ export const BiblePage: React.FC = () => {
     if (selectedLanguageIds.length === 0) return true;
     return selectedLanguageIds.includes(v.language_id);
   });
+
+  const displayedLanguages = selectedLanguageIds.length === 0
+    ? languages
+    : languages.filter(l => selectedLanguageIds.includes(l.id));
 
   const activeVersion = versions.find(v => v.code === selectedVersionCode) || versions[0] || {
     id: 1,
