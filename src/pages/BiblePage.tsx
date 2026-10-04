@@ -526,18 +526,18 @@ export const BiblePage: React.FC = () => {
     if (entries.length === 0) return null;
 
     return (
-      <div className="w-full my-1 space-y-0.5 border-b border-amber-500/20 pb-1">
+      <div className="w-full my-3 space-y-1.5 border-b border-amber-500/20 pb-2">
         {entries.map(([level, text]) => {
           const lvl = parseInt(level, 10);
           if (lvl === 1) {
             return (
-              <h3 key={level} className="text-base sm:text-lg font-bold font-serif text-amber-900 dark:text-amber-200 pt-1 tracking-tight">
+              <h3 key={level} className="text-base sm:text-lg font-bold font-serif text-amber-900 dark:text-amber-200 pt-2 tracking-tight">
                 {text}
               </h3>
             );
           } else if (lvl === 2) {
             return (
-              <h4 key={level} className="text-sm sm:text-base font-semibold font-serif text-amber-800 dark:text-amber-300 pt-0.5">
+              <h4 key={level} className="text-sm sm:text-base font-semibold font-serif text-amber-800 dark:text-amber-300 pt-1">
                 {text}
               </h4>
             );
@@ -619,22 +619,22 @@ export const BiblePage: React.FC = () => {
                   <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
                 </div>
               ) : displayMode === 'list' ? (
-                <div className="space-y-0.5 font-serif text-sm sm:text-base leading-snug flex-1">
+                <div className="space-y-2 font-serif text-sm sm:text-base leading-relaxed flex-1">
                   {verses.map((verse) => (
                     <div key={verse.id || verse.verse_number} className="group">
                       {renderVerseTitles(verse.id, versionCode)}
                       <div 
                         onClick={() => handleVerseClick(verse, versionCode)}
-                        className="flex items-start gap-1.5 px-1.5 py-0.5 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
+                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
                         title="Cliquez pour voir les Références & Trésors"
                       >
-                        <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-px shrink-0 min-w-[1.5rem]">
+                        <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-1 shrink-0 min-w-[1.75rem]">
                           {verse.verse_number}.
                         </span>
                         <p className="text-foreground flex-1">
                           {verse.text}
                         </p>
-                        <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5" />
+                        <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1" />
                       </div>
                     </div>
                   ))}
@@ -651,7 +651,7 @@ export const BiblePage: React.FC = () => {
                           className="inline hover:bg-amber-500/15 dark:hover:bg-amber-500/20 rounded px-1 py-0.5 cursor-pointer transition-colors"
                           title="Cliquez pour voir les Références & Trésors"
                         >
-                          <sup className="font-sans font-bold text-xs text-amber-600 dark:text-amber-400 font-mono mr-0.5 select-none">
+                          <sup className="font-sans font-bold text-xs text-amber-600 dark:text-amber-400 font-mono mr-1 select-none">
                             {verse.verse_number}
                           </sup>
                           <span>{verse.text} </span>
