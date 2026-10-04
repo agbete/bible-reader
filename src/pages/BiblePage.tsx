@@ -746,31 +746,23 @@ export const BiblePage: React.FC = () => {
       <section className="border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-300 mr-1 uppercase tracking-wider">
-              <Globe className="w-3.5 h-3.5" />
-              <span>Langues:</span>
-            </div>
-
+            {/* Language menu icon (click to open dropdown) */}
             <div
               className="relative inline-block shrink-0"
-              onMouseEnter={() => setIsLanguageMenuOpen(true)}
-              onMouseLeave={() => setIsLanguageMenuOpen(false)}
+              onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
             >
               <button
                 className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 ${
-                  selectedLanguageIds.length > 0
+                  isLanguageMenuOpen
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 <Menu className="w-3.5 h-3.5" />
-                {selectedLanguageIds.length > 0
-                  ? `${selectedLanguageIds.length} langue(s)`
-                  : 'Toutes les langues'}
               </button>
               
               {isLanguageMenuOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 z-50 bg-popover border border-border rounded-xl shadow-lg py-2 max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-2 w-80 z-50 bg-popover border border-border rounded-xl shadow-lg py-2 max-h-80 overflow-y-auto">
                   <button
                     onClick={() => setSelectedLanguageIds([])}
                     className={`w-full px-3 py-2 text-left text-xs font-semibold rounded-t-xl transition-all ${
@@ -783,85 +775,89 @@ export const BiblePage: React.FC = () => {
                   </button>
                   {languages.map((lang) => {
                     const isSelected = selectedLanguageIds.includes(lang.id);
+                    const langVersions = versions.filter(v => v.language_id === lang.id);
                     return (
-                      <button
-                        key={lang.id}
-                        onClick={() => {
-                          if (isSelected) {
-                            setSelectedLanguageIds(prev => prev.filter(id => id !== lang.id));
-                          } else {
-                            setSelectedLanguageIds(prev => [...prev, lang.id]);
-                          }
-                        }}
-                        className={`w-full px-3 py-2 text-left text-xs font-mono transition-all ${
-                          isSelected
-                            ? 'bg-amber-600 text-white'
-                            : 'hover:bg-amber-50/20 text-foreground'
-                        }`}
-                        title={lang.name}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span>{lang.code.toUpperCase()}</span>
-                          <span className="text-[10px] opacity-70">{lang.name}</span>
+                      <div key={lang.id} className={`px-3 py-2 border-b last:border-b-0 ${isSelected ? 'bg-amber-50/20' : ''}`}>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedLanguageIds(prev => [...prev, lang.id]);
+                              } else {
+                                setSelectedLanguageIds(prev => prev.filter(id => id !== lang.id));
+                              }
+                            }}
+                            className="h-3 w-3 text-amber-600 rounded"
+                          />
+                          <span className="font-semibold text-xs">{lang.name}</span>
                         </div>
-                      </button>
+                        {langVersions.length > 0 && (
+                          <div className="mt-1 space-y-1 text-xs text-muted-foreground">
+                            {langVersions.map(v => (
+                              <div key={v.id} className="flex items-center gap-1">
+                                <span className="font-mono">{v.code}</span>
+                                <span>—</span>
+                                <span>{v.name}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
               )}
             </div>
 
-            <div className="flex items-center px-3 shrink-0" aria-hidden="true">
-              <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
-              <span className="text-amber-400 dark:text-amber-600 font-bold text-lg mx-2 select-none">|</span>
-              <div className="w-px h-6 bg-amber-300/60 dark:bg-amber-700/60"></div>
-            </div>
-
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground shrink-0 flex items-center gap-1">
-              Versions:
-            </span>
-
+            {/* Tout button */}
             <button
-              onClick={handleResetVersion}
+              onClick={() => {
+                const allCodes = filteredVersions.map(v => v.code);
+                if (selectedVersions.length === allCodes.length && allCodes.length > 0) {
+                  setSelectedVersions([]);
+                  setSelectedVersionCode(allCodes[0] ?? '');
+                } else {
+                  setSelectedVersions(allCodes);
+                  setSelectedVersionCode(allCodes[0] ?? '');
+                }
+              }}
               className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                selectedVersions.length === 1 && selectedVersions[0] === 'LSG'
+                selectedVersions.length === filteredVersions.length && filteredVersions.length > 0
                   ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
                   : 'bg-card text-foreground border-border hover:border-amber-500/60'
               }`}
             >
-              Défaut
+              Tout
             </button>
 
-            {filteredVersions.length > 0 && (
-              <div className="flex items-center gap-1.5">
-                {filteredVersions.map((versionObj) => {
-                  const isSelected = selectedVersions.includes(versionObj.code);
-                  return (
-                    <button
-                      key={versionObj.code}
-                      onClick={() => handleToggleVersion(versionObj)}
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 ${
-                        isSelected
-                          ? 'bg-amber-600 text-white border-amber-600' 
-                          : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                      }`}
-                      title={isSelected ? 'Désélectionner' : 'Sélectionner pour comparaison'}
-                    >
-                      {versionObj.code}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-            
-            {filteredVersions.length > selectedVersions.length && (
-              <button
-                onClick={handleSelectAllVersions}
-                className="px-2.5 py-1 rounded-full text-[10px] text-amber-600 dark:text-amber-400 hover:bg-amber-50/20 transition-colors"
-              >
-                +{filteredVersions.length - selectedVersions.length} autres
-              </button>
-            )}
+            {/* Language codes with scrollable version lists */}
+            {displayedLanguages.map(lang => {
+              const langVersions = filteredVersions.filter(v => v.language_id === lang.id);
+              return (
+                <div key={lang.id} className="flex items-center gap-2">
+                  <span className="font-mono text-xs">{lang.code.toUpperCase()}</span>
+                  <div className="overflow-x-hidden whitespace-nowrap w-[80px]">
+                    <div className="inline-flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-track-transparent scrollbar-thumb-amber-400">
+                      {langVersions.map(v => (
+                        <button
+                          key={v.code}
+                          onClick={() => handleToggleVersion(v)}
+                          className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold transition-all ${
+                            selectedVersions.includes(v.code)
+                              ? 'bg-amber-600 text-white border-amber-600'
+                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
+                          }`}
+                        >
+                          {v.code}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
