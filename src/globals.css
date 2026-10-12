@@ -112,3 +112,14 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 }
+
+@layer utilities {
+  /* Masque la barre de défilement tout en gardant le défilement (molette, tactile) */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

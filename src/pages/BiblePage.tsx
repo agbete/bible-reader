@@ -35,7 +35,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  Menu
+  Menu,
+  Search,
+  Type,
+  ALargeSmall,
+  Check
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
 import { MadeWithDyad } from '@/components/made-with-dyad';
@@ -61,7 +65,41 @@ interface TitleTranslation {
   titles: Record<string, string>;
 }
 
-const LANGUAGE_DISPLAY_ORDER = ['FR', 'EN', 'FN', 'GO', 'YO', 'HG'];
+const READER_FONTS = [
+  { id: 'arial', label: 'Arial', family: 'Arial, Helvetica, sans-serif' },
+  { id: 'book-antiqua', label: 'Book Antiqua', family: '"Book Antiqua", "Palatino Linotype", Palatino, serif' },
+  { id: 'calibri', label: 'Calibri', family: 'Calibri, Carlito, "Segoe UI", sans-serif' },
+  { id: 'cambria', label: 'Cambria', family: 'Cambria, Caladea, Georgia, serif' },
+  { id: 'century-gothic', label: 'Century Gothic', family: '"Century Gothic", "URW Gothic", AppleGothic, sans-serif' },
+  { id: 'courier', label: 'Courier New', family: '"Courier New", Courier, monospace' },
+  { id: 'garamond', label: 'Garamond', family: 'Garamond, "EB Garamond", "Times New Roman", serif' },
+  { id: 'georgia', label: 'Georgia', family: 'Georgia, "Times New Roman", serif' },
+  { id: 'helvetica', label: 'Helvetica', family: '"Helvetica Neue", Helvetica, Arial, sans-serif' },
+  { id: 'palatino', label: 'Palatino', family: '"Palatino Linotype", Palatino, "Book Antiqua", serif' },
+  { id: 'segoe', label: 'Segoe UI', family: '"Segoe UI", system-ui, sans-serif' },
+  { id: 'tahoma', label: 'Tahoma', family: 'Tahoma, Geneva, sans-serif' },
+  { id: 'times', label: 'Times New Roman', family: '"Times New Roman", Times, serif' },
+  { id: 'trebuchet', label: 'Trebuchet', family: '"Trebuchet MS", "Segoe UI", sans-serif' },
+  { id: 'verdana', label: 'Verdana', family: 'Verdana, Geneva, sans-serif' }
+];
+const READER_FONT_SIZES = [12, 14, 16, 18, 20, 22, 24];
+
+// "FRANÇAIS" / "français" → "Français" (chaque mot commence par une majuscule)
+const toProperCase = (str: string) =>
+  str.toLocaleLowerCase('fr').replace(/(^|[\s\-'’])(\p{L})/gu, (_, sep, letter) => sep + letter.toLocaleUpperCase('fr'));
+
+// Titres de section : tailles en "em", donc relatives à la taille de lecture choisie.
+// Écarts définis pour un texte de 16px (+2px = 18/16 = 1.125em, -4px = 12/16 = 0.75em),
+// ils grandissent ou rétrécissent proportionnellement avec le texte des versets.
+const TITLE_LEVEL_STYLES: Record<number, { fontSize: string; className: string }> = {
+  1: { fontSize: '1.125em', className: 'font-bold uppercase text-amber-900 dark:text-amber-200' },
+  2: { fontSize: '0.75em', className: 'italic text-foreground' },
+  3: { fontSize: '1.125em', className: 'font-bold text-amber-900 dark:text-amber-200' },
+  4: { fontSize: '1em', className: 'font-bold text-foreground' },
+  5: { fontSize: '0.75em', className: 'italic text-muted-foreground' }
+};
+
+const LANGUAGE_DISPLAY_ORDER =['FR', 'EN', 'FN', 'GO', 'YO', 'HG'];
 const LANGUAGE_COLOR_CLASSES: Record<string, { cell: string; text: string }> = {
   FR: {
     cell: 'bg-[#BF8F00]/15 dark:bg-[#BF8F00]/25',
@@ -134,9 +172,29 @@ export const BiblePage: React.FC = () => {
 
   const [versesData, setVersesData] = useState<Record<string, any[]>>({});
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
+  // Livre:chapitre dont les versets sont actuellement affichés
+  const [loadedChapterKey, setLoadedChapterKey] = useState<string | null>(null);
   
   const [showTitles, setShowTitles] = useState<boolean>(true);
   const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('list');
+
+  // Police et taille de lecture (mémorisées dans le navigateur)
+  const [readerFontId, setReaderFontId] = useState<string>(() => {
+    try { return localStorage.getItem('reader-font') || 'arial'; } catch { return 'arial'; }
+  });
+  const [readerFontSize, setReaderFontSize] = useState<number>(() => {
+    try { return Number(localStorage.getItem('reader-font-size')) || 16; } catch { return 16; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('reader-font', readerFontId);
+      localStorage.setItem('reader-font-size', String(readerFontSize));
+    } catch { /* stockage indisponible */ }
+  }, [readerFontId, readerFontSize]);
+  const readerTextStyle: React.CSSProperties = {
+    fontFamily: (READER_FONTS.find(f => f.id === readerFontId) ?? READER_FONTS[0]).family,
+    fontSize: `${readerFontSize}px`
+  };
   
   const [titleTranslations, setTitleTranslations] = useState<
     Record<string, Record<number, TitleTranslation>>
@@ -490,6 +548,7 @@ export const BiblePage: React.FC = () => {
         updatedMap[code] = verses;
       });
       setVersesData(updatedMap);
+      setLoadedChapterKey(`${book.id}:${chapter}`);
 
       for (const { code, verses } of results) {
         if (verses && verses.length > 0) {
@@ -517,6 +576,29 @@ export const BiblePage: React.FC = () => {
     setSelectedBook(book);
     setSelectedChapter(1);
   };
+
+  // Navigation par titre : change de chapitre puis défile jusqu'au verset
+  const [pendingScrollVerse, setPendingScrollVerse] = useState<{ chapterKey: string; verse: number; verseId: number } | null>(null);
+
+  const handleSelectTitle = (chapter: number, verseNumber: number, verseId: number) => {
+    if (!selectedBook) return;
+    setSelectedChapter(chapter);
+    setPendingScrollVerse({ chapterKey: `${selectedBook.id}:${chapter}`, verse: verseNumber, verseId });
+  };
+
+  useEffect(() => {
+    // On attend que les versets du chapitre visé soient affichés
+    if (!pendingScrollVerse || loadedChapterKey !== pendingScrollVerse.chapterKey) return;
+    // Le titre en haut de l'écran ; à défaut (titres masqués ou absents), le verset
+    const titleEl = document.querySelector<HTMLElement>(`[data-title-verse-id="${pendingScrollVerse.verseId}"]`);
+    const titlesDone = !Object.values(versesLoading).some(Boolean);
+    const el = titleEl ?? (titlesDone || !showTitles
+      ? document.querySelector<HTMLElement>(`[data-verse-number="${pendingScrollVerse.verse}"]`)
+      : null);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setPendingScrollVerse(null);
+  }, [pendingScrollVerse, loadedChapterKey, titleTranslations, versesLoading, showTitles]);
 
   const handleChapterChange = (chapter: number) => {
     if (!selectedBook) return;
@@ -576,7 +658,8 @@ export const BiblePage: React.FC = () => {
     });
   };
 
-  const renderVerseTitles = (verseId: number, versionCode: string) => {
+  // afterVerse : le bloc de titres suit un verset → une ligne vide le sépare de ce verset
+  const renderVerseTitles = (verseId: number, versionCode: string, afterVerse = false) => {
     if (!showTitles) return null;
     
     const versionTitles = titleTranslations[versionCode];
@@ -592,28 +675,20 @@ export const BiblePage: React.FC = () => {
     if (entries.length === 0) return null;
 
     return (
-      <div className="w-full my-1 space-y-0.5 border-b border-amber-500/20 pb-1">
+      <div data-title-verse-id={verseId} className={`w-full text-left ${afterVerse ? 'mt-[1em]' : 'mt-0.5'} mb-0.5 border-b border-amber-500/20 pb-0.5 scroll-mt-[70px] xl:scroll-mt-[100px]`}>
         {entries.map(([level, text]) => {
           const lvl = parseInt(level, 10);
-          if (lvl === 1) {
-            return (
-              <h3 key={level} className="text-base sm:text-lg font-bold font-serif text-amber-900 dark:text-amber-200 pt-1 tracking-tight">
-                {text}
-              </h3>
-            );
-          } else if (lvl === 2) {
-            return (
-              <h4 key={level} className="text-sm sm:text-base font-semibold font-serif text-amber-800 dark:text-amber-300 pt-0.5">
-                {text}
-              </h4>
-            );
-          } else {
-            return (
-              <h5 key={level} className="text-xs sm:text-sm font-medium italic text-muted-foreground pt-0.5">
-                {text}
-              </h5>
-            );
-          }
+          const style = TITLE_LEVEL_STYLES[lvl] ?? TITLE_LEVEL_STYLES[5];
+          const Tag = (`h${Math.min(lvl + 2, 6)}`) as 'h3' | 'h4' | 'h5' | 'h6';
+          return (
+            <Tag
+              key={level}
+              className={`font-cambria leading-tight ${style.className}`}
+              style={{ fontSize: style.fontSize }}
+            >
+              {text}
+            </Tag>
+          );
         })}
       </div>
     );
@@ -660,17 +735,19 @@ export const BiblePage: React.FC = () => {
           return (
             <div 
               key={versionCode} 
-              className={`p-4 rounded-2xl border border-border bg-card shadow-xs flex flex-col ${
+              className={`px-4 pb-4 pt-[11px] rounded-2xl rounded-t-none border border-t-0 border-border bg-card shadow-xs flex flex-col ${
                 hasMultiple 
                   ? 'w-full md:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)] shrink-0' 
                   : 'w-full'
               }`}
             >
-              <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
-                <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
-                  {versionObj.name}
-                </span>
-              </div>
+              {selectedVersions.length > 1 && (
+                <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
+                  <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                    {versionObj.name}
+                  </span>
+                </div>
+              )}
               
               {isLoadingV ? (
                 <div className="py-12 text-center text-muted-foreground space-y-2">
@@ -682,17 +759,17 @@ export const BiblePage: React.FC = () => {
                   <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
                 </div>
               ) : displayMode === 'list' ? (
-                <div className="space-y-0.5 font-serif text-sm sm:text-base leading-snug flex-1">
-                  {verses.map((verse) => (
-                    <div key={verse.id || verse.verse_number} className="group">
-                      {renderVerseTitles(verse.id, versionCode)}
+                <div className="space-y-0.5 font-serif text-sm sm:text-base leading-snug flex-1" style={readerTextStyle}>
+                  {verses.map((verse, verseIndex) => (
+                    <div key={verse.id || verse.verse_number} data-verse-number={verse.verse_number} className="group scroll-mt-[70px] xl:scroll-mt-[100px]">
+                      {renderVerseTitles(verse.id, versionCode, verseIndex > 0)}
                       <div 
                         onClick={() => handleVerseClick(verse, versionCode)}
-                        className="flex items-start gap-1.5 px-1.5 py-0.5 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
+                        className="flex items-start gap-[3px] px-1.5 py-0.5 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
                         title="Cliquez pour voir les Références & Trésors"
                       >
-                        <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-px shrink-0 min-w-[1.5rem]">
-                          {verse.verse_number}.
+                        <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-px shrink-0 min-w-[0.75rem]">
+                          {verse.verse_number}
                         </span>
                         <p className="text-foreground flex-1">
                           {verse.text}
@@ -703,15 +780,18 @@ export const BiblePage: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground flex-1">
-                  {verses.map((verse) => {
-                    const titlesHeader = renderVerseTitles(verse.id, versionCode);
+                <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground text-justify flex-1" style={readerTextStyle}>
+                  {verses.map((verse, verseIndex) => {
+                    const titlesHeader = renderVerseTitles(verse.id, versionCode, verseIndex > 0);
                     return (
                       <React.Fragment key={verse.id || verse.verse_number}>
                         {titlesHeader}
+                        {/* Début de paragraphe : retour à la ligne + demi-ligne d'espace (inutile si un bloc de titres vient d'en créer un) */}
+                        {verse.is_paragraph && verseIndex > 0 && !titlesHeader && <span className="block h-[0.5em]" aria-hidden="true" />}
                         <span 
+                          data-verse-number={verse.verse_number}
                           onClick={() => handleVerseClick(verse, versionCode)}
-                          className="inline hover:bg-amber-500/15 dark:hover:bg-amber-500/20 rounded px-1 py-0.5 cursor-pointer transition-colors"
+                          className="inline scroll-mt-[70px] xl:scroll-mt-[100px] hover:bg-amber-500/15 dark:hover:bg-amber-500/20 rounded pr-1 py-0.5 cursor-pointer transition-colors"
                           title="Cliquez pour voir les Références & Trésors"
                         >
                           <sup className="font-sans font-bold text-xs text-amber-600 dark:text-amber-400 font-mono mr-0.5 select-none">
@@ -804,7 +884,7 @@ export const BiblePage: React.FC = () => {
 
 
       {/* Section de contrôle */}
-      <section className="w-full bg-gray-50 dark:bg-gray-900 xl:flex xl:h-[30px] xl:items-center xl:py-0">
+      <section className="w-full bg-[#B45309] dark:bg-[#292524] xl:flex xl:h-[30px] xl:items-center xl:py-0 xl:sticky xl:top-[40px] xl:z-40">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 xl:my-0.5 xl:h-[25px]">
           <div className="flex flex-col gap-3 py-1 xl:flex-row xl:flex-nowrap xl:items-center xl:gap-2 xl:py-0 xl:h-full">
             <div className="flex-1 min-w-0">
@@ -830,94 +910,152 @@ export const BiblePage: React.FC = () => {
                 booksList={booksList}
                 onChapterChange={handleChapterChange}
                 onBookChange={handleBookChange}
+                titleLanguageId={targetLanguageId}
+                onSelectTitle={handleSelectTitle}
                 compact
               />
             </div>
 
+            {/* Search bar */}
+            <div className="flex-1 hidden md:block h-[25px]">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="w-full h-[25px] flex items-center justify-between px-3 py-0 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white text-xs transition-all group"
+              >
+                <div className="flex items-center gap-2 truncate">
+                  <Search className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span className="truncate">Rechercher un verset, un livre...</span>
+                </div>
+                <kbd className="hidden lg:inline-block px-1.5 py-0 text-[10px] leading-4 font-mono bg-white/15 border border-white/30 rounded text-white">
+                  ⌘K
+                </kbd>
+              </button>
+            </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div className="flex items-center gap-1.5 shrink-0 border-t xl:h-6 xl:border-t-0 xl:border-l xl:border-border xl:pt-0 xl:pl-2">
+             {/* Mode et titres */}
+            <div className="flex items-center gap-1.5 shrink-0 border-t border-white/30 xl:h-6 xl:border-t-0 xl:border-l xl:pt-0 xl:pl-2">
               <Button
-                variant={showTitles ? 'default' : 'outline'}
-                size="sm"
+                variant="outline"
+                size="icon"
                 onClick={() => {
                   setShowTitles(prev => !prev);
-                  // toast({
-                  //   // title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
-                  // });
                 }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all xl:h-6 xl:px-0 xl:text-[10px] xl:gap-1 ${
-                  showTitles 
-                    ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
-                    : 'text-muted-foreground hover:text-foreground'
+                aria-label={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
+                className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
+                  showTitles
+                    ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
+                    : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
                 }`}
                 title={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
               >
-                <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white' : ''}`} />
-                <span>Titres</span>
+                <BookMarked className={`w-3.5 h-3.5 ${showTitles ? 'fill-white/40' : ''}`} />
               </Button>
 
               <Button
                 variant="outline"
-                size="sm"
+                size="icon"
                 onClick={() => {
                   const nextMode = displayMode === 'compact' ? 'list' : 'compact';
                   setDisplayMode(nextMode);
-                  // toast({
-                  //   title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
-                  // });
                 }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all xl:h-6 xl:px-0 xl:text-[10px] xl:gap-1 ${
+                title={displayMode === 'compact' ? "Mode compact" : "Mode liste"}
+                aria-label={displayMode === 'compact' ? "Mode compact" : "Mode liste"}
+                className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                   displayMode === 'list'
-                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
+                    : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
                 }`}
               >
                 {displayMode === 'compact' ? (
-                  <>
-                    <LayoutGrid className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Compact</span>
-                  </>
+                  <LayoutGrid className="w-3.5 h-3.5" />
                 ) : (
-                  <>
-                    <List className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Liste</span>
-                  </>
+                  <List className="w-3.5 h-3.5" />
                 )}
               </Button>
             </div>
+
+            {/* Police et taille de lecture */}
+            <div className="flex items-center gap-1.5 shrink-0 xl:h-6 xl:border-l xl:border-white/30 xl:pl-2">
+              <Popover>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        aria-label="Police de lecture"
+                        className="h-9 w-9 rounded-md bg-transparent border-white/30 text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
+                      >
+                        <Type className="w-3.5 h-3.5" />
+                      </Button>
+                    </PopoverTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>Police de lecture</TooltipContent>
+                </Tooltip>
+                <PopoverContent align="end" className="w-52 p-1 max-h-[60vh] overflow-y-auto">
+                  {READER_FONTS.map(font => (
+                    <button
+                      key={font.id}
+                      type="button"
+                      onClick={() => setReaderFontId(font.id)}
+                      className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm hover:bg-muted ${
+                        readerFontId === font.id ? 'text-amber-700 dark:text-amber-300 font-semibold' : ''
+                      }`}
+                      style={{ fontFamily: font.family }}
+                    >
+                      {font.label}
+                      {readerFontId === font.id && <Check className="w-3.5 h-3.5" />}
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+
+              <Popover>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        aria-label="Taille du texte"
+                        className="h-9 w-9 rounded-md bg-transparent border-white/30 text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
+                      >
+                        <ALargeSmall className="w-3.5 h-3.5" />
+                      </Button>
+                    </PopoverTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>Taille du texte</TooltipContent>
+                </Tooltip>
+                <PopoverContent align="end" className="w-40 p-1">
+                  {READER_FONT_SIZES.map(size => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setReaderFontSize(size)}
+                      className={`w-full flex items-center justify-between px-2 py-1 rounded-md hover:bg-muted ${
+                        readerFontSize === size ? 'text-amber-700 dark:text-amber-300 font-semibold' : ''
+                      }`}
+                    >
+                      <span style={{ fontSize: `${size}px` }}>Aa</span>
+                      <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        {size}px
+                        {readerFontSize === size && <Check className="w-3.5 h-3.5 text-amber-600" />}
+                      </span>
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            </div>
+
           </div>
         </div>
       </section>
 
 
       {/* Language and version selection bar */}
-      <section className="h-[25px] border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-sm">
+      <section className="h-[25px] border-b border-border/80 bg-[#D97706] dark:bg-[#78350F] backdrop-blur-md sticky top-[40px] xl:top-[70px] z-30 shadow-sm">
         <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-full items-center gap-1.5 overflow-x-auto overscroll-x-contain no-scrollbar">
+          <div className="flex h-full items-center gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain no-scrollbar">
             {/* Language menu icon (click to open dropdown) */}
             <Popover open={isLanguageMenuOpen} onOpenChange={setIsLanguageMenuOpen}>
               <PopoverTrigger asChild>
@@ -925,13 +1063,13 @@ export const BiblePage: React.FC = () => {
                   type="button"
                   aria-label="Afficher les langues et versions"
                   aria-expanded={isLanguageMenuOpen}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 ${
+                  className={`bg-transparent p-0.5 transition-colors flex items-center shrink-0 ${
                     isLanguageMenuOpen
-                      ? 'bg-amber-600 text-white shadow-xs'
-                      : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
+                      ? 'text-white'
+                      : 'text-white/80 hover:text-white'
                   }`}
                 >
-                  <Menu className="w-3.5 h-3.5" />
+                  <Menu className="w-[13px] h-[13px]" />
                 </button>
               </PopoverTrigger>
               <PopoverContent
@@ -1024,28 +1162,24 @@ export const BiblePage: React.FC = () => {
                   applyVersionSelection(allCodes, allCodes[0]);
                 }
               }}
-              className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+              className={`bg-transparent px-1 text-[13px] leading-none font-mono font-bold transition-colors shrink-0 ${
                 filteredVersions.length > 0 && filteredVersions.every(version => selectedVersions.includes(version.code))
-                  ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
-                  : 'bg-card text-foreground border-border hover:border-amber-500/60'
+                  ? 'text-white underline underline-offset-2'
+                  : 'text-white/80 hover:text-white'
               }`}
             >
               Tout
             </button>
 
-            <table className="h-9 w-max shrink-0 border-collapse whitespace-nowrap text-left text-[11px]">
+            <table className="h-full w-max shrink-0 border-collapse whitespace-nowrap text-left text-[11px]">
               <tbody>
                 <tr>
                   {displayedLanguages.map(lang => {
                     const langVersions = filteredVersions.filter(v => v.language_id === lang.id);
                     const allLanguageVersionsSelected = langVersions.length > 0
                       && langVersions.every(version => selectedVersions.includes(version.code));
-                    const languageColors = LANGUAGE_COLOR_CLASSES[lang.code.toUpperCase()] ?? {
-                      cell: 'bg-muted/50',
-                      text: 'text-foreground'
-                    };
                     return (
-                      <td key={lang.id} className={`h-9 border-r border-border/70 px-2 align-middle last:border-r-0 ${languageColors.cell}`}>
+                      <td key={lang.id} className={`h-full border-r border-border/70 px-2 align-middle last:border-r-0`}>
                         <div className="flex h-full items-center gap-1.5">
                           <Tooltip>
                             <TooltipTrigger asChild>
@@ -1053,9 +1187,9 @@ export const BiblePage: React.FC = () => {
                                 type="button"
                                 onClick={() => handleToggleLanguageVersions(lang.id)}
                                 aria-pressed={allLanguageVersionsSelected}
-                                className={`shrink-0 cursor-pointer whitespace-nowrap font-mono text-[15px] font-bold leading-none ${languageColors.text} ${allLanguageVersionsSelected ? 'underline decoration-2 underline-offset-2' : 'hover:opacity-75'}`}
+                                className={`shrink-0 cursor-pointer whitespace-nowrap font-sans text-[13px] font-bold leading-none text-white ${allLanguageVersionsSelected ? 'underline decoration-2 underline-offset-2' : 'hover:opacity-75'}`}
                               >
-                                {lang.code.toUpperCase()}
+                                {toProperCase(lang.code)}{'\u00A0:'}
                               </button>
                             </TooltipTrigger>
                             <TooltipContent side="bottom">
@@ -1070,7 +1204,7 @@ export const BiblePage: React.FC = () => {
                                     type="button"
                                     onClick={() => handleToggleVersion(version)}
                                     aria-pressed={selectedVersions.includes(version.code)}
-                                    className={`flex h-9 shrink-0 cursor-pointer items-center whitespace-nowrap px-0.5 font-mono text-[15px] leading-none transition-colors ${languageColors.text} ${
+                                    className={`flex h-full shrink-0 cursor-pointer items-center whitespace-nowrap px-0.5 font-cambria text-[13px] leading-none transition-colors text-white ${
                                       selectedVersions.includes(version.code)
                                         ? 'underline decoration-2 underline-offset-2'
                                         : 'font-medium opacity-75 hover:opacity-100'
@@ -1098,7 +1232,7 @@ export const BiblePage: React.FC = () => {
 
 
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-6 space-y-6">
         {loadError && (
           <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
@@ -1217,7 +1351,7 @@ export const BiblePage: React.FC = () => {
           onClose={() => setIsDbStatusOpen(false)}
         />
 
-        <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
+        {/* <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-amber-600" />
@@ -1228,7 +1362,7 @@ export const BiblePage: React.FC = () => {
             </p>
           </div>
           <MadeWithDyad />
-        </footer>
+        </footer> */}
       </main>
     </div>
   );

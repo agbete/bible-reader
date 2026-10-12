@@ -68,25 +68,25 @@ export const Navbar: React.FC<NavbarProps> = ({
   const selectedVersionObj = BIBLE_VERSIONS.find(v => v.code === currentVersion) || BIBLE_VERSIONS[0];
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/90 border-b border-border/80 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 w-full bg-[#92400E] dark:bg-[#1C1917] text-white transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[40px] flex items-center justify-between gap-2">
         {/* Brand logo & name */}
         <Link to="/" className="flex items-center gap-3 cursor-pointer">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-400 flex items-center justify-center shadow-md shadow-amber-500/20 text-white font-bold shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center shadow-md shadow-black/20 text-white font-bold shrink-0">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-amber-600 to-amber-800 dark:from-amber-400 dark:to-yellow-200 bg-clip-text text-transparent">
+              <span className="font-bold text-lg tracking-tight text-white dark:text-amber-200">
                 Parole Vivante
               </span>
-              <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">
+              <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full bg-white/20 dark:bg-amber-950 text-white dark:text-amber-300">
                 Bible
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground hidden sm:block">
+            {/* <p className="text-[11px] text-muted-foreground hidden sm:block">
               Méditation, lecture & étude biblique
-            </p>
+            </p> */}
           </div>
         </Link>
 
@@ -98,8 +98,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/"
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                 location.pathname === '/'
-                  ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  ? 'bg-white/20 text-white font-bold'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
               Accueil
@@ -110,8 +110,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/bible"
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                 location.pathname.startsWith('/bible')
-                  ? 'bg-amber-600 text-white shadow-xs font-bold'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  ? 'bg-white/20 text-white font-bold'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
               <BookMarked className="w-3.5 h-3.5" />
@@ -123,8 +123,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/dictionnaire"
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
                 location.pathname.startsWith('/dictionnaire')
-                  ? 'bg-amber-600 text-white shadow-xs font-bold'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  ? 'bg-white/20 text-white font-bold'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
               <BookText className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               variant="ghost"
               size="icon"
               onClick={onOpenSearch}
-              className="md:hidden rounded-full w-9 h-9 text-muted-foreground hover:text-foreground"
+              className="md:hidden rounded-full w-9 h-9 text-white/80 hover:text-white hover:bg-white/10"
             >
               <Search className="w-4 h-4" />
             </Button>
@@ -170,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               variant="ghost"
               size="icon"
               onClick={onOpenBookmarks}
-              className="rounded-full w-9 h-9 text-muted-foreground hover:text-foreground hover:bg-muted"
+              className="rounded-full w-9 h-9 text-white/80 hover:text-white hover:bg-white/10"
               title="Mes versets favoris"
             >
               <Bookmark className="w-4 h-4" />
@@ -182,10 +182,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="rounded-full w-9 h-9 text-muted-foreground hover:text-foreground hover:bg-muted"
+            className="rounded-full w-9 h-9 text-white/80 hover:text-white hover:bg-white/10"
             title="Changer de thème"
           >
-            {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+            {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4" />}
           </Button>
         </div>
       </div>

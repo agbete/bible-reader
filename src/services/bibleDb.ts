@@ -31,6 +31,7 @@ export interface DbVerseItem {
   verse_number: number;
   reference_code: string;
   text: string;
+  is_paragraph?: boolean;
 }
 
 export interface DbTreasureTargetItem {
@@ -257,7 +258,7 @@ export async function getDbChapterVerses(
 
     const { data: verses, error: vError } = await supabase
       .from('verses')
-      .select('id, verse_number, reference_code')
+      .select('id, verse_number, reference_code, is_paragraph')
       .eq('chapter_id', chapterData.id)
       .order('verse_number', { ascending: true });
 
@@ -279,7 +280,8 @@ export async function getDbChapterVerses(
       id: v.id,
       verse_number: v.verse_number,
       reference_code: v.reference_code,
-      text: textsMap.get(v.id) || `[Texte non disponible - ${v.reference_code}]`
+      text: textsMap.get(v.id) || `[Texte non disponible - ${v.reference_code}]`,
+      is_paragraph: Boolean(v.is_paragraph)
     }));
   } catch (err) {
     console.error('[bibleDb] Exception getDbChapterVerses:', err);
@@ -310,6 +312,89 @@ export async function getDbVerseTitles(verseIds: number[], languageId?: number):
   } catch (err) {
     console.error('[bibleDb] Exception getDbVerseTitles:', err);
     return {};
+  }
+}
+
+export interface DbBookTitleItem {
+  verse_id: number;
+  chapter: number;
+  verse_number: number;
+  title: string;
+}
+
+const bookTitlesCache = new Map<string, DbBookTitleItem[]>();
+
+/**
+ * All titles of a given level for a book, sorted by chapter then verse.
+ * Verses and title rows are fetched in chunks to stay under Supabase's row and URL limits.
+ */
+export async function getDbBookTitles(bookId: number, level: number, languageId?: number): Promise<DbBookTitleItem[]> {
+  const cacheKey = `${bookId}:${level}:${languageId ?? ''}`;
+  const cached = bookTitlesCache.get(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const { data: chapters } = await supabase
+      .from('chapters')
+      .select('id, number')
+      .eq('book_id', bookId);
+    if (!chapters || chapters.length === 0) return [];
+    const chapterNumberById = new Map<number, number>(chapters.map(c => [c.id, c.number]));
+
+    const PAGE = 1000;
+    const verses: { id: number; chapter_id: number; verse_number: number }[] = [];
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await supabase
+        .from('verses')
+        .select('id, chapter_id, verse_number')
+        .in('chapter_id', chapters.map(c => c.id))
+        .order('id', { ascending: true })
+        .range(from, from + PAGE - 1);
+      if (error || !data) break;
+      verses.push(...data);
+      if (data.length < PAGE) break;
+    }
+    if (verses.length === 0) return [];
+
+    const fetchTitleRows = async (withLanguage: boolean) => {
+      const rows: any[] = [];
+      const CHUNK = 300;
+      for (let i = 0; i < verses.length; i += CHUNK) {
+        let query = supabase
+          .from('title_translations')
+          .select('verse_id, language_id, titles')
+          .in('verse_id', verses.slice(i, i + CHUNK).map(v => v.id));
+        if (withLanguage && languageId) query = query.eq('language_id', languageId);
+        const { data } = await query;
+        if (data) rows.push(...data);
+      }
+      return rows;
+    };
+
+    let rows = await fetchTitleRows(true);
+    if (rows.length === 0 && languageId) rows = await fetchTitleRows(false);
+    const titlesByVerse = formatTitlesMap(rows);
+
+    const levelKey = String(level);
+    const result: DbBookTitleItem[] = [];
+    verses.forEach(v => {
+      const text = titlesByVerse[v.id]?.[levelKey];
+      if (text && String(text).trim()) {
+        result.push({
+          verse_id: v.id,
+          chapter: chapterNumberById.get(v.chapter_id) ?? 0,
+          verse_number: v.verse_number,
+          title: String(text).trim()
+        });
+      }
+    });
+    result.sort((a, b) => a.chapter - b.chapter || a.verse_number - b.verse_number);
+
+    bookTitlesCache.set(cacheKey, result);
+    return result;
+  } catch (err) {
+    console.error('[bibleDb] Exception getDbBookTitles:', err);
+    return [];
   }
 }
 

@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DbBookItem } from '@/services/bibleDb';
 import { showSuccess } from '@/utils/toast';
+import { TitleNavigator } from './TitleNavigator';
 
 interface ChapterNavigatorProps {
   selectedBook: DbBookItem | null;
@@ -19,6 +20,8 @@ interface ChapterNavigatorProps {
   booksList: DbBookItem[];
   onChapterChange: (chapter: number) => void;
   onBookChange: (book: DbBookItem) => void;
+  titleLanguageId?: number;
+  onSelectTitle?: (chapter: number, verseNumber: number, verseId: number) => void;
   compact?: boolean;
 }
 
@@ -28,6 +31,8 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   booksList,
   onChapterChange,
   onBookChange,
+  titleLanguageId,
+  onSelectTitle,
   compact = false
 }) => {
   const [isChapterDropdownOpen, setIsChapterDropdownOpen] = useState(false);
@@ -101,64 +106,43 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
 
   return (
     <div className={`flex items-center ${compact ? 'flex-nowrap gap-1' : 'flex-wrap gap-2'}`}>
-      {/* PREVIOUS BOOK - Always visible, disabled if no prev book */}
-      <Button
-        variant="ghost"
-        size="sm"
-        disabled={!prevBook}
-        onClick={() => {
-          if (prevBook) {
-            onBookChange(prevBook);
-            onChapterChange(1);
-          }
-        }}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''} ${
-          prevBook 
-            ? 'text-muted-foreground hover:text-foreground' 
-            : 'text-muted-foreground/40 cursor-not-allowed opacity-50'
-        }`}
-        title={prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun livre précédent'}
-      >
-        <ChevronLeft className="w-3 h-3" />
-      </Button>
-
-      {/* FIRST CHAPTER (Début) */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleFirstChapter}
-        disabled={selectedChapter === 1}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''}`}
-        title="Premier chapitre"
-      >
-        <ChevronsLeft className="w-3.5 h-3.5" />
-      </Button>
-
-      {/* PREVIOUS CHAPTER (←) */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handlePrevChapter}
-        disabled={selectedChapter === 1 && !prevBook}
-        className={`h-9 w-9 rounded-full p-0 ${compact ? 'xl:h-6 xl:w-6' : ''}`}
-        title={selectedChapter > 1 ? "Chapitre précédent" : (prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun chapitre précédent')}
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </Button>
-
-      {/* CHAPTER SELECTOR (DROPDOWN) */}
+      {/* CHAPTER SELECTOR (DROPDOWN) with previous / next chapter inside */}
       <div className="relative">
-        <button
-          onClick={() => setIsChapterDropdownOpen(!isChapterDropdownOpen)}
-          className={`h-9 px-3 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/25 text-xs font-bold flex items-center gap-1.5 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:gap-0.5 xl:text-[10px]' : ''}`}
-        >
-          
-          <span>{selectedChapter}</span>
-          <span className="text-[10px] text-amber-600/70 dark:text-amber-400/70 font-mono">
-            / {maxChapters}
-          </span>
-          <ChevronDown className={`w-3 h-3 transition-transform ${isChapterDropdownOpen ? 'rotate-180' : ''}`} />
-        </button>
+        <div className={`h-9 px-0.5 rounded-full bg-white/10 border border-white/30 text-white text-[18px] leading-none font-bold flex items-center gap-0.5 ${compact ? 'xl:h-6' : ''}`}>
+          {/* PREVIOUS CHAPTER (←) */}
+          <button
+            type="button"
+            onClick={handlePrevChapter}
+            disabled={selectedChapter === 1 && !prevBook}
+            className="h-full px-1 flex items-center rounded-full text-white hover:bg-white/15 transition-colors shrink-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+            title={selectedChapter > 1 ? "Chapitre précédent" : (prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun chapitre précédent')}
+            aria-label="Chapitre précédent"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsChapterDropdownOpen(!isChapterDropdownOpen)}
+            className="h-full px-1 rounded-full hover:bg-white/15 flex items-center gap-0.5 transition-colors"
+            title="Choisir un chapitre"
+          >
+            <span>{selectedChapter}</span>
+            <ChevronDown className={`w-3 h-3 transition-transform ${isChapterDropdownOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {/* NEXT CHAPTER (→) */}
+          <button
+            type="button"
+            onClick={handleNextChapter}
+            disabled={selectedChapter === maxChapters && !nextBook}
+            className="h-full px-1 flex items-center rounded-full text-white hover:bg-white/15 transition-colors shrink-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+            title={selectedChapter < maxChapters ? "Chapitre suivant" : (nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun chapitre suivant')}
+            aria-label="Chapitre suivant"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
 
         {isChapterDropdownOpen && (
           <>
@@ -214,50 +198,14 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         )}
       </div>
 
-      {/* NEXT CHAPTER (→) */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleNextChapter}
-        disabled={selectedChapter === maxChapters && !nextBook}
-        className={`h-9 w-9 rounded-full p-0 ${compact ? 'xl:h-6 xl:w-6' : ''}`}
-        title={selectedChapter < maxChapters ? "Chapitre suivant" : (nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun chapitre suivant')}
-      >
-        <ChevronRight className="w-4 h-4" />
-      </Button>
-
-      {/* LAST CHAPTER (Fin) */}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleLastChapter}
-        disabled={selectedChapter === maxChapters}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''}`}
-        title="Dernier chapitre"
-      >
-        <ChevronsRight className="w-3.5 h-3.5" />
-      </Button>
-
-      {/* NEXT BOOK - Always visible, disabled if no next book */}
-      <Button
-        variant="ghost"
-        size="sm"
-        disabled={!nextBook}
-        onClick={() => {
-          if (nextBook) {
-            onBookChange(nextBook);
-            onChapterChange(1);
-          }
-        }}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''} ${
-          nextBook 
-            ? 'text-muted-foreground hover:text-foreground' 
-            : 'text-muted-foreground/40 cursor-not-allowed opacity-50'
-        }`}
-        title={nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun livre suivant'}
-      >
-        <ChevronRight className="w-3 h-3" />
-      </Button>
+      {/* TITLE NAVIGATION (niveau 4) */}
+      <TitleNavigator
+        selectedBook={selectedBook}
+        selectedChapter={selectedChapter}
+        languageId={titleLanguageId}
+        onSelectTitle={onSelectTitle ?? ((chapter) => onChapterChange(chapter))}
+        compact={compact}
+      />
     </div>
   );
 };
