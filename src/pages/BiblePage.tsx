@@ -22,6 +22,8 @@ import {
 } from '@/services/bibleDb';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import {
   BookOpen,
   Loader2,
@@ -58,6 +60,34 @@ interface TitleTranslation {
   language_id: number;
   titles: Record<string, string>;
 }
+
+const LANGUAGE_DISPLAY_ORDER = ['FR', 'EN', 'FN', 'GO', 'YO', 'HG'];
+const LANGUAGE_COLOR_CLASSES: Record<string, { cell: string; text: string }> = {
+  FR: {
+    cell: 'bg-[#BF8F00]/15 dark:bg-[#BF8F00]/25',
+    text: 'text-[#765800] dark:text-[#E2B846]'
+  },
+  EN: {
+    cell: 'bg-[#C42711]/10 dark:bg-[#C42711]/25',
+    text: 'text-[#8E1C0D] dark:text-[#F07868]'
+  },
+  FN: {
+    cell: 'bg-[#C00000]/10 dark:bg-[#C00000]/25',
+    text: 'text-[#8C0000] dark:text-[#F06A6A]'
+  },
+  GO: {
+    cell: 'bg-[#7030A0]/10 dark:bg-[#7030A0]/25',
+    text: 'text-[#512074] dark:text-[#BE91E0]'
+  },
+  YO: {
+    cell: 'bg-[#0070C0]/10 dark:bg-[#0070C0]/25',
+    text: 'text-[#00548F] dark:text-[#73B9ED]'
+  },
+  HG: {
+    cell: 'bg-[#548235]/10 dark:bg-[#548235]/25',
+    text: 'text-[#3B5C25] dark:text-[#A8CD82]'
+  }
+};
 
 export const BiblePage: React.FC = () => {
   const [languages, setLanguages] = useState<DbLanguage[]>([]);
@@ -372,9 +402,54 @@ export const BiblePage: React.FC = () => {
     return selectedLanguageIds.includes(v.language_id);
   });
 
+  const orderedLanguages = [...languages].sort((a, b) => {
+    const aIndex = LANGUAGE_DISPLAY_ORDER.indexOf(a.code.toUpperCase());
+    const bIndex = LANGUAGE_DISPLAY_ORDER.indexOf(b.code.toUpperCase());
+    return (aIndex === -1 ? LANGUAGE_DISPLAY_ORDER.length : aIndex)
+      - (bIndex === -1 ? LANGUAGE_DISPLAY_ORDER.length : bIndex);
+  });
+
+  const languageVersionColumns = orderedLanguages.map(language => ({
+    language,
+    versions: versions.filter(version => version.language_id === language.id)
+  }));
+  const versionRowsCount = Math.max(0, ...languageVersionColumns.map(column => column.versions.length));
+
   const displayedLanguages = selectedLanguageIds.length === 0
-    ? languages
-    : languages.filter(l => selectedLanguageIds.includes(l.id));
+    ? orderedLanguages
+    : orderedLanguages.filter(l => selectedLanguageIds.includes(l.id));
+
+  const defaultVersionCode = versions.find(version => version.is_default)?.code
+    ?? versions.find(version => version.code === 'LSG')?.code
+    ?? versions[0]?.code
+    ?? 'LSG';
+
+  const applyVersionSelection = (codes: string[], preferredActiveCode?: string) => {
+    const nextVersions = [...new Set(codes.filter(code => versions.some(version => version.code === code)))];
+    if (nextVersions.length === 0) nextVersions.push(defaultVersionCode);
+
+    const activeCode = preferredActiveCode && nextVersions.includes(preferredActiveCode)
+      ? preferredActiveCode
+      : nextVersions.includes(selectedVersionCode)
+        ? selectedVersionCode
+        : nextVersions[0];
+    setSelectedVersions(nextVersions);
+    setSelectedVersionCode(activeCode);
+    activeVersionRef.current = activeCode;
+  };
+
+  const handleToggleLanguageVersions = (languageId: number) => {
+    const languageCodes = versions
+      .filter(version => version.language_id === languageId)
+      .map(version => version.code);
+    if (languageCodes.length === 0) return;
+
+    const allSelected = languageCodes.every(code => selectedVersions.includes(code));
+    const nextVersions = allSelected
+      ? selectedVersions.filter(code => !languageCodes.includes(code))
+      : [...selectedVersions, ...languageCodes.filter(code => !selectedVersions.includes(code))];
+    applyVersionSelection(nextVersions, allSelected ? undefined : languageCodes[0]);
+  };
 
   const activeVersion = versions.find(v => v.code === selectedVersionCode) || versions[0] || {
     id: 1,
@@ -457,37 +532,23 @@ export const BiblePage: React.FC = () => {
 
   const handleSelectAllVersions = () => {
     const allCodes = filteredVersions.map(v => v.code);
-    setSelectedVersions(allCodes);
-    setSelectedVersionCode(allCodes[0]);
-    activeVersionRef.current = allCodes[0];
+    applyVersionSelection(allCodes, allCodes[0]);
     toast({ title: `${allCodes.length} versions sélectionnées` });
   };
 
   const handleToggleVersion = (ver: DbBibleVersion) => {
     const isSelected = selectedVersions.includes(ver.code);
     if (isSelected) {
-      const next = selectedVersions.filter(v => v.code !== ver.code);
-      if (next.length === 0) {
-        setSelectedVersions([ver.code]);
-        setSelectedVersionCode(ver.code);
-        activeVersionRef.current = ver.code;
-      } else {
-        setSelectedVersions(next);
-        setSelectedVersionCode(next[0]);
-        activeVersionRef.current = next[0];
-      }
+      const next = selectedVersions.filter(code => code !== ver.code);
+      applyVersionSelection(next);
     } else {
-      setSelectedVersions(prev => [...prev, ver.code]);
-      setSelectedVersionCode(ver.code);
-      activeVersionRef.current = ver.code;
+      applyVersionSelection([...selectedVersions, ver.code], ver.code);
     }
   };
 
   const handleResetVersion = () => {
-    setSelectedVersions(['LSG']);
-    setSelectedVersionCode('LSG');
-    activeVersionRef.current = 'LSG';
-    toast({ title: 'Version réinitialisée à LSG' });
+    applyVersionSelection([defaultVersionCode], defaultVersionCode);
+    toast({ title: `Version réinitialisée à ${defaultVersionCode}` });
   };
 
   const handleVerseClick = (verse: any, versionCodeFromGrid: string) => {
@@ -607,10 +668,7 @@ export const BiblePage: React.FC = () => {
             >
               <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
                 <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
-                  {versionObj.name} ({versionCode})
-                </span>
-                <span className="text-xs text-muted-foreground font-mono">
-                  {verses.length} versets
+                  {versionObj.name}
                 </span>
               </div>
               
@@ -720,7 +778,7 @@ export const BiblePage: React.FC = () => {
 
           <div
             ref={scrollContainerRef}
-            className="overflow-x-auto no-scrollbar scroll-smooth px-0.5"
+            className="overflow-x-auto overscroll-x-contain no-scrollbar scroll-smooth px-0.5"
           >
             {gridContent}
           </div>
@@ -737,138 +795,18 @@ export const BiblePage: React.FC = () => {
         currentVersion={selectedVersionCode}
         onVersionChange={(code) => {
           console.log('[BiblePage] Navbar onVersionChange:', code);
-          setSelectedVersionCode(code);
-          activeVersionRef.current = code;
+          applyVersionSelection([code], code);
         }}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenDbStatus={() => setIsDbStatusOpen(true)}
       />
 
-      {/* Language and version selection bar */}
-      <section className="border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-            {/* Language menu icon (click to open dropdown) */}
-            <div
-              className="relative inline-block shrink-0"
-              onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-            >
-              <button
-                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 ${
-                  isLanguageMenuOpen
-                    ? 'bg-amber-600 text-white shadow-xs'
-                    : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-              >
-                <Menu className="w-3.5 h-3.5" />
-              </button>
-              
-              {isLanguageMenuOpen && (
-                <div className="absolute top-full left-0 mt-2 w-80 z-50 bg-popover border border-border rounded-xl shadow-lg py-2 max-h-80 overflow-y-auto">
-                  <button
-                    onClick={() => setSelectedLanguageIds([])}
-                    className={`w-full px-3 py-2 text-left text-xs font-semibold rounded-t-xl transition-all ${
-                      selectedLanguageIds.length === 0
-                        ? 'bg-amber-600 text-white'
-                        : 'hover:bg-amber-50/20 text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    Toutes les langues
-                  </button>
-                  {languages.map((lang) => {
-                    const isSelected = selectedLanguageIds.includes(lang.id);
-                    const langVersions = versions.filter(v => v.language_id === lang.id);
-                    return (
-                      <div key={lang.id} className={`px-3 py-2 border-b last:border-b-0 ${isSelected ? 'bg-amber-50/20' : ''}`}>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={isSelected}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedLanguageIds(prev => [...prev, lang.id]);
-                              } else {
-                                setSelectedLanguageIds(prev => prev.filter(id => id !== lang.id));
-                              }
-                            }}
-                            className="h-3 w-3 text-amber-600 rounded"
-                          />
-                          <span className="font-semibold text-xs">{lang.name}</span>
-                        </div>
-                        {langVersions.length > 0 && (
-                          <div className="mt-1 space-y-1 text-xs text-muted-foreground">
-                            {langVersions.map(v => (
-                              <div key={v.id} className="flex items-center gap-1">
-                                <span className="font-mono">{v.code}</span>
-                                <span>—</span>
-                                <span>{v.name}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Tout button */}
-            <button
-              onClick={() => {
-                const allCodes = filteredVersions.map(v => v.code);
-                if (selectedVersions.length === allCodes.length && allCodes.length > 0) {
-                  setSelectedVersions([]);
-                  setSelectedVersionCode(allCodes[0] ?? '');
-                } else {
-                  setSelectedVersions(allCodes);
-                  setSelectedVersionCode(allCodes[0] ?? '');
-                }
-              }}
-              className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
-                selectedVersions.length === filteredVersions.length && filteredVersions.length > 0
-                  ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
-                  : 'bg-card text-foreground border-border hover:border-amber-500/60'
-              }`}
-            >
-              Tout
-            </button>
-
-            {/* Language codes with scrollable version lists */}
-            {displayedLanguages.map(lang => {
-              const langVersions = filteredVersions.filter(v => v.language_id === lang.id);
-              return (
-                <div key={lang.id} className="flex items-center gap-2">
-                  <span className="font-mono text-xs">{lang.code.toUpperCase()}</span>
-                  <div className="overflow-x-hidden whitespace-nowrap w-[80px]">
-                    <div className="inline-flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-track-transparent scrollbar-thumb-amber-400">
-                      {langVersions.map(v => (
-                        <button
-                          key={v.code}
-                          onClick={() => handleToggleVersion(v)}
-                          className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold transition-all ${
-                            selectedVersions.includes(v.code)
-                              ? 'bg-amber-600 text-white border-amber-600'
-                              : 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-200 border border-amber-200/60 hover:bg-amber-50/80 hover:border-amber-500/60 dark:hover:bg-amber-950/40'
-                          }`}
-                        >
-                          {v.code}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* Section de contrôle */}
-      <section className="w-full bg-gray-50 dark:bg-gray-900 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center">
+      <section className="w-full bg-gray-50 dark:bg-gray-900 xl:flex xl:h-[30px] xl:items-center xl:py-0">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 xl:my-0.5 xl:h-[25px]">
+          <div className="flex flex-col gap-3 py-1 xl:flex-row xl:flex-nowrap xl:items-center xl:gap-2 xl:py-0 xl:h-full">
             <div className="flex-1 min-w-0">
               <BookSearchSelect
                 booksList={booksList}
@@ -881,30 +819,57 @@ export const BiblePage: React.FC = () => {
                 classificationsList={classificationsList}
                 testamentNames={testamentNames}
                 classificationNames={classificationNames}
+                compact
               />
             </div>
 
-            <div className="shrink-0">
+            <div className="shrink-0 xl:flex xl:h-6 xl:items-center">
               <ChapterNavigator
                 selectedBook={selectedBook}
                 selectedChapter={selectedChapter}
                 booksList={booksList}
                 onChapterChange={handleChapterChange}
                 onBookChange={handleBookChange}
+                compact
               />
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0 border-t xl:border-t-0 xl:border-l border-border pt-2 xl:pt-0 xl:pl-3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div className="flex items-center gap-1.5 shrink-0 border-t xl:h-6 xl:border-t-0 xl:border-l xl:border-border xl:pt-0 xl:pl-2">
               <Button
                 variant={showTitles ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => {
                   setShowTitles(prev => !prev);
-                  toast({
-                    title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
-                  });
+                  // toast({
+                  //   // title: !showTitles ? "Titres de section affichés" : "Titres de section masqués"
+                  // });
                 }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
+                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all xl:h-6 xl:px-0 xl:text-[10px] xl:gap-1 ${
                   showTitles 
                     ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs' 
                     : 'text-muted-foreground hover:text-foreground'
@@ -921,11 +886,11 @@ export const BiblePage: React.FC = () => {
                 onClick={() => {
                   const nextMode = displayMode === 'compact' ? 'list' : 'compact';
                   setDisplayMode(nextMode);
-                  toast({
-                    title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
-                  });
+                  // toast({
+                  //   title: nextMode === 'compact' ? "Mode continu (compact) activé" : "Mode liste (ligne par ligne) activé"
+                  // });
                 }}
-                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all ${
+                className={`h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all xl:h-6 xl:px-0 xl:text-[10px] xl:gap-1 ${
                   displayMode === 'list'
                     ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
                     : 'text-muted-foreground hover:text-foreground'
@@ -947,6 +912,191 @@ export const BiblePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+
+      {/* Language and version selection bar */}
+      <section className="h-[25px] border-b border-border/80 bg-amber-50 dark:bg-amber-950/20 backdrop-blur-md sticky top-16 z-30 shadow-sm">
+        <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-full items-center gap-1.5 overflow-x-auto overscroll-x-contain no-scrollbar">
+            {/* Language menu icon (click to open dropdown) */}
+            <Popover open={isLanguageMenuOpen} onOpenChange={setIsLanguageMenuOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Afficher les langues et versions"
+                  aria-expanded={isLanguageMenuOpen}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 ${
+                    isLanguageMenuOpen
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'
+                  }`}
+                >
+                  <Menu className="w-3.5 h-3.5" />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent
+                side="bottom"
+                align="start"
+                sideOffset={8}
+                className="z-[100] w-[min(80rem,calc(100vw-2rem))] overflow-hidden rounded-xl p-0"
+              >
+                <div className="max-h-[70vh] overflow-auto p-2">
+                  <table className="mt-2 w-max min-w-[64rem] border-collapse text-left text-xs">
+                    <thead>
+                      <tr>
+                        {orderedLanguages.map(lang => (
+                          <th key={lang.id} className="min-w-28 border-b border-border px-2 py-2 align-top">
+                            <label className="flex cursor-pointer items-center gap-2 font-semibold">
+                              <input
+                                type="checkbox"
+                                checked={selectedLanguageIds.includes(lang.id)}
+                                onChange={event => {
+                                  if (event.target.checked) {
+                                    setSelectedLanguageIds(prev => prev.includes(lang.id) ? prev : [...prev, lang.id]);
+                                  } else {
+                                    setSelectedLanguageIds(prev => prev.filter(id => id !== lang.id));
+                                  }
+                                }}
+                                className="h-3 w-3 rounded text-amber-600"
+                              />
+                              <span>{lang.name.toUpperCase()}</span>
+                            </label>
+                            {/* <span className="mt-1 block font-normal text-muted-foreground">{lang.name}</span> */}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Array.from({ length: versionRowsCount }, (_, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {languageVersionColumns.map(({ language, versions: languageVersions }) => {
+                            const version = languageVersions[rowIndex];
+                            return (
+                              <td key={language.id} className="border-r border-border/60 px-0 py-px align-top leading-none last:border-r-0">
+                                {version && (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <span
+                                        role="checkbox"
+                                        aria-checked={selectedVersions.includes(version.code)}
+                                        tabIndex={0}
+                                        onClick={() => handleToggleVersion(version)}
+                                        onKeyDown={event => {
+                                          if (event.key === 'Enter' || event.key === ' ') {
+                                            event.preventDefault();
+                                            handleToggleVersion(version);
+                                          }
+                                        }}
+                                        className={`inline cursor-pointer whitespace-nowrap pl-px text-[10px] leading-none ${
+                                          selectedVersions.includes(version.code)
+                                            ? 'font-semibold text-amber-700 dark:text-amber-300'
+                                            : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                      >
+                                        {version.name}
+                                      </span>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom">
+                                      {version.name}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                )}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            {/* Tout button */}
+            <button
+              onClick={() => {
+                const allCodes = filteredVersions.map(v => v.code);
+                const allSelected = allCodes.length > 0
+                  && allCodes.every(code => selectedVersions.includes(code));
+                if (allSelected) {
+                  applyVersionSelection([]);
+                } else {
+                  applyVersionSelection(allCodes, allCodes[0]);
+                }
+              }}
+              className={`px-3 py-1.5 rounded-xl text-[10px] font-mono font-bold transition-all shrink-0 border ${
+                filteredVersions.length > 0 && filteredVersions.every(version => selectedVersions.includes(version.code))
+                  ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-600 shadow-sm'
+                  : 'bg-card text-foreground border-border hover:border-amber-500/60'
+              }`}
+            >
+              Tout
+            </button>
+
+            <table className="h-9 w-max shrink-0 border-collapse whitespace-nowrap text-left text-[11px]">
+              <tbody>
+                <tr>
+                  {displayedLanguages.map(lang => {
+                    const langVersions = filteredVersions.filter(v => v.language_id === lang.id);
+                    const allLanguageVersionsSelected = langVersions.length > 0
+                      && langVersions.every(version => selectedVersions.includes(version.code));
+                    const languageColors = LANGUAGE_COLOR_CLASSES[lang.code.toUpperCase()] ?? {
+                      cell: 'bg-muted/50',
+                      text: 'text-foreground'
+                    };
+                    return (
+                      <td key={lang.id} className={`h-9 border-r border-border/70 px-2 align-middle last:border-r-0 ${languageColors.cell}`}>
+                        <div className="flex h-full items-center gap-1.5">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                onClick={() => handleToggleLanguageVersions(lang.id)}
+                                aria-pressed={allLanguageVersionsSelected}
+                                className={`shrink-0 cursor-pointer whitespace-nowrap font-mono text-[15px] font-bold leading-none ${languageColors.text} ${allLanguageVersionsSelected ? 'underline decoration-2 underline-offset-2' : 'hover:opacity-75'}`}
+                              >
+                                {lang.code.toUpperCase()}
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                              {lang.name}
+                            </TooltipContent>
+                          </Tooltip>
+                          <div className="flex h-full items-center gap-1 whitespace-nowrap">
+                            {langVersions.map(version => (
+                              <Tooltip key={version.code}>
+                                <TooltipTrigger asChild>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleToggleVersion(version)}
+                                    aria-pressed={selectedVersions.includes(version.code)}
+                                    className={`flex h-9 shrink-0 cursor-pointer items-center whitespace-nowrap px-0.5 font-mono text-[15px] leading-none transition-colors ${languageColors.text} ${
+                                      selectedVersions.includes(version.code)
+                                        ? 'underline decoration-2 underline-offset-2'
+                                        : 'font-medium opacity-75 hover:opacity-100'
+                                    }`}
+                                  >
+                                    {version.code}
+                                  </button>
+                                </TooltipTrigger>
+                                <TooltipContent side="bottom">
+                                  {version.name}
+                                </TooltipContent>
+                              </Tooltip>
+                            ))}
+                          </div>
+                        </div>
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {loadError && (

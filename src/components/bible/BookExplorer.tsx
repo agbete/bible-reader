@@ -110,8 +110,8 @@ export const BookExplorer: React.FC<BookExplorerProps> = ({ onSelectChapter }) =
           />
         </div>
 
-        {/* Categories scrollable pill list */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full sm:max-w-md no-scrollbar">
+        {/* Category filters wrap instead of scrolling sideways */}
+        <div className="flex max-w-full flex-wrap items-center gap-1.5 pb-1 sm:max-w-md">
           <Button
             variant={categoryFilter === 'ALL' ? 'default' : 'outline'}
             size="sm"

@@ -19,6 +19,7 @@ interface ChapterNavigatorProps {
   booksList: DbBookItem[];
   onChapterChange: (chapter: number) => void;
   onBookChange: (book: DbBookItem) => void;
+  compact?: boolean;
 }
 
 export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
@@ -26,7 +27,8 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   selectedChapter,
   booksList,
   onChapterChange,
-  onBookChange
+  onBookChange,
+  compact = false
 }) => {
   const [isChapterDropdownOpen, setIsChapterDropdownOpen] = useState(false);
   const [chapterInput, setChapterInput] = useState('');
@@ -98,7 +100,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className={`flex items-center ${compact ? 'flex-nowrap gap-1' : 'flex-wrap gap-2'}`}>
       {/* PREVIOUS BOOK - Always visible, disabled if no prev book */}
       <Button
         variant="ghost"
@@ -110,7 +112,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
             onChapterChange(1);
           }
         }}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''} ${
           prevBook 
             ? 'text-muted-foreground hover:text-foreground' 
             : 'text-muted-foreground/40 cursor-not-allowed opacity-50'
@@ -126,7 +128,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         size="sm"
         onClick={handleFirstChapter}
         disabled={selectedChapter === 1}
-        className="h-9 px-2.5 rounded-full text-xs gap-1"
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''}`}
         title="Premier chapitre"
       >
         <ChevronsLeft className="w-3.5 h-3.5" />
@@ -138,7 +140,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         size="sm"
         onClick={handlePrevChapter}
         disabled={selectedChapter === 1 && !prevBook}
-        className="h-9 w-9 rounded-full p-0"
+        className={`h-9 w-9 rounded-full p-0 ${compact ? 'xl:h-6 xl:w-6' : ''}`}
         title={selectedChapter > 1 ? "Chapitre précédent" : (prevBook ? `Livre précédent: ${prevBook.name}` : 'Aucun chapitre précédent')}
       >
         <ChevronLeft className="w-4 h-4" />
@@ -148,7 +150,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
       <div className="relative">
         <button
           onClick={() => setIsChapterDropdownOpen(!isChapterDropdownOpen)}
-          className="h-9 px-3 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/25 text-xs font-bold flex items-center gap-1.5 transition-colors"
+          className={`h-9 px-3 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/25 text-xs font-bold flex items-center gap-1.5 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:gap-0.5 xl:text-[10px]' : ''}`}
         >
           
           <span>{selectedChapter}</span>
@@ -218,7 +220,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         size="sm"
         onClick={handleNextChapter}
         disabled={selectedChapter === maxChapters && !nextBook}
-        className="h-9 w-9 rounded-full p-0"
+        className={`h-9 w-9 rounded-full p-0 ${compact ? 'xl:h-6 xl:w-6' : ''}`}
         title={selectedChapter < maxChapters ? "Chapitre suivant" : (nextBook ? `Livre suivant: ${nextBook.name}` : 'Aucun chapitre suivant')}
       >
         <ChevronRight className="w-4 h-4" />
@@ -230,7 +232,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
         size="sm"
         onClick={handleLastChapter}
         disabled={selectedChapter === maxChapters}
-        className="h-9 px-2.5 rounded-full text-xs gap-1"
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''}`}
         title="Dernier chapitre"
       >
         <ChevronsRight className="w-3.5 h-3.5" />
@@ -247,7 +249,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
             onChapterChange(1);
           }
         }}
-        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${
+        className={`h-9 px-2.5 rounded-full text-xs gap-1 transition-colors ${compact ? 'xl:h-6 xl:px-0 xl:text-[10px]' : ''} ${
           nextBook 
             ? 'text-muted-foreground hover:text-foreground' 
             : 'text-muted-foreground/40 cursor-not-allowed opacity-50'

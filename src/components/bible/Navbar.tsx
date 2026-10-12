@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Search bar */}
-          <div className="flex-1 hidden md:block">
+          {/* <div className="flex-1 hidden md:block">
             <button
               onClick={onOpenSearch ? onOpenSearch : () => navigate('/bible')}
               className="w-full flex items-center justify-between px-3 py-2 rounded-full border border-border bg-muted/40 hover:bg-muted/70 text-muted-foreground text-xs transition-all shadow-xs group"
@@ -146,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ⌘K
               </kbd>
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Right side controls */}

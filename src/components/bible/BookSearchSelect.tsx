@@ -44,6 +44,7 @@ interface BookSearchSelectProps {
   classificationsList: { id: number; name: string; code?: string; testament_id: number }[];
   testamentNames: Map<number, string>;
   classificationNames: Map<number, string>;
+  compact?: boolean;
 }
 
 export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
@@ -56,7 +57,8 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
   testamentsList,
   classificationsList,
   testamentNames,
-  classificationNames
+  classificationNames,
+  compact = false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -361,20 +363,18 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
             setTimeout(() => inputRef.current?.focus(), 50);
           }
         }}
-        className={`w-full flex items-center justify-between gap-2 pl-10 pr-4 h-11 rounded-2xl border bg-card text-sm transition-all ${
+        className={`w-full flex items-center justify-between gap-2 ${compact ? 'h-11 pl-4 pr-4 xl:h-6 xl:pl-2 xl:pr-0 xl:rounded-md xl:text-xs' : 'h-11 pl-4 pr-4 rounded-2xl'} border bg-card text-sm transition-all ${
           isOpen 
             ? 'border-amber-500/60 ring-2 ring-amber-500/20' 
             : 'border-border hover:border-amber-500/40'
         }`}
       >
-        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-        
         <div className="flex items-center gap-2 flex-1 text-left truncate">
           {selectedBook ? (
             <span className="flex items-center gap-2 truncate">
-              <span className="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs">
+              {/* <span className="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs">
                 {selectedBook.code}
-              </span>
+              </span> */}
               <span className="font-semibold truncate">{selectedBook.name}</span>
               <span className="text-muted-foreground text-xs">·</span>
               <span className="text-xs text-muted-foreground">
