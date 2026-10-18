@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
 import { SearchDialog } from '@/components/bible/SearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
@@ -14,6 +15,8 @@ import {
   getDbChapterVerses,
   getDbVersionsWithVerses,
   getDbVerseTitles,
+  getDbBookNameEntries,
+  getDbVerseByReference,
   debugTitleTranslations,
   DbLanguage, 
   DbBibleVersion, 
@@ -39,9 +42,13 @@ import {
   Search,
   Type,
   ALargeSmall,
-  Check
+  Check,
+  Rows3,
+  GripVertical,
+  X
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
+import { buildBookNameIndex, parseReferences, BookNameIndex, ParsedReference } from '@/utils/bibleReference';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 import { useToast } from '@/hooks/use-toast';
 
@@ -83,6 +90,11 @@ const READER_FONTS = [
   { id: 'verdana', label: 'Verdana', family: 'Verdana, Geneva, sans-serif' }
 ];
 const READER_FONT_SIZES = [12, 14, 16, 18, 20, 22, 24];
+
+// Libellé du renvoi vers le dernier verset non vide, si la colonne languages.see_label est vide
+const DEFAULT_SEE_LABELS: Record<string, string> = {
+  fr: 'Voir', en: 'See', fn: 'Kpɔ́n', go: 'Kpɔ́n', gu: 'Kpɔ́n', yo: 'Wo', hb: 'Voir', hr: 'Voir', gr: 'Voir'
+};
 
 // "FRANÇAIS" / "français" → "Français" (chaque mot commence par une majuscule)
 const toProperCase = (str: string) =>
@@ -174,9 +186,20 @@ export const BiblePage: React.FC = () => {
   const [versesLoading, setVersesLoading] = useState<Record<string, boolean>>({});
   // Livre:chapitre dont les versets sont actuellement affichés
   const [loadedChapterKey, setLoadedChapterKey] = useState<string | null>(null);
+  // Versions dont les versets sont actuellement affichés (ex. "LSG,KJV")
+  const [loadedVersionsKey, setLoadedVersionsKey] = useState<string | null>(null);
+  // Numéro du dernier chargement : un chargement plus ancien qui se termine après ne doit rien écraser
+  const loadRequestRef = useRef(0);
   
   const [showTitles, setShowTitles] = useState<boolean>(true);
   const [displayMode, setDisplayMode] = useState<'compact' | 'list'>('list');
+  // Versets alignés en lignes (une ligne par verset, une colonne par version) — activé par défaut
+  const [alignedRows, setAlignedRows] = useState<boolean>(() => {
+    try { return localStorage.getItem('reader-aligned-rows') !== 'false'; } catch { return true; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('reader-aligned-rows', String(alignedRows)); } catch { /* stockage indisponible */ }
+  }, [alignedRows]);
 
   // Police et taille de lecture (mémorisées dans le navigateur)
   const [readerFontId, setReaderFontId] = useState<string>(() => {
@@ -216,6 +239,9 @@ export const BiblePage: React.FC = () => {
 
   // ✅ FIX: Compute effective language_id for book loading based on selected version
     const effectiveLanguageId = useMemo(() => {
+      // Langue de la première version comparée : les noms de livres suivent l'ordre de la comparaison
+      const firstVersion = versions.find(v => v.code === selectedVersions[0]);
+      if (firstVersion) return firstVersion.language_id;
       // If specific languages are selected, use the first one for book loading
       if (selectedLanguageIds.length > 0) {
         console.log('[BiblePage] effectiveLanguageId:', selectedLanguageIds[0], '(from language filter)');
@@ -229,7 +255,7 @@ export const BiblePage: React.FC = () => {
       }
       console.log('[BiblePage] effectiveLanguageId: undefined (no version found)');
       return undefined;
-    }, [selectedLanguageIds, selectedVersionCode, versions]);
+    }, [selectedVersions, selectedLanguageIds, selectedVersionCode, versions]);
 
   const versionLanguageMap = useMemo(() => {
     const map = new Map<string, number>();
@@ -411,11 +437,28 @@ export const BiblePage: React.FC = () => {
     }
   }, [effectiveLanguageId, loading]);
 
+  // Livres rechargés dans une autre langue : le livre sélectionné prend son nom dans cette langue
+  useEffect(() => {
+    if (!selectedBook) return;
+    const fresh = booksList.find(b => b.id === selectedBook.id);
+    if (fresh && fresh !== selectedBook) setSelectedBook(fresh);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [booksList]);
+
+  // Ensemble des versions, sans tenir compte de l'ordre : réordonner ne recharge rien
+  const versionsSetKey = useMemo(() => [...selectedVersions].sort().join(','), [selectedVersions]);
+
   useEffect(() => {
     if (selectedBook && !loading && selectedVersions.length > 0) {
+      // Chapitre déjà affiché et toutes les versions déjà chargées (ex. une version retirée) : rien à recharger
+      const loaded = new Set((loadedVersionsKey ?? '').split(','));
+      const alreadyLoaded = loadedChapterKey === `${selectedBook.id}:${selectedChapter}`
+        && selectedVersions.every(code => loaded.has(code) && versesData[code]);
+      if (alreadyLoaded) return;
       loadVersesForSelectedBook(selectedBook, selectedChapter, selectedVersions);
     }
-  }, [selectedBook, selectedChapter, selectedVersions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedBook?.id, selectedChapter, versionsSetKey]);
 
   const loadTitleTranslationsForVerses = async (verseIds: number[], versionCode: string) => {
     if (!verseIds || verseIds.length === 0) return;
@@ -520,7 +563,9 @@ export const BiblePage: React.FC = () => {
 
   const loadVersesForSelectedBook = async (book: DbBookItem, chapter: number, versionCodes: string[]) => {
     if (!book) return;
-    
+    const requestId = ++loadRequestRef.current;
+    const isStale = () => requestId !== loadRequestRef.current;
+
     const newData: Record<string, any[]> = {};
     const newLoading: Record<string, boolean> = {};
     versionCodes.forEach(v => {
@@ -542,30 +587,167 @@ export const BiblePage: React.FC = () => {
       });
       
       const results = await Promise.all(promises);
-      
+      if (isStale()) return;
+
       const updatedMap: Record<string, any[]> = {};
       results.forEach(({ code, verses }) => {
         updatedMap[code] = verses;
       });
       setVersesData(updatedMap);
       setLoadedChapterKey(`${book.id}:${chapter}`);
+      setLoadedVersionsKey(versionCodes.join(','));
 
       for (const { code, verses } of results) {
+        if (isStale()) return;
         if (verses && verses.length > 0) {
           const allVerseIds = verses.map(v => v.id).filter(Boolean);
           await loadTitleTranslationsForVerses(allVerseIds, code);
         }
       }
     } finally {
-      setVersesLoading(prev => {
-        const updated = { ...prev };
-        versionCodes.forEach(v => {
-          updated[v] = false;
+      if (!isStale()) {
+        setVersesLoading(prev => {
+          const updated = { ...prev };
+          versionCodes.forEach(v => {
+            updated[v] = false;
+          });
+          return updated;
         });
-        return updated;
-      });
+      }
     }
   };
+
+  // ─── Historique de navigation (boutons Retour / Suivant du navigateur) ───────────────────
+  // Chaque entrée d'historique porte un instantané de la page dans history.state.usr.bibleNav.
+  // L'entrée courante est tenue à jour en continu (défilement compris) ; un saut vers un verset
+  // crée une nouvelle entrée ; Retour restaure l'instantané exactement.
+  interface NavSnapshot {
+    bookId: number;
+    chapter: number;
+    versions: string[];
+    activeVersion: string;
+    languageIds: number[];
+    displayMode: 'compact' | 'list';
+    showTitles: boolean;
+    alignedRows: boolean;
+    scrollY: number;
+    /** Défilement horizontal des colonnes de versions (plus de 4 versions) */
+    scrollX: number;
+  }
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  // true pendant le chargement initial et pendant une restauration : on n'écrase pas l'instantané
+  const restoringRef = useRef(true);
+  const lastHandledLocationKeyRef = useRef<string | null>(null);
+  const [pendingRestore, setPendingRestore] = useState<NavSnapshot | null>(null);
+
+  const captureSnapshot = (): NavSnapshot | null => selectedBook ? {
+    bookId: selectedBook.id,
+    chapter: selectedChapter,
+    versions: selectedVersions,
+    activeVersion: selectedVersionCode,
+    languageIds: selectedLanguageIds,
+    displayMode,
+    showTitles,
+    alignedRows,
+    scrollY: window.scrollY,
+    scrollX: scrollContainerRef.current?.scrollLeft ?? 0
+  } : null;
+  // Toujours la version à jour, pour l'écouteur de défilement
+  const captureSnapshotRef = useRef(captureSnapshot);
+  captureSnapshotRef.current = captureSnapshot;
+
+  /** Écrit l'instantané dans l'entrée d'historique courante, sans recharger la page */
+  const saveSnapshotToHistory = () => {
+    if (restoringRef.current) return;
+    const snapshot = captureSnapshotRef.current();
+    if (!snapshot) return;
+    const state = window.history.state ?? {};
+    window.history.replaceState({ ...state, usr: { ...(state.usr ?? {}), bibleNav: snapshot } }, '');
+  };
+
+  /** À appeler juste avant un saut vers un verset : fige la position actuelle et crée une nouvelle entrée */
+  const pushVerseNavigation = () => {
+    saveSnapshotToHistory();
+    navigate(location.pathname + location.search, { state: {} });
+  };
+
+  // Le navigateur ne doit pas remettre le défilement lui-même : c'est la page qui le restaure
+  useEffect(() => {
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      clearTimeout(timer);
+      timer = setTimeout(saveSnapshotToHistory, 150);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const grid = scrollContainerRef.current;
+    grid?.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+      grid?.removeEventListener('scroll', onScroll);
+      window.history.scrollRestoration = previous;
+    };
+    // La grille défilante n'existe qu'au-delà de 4 versions : on se réabonne quand elle apparaît
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedVersions.length > 4]);
+
+  // Contexte d'affichage modifié (chapitre, versions, mode…) : mise à jour de l'entrée courante
+  useEffect(() => {
+    saveSnapshotToHistory();
+  }, [selectedBook, selectedChapter, selectedVersions, selectedVersionCode, selectedLanguageIds, displayMode, showTitles, alignedRows]);
+
+  // Retour / Suivant (et rechargement, ou retour depuis une autre page) : restauration du contexte
+  useEffect(() => {
+    if (loading || booksList.length === 0) return;
+    if (lastHandledLocationKeyRef.current === location.key) return;
+    lastHandledLocationKeyRef.current = location.key;
+    if (navigationType !== 'POP') return;
+
+    const snapshot: NavSnapshot | undefined = (location.state as { bibleNav?: NavSnapshot } | null)?.bibleNav;
+    const book = snapshot && booksList.find(b => b.id === snapshot.bookId);
+    if (!snapshot || !book) {
+      restoringRef.current = false;
+      return;
+    }
+    restoringRef.current = true;
+    setSelectedVerseForTreasures(null);
+    setPendingScrollVerse(null);
+    // Même contenu → même tableau : évite de recharger les versets (la page se viderait un instant)
+    const sameList = <T,>(a: T[], b: T[]) => a.length === b.length && a.every((v, i) => v === b[i]);
+    setSelectedLanguageIds(prev => sameList(prev, snapshot.languageIds) ? prev : snapshot.languageIds);
+    setSelectedVersions(prev => sameList(prev, snapshot.versions) ? prev : snapshot.versions);
+    setSelectedVersionCode(snapshot.activeVersion);
+    activeVersionRef.current = snapshot.activeVersion;
+    setDisplayMode(snapshot.displayMode);
+    setShowTitles(snapshot.showTitles);
+    if (typeof snapshot.alignedRows === 'boolean') setAlignedRows(snapshot.alignedRows);
+setSelectedBook(prev => prev?.id === book.id ? prev : book);
+    setSelectedChapter(snapshot.chapter);
+    setPendingRestore(snapshot);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.key, loading, booksList.length]);
+
+  // Défilement restauré une fois le bon chapitre, les bonnes versions et les titres affichés
+  useEffect(() => {
+    if (!pendingRestore) return;
+    if (loadedChapterKey !== `${pendingRestore.bookId}:${pendingRestore.chapter}`) return;
+    const loadedVersions = new Set((loadedVersionsKey ?? '').split(','));
+    if (!pendingRestore.versions.every(code => loadedVersions.has(code))) return;
+    if (Object.values(versesLoading).some(Boolean)) return;
+    const snapshot = pendingRestore;
+    setPendingRestore(null);
+    // Deux images d'attente : la mise en page (titres, mode d'affichage) doit être terminée
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = snapshot.scrollX;
+      window.scrollTo({ top: snapshot.scrollY, left: 0, behavior: 'instant' as ScrollBehavior });
+      restoringRef.current = false;
+    }));
+  }, [pendingRestore, loadedChapterKey, loadedVersionsKey, versesLoading]);
 
   const handleSelectBookAndChapter = (book: DbBookItem, chapter: number) => {
     setSelectedBook(book);
@@ -578,11 +760,13 @@ export const BiblePage: React.FC = () => {
   };
 
   // Navigation par titre : change de chapitre puis défile jusqu'au verset
-  const [pendingScrollVerse, setPendingScrollVerse] = useState<{ chapterKey: string; verse: number; verseId: number } | null>(null);
+  // verseId : titre à amener en haut ; toVerse : aller directement au verset (liens des titres de niveau 5)
+  const [pendingScrollVerse, setPendingScrollVerse] = useState<{ chapterKey: string; verse: number; verseId: number; toVerse?: boolean } | null>(null);
 
   const handleSelectTitle = (chapter: number, verseNumber: number, verseId: number) => {
     if (!selectedBook) return;
-    setSelectedChapter(chapter);
+    pushVerseNavigation();
+setSelectedChapter(chapter);
     setPendingScrollVerse({ chapterKey: `${selectedBook.id}:${chapter}`, verse: verseNumber, verseId });
   };
 
@@ -590,15 +774,102 @@ export const BiblePage: React.FC = () => {
     // On attend que les versets du chapitre visé soient affichés
     if (!pendingScrollVerse || loadedChapterKey !== pendingScrollVerse.chapterKey) return;
     // Le titre en haut de l'écran ; à défaut (titres masqués ou absents), le verset
-    const titleEl = document.querySelector<HTMLElement>(`[data-title-verse-id="${pendingScrollVerse.verseId}"]`);
-    const titlesDone = !Object.values(versesLoading).some(Boolean);
-    const el = titleEl ?? (titlesDone || !showTitles
-      ? document.querySelector<HTMLElement>(`[data-verse-number="${pendingScrollVerse.verse}"]`)
-      : null);
+    const verseSelector = `[data-verse-number="${pendingScrollVerse.verse}"]`;
+    let el: HTMLElement | null;
+    if (pendingScrollVerse.toVerse) {
+      el = document.querySelector<HTMLElement>(verseSelector);
+    } else {
+      const titleEl = document.querySelector<HTMLElement>(`[data-title-verse-id="${pendingScrollVerse.verseId}"]`);
+      const titlesDone = !Object.values(versesLoading).some(Boolean);
+      el = titleEl ?? (titlesDone || !showTitles ? document.querySelector<HTMLElement>(verseSelector) : null);
+    }
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (pendingScrollVerse.toVerse) {
+      // Surligne brièvement le verset atteint par un lien
+      el.classList.remove('verse-flash');
+      void el.offsetWidth;
+      el.classList.add('verse-flash');
+    }
     setPendingScrollVerse(null);
   }, [pendingScrollVerse, loadedChapterKey, titleTranslations, versesLoading, showTitles]);
+
+  // Liens des titres de niveau 5 : index des noms de livres (toutes langues)
+  const [bookNameIndex, setBookNameIndex] = useState<BookNameIndex>([]);
+  // Nom d'un livre dans une langue donnée : clé "languageId|CODE"
+  const [bookNameByLanguage, setBookNameByLanguage] = useState<Map<string, string>>(new Map());
+  useEffect(() => {
+    getDbBookNameEntries().then(entries => {
+      setBookNameIndex(buildBookNameIndex(entries));
+      const byLanguage = new Map<string, string>();
+      entries.forEach(e => { if (e.language_id) byLanguage.set(`${e.language_id}|${e.code}`, e.name); });
+      setBookNameByLanguage(byLanguage);
+    });
+  }, []);
+
+  // ─── Verset sans texte : lien « Voir Luc 3:1 » vers le dernier verset non vide qui précède ───
+  const renderVerseText = (verse: any, versionCode: string) => {
+    if (!verse.is_missing) return verse.text;
+    const verses: any[] = versesData[versionCode] || [];
+    const index = verses.findIndex(v => v.verse_number === verse.verse_number);
+    const previous = [...verses.slice(0, Math.max(index, 0))].reverse().find(v => !v.is_missing);
+    if (!previous || !selectedBook) {
+      return <span className="text-muted-foreground/60">—</span>;
+    }
+    const languageId = versionLanguageMap.get(versionCode);
+    const language = languages.find(l => l.id === languageId);
+    const label = language?.see_label?.trim() || DEFAULT_SEE_LABELS[language?.code?.toLowerCase() ?? ''] || 'Voir';
+    const bookName = bookNameByLanguage.get(`${languageId}|${selectedBook.code}`) ?? selectedBook.name;
+    return (
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          pushVerseNavigation();
+          setPendingScrollVerse({
+            chapterKey: `${selectedBook.id}:${selectedChapter}`,
+            verse: previous.verse_number,
+            verseId: -1,
+            toVerse: true
+          });
+        }}
+        className="italic text-amber-700 dark:text-amber-300 underline decoration-dotted underline-offset-2 hover:decoration-solid cursor-pointer text-left"
+      >
+        {label} {bookName} {selectedChapter}:{previous.verse_number}
+      </button>
+    );
+  };
+
+  const handleGoToReference = async (target: ParsedReference, versionCode?: string) => {
+    let ref = target;
+    const book = booksList.find(b => b.code.toUpperCase() === ref.bookCode.toUpperCase());
+    if (!book) {
+      showError(`Livre introuvable : ${ref.bookCode}`);
+      return;
+    }
+    // Livre à chapitre unique (Jude, Abdias…) : « Jude 5 » désigne le verset 5
+    if (ref.chapterOnly && book.chapters_count === 1) {
+      ref = { ...ref, chapter: 1, verse: ref.chapter, referenceCode: `${ref.bookCode}.1.${ref.chapter}` };
+    }
+    const verse = await getDbVerseByReference(ref.referenceCode);
+    const chapter = Math.max(1, Math.min(ref.chapter, book.chapters_count));
+    pushVerseNavigation();
+    // La version du titre cliqué passe en tête de la comparaison et devient la version active :
+    // le sélecteur de livre s'affiche alors dans sa langue
+    if (versionCode && selectedVersions.includes(versionCode)) {
+      setSelectedVersions(prev => [versionCode, ...prev.filter(code => code !== versionCode)]);
+      setSelectedVersionCode(versionCode);
+      activeVersionRef.current = versionCode;
+    }
+    setSelectedBook(book);
+    setSelectedChapter(chapter);
+    if (verse) {
+      setPendingScrollVerse({ chapterKey: `${book.id}:${chapter}`, verse: ref.verse, verseId: verse.id, toVerse: true });
+    } else {
+      showError(`Verset ${ref.referenceCode} introuvable — affichage du chapitre ${chapter}`);
+      setPendingScrollVerse({ chapterKey: `${book.id}:${chapter}`, verse: 1, verseId: -1, toVerse: true });
+    }
+  };
 
   const handleChapterChange = (chapter: number) => {
     if (!selectedBook) return;
@@ -659,6 +930,40 @@ export const BiblePage: React.FC = () => {
   };
 
   // afterVerse : le bloc de titres suit un verset → une ligne vide le sépare de ce verset
+  // Titre de niveau 5 = référence(s) biblique(s) : chaque référence devient un lien vers son premier verset,
+  // ex. « (Matthieu 12:22-30; Marc 3:22-27) » → MAT.12.22 et MAR.3.22
+  const renderReferenceTitle = (text: string, versionCode: string) => {
+    const refs = parseReferences(text, bookNameIndex);
+    if (refs.length === 0) return text;
+    const parts: React.ReactNode[] = [];
+    let cursor = 0;
+    refs.forEach((ref, i) => {
+      if (ref.start > cursor) parts.push(text.slice(cursor, ref.start));
+      parts.push(renderReferenceLink(ref, text.slice(ref.start, ref.end), i, versionCode));
+      cursor = ref.end;
+    });
+    if (cursor < text.length) parts.push(text.slice(cursor));
+    return parts;
+  };
+
+  const renderReferenceLink = (ref: ParsedReference, label: string, key: number, versionCode: string) => {
+    const bookName = booksList.find(b => b.code === ref.bookCode)?.name ?? ref.bookCode;
+    return (
+      <button
+        key={key}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleGoToReference(ref, versionCode);
+        }}
+        className="italic underline decoration-dotted underline-offset-2 hover:text-amber-700 dark:hover:text-amber-300 hover:decoration-solid transition-colors cursor-pointer text-left"
+        title={ref.chapterOnly ? `Aller à ${bookName} ${ref.chapter}` : `Aller à ${bookName} ${ref.chapter}:${ref.verse}`}
+      >
+        {label}
+      </button>
+    );
+  };
+
   const renderVerseTitles = (verseId: number, versionCode: string, afterVerse = false) => {
     if (!showTitles) return null;
     
@@ -686,7 +991,7 @@ export const BiblePage: React.FC = () => {
               className={`font-cambria leading-tight ${style.className}`}
               style={{ fontSize: style.fontSize }}
             >
-              {text}
+              {lvl === 5 ? renderReferenceTitle(String(text), versionCode) : text}
             </Tag>
           );
         })}
@@ -708,10 +1013,196 @@ export const BiblePage: React.FC = () => {
     }
   };
 
+  // ─── Gestion des versions comparées : retirer, réordonner (menu ou glisser-déposer) ───
+  const [draggedVersion, setDraggedVersion] = useState<string | null>(null);
+  const [dropTargetVersion, setDropTargetVersion] = useState<string | null>(null);
+
+  const moveVersion = (code: string, toIndex: number) => {
+    setSelectedVersions(prev => {
+      const rest = prev.filter(c => c !== code);
+      const index = Math.max(0, Math.min(toIndex, rest.length));
+      return [...rest.slice(0, index), code, ...rest.slice(index)];
+    });
+  };
+
+  const removeVersion = (code: string) => {
+    if (selectedVersions.length <= 1) return;
+    applyVersionSelection(selectedVersions.filter(c => c !== code));
+  };
+
+  const renderVersionHeader = (code: string, className = '') => {
+    const index = selectedVersions.indexOf(code);
+    const last = selectedVersions.length - 1;
+    const name = versions.find(v => v.code === code)?.name ?? code;
+    const menuItem = 'w-full px-2 py-1.5 rounded-md text-left text-xs hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent disabled:cursor-not-allowed';
+    return (
+      <div
+        className={`flex items-center gap-1 rounded-md transition-colors ${dropTargetVersion === code && draggedVersion !== code ? 'bg-amber-500/15' : ''} ${className}`}
+        onDragOver={(e) => {
+          if (!draggedVersion) return;
+          e.preventDefault();
+          setDropTargetVersion(code);
+        }}
+        onDragLeave={() => setDropTargetVersion(prev => (prev === code ? null : prev))}
+        onDrop={(e) => {
+          e.preventDefault();
+          if (draggedVersion && draggedVersion !== code) moveVersion(draggedVersion, index);
+          setDraggedVersion(null);
+          setDropTargetVersion(null);
+        }}
+      >
+        <span className="flex-1 min-w-0 truncate text-sm font-bold text-amber-600 dark:text-amber-400 font-sans">
+          {name}
+        </span>
+
+        {/* Déplacer : glisser-déposer, ou clic pour le menu */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+              type="button"
+              draggable
+              onDragStart={(e) => {
+                setDraggedVersion(code);
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', code);
+              }}
+              onDragEnd={() => {
+                setDraggedVersion(null);
+                setDropTargetVersion(null);
+              }}
+              className="shrink-0 p-0.5 rounded text-muted-foreground hover:text-foreground hover:bg-muted cursor-grab active:cursor-grabbing"
+              title="Déplacer la version (glisser-déposer ou cliquer)"
+              aria-label={`Déplacer ${name}`}
+            >
+              <GripVertical className="w-3.5 h-3.5" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent align="end" className="w-44 p-1">
+            <button type="button" className={menuItem} disabled={index === 0} onClick={() => moveVersion(code, 0)}>Placer en premier</button>
+            <button type="button" className={menuItem} disabled={index === 0} onClick={() => moveVersion(code, index - 1)}>Vers la gauche</button>
+            <button type="button" className={menuItem} disabled={index === last} onClick={() => moveVersion(code, index + 1)}>Vers la droite</button>
+            <button type="button" className={menuItem} disabled={index === last} onClick={() => moveVersion(code, last)}>Placer en dernier</button>
+          </PopoverContent>
+        </Popover>
+
+        {/* Retirer de la comparaison */}
+        <button
+          type="button"
+          onClick={() => removeVersion(code)}
+          disabled={selectedVersions.length <= 1}
+          className="shrink-0 p-0.5 rounded text-muted-foreground hover:text-rose-600 hover:bg-rose-500/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+          title={selectedVersions.length <= 1 ? 'Au moins une version doit rester affichée' : 'Retirer de la comparaison'}
+          aria-label={`Retirer ${name} de la comparaison`}
+        >
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    );
+  };
+
+  // Une ligne par verset, une colonne par version : le verset 3 de chaque version sur la même ligne
+  const renderAlignedRows = (hasMultiple: boolean) => {
+    const columns = selectedVersions;
+    const anyLoading = columns.some(code => versesLoading[code]);
+    const versesByNumber = new Map<string, Map<number, any>>();
+    const verseNumbers = new Set<number>();
+    columns.forEach(code => {
+      const map = new Map<number, any>();
+      (versesData[code] || []).forEach(v => {
+        map.set(v.verse_number, v);
+        verseNumbers.add(v.verse_number);
+      });
+      versesByNumber.set(code, map);
+    });
+    const rows = [...verseNumbers].sort((a, b) => a - b);
+    const multi = columns.length > 1;
+    // Plus de 4 versions : colonnes de 16rem et défilement horizontal (flèches) ;
+    // sinon au moins 12rem par version, avec défilement horizontal sur petit écran
+    const columnWidth = hasMultiple ? 'minmax(16rem, 1fr)' : multi ? 'minmax(12rem, 1fr)' : 'minmax(0, 1fr)';
+    const gridTemplateColumns = `repeat(${columns.length}, ${columnWidth})`;
+
+    return (
+      <div className="px-2 sm:px-4 pb-4 pt-[11px] rounded-2xl rounded-t-none border border-t-0 border-border bg-card shadow-xs">
+        {anyLoading && rows.length === 0 ? (
+          <div className="py-12 text-center text-muted-foreground space-y-2">
+            <Loader2 className="w-6 h-6 animate-spin text-amber-600 mx-auto" />
+            <span className="text-xs font-medium">Chargement des versets...</span>
+          </div>
+        ) : rows.length === 0 ? (
+          <div className="py-12 text-center text-muted-foreground">
+            <span className="text-xs">Aucun verset trouvé pour ce chapitre.</span>
+          </div>
+        ) : (
+          <div className={hasMultiple ? '' : 'overflow-x-auto overscroll-x-contain'}>
+          <div
+            className="grid gap-x-4 font-serif leading-snug"
+            style={{ ...readerTextStyle, gridTemplateColumns }}
+          >
+            {multi && (
+              <>
+                {columns.map(code => (
+                  <div key={code} className="mb-2 pb-2 border-b border-border min-w-0">
+                    {renderVersionHeader(code)}
+                  </div>
+                ))}
+              </>
+            )}
+            {rows.map((number, rowIndex) => {
+              // Titres : une ligne à part, au-dessus du verset, pour que les textes restent alignés
+              const titleCells = columns.map(code => {
+                const verse = versesByNumber.get(code)?.get(number);
+                return verse ? renderVerseTitles(verse.id, code, rowIndex > 0) : null;
+              });
+              const hasTitles = titleCells.some(Boolean);
+              return (
+                <React.Fragment key={number}>
+                  {hasTitles && titleCells.map((titles, i) => (
+                    <div key={`t-${columns[i]}`} className="min-w-0 self-end">
+                      {titles}
+                    </div>
+                  ))}
+                  {columns.map((code, i) => {
+                    const verse = versesByNumber.get(code)?.get(number);
+                    return (
+                      <div
+                        key={code}
+                        // Ancre de défilement (titres, références, historique) sur la première colonne
+                        data-verse-number={i === 0 ? number : undefined}
+                        className="min-w-0 py-0.5 border-b border-border/40 scroll-mt-[70px] xl:scroll-mt-[100px]"
+                      >
+                        {verse ? (
+                          <div
+                            onClick={() => handleVerseClick(verse, code)}
+                            className="flex items-start gap-[3px] px-1 py-0.5 rounded-md hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-colors"
+                            title="Cliquez pour voir les Références & Trésors"
+                          >
+                            <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-px shrink-0 min-w-[0.75rem]">
+                              {number}
+                            </span>
+                            <p className="text-foreground flex-1">{renderVerseText(verse, code)}</p>
+                          </div>
+                        ) : versesLoading[code] ? (
+                          <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600 m-1" />
+                        ) : (
+                          <span className="px-1 text-muted-foreground/60">—</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
+          </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const renderVersionsGrid = () => {
     const hasMultiple = selectedVersions.length > 4;
 
-    const gridContent = (
+    const gridContent = alignedRows ? renderAlignedRows(hasMultiple) : (
       <div 
         className={
           hasMultiple 
@@ -742,10 +1233,8 @@ export const BiblePage: React.FC = () => {
               }`}
             >
               {selectedVersions.length > 1 && (
-                <div className="flex items-center justify-between mb-4 pb-2 border-b border-border">
-                  <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
-                    {versionObj.name}
-                  </span>
+                <div className="mb-4 pb-2 border-b border-border">
+                  {renderVersionHeader(versionCode)}
                 </div>
               )}
               
@@ -772,7 +1261,7 @@ export const BiblePage: React.FC = () => {
                           {verse.verse_number}
                         </span>
                         <p className="text-foreground flex-1">
-                          {verse.text}
+                          {renderVerseText(verse, versionCode)}
                         </p>
                         <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5" />
                       </div>
@@ -797,7 +1286,7 @@ export const BiblePage: React.FC = () => {
                           <sup className="font-sans font-bold text-xs text-amber-600 dark:text-amber-400 font-mono mr-0.5 select-none">
                             {verse.verse_number}
                           </sup>
-                          <span>{verse.text} </span>
+                          <span>{renderVerseText(verse, versionCode)} </span>
                         </span>
                       </React.Fragment>
                     );
@@ -958,7 +1447,8 @@ export const BiblePage: React.FC = () => {
                   const nextMode = displayMode === 'compact' ? 'list' : 'compact';
                   setDisplayMode(nextMode);
                 }}
-                title={displayMode === 'compact' ? "Mode compact" : "Mode liste"}
+                disabled={alignedRows}
+                title={alignedRows ? "Indisponible quand les versets sont alignés en lignes" : (displayMode === 'compact' ? "Mode compact" : "Mode liste")}
                 aria-label={displayMode === 'compact' ? "Mode compact" : "Mode liste"}
                 className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                   displayMode === 'list'
@@ -1045,6 +1535,29 @@ export const BiblePage: React.FC = () => {
                   ))}
                 </PopoverContent>
               </Popover>
+
+              {/* Versets alignés sur une ligne (type tableau) / affichage par colonnes */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setAlignedRows(prev => !prev)}
+                    aria-pressed={alignedRows}
+                    aria-label={alignedRows ? "Désactiver l'alignement des versets en lignes" : "Aligner les versets en lignes"}
+                    className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
+                      alignedRows
+                        ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
+                        : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                    }`}
+                  >
+                    <Rows3 className="w-3.5 h-3.5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {alignedRows ? 'Versets alignés en lignes (activé)' : 'Versets alignés en lignes (désactivé)'}
+                </TooltipContent>
+              </Tooltip>
             </div>
 
           </div>
@@ -1282,6 +1795,7 @@ export const BiblePage: React.FC = () => {
           displayMode={displayMode}
           onToggleDisplayMode={() => setDisplayMode(prev => prev === 'compact' ? 'list' : 'compact')}
           onNavigateToPassage={(book, chapter) => {
+            pushVerseNavigation();
             setSelectedBook(book);
             setSelectedChapter(chapter);
           }}
@@ -1320,6 +1834,7 @@ export const BiblePage: React.FC = () => {
           onSelectBookChapter={(bookId, chapter) => {
             const matched = booksList.find(b => b.code.toLowerCase() === bookId.toLowerCase());
             if (matched) {
+              pushVerseNavigation();
               setSelectedBook(matched);
               setSelectedChapter(chapter);
               setSelectedVersions([activeVersion.code]);
@@ -1337,6 +1852,7 @@ export const BiblePage: React.FC = () => {
           onOpenVerseChapter={(bookId, chapter) => {
             const matchedBook = booksList.find(b => b.code === bookId);
             if (matchedBook) {
+              pushVerseNavigation();
               setSelectedBook(matchedBook);
               setSelectedChapter(chapter);
               setSelectedVersions([activeVersion.code]);

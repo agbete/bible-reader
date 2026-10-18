@@ -4,6 +4,8 @@ export interface DbLanguage {
   id: number;
   code: string;
   name: string;
+  /** Libellé du lien de renvoi vers le dernier verset non vide (« Voir », « See »…) */
+  see_label?: string | null;
 }
 
 export interface DbBibleVersion {
@@ -32,6 +34,8 @@ export interface DbVerseItem {
   reference_code: string;
   text: string;
   is_paragraph?: boolean;
+  /** Aucun texte pour ce verset dans cette version */
+  is_missing?: boolean;
 }
 
 export interface DbTreasureTargetItem {
@@ -102,7 +106,7 @@ export async function getDbLanguages(): Promise<DbLanguage[]> {
   try {
     const { data, error } = await supabase
       .from('languages')
-      .select('id, code, name')
+      .select('*') // '*' : fonctionne aussi avant l'ajout de la colonne see_label
       .order('id', { ascending: true });
 
     if (error) {
@@ -281,6 +285,7 @@ export async function getDbChapterVerses(
       verse_number: v.verse_number,
       reference_code: v.reference_code,
       text: textsMap.get(v.id) || `[Texte non disponible - ${v.reference_code}]`,
+      is_missing: !textsMap.get(v.id)?.trim(),
       is_paragraph: Boolean(v.is_paragraph)
     }));
   } catch (err) {
@@ -396,6 +401,43 @@ export async function getDbBookTitles(bookId: number, level: number, languageId?
     console.error('[bibleDb] Exception getDbBookTitles:', err);
     return [];
   }
+}
+
+type BookNameEntryRow = { code: string; name: string; language_id?: number };
+let bookNameEntriesCache: BookNameEntryRow[] | null = null;
+
+/** Noms de tous les livres dans toutes les langues (≈ 400 lignes), pour lire les références des titres */
+export async function getDbBookNameEntries(): Promise<BookNameEntryRow[]> {
+  if (bookNameEntriesCache) return bookNameEntriesCache;
+  try {
+    const [{ data: books }, { data: translations }] = await Promise.all([
+      supabase.from('books').select('id, code'),
+      supabase.from('book_translations').select('book_id, language_id, name').limit(2000)
+    ]);
+    if (!books) return [];
+    const codeById = new Map<number, string>(books.map(b => [b.id, b.code]));
+    const entries: BookNameEntryRow[] = books.map(b => ({ code: b.code, name: b.code }));
+    translations?.forEach(t => {
+      const code = codeById.get(t.book_id);
+      if (code && t.name) entries.push({ code, name: t.name, language_id: t.language_id });
+    });
+    bookNameEntriesCache = entries;
+    return entries;
+  } catch (err) {
+    console.error('[bibleDb] Exception getDbBookNameEntries:', err);
+    return [];
+  }
+}
+
+/** Vérifie qu'un verset existe dans la table verses, ex. "LUC.11.2" */
+export async function getDbVerseByReference(referenceCode: string): Promise<{ id: number; reference_code: string } | null> {
+  const { data, error } = await supabase
+    .from('verses')
+    .select('id, reference_code')
+    .eq('reference_code', referenceCode)
+    .maybeSingle();
+  if (error) console.error('[bibleDb] Erreur getDbVerseByReference:', error.message);
+  return data ?? null;
 }
 
 export async function debugTitleTranslations(): Promise<void> {}

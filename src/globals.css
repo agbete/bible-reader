@@ -123,3 +123,13 @@
     display: none;
   }
 }
+
+/* Verset atteint par un lien de référence : surlignage qui s'estompe */
+@keyframes verse-flash {
+  0%, 30% { background-color: rgb(245 158 11 / 0.35); }
+  100% { background-color: transparent; }
+}
+.verse-flash {
+  animation: verse-flash 2.2s ease-out;
+  border-radius: 0.5rem;
+}
