@@ -192,7 +192,19 @@ export async function getDbAllBooks(languageId?: number): Promise<DbBookItem[]> 
     const testamentsMap = new Map<number, string>();
     testamentsData?.forEach(t => testamentsMap.set(t.id, t.code));
 
-    const { data: chaptersData } = await supabase.from('chapters').select('book_id, number');
+    // 1189 chapitres : Supabase n'en renvoie que 1000 par requête, on lit donc par pages
+    const chaptersData: { book_id: number; number: number }[] = [];
+    const PAGE = 1000;
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await supabase
+        .from('chapters')
+        .select('book_id, number')
+        .order('id', { ascending: true })
+        .range(from, from + PAGE - 1);
+      if (error || !data) break;
+      chaptersData.push(...data);
+      if (data.length < PAGE) break;
+    }
     const chaptersCountMap = new Map<number, number>();
     chaptersData?.forEach(ch => {
       const current = chaptersCountMap.get(ch.book_id) || 0;
@@ -720,6 +732,16 @@ export async function getDbVerseTreasures(
     const requestedLangId = languageId ?? versionLangId ?? desiredLangId;
     console.log('[bibleDb] Requested language for titles:', requestedLangId);
 
+    // Titre absent dans la langue demandée : on prend le titre anglais
+    let englishLangId = getLanguageIdFromCode('en');
+    if (englishLangId == null) {
+      const { data: en } = await supabase.from('languages').select('id').eq('code', 'en').maybeSingle();
+      englishLangId = en?.id ?? null;
+    }
+    const pickTranslation = (translations: any[]) =>
+      translations.find((tr: any) => tr.language_id === requestedLangId && tr.title?.trim())
+      ?? translations.find((tr: any) => tr.language_id === englishLangId && tr.title?.trim());
+
     // Group treasures by title (not by treasure_id)
     // This ensures treasures with the same title are grouped together
     const titleGroups = new Map<string, DbTreasureItem[]>();
@@ -729,14 +751,12 @@ export async function getDbVerseTreasures(
       
       console.log('[bibleDb] Treasure', t.id, '- available translations:', availableTranslations.map((tr: any) => ({ langId: tr.language_id, title: tr.title?.substring(0, 30) })));
       
-      // Find translation in the REQUESTED language only - NO FALLBACK
-      const trans = availableTranslations.find(
-        (tr: any) => tr.language_id === requestedLangId
-      );
+      // Langue demandée, sinon anglais
+      const trans = pickTranslation(availableTranslations);
 
       console.log('[bibleDb] Treasure', t.id, '- requested langId:', requestedLangId, 'selected translation:', trans?.title?.substring(0, 30) || 'NONE');
 
-      // Use requested language translation, or empty string if not available
+      // Titre trouvé (langue demandée ou anglais), sinon chaîne vide
       const title = trans?.title || '';
 
       // Group by title (even if empty)
@@ -783,7 +803,7 @@ export async function getDbVerseTreasures(
       });
 
       // Get description from first treasure in group
-      const description = group[0]?.treasure_translations?.find((tr: any) => tr.language_id === requestedLangId)?.description || '';
+      const description = pickTranslation(group[0]?.treasure_translations || [])?.description || '';
 
       // Get target references
       const targetReferences = allTargetItems.map(i => i.reference_code).filter(Boolean);

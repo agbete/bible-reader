@@ -22,6 +22,8 @@ interface ChapterNavigatorProps {
   onBookChange: (book: DbBookItem) => void;
   titleLanguageId?: number;
   onSelectTitle?: (chapter: number, verseNumber: number, verseId: number) => void;
+  /** false : pas de sélecteur de titres (la fenêtre des trésors affiche ses thèmes à la place) */
+  showTitleNavigator?: boolean;
   compact?: boolean;
 }
 
@@ -33,6 +35,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   onBookChange,
   titleLanguageId,
   onSelectTitle,
+  showTitleNavigator = true,
   compact = false
 }) => {
   const [isChapterDropdownOpen, setIsChapterDropdownOpen] = useState(false);
@@ -199,13 +202,15 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
       </div>
 
       {/* TITLE NAVIGATION (niveau 4) */}
-      <TitleNavigator
-        selectedBook={selectedBook}
-        selectedChapter={selectedChapter}
-        languageId={titleLanguageId}
-        onSelectTitle={onSelectTitle ?? ((chapter) => onChapterChange(chapter))}
-        compact={compact}
-      />
+      {showTitleNavigator && (
+        <TitleNavigator
+          selectedBook={selectedBook}
+          selectedChapter={selectedChapter}
+          languageId={titleLanguageId}
+          onSelectTitle={onSelectTitle ?? ((chapter) => onChapterChange(chapter))}
+          compact={compact}
+        />
+      )}
     </div>
   );
 };

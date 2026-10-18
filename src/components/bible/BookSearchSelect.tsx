@@ -139,7 +139,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
 
       {/* Dropdown Panel */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 z-50 w-full min-w-[min(40rem,calc(100vw-2rem))] bg-card border border-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full left-0 mt-2 z-50 w-full min-w-[min(40rem,calc(100vw-2rem))] bg-card text-foreground border border-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="max-h-[70vh] overflow-y-auto p-3">
             {testamentColumns.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -170,7 +170,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
                                 <span className="w-8 h-6 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold font-mono text-[10px] shrink-0">
                                   {book.code}
                                 </span>
-                                <span className="font-semibold truncate">{book.name}</span>
+                                <span className="font-bold text-black dark:text-white truncate">{book.name}</span>
                               </div>
                             ))}
                           </div>

@@ -1792,12 +1792,13 @@ setSelectedChapter(chapter);
           classificationNames={classificationNames}
           showTitles={showTitles}
           onToggleShowTitles={() => setShowTitles(prev => !prev)}
-          displayMode={displayMode}
-          onToggleDisplayMode={() => setDisplayMode(prev => prev === 'compact' ? 'list' : 'compact')}
-          onNavigateToPassage={(book, chapter) => {
+          onNavigateToPassage={(book, chapter, verse) => {
             pushVerseNavigation();
             setSelectedBook(book);
             setSelectedChapter(chapter);
+            if (verse) {
+              setPendingScrollVerse({ chapterKey: `${book.id}:${chapter}`, verse, verseId: -1, toVerse: true });
+            }
           }}
         />
 
