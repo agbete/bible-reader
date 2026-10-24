@@ -10,7 +10,8 @@ import {
   ChevronDown,
   Database,
   BookMarked,
-  BookText
+  BookText,
+  Hash
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -69,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#92400E] dark:bg-[#1C1917] text-white transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[40px] flex items-center justify-between gap-2">
+      <div className="w-full px-[10px] h-[40px] flex items-center justify-between gap-2">
         {/* Brand logo & name */}
         <Link to="/" className="flex items-center gap-3 cursor-pointer">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 flex items-center justify-center shadow-md shadow-black/20 text-white font-bold shrink-0">
@@ -129,6 +130,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <BookText className="w-3.5 h-3.5" />
               <span>Dictionnaire</span>
+            </Link>
+
+            {/* Onglet CODE STRONG */}
+            <Link
+              to="/code-strong"
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors whitespace-nowrap ${
+                location.pathname.startsWith('/code-strong')
+                  ? 'bg-white/20 text-white font-bold'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <Hash className="w-3.5 h-3.5" />
+              <span>Code Strong</span>
             </Link>
           </nav>
 

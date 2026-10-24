@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import BiblePage from "./pages/BiblePage";
 import DictionaryPage from "./pages/DictionaryPage";
 import DictionaryEntryPage from "./pages/DictionaryEntryPage";
+import StrongCodesPage from "./pages/StrongCodesPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/bible" element={<BiblePage />} />
           <Route path="/dictionnaire" element={<DictionaryPage />} />
           <Route path="/dictionnaire/:dictionaryId/:entryId" element={<DictionaryEntryPage />} />
+          <Route path="/code-strong" element={<StrongCodesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

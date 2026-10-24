@@ -1,45 +1,77 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
-import { 
-  Search, 
-  Book, 
-  ChevronLeft, 
+import {
+  Search,
+  ChevronLeft,
   ChevronRight,
-  ChevronDown,
   Loader2,
   BookOpen,
-  BookMarked,
-  ArrowLeft,
   AlertCircle,
-  RefreshCw
+  RefreshCw,
+  X,
+  CornerDownRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { MadeWithDyad } from '@/components/made-with-dyad';
-import { showSuccess } from '@/utils/toast';
 import {
   getDictionaries,
   getDictionaryEntries,
   getAvailableLetters,
+  getDictionaryEntryCounts,
+  entryInitial,
   Dictionary,
   DictionaryEntry,
 } from '@/services/dictionaryDb';
+import { dictionaryExcerpt, isCrossReferenceOnly } from '@/utils/dictionaryHtml';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+/** Pagination compacte : ‹ 1 … 4 5 6 … 19 › */
+const Pagination: React.FC<{ page: number; total: number; onChange: (page: number) => void }> = ({ page, total, onChange }) => {
+  if (total <= 1) return null;
+  const pages = Array.from({ length: total }, (_, i) => i + 1).filter(p => p === 1 || p === total || Math.abs(p - page) <= 1);
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        onClick={() => onChange(Math.max(1, page - 1))}
+        disabled={page === 1}
+        className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-amber-100 dark:hover:bg-amber-900/40 disabled:opacity-30"
+        title="Page précédente"
+      >
+        <ChevronLeft className="w-4 h-4" />
+      </button>
+      {pages.map((p, i) => (
+        <React.Fragment key={p}>
+          {i > 0 && p - pages[i - 1] > 1 && <span className="px-1 text-muted-foreground">…</span>}
+          <button
+            onClick={() => onChange(p)}
+            className={`min-w-8 h-8 px-2 rounded-full text-[13px] font-semibold tabular-nums transition-colors ${
+              p === page ? 'bg-amber-700 text-white shadow' : 'hover:bg-amber-100 dark:hover:bg-amber-900/40'
+            }`}
+          >
+            {p}
+          </button>
+        </React.Fragment>
+      ))}
+      <button
+        onClick={() => onChange(Math.min(total, page + 1))}
+        disabled={page === total}
+        className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-amber-100 dark:hover:bg-amber-900/40 disabled:opacity-30"
+        title="Page suivante"
+      >
+        <ChevronRight className="w-4 h-4" />
+      </button>
+    </div>
+  );
+};
 
 const DictionaryPage: React.FC = () => {
   const navigate = useNavigate();
 
   // Data state
   const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
+  const [entryCounts, setEntryCounts] = useState<Map<number, number>>(new Map());
   const [entries, setEntries] = useState<DictionaryEntry[]>([]);
   const [availableLetters, setAvailableLetters] = useState<string[]>([]);
 
@@ -59,33 +91,33 @@ const DictionaryPage: React.FC = () => {
   const [loadingEntries, setLoadingEntries] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load dictionaries on mount
-  useEffect(() => {
-    const loadDictionaries = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const dicts = await getDictionaries();
-        setDictionaries(dicts);
-        
-        // Select first dictionary by default
-        if (dicts.length > 0 && !selectedDictionary) {
-          setSelectedDictionary(dicts[0].id);
-        }
-        
-        if (dicts.length === 0) {
-          setError('Aucun dictionnaire trouvé dans la base de données.');
-        }
-      } catch (err) {
-        console.error('Error loading dictionaries:', err);
-        setError('Impossible de charger les dictionnaires.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const loadDictionaries = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const dicts = await getDictionaries();
+      setDictionaries(dicts);
+      const counts = await getDictionaryEntryCounts(dicts.map(d => d.id));
+      setEntryCounts(counts);
 
-    loadDictionaries();
+      // Premier dictionnaire non vide par défaut
+      const first = dicts.find(d => (counts.get(d.id) ?? 0) > 0) ?? dicts[0];
+      if (first) setSelectedDictionary(prev => prev ?? first.id);
+
+      if (dicts.length === 0) {
+        setError('Aucun dictionnaire trouvé dans la base de données.');
+      }
+    } catch (err) {
+      console.error('Error loading dictionaries:', err);
+      setError('Impossible de charger les dictionnaires.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadDictionaries();
+  }, [loadDictionaries]);
 
   // Load entries when filters change
   const loadEntries = useCallback(async () => {
@@ -105,10 +137,6 @@ const DictionaryPage: React.FC = () => {
       setEntries(response.entries);
       setTotalCount(response.totalCount);
       setTotalPages(response.totalPages);
-      
-      if (response.entries.length === 0 && response.totalCount === 0) {
-        // No error, just no results
-      }
     } catch (err) {
       console.error('Error loading entries:', err);
       setError('Erreur lors du chargement des entrées.');
@@ -119,81 +147,45 @@ const DictionaryPage: React.FC = () => {
 
   // Load available letters when dictionary changes
   useEffect(() => {
-    const loadLetters = async () => {
-      if (!selectedDictionary) return;
-      try {
-        const letters = await getAvailableLetters(selectedDictionary);
-        setAvailableLetters(letters);
-      } catch (err) {
-        console.error('Error loading letters:', err);
-      }
-    };
-
-    loadLetters();
+    if (!selectedDictionary) return;
+    getAvailableLetters(selectedDictionary)
+      .then(setAvailableLetters)
+      .catch(err => console.error('Error loading letters:', err));
     setSelectedLetter(null); // Reset letter filter when dictionary changes
     setCurrentPage(1);
   }, [selectedDictionary]);
 
-  // Load entries when filters change
   useEffect(() => {
     if (selectedDictionary) {
       loadEntries();
     }
   }, [selectedDictionary, searchQuery, selectedLetter, currentPage, loadEntries]);
 
-  // Handle dictionary change
-  const handleDictionaryChange = (dictId: string) => {
-    setSelectedDictionary(parseInt(dictId, 10));
-    setCurrentPage(1);
-  };
-
-  // Handle letter click
   const handleLetterClick = (letter: string) => {
-    if (selectedLetter === letter) {
-      setSelectedLetter(null);
-    } else {
-      setSelectedLetter(letter);
-    }
+    setSelectedLetter(prev => (prev === letter ? null : letter));
+    setSearchQuery('');
     setCurrentPage(1);
   };
 
-  // Handle entry click - navigate to detail page
-  const handleEntryClick = (entry: DictionaryEntry) => {
-    navigate(`/dictionnaire/${selectedDictionary}/${entry.id}`);
+  const changePage = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Get current dictionary info
   const currentDictionary = dictionaries.find(d => d.id === selectedDictionary);
 
-  // Reset search when letter changes
-  useEffect(() => {
-    if (selectedLetter) {
-      setSearchQuery('');
-    }
-  }, [selectedLetter]);
-
-  // Retry loading
-  const handleRetry = () => {
-    setLoading(true);
-    setError(null);
-    const loadDictionaries = async () => {
-      try {
-        const dicts = await getDictionaries();
-        setDictionaries(dicts);
-        if (dicts.length > 0 && !selectedDictionary) {
-          setSelectedDictionary(dicts[0].id);
-        }
-        if (dicts.length === 0) {
-          setError('Aucun dictionnaire trouvé dans la base de données.');
-        }
-      } catch (err) {
-        setError('Impossible de charger les dictionnaires.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadDictionaries();
-  };
+  // Entrées regroupées par lettre initiale, comme dans un dictionnaire imprimé
+  const groups = useMemo(() => {
+    const result: { letter: string; items: { entry: DictionaryEntry; excerpt: string; crossRef: boolean }[] }[] = [];
+    entries.forEach(entry => {
+      const letter = entryInitial(entry.entry_name) || '#';
+      const item = { entry, excerpt: dictionaryExcerpt(entry.content), crossRef: isCrossReferenceOnly(entry.content) };
+      const last = result[result.length - 1];
+      if (last && last.letter === letter) last.items.push(item);
+      else result.push({ letter, items: [item] });
+    });
+    return result;
+  }, [entries]);
 
   if (loading) {
     return (
@@ -221,7 +213,7 @@ const DictionaryPage: React.FC = () => {
             <p className="text-xs text-muted-foreground">
               Vérifiez que les tables <code className="px-1 py-0.5 rounded bg-muted">dictionaries</code> et <code className="px-1 py-0.5 rounded bg-muted">dictionary_entries</code> existent dans Supabase et que les permissions RLS sont configurées.
             </p>
-            <Button onClick={handleRetry} className="rounded-full gap-2">
+            <Button onClick={loadDictionaries} className="rounded-full gap-2">
               <RefreshCw className="w-4 h-4" />
               Réessayer
             </Button>
@@ -235,120 +227,100 @@ const DictionaryPage: React.FC = () => {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar currentVersion="LSG" />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center">
-              <Book className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                Dictionnaire Biblique
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Explorez les définitions et explications des termes bibliques
-              </p>
-            </div>
+      {/* En-tête */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] text-white">
+        <span
+          aria-hidden
+          className="pointer-events-none select-none absolute right-4 -bottom-24 font-cambria font-bold text-[18rem] leading-none text-white/[0.06]"
+        >
+          {selectedLetter || 'Aa'}
+        </span>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-300/60 to-transparent" />
+
+        <div className="relative px-[10px] sm:px-8 pt-6 pb-5">
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-amber-200/90">Dictionnaire biblique</p>
+          <h1 className="mt-1 font-cambria text-[30px] sm:text-[40px] font-bold leading-tight">
+            {currentDictionary?.name ?? 'Dictionnaire'}
+          </h1>
+          {currentDictionary && (
+            <p className="mt-1 text-[13px] text-amber-100/80">
+              {currentDictionary.author && <>par <span className="font-semibold text-amber-50">{currentDictionary.author}</span> · </>}
+              {(entryCounts.get(currentDictionary.id) ?? 0).toLocaleString('fr-FR')} entrées
+            </p>
+          )}
+
+          {/* Choix du dictionnaire */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            {dictionaries.map(dict => {
+              const count = entryCounts.get(dict.id) ?? 0;
+              const active = dict.id === selectedDictionary;
+              return (
+                <button
+                  key={dict.id}
+                  onClick={() => count > 0 && setSelectedDictionary(dict.id)}
+                  disabled={count === 0}
+                  className={`group flex items-center gap-2 pl-3 pr-2 h-9 rounded-full border text-[13px] font-semibold transition-all ${
+                    active
+                      ? 'bg-amber-50 text-amber-900 border-amber-50 shadow-lg shadow-black/20'
+                      : count > 0
+                        ? 'border-white/30 text-white hover:bg-white/10'
+                        : 'border-white/15 text-white/45 cursor-not-allowed'
+                  }`}
+                  title={dict.description}
+                >
+                  <span>{dict.author || dict.name}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] tabular-nums ${
+                    active ? 'bg-amber-200/70 text-amber-900' : 'bg-white/15'
+                  }`}>
+                    {count > 0 ? count.toLocaleString('fr-FR') : 'à venir'}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
+      </header>
 
-        {/* Filters Bar */}
-        <div className="mb-6 p-4 rounded-2xl bg-card border border-border shadow-sm">
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* Dictionary Selector */}
-            <div className="flex-1 min-w-[200px]">
-              <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">
-                Dictionnaire
-              </label>
-              <Select
-                value={selectedDictionary?.toString() || ''}
-                onValueChange={handleDictionaryChange}
-              >
-                <SelectTrigger className="h-10 rounded-xl">
-                  <SelectValue placeholder="Sélectionner un dictionnaire" />
-                </SelectTrigger>
-                <SelectContent>
-                  {dictionaries.map((dict) => (
-                    <SelectItem key={dict.id} value={dict.id.toString()}>
-                      <div className="flex items-center gap-2">
-                        <BookMarked className="w-4 h-4 text-amber-600" />
-                        <span>{dict.name}</span>
-                        {dict.author && (
-                          <span className="text-xs text-muted-foreground">
-                            — {dict.author}
-                          </span>
-                        )}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Search Input */}
-            <div className="flex-1 min-w-[200px]">
-              <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">
-                Recherche
-              </label>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Rechercher un terme..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setSelectedLetter(null); // Reset letter when searching
-                    setCurrentPage(1);
-                  }}
-                  className="h-10 pl-9 rounded-xl"
-                  disabled={dictionaries.length === 0}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Alphabetical Filter */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              Filtrer par lettre
-            </span>
-            {selectedLetter && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setSelectedLetter(null);
-                  setCurrentPage(1);
-                }}
-                className="h-7 px-2 text-xs rounded-full text-muted-foreground hover:text-foreground"
-              >
-                Réinitialiser
-              </Button>
+      {/* Barre de recherche et alphabet */}
+      <div className="sticky top-[40px] z-30 bg-[#B45309] dark:bg-[#292524] text-white shadow-md shadow-black/10">
+        <div className="px-[10px] sm:px-8 min-h-[38px] py-1.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          <div className="flex items-center h-[26px] rounded-md bg-white/15 w-full sm:w-72">
+            <Search className="w-3.5 h-3.5 ml-2 shrink-0 text-white/80" />
+            <input
+              type="text"
+              placeholder="Rechercher un terme…"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setSelectedLetter(null);
+                setCurrentPage(1);
+              }}
+              className="flex-1 min-w-0 bg-transparent px-2 text-[13px] outline-none placeholder:text-white/60"
+              disabled={dictionaries.length === 0}
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="mr-1 p-0.5 rounded hover:bg-white/10" title="Effacer">
+                <X className="w-3.5 h-3.5" />
+              </button>
             )}
           </div>
-          <div className="flex flex-wrap gap-1">
-            {ALPHABET.map((letter) => {
+
+          <div className="flex items-center gap-0.5 overflow-x-auto no-scrollbar">
+            {ALPHABET.map(letter => {
               const isAvailable = availableLetters.includes(letter);
               const isSelected = selectedLetter === letter;
-
               return (
                 <button
                   key={letter}
                   onClick={() => isAvailable && handleLetterClick(letter)}
                   disabled={!isAvailable}
-                  className={`
-                    w-9 h-9 rounded-lg text-sm font-bold transition-all
-                    ${isSelected
-                      ? 'bg-amber-600 text-white shadow-md'
+                  className={`shrink-0 w-[24px] h-[26px] rounded font-cambria text-[15px] font-bold transition-colors ${
+                    isSelected
+                      ? 'bg-amber-50 text-amber-900'
                       : isAvailable
-                        ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 hover:scale-105'
-                        : 'bg-muted/50 text-muted-foreground/40 cursor-not-allowed'
-                    }
-                  `}
+                        ? 'text-white hover:bg-white/15'
+                        : 'text-white/30 cursor-not-allowed'
+                  }`}
                   title={isAvailable ? `Mots commençant par ${letter}` : `Aucun mot par ${letter}`}
                 >
                   {letter}
@@ -357,187 +329,98 @@ const DictionaryPage: React.FC = () => {
             })}
           </div>
         </div>
+      </div>
 
-        {/* Results Counter & Navigation */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-sm text-muted-foreground">
+      <main className="flex-1 w-full px-[10px] sm:px-8 py-5">
+        {/* Résultats et pagination */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <p className="text-[13px] text-muted-foreground">
             {loadingEntries ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Chargement...
-              </span>
+              <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Chargement…</span>
             ) : (
-              <span>
-                <strong className="text-foreground">{totalCount.toLocaleString()}</strong> entrée{totalCount > 1 ? 's' : ''} trouvée{totalCount > 1 ? 's' : ''}
-                {selectedLetter && <span> — commençant par <strong className="text-amber-600">{selectedLetter}</strong></span>}
-                {searchQuery && <span> — contenant « <strong className="text-foreground">{searchQuery}</strong> »</span>}
-              </span>
+              <>
+                <strong className="font-cambria text-[18px] text-foreground">{totalCount.toLocaleString('fr-FR')}</strong>{' '}
+                entrée{totalCount > 1 ? 's' : ''}
+                {selectedLetter && <> commençant par <strong className="text-amber-700 dark:text-amber-400">{selectedLetter}</strong></>}
+                {searchQuery && <> contenant « <strong className="text-foreground">{searchQuery}</strong> »</>}
+                {totalPages > 1 && <> · page {currentPage} sur {totalPages}</>}
+              </>
             )}
-          </div>
-
-          {/* Page Navigation */}
-          {!loadingEntries && totalPages > 1 && (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className="h-8 px-2 rounded-full"
-              >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="sr-only">Précédent</span>
-              </Button>
-
-              <div className="flex items-center gap-1">
-                {/* Show first page */}
-                {currentPage > 3 && (
-                  <>
-                    <Button
-                      variant={currentPage === 1 ? 'default' : 'ghost'}
-                      size="sm"
-                      onClick={() => setCurrentPage(1)}
-                      className="h-8 w-8 p-0 rounded-full text-xs"
-                    >
-                      1
-                    </Button>
-                    {currentPage > 4 && <span className="px-1 text-muted-foreground">...</span>}
-                  </>
-                )}
-
-                {/* Show pages around current */}
-                {Array.from({ length: totalPages }, (_, i) => i + 1)
-                  .filter(p => Math.abs(p - currentPage) <= 2)
-                  .map((page) => (
-                    <Button
-                      key={page}
-                      variant={currentPage === page ? 'default' : 'ghost'}
-                      size="sm"
-                      onClick={() => setCurrentPage(page)}
-                      className="h-8 w-8 p-0 rounded-full text-xs"
-                    >
-                      {page}
-                    </Button>
-                  ))}
-
-                {/* Show last page */}
-                {currentPage < totalPages - 2 && (
-                  <>
-                    {currentPage < totalPages - 3 && <span className="px-1 text-muted-foreground">...</span>}
-                    <Button
-                      variant={currentPage === totalPages ? 'default' : 'ghost'}
-                      size="sm"
-                      onClick={() => setCurrentPage(totalPages)}
-                      className="h-8 w-8 p-0 rounded-full text-xs"
-                    >
-                      {totalPages}
-                    </Button>
-                  </>
-                )}
-              </div>
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                className="h-8 px-2 rounded-full"
-              >
-                <ChevronRight className="w-4 h-4" />
-                <span className="sr-only">Suivant</span>
-              </Button>
-            </div>
-          )}
+          </p>
+          {!loadingEntries && <Pagination page={currentPage} total={totalPages} onChange={changePage} />}
         </div>
 
-        {/* Entries List */}
         {loadingEntries ? (
-          <div className="py-16 flex flex-col items-center justify-center text-muted-foreground">
+          <div className="py-20 flex flex-col items-center justify-center text-muted-foreground">
             <Loader2 className="w-8 h-8 animate-spin text-amber-600 mb-3" />
-            <span className="text-sm font-medium">Chargement des entrées...</span>
+            <span className="text-sm font-medium">Chargement des entrées…</span>
           </div>
         ) : entries.length === 0 ? (
-          <div className="py-16 text-center text-muted-foreground">
+          <div className="py-20 text-center text-muted-foreground">
             <BookOpen className="w-12 h-12 mx-auto opacity-40 mb-3" />
-            <p className="text-sm font-semibold">
-              {searchQuery || selectedLetter
-                ? 'Aucune entrée trouvée avec ces critères'
-                : selectedDictionary
-                  ? 'Ce dictionnaire est vide'
-                  : 'Sélectionnez un dictionnaire pour commencer'}
+            <p className="font-cambria text-[18px] text-foreground">
+              {searchQuery || selectedLetter ? 'Aucune entrée trouvée' : 'Ce dictionnaire est vide'}
             </p>
             <p className="text-xs mt-1">
-              {searchQuery || selectedLetter
-                ? 'Essayez de modifier vos critères de recherche'
-                : 'Choisissez parmi les dictionnaires disponibles ci-dessus'}
+              {searchQuery || selectedLetter ? 'Essayez un autre terme ou une autre lettre.' : 'Choisissez un autre dictionnaire ci-dessus.'}
             </p>
           </div>
         ) : (
-          <div className="space-y-2">
-            {entries.map((entry) => (
-              <button
-                key={entry.id}
-                onClick={() => handleEntryClick(entry)}
-                className="w-full p-4 rounded-2xl border border-border bg-card hover:bg-amber-50/50 dark:hover:bg-amber-950/20 hover:border-amber-500/40 transition-all text-left group"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground group-hover:text-amber-600 transition-colors line-clamp-1">
-                      {entry.entry_name}
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                      {entry.content.replace(/<[^>]*>/g, '').substring(0, 150)}
-                      {entry.content.length > 150 ? '...' : ''}
-                    </p>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-amber-600 group-hover:translate-x-1 transition-all shrink-0 mt-1" />
+          <div className="space-y-8">
+            {groups.map(group => (
+              <section key={`${group.letter}-${group.items[0].entry.id}`}>
+                {/* Lettrine de section */}
+                <div className="flex items-end gap-3 mb-3">
+                  <span className="font-cambria text-[44px] font-bold leading-none text-amber-700 dark:text-amber-400">{group.letter}</span>
+                  <span className="flex-1 h-px mb-2 bg-gradient-to-r from-amber-400/70 via-amber-300/40 to-transparent dark:from-amber-700/70" />
+                  <span className="mb-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {group.items.length} entrée{group.items.length > 1 ? 's' : ''}
+                  </span>
                 </div>
-              </button>
+
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                  {group.items.map(({ entry, excerpt, crossRef }) => (
+                    <button
+                      key={entry.id}
+                      onClick={() => navigate(`/dictionnaire/${selectedDictionary}/${entry.id}`)}
+                      className="group relative text-left rounded-xl border border-border bg-card px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-900/10"
+                    >
+                      <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <h3 className="font-cambria text-[18px] font-bold leading-snug text-foreground group-hover:text-amber-800 dark:group-hover:text-amber-300 transition-colors line-clamp-1">
+                        {entry.entry_name}
+                      </h3>
+                      {crossRef ? (
+                        <p className="mt-1 flex items-center gap-1.5 font-cambria italic text-[14px] text-amber-800/80 dark:text-amber-300/80">
+                          <CornerDownRight className="w-3.5 h-3.5 shrink-0" />
+                          <span className="line-clamp-1">{excerpt}</span>
+                        </p>
+                      ) : (
+                        <p className="mt-1 font-cambria text-[14px] leading-relaxed text-muted-foreground line-clamp-3">{excerpt}</p>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         )}
 
-        {/* Bottom Pagination */}
         {!loadingEntries && totalPages > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="h-9 px-4 rounded-full gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Précédent
-            </Button>
-
-            <span className="text-sm text-muted-foreground px-4">
-              Page {currentPage} sur {totalPages}
-            </span>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="h-9 px-4 rounded-full gap-2"
-            >
-              Suivant
-              <ChevronRight className="w-4 h-4" />
-            </Button>
+          <div className="mt-10 flex justify-center">
+            <Pagination page={currentPage} total={totalPages} onChange={changePage} />
           </div>
         )}
       </main>
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="w-full px-[10px] sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-amber-600" />
             <span className="font-semibold text-foreground">Dictionnaire Biblique</span>
           </div>
           <p className="text-center sm:text-right">
-            Références: Westphal, Bost, Calmet, Lelievre
+            Références : {dictionaries.map(d => d.author || d.name).join(', ')}
           </p>
         </div>
         <MadeWithDyad />

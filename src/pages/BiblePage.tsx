@@ -14,6 +14,7 @@ import {
   getDbStats,
   getDbChapterVerses,
   getDbVersionsWithVerses,
+  versionDisplayCode,
   getDbVerseTitles,
   getDbBookNameEntries,
   getDbVerseByReference,
@@ -44,10 +45,13 @@ import {
   ALargeSmall,
   Check,
   Rows3,
+  Hash,
   GripVertical,
   X
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
+import { getStrongLinksForChapter, StrongWordLink, STRONG_LINKS_VERSION_CODE } from '@/services/strongDb';
+import { computeStrongMarks } from '@/utils/strongLinks';
 import { buildBookNameIndex, parseReferences, BookNameIndex, ParsedReference } from '@/utils/bibleReference';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 import { useToast } from '@/hooks/use-toast';
@@ -201,6 +205,16 @@ export const BiblePage: React.FC = () => {
     try { localStorage.setItem('reader-aligned-rows', String(alignedRows)); } catch { /* stockage indisponible */ }
   }, [alignedRows]);
 
+  // Codes Strong après les mots de la Segond 1910 (masqués par défaut)
+  const [showStrong, setShowStrong] = useState<boolean>(() => {
+    try { return localStorage.getItem('reader-show-strong') === 'true'; } catch { return false; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('reader-show-strong', String(showStrong)); } catch { /* stockage indisponible */ }
+  }, [showStrong]);
+  /** Mots de chaque verset du chapitre affiché, avec leur code Strong */
+  const [strongLinks, setStrongLinks] = useState<{ key: string; byVerse: Map<number, StrongWordLink[]> } | null>(null);
+
   // Police et taille de lecture (mémorisées dans le navigateur)
   const [readerFontId, setReaderFontId] = useState<string>(() => {
     try { return localStorage.getItem('reader-font') || 'arial'; } catch { return 'arial'; }
@@ -352,10 +366,13 @@ export const BiblePage: React.FC = () => {
 
         if (!mounted) return;
 
-        const { data: testTransData } = await supabase
-          .from('testament_translations')
-          .select('testament_id, language_id, name')
-          .eq('language_id', targetLanguageId);
+        // Langue pas encore connue au premier chargement : pas de requête (évite language_id=eq.undefined)
+        const { data: testTransData } = targetLanguageId !== undefined
+          ? await supabase
+            .from('testament_translations')
+            .select('testament_id, language_id, name')
+            .eq('language_id', targetLanguageId)
+          : { data: null };
 
         const testTransMap = new Map<number, string>();
         testTransData?.forEach(t => testTransMap.set(t.testament_id, t.name));
@@ -366,10 +383,12 @@ export const BiblePage: React.FC = () => {
           name: testTransMap.get(t.id) || (t.code === 'OT' ? 'Ancien Testament' : 'Nouveau Testament')
         }));
 
-        const { data: classTransData } = await supabase
-          .from('classification_translations')
-          .select('classification_id, language_id, name')
-          .eq('language_id', targetLanguageId);
+        const { data: classTransData } = targetLanguageId !== undefined
+          ? await supabase
+            .from('classification_translations')
+            .select('classification_id, language_id, name')
+            .eq('language_id', targetLanguageId)
+          : { data: null };
 
         const classTransMap = new Map<number, string>();
         classTransData?.forEach(c => classTransMap.set(c.classification_id, c.name));
@@ -807,9 +826,95 @@ setSelectedChapter(chapter);
     });
   }, []);
 
+  const strongLinksKey = selectedBook ? `${selectedBook.code}:${selectedChapter}` : null;
+  const strongActive = showStrong && selectedVersions.includes(STRONG_LINKS_VERSION_CODE);
+  useEffect(() => {
+    if (!strongActive || !selectedBook || !strongLinksKey || strongLinks?.key === strongLinksKey) return;
+    let cancelled = false;
+    getStrongLinksForChapter(selectedBook.code, selectedChapter)
+      .then(byVerse => { if (!cancelled) setStrongLinks({ key: strongLinksKey, byVerse }); })
+      .catch(err => console.error('[BiblePage] Erreur chargement codes Strong:', err));
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [strongActive, strongLinksKey]);
+
+  /**
+   * Survol d'un code : tous les mots et numéros portant ce code sont mis en exergue.
+   * Une seule règle CSS est réécrite (pas de nouveau rendu React de la page).
+   */
+  const highlightStrongCode = (code: number | null) => {
+    let style = document.getElementById('strong-hover-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'strong-hover-style';
+      document.head.appendChild(style);
+    }
+    // Couleurs de fond et ombre seulement : aucun changement de taille, donc pas de décalage sous la souris
+    style.textContent = code === null ? '' : `
+      [data-strong-word~="${code}"] { background: #FDE68A; color: #451A03; border-radius: 3px; box-shadow: 0 0 0 1px #FDE68A; }
+      .dark [data-strong-word~="${code}"] { background: #B45309; color: #FFFBEB; box-shadow: 0 0 0 1px #B45309; }
+      [data-strong-code="${code}"] { background: #B45309; color: #FFFFFF !important; border-radius: 3px; box-shadow: 0 0 0 2px #B45309; text-decoration: none !important; }
+      .dark [data-strong-code="${code}"] { background: #FBBF24; color: #1C1917 !important; box-shadow: 0 0 0 2px #FBBF24; }
+    `;
+  };
+  useEffect(() => () => highlightStrongCode(null), []);
+
+  /** Texte du verset avec le code Strong en exposant après chaque mot (clic → fiche du code) */
+  const renderStrongText = (text: string, words: StrongWordLink[]) => {
+    const marks = computeStrongMarks(text, words);
+    if (marks.length === 0) return text;
+    const nodes: React.ReactNode[] = [];
+    let last = 0;
+    marks.forEach(mark => {
+      const start = Math.max(mark.start, last);
+      nodes.push(text.slice(last, start));
+      nodes.push(
+        <span
+          key={`w-${mark.end}`}
+          data-strong-word={mark.codes.join(' ')}
+          onMouseEnter={() => highlightStrongCode(mark.codes[0])}
+          onMouseLeave={() => highlightStrongCode(null)}
+        >
+          {text.slice(start, mark.end)}
+        </span>
+      );
+      mark.codes.forEach((code, i) => {
+        nodes.push(
+          <sup key={`${mark.end}-${code}`} className={i > 0 ? 'ml-px' : ''}>
+            <button
+              type="button"
+              data-strong-code={code}
+              onClick={(e) => {
+                e.stopPropagation();
+                highlightStrongCode(null);
+                navigate(`/code-strong?code=${code}`);
+              }}
+              onMouseEnter={() => highlightStrongCode(code)}
+              onMouseLeave={() => highlightStrongCode(null)}
+              onFocus={() => highlightStrongCode(code)}
+              onBlur={() => highlightStrongCode(null)}
+              className="font-sans text-[0.62em] font-semibold text-amber-600/90 dark:text-amber-400/90 hover:underline cursor-pointer transition-colors"
+              title={`Code Strong H${code}`}
+            >
+              {code}
+            </button>
+          </sup>
+        );
+      });
+      last = mark.end;
+    });
+    nodes.push(text.slice(last));
+    return nodes;
+  };
+
   // ─── Verset sans texte : lien « Voir Luc 3:1 » vers le dernier verset non vide qui précède ───
   const renderVerseText = (verse: any, versionCode: string) => {
-    if (!verse.is_missing) return verse.text;
+    if (!verse.is_missing) {
+      const words = strongActive && versionCode === STRONG_LINKS_VERSION_CODE && strongLinks?.key === strongLinksKey
+        ? strongLinks?.byVerse.get(verse.verse_number)
+        : undefined;
+      return words?.length ? renderStrongText(verse.text, words) : verse.text;
+    }
     const verses: any[] = versesData[versionCode] || [];
     const index = verses.findIndex(v => v.verse_number === verse.verse_number);
     const previous = [...verses.slice(0, Math.max(index, 0))].reverse().find(v => !v.is_missing);
@@ -904,8 +1009,34 @@ setSelectedChapter(chapter);
     toast({ title: `Version réinitialisée à ${defaultVersionCode}` });
   };
 
+  // Côté du panneau Références & Trésors : à l'opposé de la colonne cliquée
+  const [treasuresPanelSide, setTreasuresPanelSide] = useState<'left' | 'right'>('right');
+
+  /**
+   * Règles : 1 version → droite ; 2 versions → col. 1 droite, col. 2 gauche ;
+   * 3 versions → col. 3 gauche, sinon droite ; 4 versions → col. 1-2 droite, col. 3-4 gauche.
+   * Au-delà de 4 versions, seules 4 colonnes sont visibles : on compte la position à l'écran.
+   */
+  const getTreasuresPanelSide = (versionCode: string): 'left' | 'right' => {
+    const total = selectedVersions.length;
+    const index = Math.max(0, selectedVersions.indexOf(versionCode));
+    let position = index;
+    if (total > 4 && scrollContainerRef.current) {
+      const firstColumn = scrollContainerRef.current.querySelector<HTMLElement>('[data-snap-col]');
+      const step = firstColumn ? firstColumn.offsetWidth : scrollContainerRef.current.clientWidth / 4;
+      position = index - Math.round(scrollContainerRef.current.scrollLeft / step);
+    }
+    const visible = Math.min(total, 4);
+    position = Math.max(0, Math.min(position, visible - 1));
+    if (visible === 1) return 'right';
+    if (visible === 2) return position === 0 ? 'right' : 'left';
+    if (visible === 3) return position === 2 ? 'left' : 'right';
+    return position <= 1 ? 'right' : 'left';
+  };
+
   const handleVerseClick = (verse: any, versionCodeFromGrid: string) => {
     if (!selectedBook) return;
+    setTreasuresPanelSide(getTreasuresPanelSide(versionCodeFromGrid));
     const actualVersion = activeVersionRef.current || selectedVersionCode;
     
     console.group('[BiblePage] handleVerseClick');
@@ -999,18 +1130,20 @@ setSelectedChapter(chapter);
     );
   };
 
+  // Défilement des versions : une colonne à la fois (largeur d'une colonne, sans écart)
+  const getColumnStep = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return 0;
+    const firstColumn = container.querySelector<HTMLElement>('[data-snap-col]');
+    return firstColumn ? firstColumn.offsetWidth : container.clientWidth / 4;
+  };
+
   const handleScrollPrev = () => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
-      scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    }
+    scrollContainerRef.current?.scrollBy({ left: -getColumnStep(), behavior: 'smooth' });
   };
 
   const handleScrollNext = () => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = scrollContainerRef.current.clientWidth / 2;
-      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
+    scrollContainerRef.current?.scrollBy({ left: getColumnStep(), behavior: 'smooth' });
   };
 
   // ─── Gestion des versions comparées : retirer, réordonner (menu ou glisser-déposer) ───
@@ -1116,9 +1249,11 @@ setSelectedChapter(chapter);
     });
     const rows = [...verseNumbers].sort((a, b) => a - b);
     const multi = columns.length > 1;
-    // Plus de 4 versions : colonnes de 16rem et défilement horizontal (flèches) ;
-    // sinon au moins 12rem par version, avec défilement horizontal sur petit écran
-    const columnWidth = hasMultiple ? 'minmax(16rem, 1fr)' : multi ? 'minmax(12rem, 1fr)' : 'minmax(0, 1fr)';
+    // Plus de 4 versions : exactement --cols colonnes visibles (4 sur grand écran), les suivantes
+    // n'apparaissent qu'en faisant défiler ; sinon au moins 12rem par version
+    const columnWidth = hasMultiple
+      ? 'calc(100% / var(--cols))'
+      : multi ? 'minmax(12rem, 1fr)' : 'minmax(0, 1fr)';
     const gridTemplateColumns = `repeat(${columns.length}, ${columnWidth})`;
 
     return (
@@ -1135,13 +1270,13 @@ setSelectedChapter(chapter);
         ) : (
           <div className={hasMultiple ? '' : 'overflow-x-auto overscroll-x-contain'}>
           <div
-            className="grid gap-x-4 font-serif leading-snug"
+            className={`grid gap-x-0 font-serif leading-snug ${hasMultiple ? '[--cols:1] md:[--cols:2] lg:[--cols:3] xl:[--cols:4]' : ''}`}
             style={{ ...readerTextStyle, gridTemplateColumns }}
           >
             {multi && (
               <>
                 {columns.map(code => (
-                  <div key={code} className="mb-2 pb-2 border-b border-border min-w-0">
+                  <div key={code} data-snap-col className="mb-2 pb-2 border-b border-border min-w-0 snap-start">
                     {renderVersionHeader(code)}
                   </div>
                 ))}
@@ -1206,8 +1341,8 @@ setSelectedChapter(chapter);
       <div 
         className={
           hasMultiple 
-            ? "flex gap-4 min-w-full pb-2" 
-            : `grid gap-4 ${
+            ? "flex gap-0 min-w-full pb-2" 
+            : `grid gap-0 ${
                 selectedVersions.length === 1 
                   ? 'grid-cols-1' 
                   : selectedVersions.length === 2 
@@ -1226,9 +1361,10 @@ setSelectedChapter(chapter);
           return (
             <div 
               key={versionCode} 
-              className={`px-4 pb-4 pt-[11px] rounded-2xl rounded-t-none border border-t-0 border-border bg-card shadow-xs flex flex-col ${
+              data-snap-col={hasMultiple ? '' : undefined}
+              className={`px-4 pb-4 pt-[11px] rounded-2xl rounded-t-none border border-t-0 border-border bg-card shadow-xs flex flex-col snap-start ${
                 hasMultiple 
-                  ? 'w-full md:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)] shrink-0' 
+                  ? 'w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shrink-0' 
                   : 'w-full'
               }`}
             >
@@ -1347,7 +1483,7 @@ setSelectedChapter(chapter);
 
           <div
             ref={scrollContainerRef}
-            className="overflow-x-auto overscroll-x-contain no-scrollbar scroll-smooth px-0.5"
+            className={`overflow-x-auto overscroll-x-contain no-scrollbar scroll-smooth snap-x snap-mandatory ${alignedRows ? 'scroll-pl-2 sm:scroll-pl-4' : ''}`}
           >
             {gridContent}
           </div>
@@ -1374,7 +1510,7 @@ setSelectedChapter(chapter);
 
       {/* Section de contrôle */}
       <section className="w-full bg-[#B45309] dark:bg-[#292524] xl:flex xl:h-[30px] xl:items-center xl:py-0 xl:sticky xl:top-[40px] xl:z-40">
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 xl:my-0.5 xl:h-[25px]">
+        <div className="w-full px-[10px] xl:my-0.5 xl:h-[25px]">
           <div className="flex flex-col gap-3 py-1 xl:flex-row xl:flex-nowrap xl:items-center xl:gap-2 xl:py-0 xl:h-full">
             <div className="flex-1 min-w-0">
               <BookSearchSelect
@@ -1558,6 +1694,30 @@ setSelectedChapter(chapter);
                   {alignedRows ? 'Versets alignés en lignes (activé)' : 'Versets alignés en lignes (désactivé)'}
                 </TooltipContent>
               </Tooltip>
+
+              {/* Codes Strong après les mots (Louis Segond 1910) */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setShowStrong(prev => !prev)}
+                    aria-pressed={showStrong}
+                    aria-label={showStrong ? 'Masquer les codes Strong' : 'Afficher les codes Strong'}
+                    className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
+                      showStrong
+                        ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
+                        : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                    }`}
+                  >
+                    <Hash className="w-3.5 h-3.5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {showStrong ? 'Codes Strong (activés)' : 'Codes Strong (désactivés)'}
+                  {!selectedVersions.includes(STRONG_LINKS_VERSION_CODE) && ' — ajoutez la version LSG'}
+                </TooltipContent>
+              </Tooltip>
             </div>
 
           </div>
@@ -1567,7 +1727,7 @@ setSelectedChapter(chapter);
 
       {/* Language and version selection bar */}
       <section className="h-[25px] border-b border-border/80 bg-[#D97706] dark:bg-[#78350F] backdrop-blur-md sticky top-[40px] xl:top-[70px] z-30 shadow-sm">
-        <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-full px-[10px]">
           <div className="flex h-full items-center gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain no-scrollbar">
             {/* Language menu icon (click to open dropdown) */}
             <Popover open={isLanguageMenuOpen} onOpenChange={setIsLanguageMenuOpen}>
@@ -1723,7 +1883,7 @@ setSelectedChapter(chapter);
                                         : 'font-medium opacity-75 hover:opacity-100'
                                     }`}
                                   >
-                                    {version.code}
+                                    {versionDisplayCode(version)}
                                   </button>
                                 </TooltipTrigger>
                                 <TooltipContent side="bottom">
@@ -1745,7 +1905,7 @@ setSelectedChapter(chapter);
 
 
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-6 space-y-6">
+      <main className="flex-1 w-full px-[10px] pt-0 pb-6 space-y-6">
         {loadError && (
           <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
@@ -1779,6 +1939,7 @@ setSelectedChapter(chapter);
 
         <VerseTreasuresModal
           isOpen={!!selectedVerseForTreasures}
+          side={treasuresPanelSide}
           onClose={() => {
             console.log('[BiblePage] Closing VerseTreasuresModal');
             setSelectedVerseForTreasures(null);
@@ -1869,7 +2030,7 @@ setSelectedChapter(chapter);
         />
 
         {/* <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <div className="w-full px-[10px] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <div className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-amber-600" />
               <span className="font-semibold text-foreground">Parole Vivante — Page Bible</span>

@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
-import { 
+import {
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
   Loader2,
-  Book,
-  BookMarked,
   Share2,
-  Copy,
   Check,
   AlertCircle,
   RefreshCw,
-  BookOpen
+  BookOpen,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 import { showSuccess } from '@/utils/toast';
-import { getDictionaryEntryById, DictionaryEntryDetail } from '@/services/dictionaryDb';
+import { getDictionaryEntryById, getDictionaryEntryIdsByNames, DictionaryEntryDetail } from '@/services/dictionaryDb';
+import { extractDictionaryRefs, sanitizeDictionaryHtml } from '@/utils/dictionaryHtml';
 
 const DictionaryEntryPage: React.FC = () => {
   const navigate = useNavigate();
   const { dictionaryId, entryId } = useParams<{ dictionaryId: string; entryId: string }>();
 
   const [entry, setEntry] = useState<DictionaryEntryDetail | null>(null);
+  const [resolvedRefs, setResolvedRefs] = useState<Map<string, number>>(new Map());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -49,6 +48,10 @@ const DictionaryEntryPage: React.FC = () => {
         setError('Entrée non trouvée');
       } else {
         setEntry(entryData);
+        window.scrollTo({ top: 0 });
+        // Renvois : seuls ceux qui existent dans ce dictionnaire deviennent des liens
+        const refs = extractDictionaryRefs(entryData.content);
+        setResolvedRefs(refs.length ? await getDictionaryEntryIdsByNames(entryData.dictionary_id, refs) : new Map());
       }
     } catch (err) {
       console.error('Error loading entry:', err);
@@ -62,15 +65,28 @@ const DictionaryEntryPage: React.FC = () => {
     loadEntry();
   }, [dictionaryId, entryId]);
 
+  const contentHtml = useMemo(
+    () => (entry ? sanitizeDictionaryHtml(entry.content, resolvedRefs) : ''),
+    [entry, resolvedRefs]
+  );
+
+  // Clic sur un renvoi interne
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const link = (e.target as HTMLElement).closest<HTMLElement>('[data-entry-id]');
+    if (link) {
+      e.preventDefault();
+      navigate(`/dictionnaire/${dictionaryId}/${link.dataset.entryId}`);
+    }
+  };
+
   const handleCopyLink = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(window.location.href);
     setCopied(true);
     showSuccess("Lien copié dans le presse-papier !");
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (loading) {
+  if (loading && !entry) {
     return (
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <Navbar currentVersion="LSG" />
@@ -111,162 +127,117 @@ const DictionaryEntryPage: React.FC = () => {
     );
   }
 
+  const neighbourLink = (target: { id: number; entry_name: string } | undefined, direction: 'prev' | 'next') => {
+    const label = direction === 'prev' ? 'Entrée précédente' : 'Entrée suivante';
+    if (!target) {
+      return (
+        <div className={`rounded-xl border border-dashed border-border px-4 py-3 text-muted-foreground ${direction === 'next' ? 'text-right' : ''}`}>
+          <span className="block text-[11px] uppercase tracking-[0.15em]">{label}</span>
+          <span className="font-cambria italic text-[15px]">{direction === 'prev' ? 'Première entrée' : 'Dernière entrée'}</span>
+        </div>
+      );
+    }
+    return (
+      <Link
+        to={`/dictionnaire/${dictionaryId}/${target.id}`}
+        className={`group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-amber-400 hover:shadow-md transition-all ${
+          direction === 'next' ? 'justify-end text-right' : ''
+        }`}
+      >
+        {direction === 'prev' && <ChevronLeft className="w-5 h-5 shrink-0 text-amber-700 group-hover:-translate-x-0.5 transition-transform" />}
+        <span className="min-w-0">
+          <span className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
+          <span className="block font-cambria text-[18px] font-bold truncate group-hover:text-amber-800 dark:group-hover:text-amber-300 transition-colors">
+            {target.entry_name}
+          </span>
+        </span>
+        {direction === 'next' && <ChevronRight className="w-5 h-5 shrink-0 text-amber-700 group-hover:translate-x-0.5 transition-transform" />}
+      </Link>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar currentVersion="LSG" />
 
-      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Back Button */}
-        <div className="mb-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate('/dictionnaire')}
-            className="h-9 px-3 rounded-full text-muted-foreground hover:text-foreground gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Retour au dictionnaire
-          </Button>
-        </div>
+      {/* En-tête de l'entrée */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] text-white">
+        <span
+          aria-hidden
+          className="pointer-events-none select-none absolute right-2 sm:right-10 -bottom-20 font-cambria font-bold text-[16rem] leading-none text-white/[0.07]"
+        >
+          {entry.entry_name.charAt(0)}
+        </span>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-300/60 to-transparent" />
 
-        {/* Entry Header */}
-        <div className="mb-8 p-6 rounded-3xl bg-gradient-to-br from-amber-900 via-amber-950 to-stone-900 text-amber-50 border border-amber-800/40">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              {/* Breadcrumb */}
-              <div className="flex items-center gap-2 text-xs text-amber-300/70 mb-3">
-                <BookMarked className="w-3.5 h-3.5" />
-                <span>{entry.dictionary_name}</span>
-                {entry.author && (
-                  <>
-                    <span>—</span>
-                    <span>{entry.author}</span>
-                  </>
-                )}
-              </div>
+        <div className="relative max-w-4xl mx-auto px-[10px] sm:px-8 pt-5 pb-7">
+          <div className="flex items-center gap-2 text-[12px]">
+            <Link to="/dictionnaire" className="flex items-center gap-1.5 text-amber-100/80 hover:text-white transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Dictionnaire
+            </Link>
+            <span className="text-amber-200/50">/</span>
+            <span className="text-amber-100/80 truncate">{entry.author || entry.dictionary_name}</span>
 
-              {/* Title */}
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
-                {entry.entry_name}
-              </h1>
-
-              {/* Action buttons */}
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleCopyLink}
-                  className="h-8 px-3 rounded-full bg-white/10 border-white/20 text-white hover:bg-white/20 text-xs gap-1.5"
-                >
-                  {copied ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  ) : (
-                    <Share2 className="w-3.5 h-3.5" />
-                  )}
-                  <span>{copied ? 'Copié !' : 'Partager'}</span>
-                </Button>
-              </div>
+            <div className="ml-auto flex items-center gap-1">
+              {entry.prev_entry && (
+                <Link to={`/dictionnaire/${dictionaryId}/${entry.prev_entry.id}`} className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" title={entry.prev_entry.entry_name}>
+                  <ChevronLeft className="w-4 h-4" />
+                </Link>
+              )}
+              {entry.next_entry && (
+                <Link to={`/dictionnaire/${dictionaryId}/${entry.next_entry.id}`} className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" title={entry.next_entry.entry_name}>
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              )}
             </div>
           </div>
-        </div>
 
-        {/* Entry Content */}
-        <article className="prose prose-amber dark:prose-invert max-w-none mb-12">
-          <div 
-            className="text-sm sm:text-base leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: entry.content }}
+          <p className="mt-6 text-[11px] font-bold uppercase tracking-[0.25em] text-amber-200/90">{entry.dictionary_name}</p>
+          <h1 className="mt-1 font-cambria text-[36px] sm:text-[52px] font-bold leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+            {entry.entry_name}
+          </h1>
+
+          <button
+            onClick={handleCopyLink}
+            className="mt-4 inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-white/25 bg-white/10 hover:bg-white/20 text-[12px] font-semibold transition-colors"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
+            {copied ? 'Copié !' : 'Partager'}
+          </button>
+        </div>
+      </header>
+
+      <main className="flex-1 w-full max-w-4xl mx-auto px-[10px] sm:px-8 py-8">
+        {/* Contenu */}
+        <article className={`rounded-2xl border border-border bg-card px-5 sm:px-10 py-7 shadow-sm transition-opacity ${loading ? 'opacity-50' : ''}`}>
+          <div
+            className="dict-content font-cambria text-[17px] sm:text-[18px] leading-[1.75]"
+            onClick={handleContentClick}
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
+          <div className="mt-8 pt-4 border-t border-border flex items-center justify-between gap-3 text-[12px] text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-amber-600" />
+              {entry.dictionary_name}
+            </span>
+            <span className="flex items-center gap-3">
+              <span className="flex items-center gap-1"><span className="dict-legend-link">Renvoi</span></span>
+              <span className="flex items-center gap-1"><span className="dict-legend-bible">Référence</span></span>
+            </span>
+          </div>
         </article>
 
-        {/* Navigation Footer */}
-        <div className="border-t border-border pt-6">
-          {/* Previous / Next Navigation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            {entry.prev_entry ? (
-              <Link
-                to={`/dictionnaire/${dictionaryId}/${entry.prev_entry.id}`}
-                className="group p-4 rounded-2xl border border-border bg-card hover:bg-amber-50/50 dark:hover:bg-amber-950/20 hover:border-amber-500/40 transition-all"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                    <ChevronLeft className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                      Entrée précédente
-                    </span>
-                    <h4 className="font-semibold text-foreground group-hover:text-amber-600 transition-colors truncate">
-                      {entry.prev_entry.entry_name}
-                    </h4>
-                  </div>
-                </div>
-              </Link>
-            ) : (
-              <div className="p-4 rounded-2xl border border-dashed border-border bg-muted/30 text-muted-foreground">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                    <ChevronLeft className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs uppercase tracking-wider">Entrée précédente</span>
-                    <p className="text-sm">Première entrée</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {entry.next_entry ? (
-              <Link
-                to={`/dictionnaire/${dictionaryId}/${entry.next_entry.id}`}
-                className="group p-4 rounded-2xl border border-border bg-card hover:bg-amber-50/50 dark:hover:bg-amber-950/20 hover:border-amber-500/40 transition-all text-right"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 min-w-0">
-                    <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                      Entrée suivante
-                    </span>
-                    <h4 className="font-semibold text-foreground group-hover:text-amber-600 transition-colors truncate">
-                      {entry.next_entry.entry_name}
-                    </h4>
-                  </div>
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                    <ChevronRight className="w-5 h-5" />
-                  </div>
-                </div>
-              </Link>
-            ) : (
-              <div className="p-4 rounded-2xl border border-dashed border-border bg-muted/30 text-muted-foreground">
-                <div className="flex items-center justify-end gap-3">
-                  <div>
-                    <span className="text-xs uppercase tracking-wider">Entrée suivante</span>
-                    <p className="text-sm">Dernière entrée</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                    <ChevronRight className="w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Back to Dictionary */}
-          <div className="text-center">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => navigate('/dictionnaire')}
-              className="h-11 px-6 rounded-full bg-amber-500/10 border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 hover:border-amber-500/60 font-medium"
-            >
-              <Book className="w-4 h-4 mr-2" />
-              Retour au dictionnaire
-            </Button>
-          </div>
-        </div>
+        {/* Entrées voisines */}
+        <nav className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {neighbourLink(entry.prev_entry, 'prev')}
+          {neighbourLink(entry.next_entry, 'next')}
+        </nav>
       </main>
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/20 py-8 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="w-full px-[10px] sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-amber-600" />
             <span className="font-semibold text-foreground">Dictionnaire Biblique</span>

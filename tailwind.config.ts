@@ -22,6 +22,7 @@ export default {
         sans: ["Arial", "Helvetica", "sans-serif"],
         serif: ["Arial", "Helvetica", "sans-serif"],
         cambria: ["Cambria", "Caladea", "Georgia", "serif"],
+        hebrew: ["Frank Ruhl Libre", "SBL Hebrew", "Ezra SIL", "Times New Roman", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

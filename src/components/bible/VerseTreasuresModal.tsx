@@ -22,7 +22,9 @@ import {
   getDbVerseCrossReferences,
   getDbVerseTreasures,
   getDbChapterVerses,
-  getDbBookNameEntries
+  getDbBookNameEntries,
+  versionDisplayCode,
+  type DbBibleVersion
 } from '@/services/bibleDb';
 
 // Version de référence toujours affichée au-dessus du verset source, quelle que soit la version choisie
@@ -31,6 +33,8 @@ import { supabase } from '@/integrations/supabase/client';
 
 interface VerseTreasuresModalProps {
   isOpen: boolean;
+  /** Côté de l'écran où s'affiche le panneau (moitié de la largeur sur grand écran) */
+  side?: 'left' | 'right';
   onClose: () => void;
   selectedVerse: {
     id: number;
@@ -55,6 +59,7 @@ interface VerseTreasuresModalProps {
 
 export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   isOpen,
+  side = 'right',
   onClose,
   selectedVerse,
   booksList,
@@ -97,6 +102,9 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
   // Version selector state
   const [displayVersionCode, setDisplayVersionCode] = useState<string>('');
+  /** Code affiché (code_display) d'une version désignée par son code technique */
+  const displayCodeOf = (code: string) =>
+    versionDisplayCode(versions.find(v => v.code.toUpperCase() === code.toUpperCase()), code).toUpperCase();
   const [versionDropdownOpen, setVersionDropdownOpen] = useState(false);
   const activeVersionRef = useRef<string>('');
 
@@ -441,11 +449,20 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-200">
-      <div className="relative w-[95vw] h-[95vh] max-w-7xl bg-background rounded-3xl rounded-t-none border border-border/80 shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+    <div
+      className={`fixed inset-0 z-50 flex items-stretch ${side === 'left' ? 'justify-start' : 'justify-end'} bg-black/20 animate-in fade-in-0 duration-200`}
+      onClick={onClose}
+    >
+      {/* Panneau : 50 % de l'écran sur grand écran, plein écran sur mobile ; l'autre moitié laisse voir les versets */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`relative w-full lg:w-1/2 h-full bg-background shadow-2xl flex flex-col overflow-hidden duration-200 animate-in ${
+          side === 'left' ? 'border-r slide-in-from-left' : 'border-l slide-in-from-right'
+        } border-border/80`}
+      >
         
         {/* HEADER */}
-        <div className="w-full bg-[#B45309] dark:bg-[#292524] border-b border-black/20 dark:border-white/10 text-white px-4 sm:px-6 py-3 xl:py-0 xl:h-[30px] xl:flex xl:items-center shrink-0">
+        <div className="w-full bg-[#B45309] dark:bg-[#292524] border-b border-black/20 dark:border-white/10 text-white px-[10px] py-3 xl:py-0 xl:h-[30px] xl:flex xl:items-center shrink-0">
           <div className="w-full flex flex-col xl:flex-row gap-3 xl:gap-2 items-stretch xl:items-center justify-between xl:h-6">
             <div className="flex-1 min-w-0">
               <BookSearchSelect
@@ -599,7 +616,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                   }}
                   className="h-9 px-3 rounded-full text-xs gap-1.5 font-medium transition-all border border-white/30 bg-white/10 text-white flex items-center gap-1.5 cursor-pointer hover:bg-white/20 xl:h-6 xl:px-2 min-w-[9rem] justify-between"
                 >
-                  <span>Version {displayVersionCode.toUpperCase()}</span>
+                  <span>Version {displayCodeOf(displayVersionCode)}</span>
                   <ChevronDown className={`w-3 h-3 transition-transform ${versionDropdownOpen ? 'rotate-180' : ''}`} />
                 </div>
                 
@@ -622,7 +639,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                             : 'hover:bg-muted/40'
                         }`}
                       >
-                        <span className="font-mono shrink-0 w-14">{v.code.toUpperCase()}</span>
+                        <span className="font-mono shrink-0 w-14">{versionDisplayCode(v).toUpperCase()}</span>
                         <span className="text-xs text-muted-foreground truncate">{v.name}</span>
                       </button>
                     ))}
@@ -656,35 +673,29 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
 
         {/* BANDEAU VERSET EN KJV — masqué quand la version choisie est déjà la KJV */}
         {displayVersionCode.toUpperCase() !== REFERENCE_VERSION_CODE && (
-          <div className="w-full min-h-[30px] bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-4 sm:px-6 py-1 shrink-0 flex items-center">
+          <div className="w-full min-h-[30px] bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-[10px] py-1 shrink-0 flex items-center">
             <div className="flex items-start gap-2 flex-1 min-w-0">
-              <span className="px-2 py-0.5 rounded-full bg-amber-600 text-white text-[16px] font-bold font-cambria shrink-0 shadow-xs leading-5">
-                {referenceBookName || activeBook.name} {activeChapter}:{activeVerseNumber}
+              {/* Version du verset, en tête */}
+              <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[14px] font-bold font-cambria shrink-0 shadow-xs leading-4 mt-0.5">
+                {displayCodeOf(REFERENCE_VERSION_CODE)}
               </span>
               <blockquote className="flex-1 min-w-0 font-cambria text-[16px] text-foreground italic leading-snug pt-px">
                 {highlightTheme(referenceVerseText)}
               </blockquote>
-              {/* Version du verset, tout à droite */}
-              <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[14px] font-bold font-cambria shrink-0 shadow-xs leading-4 mt-0.5">
-                {REFERENCE_VERSION_CODE}
-              </span>
             </div>
           </div>
         )}
 
         {/* BANDEAU VERSET SOURCE (version choisie) */}
-        <div className="w-full min-h-[30px] bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-4 sm:px-6 py-1 shrink-0 flex items-center">
+        <div className="w-full min-h-[30px] bg-amber-50/70 dark:bg-amber-950/20 border-b border-amber-500/20 px-[10px] py-1 shrink-0 flex items-center">
           <div className="flex items-start gap-2 flex-1 min-w-0">
-            <span className="px-2 py-0.5 rounded-full bg-amber-600 text-white text-[16px] font-bold font-cambria shrink-0 shadow-xs leading-5">
-              {activeDisplayRef}
+            {/* Version du verset, en tête */}
+            <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[14px] font-bold font-cambria shrink-0 shadow-xs leading-4 mt-0.5">
+              {displayCodeOf(displayVersionCode)}
             </span>
             <blockquote className="flex-1 min-w-0 font-cambria text-[16px] text-foreground italic leading-snug pt-px">
               {activeVerseText ? highlightTheme(activeVerseText) : 'Sélectionnez un verset...'}
             </blockquote>
-            {/* Version du verset, tout à droite */}
-            <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[14px] font-bold font-cambria shrink-0 shadow-xs leading-4 mt-0.5">
-              {displayVersionCode.toUpperCase()}
-            </span>
           </div>
         </div>
 
@@ -692,7 +703,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 overflow-hidden bg-background divide-y lg:divide-y-0 lg:divide-x divide-border">
           
           {/* COLONNE 1: RÉFÉRENCES CROISÉES */}
-          <div className="px-4 sm:px-6 pt-2 pb-4 sm:pb-6 flex flex-col overflow-hidden bg-muted/5">
+          <div className="px-[10px] lg:pr-[9px] pt-2 pb-[10px] flex flex-col overflow-hidden bg-muted/5">
             <div className="flex items-center justify-between pb-1.5 border-b border-border mb-2">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
@@ -707,17 +718,17 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </span>
             </div>
 
-            <div className="flex-1 overflow-y-auto pr-1 space-y-[10px]">
+            <div className="flex-1 overflow-y-auto thin-scrollbar pr-1 space-y-[10px]">
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-                  <span className="text-xs">Chargement... (version: {displayVersionCode})</span>
+                  <span className="text-xs">Chargement... (version: {displayCodeOf(displayVersionCode)})</span>
                 </div>
               ) : crossReferences.length === 0 ? (
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Link2 className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucune référence croisée</p>
-                  <p className="text-xs">Version: {displayVersionCode}</p>
+                  <p className="text-xs">Version: {displayCodeOf(displayVersionCode)}</p>
                 </div>
               ) : (
                 crossReferences.map((refItem) => {
@@ -747,7 +758,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
           </div>
 
           {/* COLONNE 2: TRÉSORS */}
-          <div className="px-4 sm:px-6 pt-2 pb-4 sm:pb-6 flex flex-col overflow-hidden bg-background">
+          <div className="px-[10px] lg:pl-[9px] pt-2 pb-[10px] flex flex-col overflow-hidden bg-background">
             <div className="flex items-center justify-between pb-1.5 border-b border-border mb-2">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
@@ -768,7 +779,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden thin-scrollbar pr-1 space-y-3.5 break-words">
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-amber-600" />
@@ -794,7 +805,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                 <div className="py-16 text-center text-muted-foreground space-y-2">
                   <Gem className="w-10 h-10 mx-auto text-muted-foreground/30 stroke-1" />
                   <p className="text-sm font-semibold">Aucun trésor répertorié</p>
-                  <p className="text-xs">Version: {displayVersionCode}</p>
+                  <p className="text-xs">Version: {displayCodeOf(displayVersionCode)}</p>
                 </div>
               ) : (
                 treasures.map((treasure, index) => {
@@ -846,7 +857,7 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
                     <div
                       key={treasure.treasure_id || index}
                       id={`treasure-theme-${index}`}
-                      className={`space-y-3 scroll-mt-2 rounded-md transition-colors ${selectedThemeIndex === index ? 'bg-amber-500/10 ring-1 ring-amber-500/40 p-2 -m-2' : ''}`}
+                      className="space-y-3 scroll-mt-2"
                       onMouseEnter={() => setHoveredTheme(treasure.title || null)}
                       onMouseLeave={() => setHoveredTheme(null)}
                     >
@@ -877,9 +888,8 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
         </div>
 
         {/* FOOTER */}
-        <div className="px-6 py-3 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground shrink-0">
+        <div className="px-[10px] py-3 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground shrink-0">
           <div className="flex items-center gap-4">
-            <span>Titres : <strong className="text-foreground">{showTitles ? 'Activés' : 'Masqués'}</strong></span>
           </div>
           <Button size="sm" onClick={onClose} className="rounded-full px-5 h-8 text-xs">Fermer</Button>
         </div>

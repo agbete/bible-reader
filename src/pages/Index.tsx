@@ -104,7 +104,7 @@ const Index = () => {
       />
 
       {/* Main Content Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-12">
+      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-12">
         {/* Hero Section with Daily Verse Card */}
         <section className="space-y-4">
           <div className="flex items-center justify-between">
@@ -178,7 +178,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        <div className="w-full px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-amber-600" />
             <span className="font-semibold text-foreground">Parole Vivante — Application Sainte Bible</span>

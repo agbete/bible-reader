@@ -99,41 +99,80 @@ export async function getDictionariesByLanguage(languageId: number): Promise<Dic
   }
 }
 
+/** Première lettre sans accent (« Éden » → « E ») */
+export function entryInitial(name: string): string {
+  return name.charAt(0).normalize('NFD').replace(/\p{M}/gu, '').toUpperCase();
+}
+
+/** Variantes accentuées d'une lettre, pour le filtre alphabétique */
+const LETTER_VARIANTS: Record<string, string[]> = {
+  A: ['A', 'À', 'Â', 'Ä'],
+  C: ['C', 'Ç'],
+  E: ['E', 'É', 'È', 'Ê', 'Ë'],
+  I: ['I', 'Î', 'Ï'],
+  O: ['O', 'Ô', 'Ö'],
+  U: ['U', 'Ù', 'Û', 'Ü'],
+};
+
 /**
  * Get all available letters (A-Z) for a dictionary
+ * (pagination : Supabase renvoie au plus 1000 lignes par requête)
  */
 export async function getAvailableLetters(dictionaryId?: number): Promise<string[]> {
   try {
     if (!dictionaryId) return [];
-    
-    const { data, error } = await supabase
-      .from('dictionary_entries')
-      .select('entry_name')
-      .eq('dictionary_id', dictionaryId);
 
-    if (error) {
-      console.error('[dictionaryDb] Error fetching letters:', error.message);
-      return [];
+    const letters = new Set<string>();
+    for (let from = 0; ; from += 1000) {
+      const { data, error } = await supabase
+        .from('dictionary_entries')
+        .select('entry_name')
+        .eq('dictionary_id', dictionaryId)
+        .range(from, from + 999);
+
+      if (error) {
+        console.error('[dictionaryDb] Error fetching letters:', error.message);
+        break;
+      }
+      data?.forEach((entry: any) => {
+        if (entry.entry_name) {
+          const firstLetter = entryInitial(entry.entry_name);
+          if (/^[A-Z]$/.test(firstLetter)) letters.add(firstLetter);
+        }
+      });
+      if (!data || data.length < 1000) break;
     }
 
-    // Extract first letters and deduplicate
-    const letters = new Set<string>();
-    data?.forEach((entry: any) => {
-      if (entry.entry_name && entry.entry_name.length > 0) {
-        const firstLetter = entry.entry_name.charAt(0).toUpperCase();
-        if (/^[A-Z]$/.test(firstLetter)) {
-          letters.add(firstLetter);
-        }
-      }
-    });
-
-    const result = Array.from(letters).sort();
-    console.log('[dictionaryDb] Available letters:', result);
-    return result;
+    return Array.from(letters).sort();
   } catch (err) {
     console.error('[dictionaryDb] Exception:', err);
     return [];
   }
+}
+
+/** Nombre d'entrées de chaque dictionnaire */
+export async function getDictionaryEntryCounts(dictionaryIds: number[]): Promise<Map<number, number>> {
+  const counts = await Promise.all(dictionaryIds.map(id => getDictionaryEntryCount(id)));
+  return new Map(dictionaryIds.map((id, i) => [id, counts[i]]));
+}
+
+/** Identifiants des entrées portant ces noms (pour les renvois internes) */
+export async function getDictionaryEntryIdsByNames(dictionaryId: number, names: string[]): Promise<Map<string, number>> {
+  const result = new Map<string, number>();
+  const unique = Array.from(new Set(names));
+  for (let i = 0; i < unique.length; i += 100) {
+    const { data, error } = await supabase
+      .from('dictionary_entries')
+      .select('id, entry_name')
+      .eq('dictionary_id', dictionaryId)
+      .in('entry_name', unique.slice(i, i + 100));
+    if (error) {
+      console.error('[dictionaryDb] Error resolving references:', error.message);
+      continue;
+    }
+    data?.forEach((row: any) => result.set(row.entry_name, row.id));
+  }
+  return result;
 }
 
 /**
@@ -165,8 +204,8 @@ export async function getDictionaryEntries(filters: DictionaryFilters): Promise<
 
     // Apply alphabetical filter
     if (letter) {
-      query = query.gte('entry_name', `${letter}A`)
-                .lt('entry_name', `${letter}z`);
+      const variants = LETTER_VARIANTS[letter] ?? [letter];
+      query = query.or(variants.map(v => `entry_name.ilike.${v}%`).join(','));
     }
 
     // Apply sorting

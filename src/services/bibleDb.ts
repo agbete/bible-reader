@@ -12,9 +12,19 @@ export interface DbBibleVersion {
   id: number;
   language_id: number;
   code: string;
+  /** Code affiché à l'utilisateur (ex. JND pour DBY91) ; `code` reste l'identifiant technique */
+  code_display?: string | null;
   name: string;
   short_name: string | null;
   is_default: boolean | null;
+}
+
+/** Code de version à afficher : code_display s'il est renseigné, sinon code */
+export function versionDisplayCode(
+  version: { code: string; code_display?: string | null } | null | undefined,
+  fallback = ''
+): string {
+  return version?.code_display?.trim() || version?.code || fallback;
 }
 
 export interface DbBookItem {
@@ -155,7 +165,7 @@ export async function getDbBibleVersions(): Promise<DbBibleVersion[]> {
   try {
     const { data, error } = await supabase
       .from('bible_versions')
-      .select('id, language_id, code, name, short_name, is_default')
+      .select('id, language_id, code, code_display, name, short_name, is_default')
       .order('id', { ascending: true });
 
     if (error) {
@@ -924,7 +934,15 @@ export async function testSupabaseConnection(): Promise<DbStatusReport> {
 export async function getDbVersionsWithVerses(): Promise<DbBibleVersion[]> {
   try {
     const { data, error } = await supabase.rpc('get_versions_with_verses');
-    if (!error && data && data.length > 0) return data;
+    if (!error && data && data.length > 0) {
+      // La fonction SQL ne renvoie pas code_display : on le complète depuis bible_versions
+      const { data: displayData } = await supabase
+        .from('bible_versions')
+        .select('id, code_display')
+        .in('id', (data as DbBibleVersion[]).map(v => v.id));
+      const displayById = new Map((displayData || []).map(d => [d.id, d.code_display]));
+      return (data as DbBibleVersion[]).map(v => ({ ...v, code_display: displayById.get(v.id) ?? v.code_display ?? null }));
+    }
     return await getDbVersionsWithVersesFallback();
   } catch (err) {
     return await getDbVersionsWithVersesFallback();
@@ -937,7 +955,7 @@ async function getDbVersionsWithVersesFallback(): Promise<DbBibleVersion[]> {
     if (error || !vtData || vtData.length === 0) return [];
     const versionIds = [...new Set(vtData.map(item => item.version_id))];
     if (versionIds.length === 0) return [];
-    const { data, error: vErr } = await supabase.from('bible_versions').select('id, language_id, code, name, short_name, is_default').in('id', versionIds).order('id', { ascending: true });
+    const { data, error: vErr } = await supabase.from('bible_versions').select('id, language_id, code, code_display, name, short_name, is_default').in('id', versionIds).order('id', { ascending: true });
     if (vErr) return [];
     return data || [];
   } catch (err) {
