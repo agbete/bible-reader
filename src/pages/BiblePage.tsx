@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
-import { SearchDialog } from '@/components/bible/SearchDialog';
+import { BibleSearchDialog, SearchDialogState } from '@/components/bible/BibleSearchDialog';
 import { BookmarksDrawer } from '@/components/bible/BookmarksDrawer';
 import { DbStatusModal } from '@/components/bible/DbStatusModal';
 import { ReaderDialog } from '@/components/bible/ReaderDialog';
 import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
 import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
-import { VerseTreasuresModal } from '@/components/bible/VerseTreasuresModal';
+import { VerseTreasuresModal, TreasuresModalState } from '@/components/bible/VerseTreasuresModal';
+import { ReferencePreview, PassagePreview, PassageProps } from '@/components/bible/ReferencePreview';
 import { 
   getDbLanguages, 
   getDbAllBooks, 
@@ -238,6 +239,17 @@ export const BiblePage: React.FC = () => {
   >({});
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // Ctrl/⌘ + K : ouvre la recherche
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDbStatusOpen, setIsDbStatusOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
@@ -414,10 +426,17 @@ export const BiblePage: React.FC = () => {
         activeVersionRef.current = defaultVersion;
 
         if (books && books.length > 0) {
-          const firstBook = books[0];
-          setSelectedBook(firstBook);
-          setSelectedChapter(1);
-          await loadVersesForSelectedBook(firstBook, 1, [defaultVersion]);
+          // Lien venu d'une autre page : /bible?ref=GEN.11.28 ouvre ce livre et ce chapitre, sur ce verset
+          const [refBook, refChapter, refVerse] = (new URLSearchParams(window.location.search).get('ref') || '').split('.');
+          const linkedBook = refBook ? books.find(b => b.code.toUpperCase() === refBook.toUpperCase()) : undefined;
+          const startBook = linkedBook || books[0];
+          const startChapter = linkedBook ? Math.max(1, Number(refChapter) || 1) : 1;
+          setSelectedBook(startBook);
+          setSelectedChapter(startChapter);
+          if (linkedBook && Number(refVerse) > 0) {
+            setPendingScrollVerse({ chapterKey: `${startBook.id}:${startChapter}`, verse: Number(refVerse), verseId: -1, toVerse: true });
+          }
+          await loadVersesForSelectedBook(startBook, startChapter, [defaultVersion]);
         }
       } catch (err) {
         console.error('[BiblePage] Erreur lors du chargement:', err);
@@ -652,6 +671,10 @@ export const BiblePage: React.FC = () => {
     scrollY: number;
     /** Défilement horizontal des colonnes de versions (plus de 4 versions) */
     scrollX: number;
+    /** Fenêtre ouverte au moment de la navigation (rouverte telle quelle au retour) */
+    modal?:
+      | { type: 'treasures'; side: 'left' | 'right'; state: TreasuresModalState }
+      | { type: 'search'; state: SearchDialogState };
   }
 
   const navigate = useNavigate();
@@ -661,6 +684,11 @@ export const BiblePage: React.FC = () => {
   const restoringRef = useRef(true);
   const lastHandledLocationKeyRef = useRef<string | null>(null);
   const [pendingRestore, setPendingRestore] = useState<NavSnapshot | null>(null);
+  // Dernier état signalé par chaque fenêtre (pour l'historique), et état à leur rendre au retour
+  const treasuresStateRef = useRef<TreasuresModalState | null>(null);
+  const searchStateRef = useRef<SearchDialogState | null>(null);
+  const [treasuresRestore, setTreasuresRestore] = useState<TreasuresModalState | null>(null);
+  const [searchRestore, setSearchRestore] = useState<SearchDialogState | null>(null);
 
   const captureSnapshot = (): NavSnapshot | null => selectedBook ? {
     bookId: selectedBook.id,
@@ -672,7 +700,12 @@ export const BiblePage: React.FC = () => {
     showTitles,
     alignedRows,
     scrollY: window.scrollY,
-    scrollX: scrollContainerRef.current?.scrollLeft ?? 0
+    scrollX: scrollContainerRef.current?.scrollLeft ?? 0,
+    modal: selectedVerseForTreasures && treasuresStateRef.current
+      ? { type: 'treasures', side: treasuresPanelSide, state: treasuresStateRef.current }
+      : isSearchOpen && searchStateRef.current
+        ? { type: 'search', state: searchStateRef.current }
+        : undefined
   } : null;
   // Toujours la version à jour, pour l'écouteur de défilement
   const captureSnapshotRef = useRef(captureSnapshot);
@@ -718,7 +751,7 @@ export const BiblePage: React.FC = () => {
   // Contexte d'affichage modifié (chapitre, versions, mode…) : mise à jour de l'entrée courante
   useEffect(() => {
     saveSnapshotToHistory();
-  }, [selectedBook, selectedChapter, selectedVersions, selectedVersionCode, selectedLanguageIds, displayMode, showTitles, alignedRows]);
+  }, [selectedBook, selectedChapter, selectedVersions, selectedVersionCode, selectedLanguageIds, displayMode, showTitles, alignedRows, selectedVerseForTreasures, isSearchOpen]);
 
   // Retour / Suivant (et rechargement, ou retour depuis une autre page) : restauration du contexte
   useEffect(() => {
@@ -748,6 +781,29 @@ export const BiblePage: React.FC = () => {
 setSelectedBook(prev => prev?.id === book.id ? prev : book);
     setSelectedChapter(snapshot.chapter);
     setPendingRestore(snapshot);
+
+    // Fenêtre ouverte au moment de la navigation : rouverte dans le même état
+    const modal = snapshot.modal;
+    const modalBook = modal?.type === 'treasures' ? booksList.find(b => b.id === modal.state.bookId) : undefined;
+    if (modal?.type === 'treasures' && modalBook) {
+      setIsSearchOpen(false);
+      setTreasuresPanelSide(modal.side);
+      setTreasuresRestore(modal.state);
+      setSelectedVerseForTreasures({
+        id: -1,
+        verse_number: modal.state.verseNumber,
+        reference_code: modal.state.referenceCode,
+        text: '',
+        book: modalBook,
+        chapter: modal.state.chapter,
+        versionCode: modal.state.versionCode
+      });
+    } else if (modal?.type === 'search') {
+      setSearchRestore(modal.state);
+      setIsSearchOpen(true);
+    } else {
+      setIsSearchOpen(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.key, loading, booksList.length]);
 
@@ -1077,21 +1133,80 @@ setSelectedChapter(chapter);
     return parts;
   };
 
+  // ─── Aperçu des passages des titres de niveau 5 ───
+  // Une seule version : panneau latéral (la colonne passe à 70 %, le panneau occupe les 30 % restants)
+  const [dockedPassage, setDockedPassage] = useState<(Omit<PassageProps, 'onGoToVerse'> & { key: string }) | null>(null);
+  useEffect(() => {
+    setDockedPassage(null);
+  }, [selectedBook?.id, selectedChapter, selectedVersions.length]);
+
+  // Plusieurs versions : la bulle se place sur une colonne voisine visible (à droite, sinon à gauche),
+  // à la hauteur du lien, pour ne pas masquer la colonne cliquée
+  const getNeighbourColumnRect = (versionCode: string) => (link: HTMLElement): DOMRect | null => {
+    const columns = Array.from(document.querySelectorAll<HTMLElement>('[data-version-col]')).filter(el => {
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.right > 1 && r.left < window.innerWidth - 1;
+    });
+    const index = columns.findIndex(el => el.dataset.versionCol === versionCode);
+    if (index === -1) return null;
+    const target = columns[index + 1] ?? columns[index - 1];
+    if (!target) return null;
+    const column = target.getBoundingClientRect();
+    const anchor = link.getBoundingClientRect();
+    // Colonnes empilées (petit écran) : pas de colonne à côté, on garde la position du lien
+    if (Math.abs(column.top - columns[index].getBoundingClientRect().top) > 4 && column.left === columns[index].getBoundingClientRect().left) return null;
+    return new DOMRect(column.left, anchor.top, column.width, anchor.height);
+  };
+
+  const goToPassageVerse = (versionCode: string) => (targetBook: DbBookItem, targetChapter: number, targetVerse: number) => handleGoToReference({
+    bookCode: targetBook.code,
+    chapter: targetChapter,
+    verse: targetVerse,
+    chapterOnly: false,
+    referenceCode: `${targetBook.code}.${targetChapter}.${targetVerse}`,
+    endChapter: targetChapter,
+    endVerse: targetVerse,
+    start: 0,
+    end: 0
+  }, versionCode);
+
+  // Lien d'un titre de niveau 5 : au clic, aperçu du passage avec lien vers le passage et versets voisins
   const renderReferenceLink = (ref: ParsedReference, label: string, key: number, versionCode: string) => {
-    const bookName = booksList.find(b => b.code === ref.bookCode)?.name ?? ref.bookCode;
+    const book = booksList.find(b => b.code.toUpperCase() === ref.bookCode.toUpperCase());
+    const linkClass = "italic underline decoration-dotted underline-offset-2 hover:text-amber-700 dark:hover:text-amber-300 hover:decoration-solid transition-colors cursor-pointer text-left";
+    if (!book) return <span key={key}>{label}</span>;
+    // Livre à chapitre unique (« Jude 5-7 ») : versets 5 à 7 du chapitre 1 ; chapitre seul (« Psaumes 96 ») : tout le chapitre
+    const singleChapter = ref.chapterOnly && book.chapters_count === 1;
+    const clamp = (ch: number) => Math.max(1, Math.min(ch, book.chapters_count));
+    const chapter = singleChapter ? 1 : clamp(ref.chapter);
+    const verse = singleChapter ? ref.chapter : ref.verse;
+    const endChapter = singleChapter ? 1 : Math.max(chapter, clamp(ref.endChapter));
+    const endVerse = singleChapter ? ref.endChapter : ref.endVerse;
+    const version = versions.find(v => v.code === versionCode);
+    const bookName = toProperCase(bookNameByLanguage.get(`${version?.language_id}|${book.code}`) ?? book.name);
     return (
-      <button
+      <ReferencePreview
         key={key}
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleGoToReference(ref, versionCode);
-        }}
-        className="italic underline decoration-dotted underline-offset-2 hover:text-amber-700 dark:hover:text-amber-300 hover:decoration-solid transition-colors cursor-pointer text-left"
-        title={ref.chapterOnly ? `Aller à ${bookName} ${ref.chapter}` : `Aller à ${bookName} ${ref.chapter}:${ref.verse}`}
-      >
-        {label}
-      </button>
+        label={label}
+        book={book}
+        bookName={bookName}
+        startChapter={chapter}
+        startVerse={verse}
+        endChapter={endChapter}
+        endVerse={endVerse}
+        versionCode={versionCode}
+        versionLabel={versionDisplayCode(version, versionCode)}
+        onGoToVerse={goToPassageVerse(versionCode)}
+        onOpenDocked={selectedVersions.length === 1 ? () => setDockedPassage({
+          key: `${versionCode}|${book.code}.${chapter}.${verse}-${endChapter}.${endVerse ?? 'fin'}`,
+          book, bookName, versionCode,
+          versionLabel: versionDisplayCode(version, versionCode),
+          startChapter: chapter, startVerse: verse, endChapter, endVerse
+        }) : undefined}
+        getAnchorRect={selectedVersions.length > 1 ? getNeighbourColumnRect(versionCode) : undefined}
+        className={linkClass}
+        title={`Aperçu de ${bookName} ${chapter}:${verse}`}
+      />
     );
   };
 
@@ -1276,7 +1391,7 @@ setSelectedChapter(chapter);
             {multi && (
               <>
                 {columns.map(code => (
-                  <div key={code} data-snap-col className="mb-2 pb-2 border-b border-border min-w-0 snap-start">
+                  <div key={code} data-snap-col data-version-col={code} className="mb-2 pb-2 border-b border-border min-w-0 snap-start">
                     {renderVersionHeader(code)}
                   </div>
                 ))}
@@ -1362,6 +1477,7 @@ setSelectedChapter(chapter);
             <div 
               key={versionCode} 
               data-snap-col={hasMultiple ? '' : undefined}
+              data-version-col={versionCode}
               className={`px-4 pb-4 pt-[11px] rounded-2xl rounded-t-none border border-t-0 border-border bg-card shadow-xs flex flex-col snap-start ${
                 hasMultiple 
                   ? 'w-full md:w-1/2 lg:w-1/3 xl:w-1/4 shrink-0' 
@@ -1487,6 +1603,24 @@ setSelectedChapter(chapter);
           >
             {gridContent}
           </div>
+        </div>
+      );
+    }
+
+    // Une seule version et un passage ouvert : colonne à 70 %, panneau du passage sur les 30 % restants
+    if (dockedPassage && selectedVersions.length === 1) {
+      return (
+        <div className="flex items-start gap-3">
+          <div className="w-[70%] min-w-0">{gridContent}</div>
+          <aside className="w-[30%] min-w-0 sticky top-[104px] h-[calc(100vh-114px)] rounded-2xl border border-amber-500/30 bg-card shadow-md overflow-hidden">
+            <PassagePreview
+              key={dockedPassage.key}
+              {...dockedPassage}
+              docked
+              onGoToVerse={goToPassageVerse(dockedPassage.versionCode)}
+              onClose={() => setDockedPassage(null)}
+            />
+          </aside>
         </div>
       );
     }
@@ -1940,9 +2074,14 @@ setSelectedChapter(chapter);
         <VerseTreasuresModal
           isOpen={!!selectedVerseForTreasures}
           side={treasuresPanelSide}
+          onStateChange={state => { treasuresStateRef.current = state; }}
+          restoreState={treasuresRestore}
+          onRestored={() => setTreasuresRestore(null)}
           onClose={() => {
             console.log('[BiblePage] Closing VerseTreasuresModal');
             setSelectedVerseForTreasures(null);
+            treasuresStateRef.current = null;
+            setTreasuresRestore(null);
           }}
           selectedVerse={selectedVerseForTreasures}
           booksList={booksList}
@@ -1990,19 +2129,29 @@ setSelectedChapter(chapter);
           }}
         />
 
-        <SearchDialog
+        <BibleSearchDialog
           isOpen={isSearchOpen}
-          onClose={() => setIsSearchOpen(false)}
-          onSelectBookChapter={(bookId, chapter) => {
-            const matched = booksList.find(b => b.code.toLowerCase() === bookId.toLowerCase());
-            if (matched) {
-              pushVerseNavigation();
-              setSelectedBook(matched);
-              setSelectedChapter(chapter);
-              setSelectedVersions([activeVersion.code]);
-              setSelectedVersionCode(activeVersion.code);
-              activeVersionRef.current = activeVersion.code;
+          onClose={() => { setIsSearchOpen(false); searchStateRef.current = null; setSearchRestore(null); }}
+          onStateChange={state => { searchStateRef.current = state; }}
+          restoreState={searchRestore}
+          onRestored={() => setSearchRestore(null)}
+          versions={versions}
+          languages={languages}
+          pageVersionCodes={selectedVersions}
+          books={booksList}
+          testaments={testamentsList.map(t => ({ id: t.id, name: testamentNames.get(t.id) || t.name }))}
+          classifications={classificationsList.map(c => ({ id: c.id, name: classificationNames.get(c.id) || c.name, testament_id: c.testament_id }))}
+          onSelectVerse={(book, chapter, verse, versionCode) => {
+            pushVerseNavigation();
+            // Version du résultat cliqué : en première colonne et active (ajoutée si elle n'était pas affichée)
+            const clickedVersion = versionCode ? versions.find(v => v.code === versionCode) : undefined;
+            if (clickedVersion) {
+              applyVersionSelection([clickedVersion.code, ...selectedVersions.filter(code => code !== clickedVersion.code)], clickedVersion.code);
+              setSelectedLanguageIds(prev => prev.includes(clickedVersion.language_id) ? prev : [...prev, clickedVersion.language_id]);
             }
+            setSelectedBook(book);
+            setSelectedChapter(chapter);
+            setPendingScrollVerse({ chapterKey: `${book.id}:${chapter}`, verse, verseId: -1, toVerse: true });
           }}
         />
 

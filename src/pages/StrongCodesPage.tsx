@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
-import { ChevronLeft, ChevronRight, Loader2, Search, X, AlertCircle, Sprout, Languages, ScrollText, BarChart3 } from 'lucide-react';
-import { StrongOccurrences } from '@/components/strong/StrongOccurrences';
+import { ChevronLeft, ChevronRight, Loader2, Search, X, AlertCircle, ScrollText, Languages, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { StrongTermVerses } from '@/components/strong/StrongTermVerses';
 import {
   StrongCode,
   STRONG_MAX_CODE,
@@ -14,17 +14,24 @@ import {
   parseStrongTranslations,
   parseStrongTransliteration,
   parseStrongOrigin,
+  getStrongWordForms,
+  StrongWordForm,
+  getLsgVersion,
+  LsgVersionInfo,
 } from '@/services/strongDb';
 
 const RANGE_SIZE = 100;
+/** Colonnes de la liste : Code Strong · Mot translitéré · Mot original · Traduit par */
+const LIST_COLUMNS = 'grid grid-cols-[3rem_6rem_4.5rem_minmax(0,1fr)]';
 const RANGE_COUNT = Math.ceil(STRONG_MAX_CODE / RANGE_SIZE);
-/** Nombre de traductions affichées en barres (les autres en pastilles) */
-const TOP_TRANSLATIONS = 6;
 
 const rangeOf = (code: number) => Math.floor((code - 1) / RANGE_SIZE);
 const rangeLabel = (index: number) =>
   `${index * RANGE_SIZE + 1} – ${Math.min((index + 1) * RANGE_SIZE, STRONG_MAX_CODE)}`;
 const formatCount = (n: number) => n.toLocaleString('fr-FR');
+
+/** Mot translittéré sans les apostrophes (aleph, ayin…) au début ni à la fin : ’ab → ab */
+const trimApostrophes = (word: string) => word.replace(/^['’‘ʼʾʿ`´]+|['’‘ʼʾʿ`´]+$/g, '');
 
 /** Résumé d'une ligne de liste : les premières traductions, sinon la première définition */
 const listSummary = (item: StrongCode) => {
@@ -62,6 +69,13 @@ const StrongCodesPage: React.FC = () => {
 
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<StrongCode[] | null>(null);
+  // Liste des codes (panneau de gauche) affichée ou masquée, choix mémorisé
+  const [showList, setShowList] = useState<boolean>(() => {
+    try { return localStorage.getItem('strong-show-list') !== 'false'; } catch { return true; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('strong-show-list', String(showList)); } catch { /* stockage indisponible */ }
+  }, [showList]);
   const [searching, setSearching] = useState(false);
 
   const selectCode = (code: number) => {
@@ -132,6 +146,7 @@ const StrongCodesPage: React.FC = () => {
   );
 
   const entryHtml = useMemo(() => (entry ? sanitizeStrongHtml(entry.content) : ''), [entry]);
+
   const translit = useMemo(
     () => (entry?.mot_hebreu_translitere ? parseStrongTransliteration(entry.mot_hebreu_translitere) : null),
     [entry]
@@ -142,11 +157,33 @@ const StrongCodesPage: React.FC = () => {
   );
   const origin = useMemo(() => (entry?.origine_mot ? parseStrongOrigin(entry.origine_mot) : null), [entry]);
 
-  const countedTerms = translations?.terms.filter(t => t.count !== null).slice(0, TOP_TRANSLATIONS) ?? [];
-  const otherTerms = translations?.terms.filter(t => !countedTerms.includes(t)) ?? [];
-  const barBase = translations?.total || Math.max(1, ...countedTerms.map(t => t.count!));
+  // Mots de la Segond 1910 qui portent ce code (« père », « pères »…), avec leur nombre d'occurrences
+  const [wordForms, setWordForms] = useState<StrongWordForm[] | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    setWordForms(null);
+    getStrongWordForms(currentCode)
+      .then(forms => { if (!cancelled) setWordForms(forms); })
+      .catch(err => { console.error('Error loading Strong word forms:', err); if (!cancelled) setWordForms([]); });
+    return () => { cancelled = true; };
+  }, [currentCode]);
+  const wordTotal = wordForms?.reduce((sum, f) => sum + f.count, 0) ?? 0;
+  // Libellés de la version Louis Segond, lus dans bible_versions
+  const [lsgVersion, setLsgVersion] = useState<LsgVersionInfo | null>(null);
+  useEffect(() => {
+    getLsgVersion().then(setLsgVersion).catch(() => setLsgVersion(null));
+  }, []);
+  const lsgLabel = lsgVersion?.code_display?.trim() || lsgVersion?.code || 'LSG';
+  // Liste de versets ouverte : un mot, ou le code (tous les mots) ; réinitialisée à chaque changement de code
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
+  useEffect(() => { setSelectedWord(null); }, [currentCode]);
+  const CODE_SELECTION = '__code__';
+  const selectedOccurrences = !wordForms || !selectedWord ? null
+    : selectedWord === CODE_SELECTION ? wordForms.flatMap(f => f.occurrences)
+      : wordForms.find(f => f.word === selectedWord)?.occurrences ?? null;
+  const toggleWord = (word: string) => setSelectedWord(prev => (prev === word ? null : word));
 
-  const hasSideSections = !loadingEntry && !!entry && (!!origin || !!translations?.terms.length);
+  const hasSideSections = !loadingEntry && !!entry;
 
   const neighbour = (code: number) => rangeItems.find(item => Number(item.code) === code);
   const prevEntry = neighbour(currentCode - 1);
@@ -159,6 +196,15 @@ const StrongCodesPage: React.FC = () => {
       {/* Barre de contrôle */}
       <div className="sticky top-[40px] z-30 bg-[#B45309] dark:bg-[#292524] text-white">
         <div className="px-[10px] min-h-[30px] py-1 xl:py-0 flex flex-wrap items-center gap-2">
+          {/* Afficher / masquer la liste des codes */}
+          <button
+            onClick={() => setShowList(v => !v)}
+            aria-pressed={showList}
+            title={showList ? 'Masquer la liste des codes' : 'Afficher la liste des codes'}
+            className="h-[24px] w-[24px] rounded-md flex items-center justify-center bg-white/15 hover:bg-white/25 transition-colors"
+          >
+            {showList ? <PanelLeftClose className="w-4 h-4" /> : <PanelLeftOpen className="w-4 h-4" />}
+          </button>
           <h1 className="text-[15px] font-bold mr-2">Codes Strong</h1>
 
           {/* Plage de codes */}
@@ -209,9 +255,9 @@ const StrongCodesPage: React.FC = () => {
         </div>
       </div>
 
-      <main className="px-[10px] py-[10px] grid gap-[18px] lg:grid-cols-[minmax(18rem,1fr)_2.2fr]">
-        {/* Liste */}
-        <section className="lg:sticky lg:top-[80px] lg:h-[calc(100vh-90px)] flex flex-col rounded-xl border border-border bg-card overflow-hidden">
+      <main className={`px-[10px] py-[10px] grid gap-[18px] ${showList ? 'lg:grid-cols-[minmax(22rem,1fr)_2.4fr]' : ''}`}>
+        {/* Liste (masquable) */}
+        <section className={`${showList ? 'flex' : 'hidden'} lg:sticky lg:top-[80px] lg:h-[calc(100vh-90px)] flex-col rounded-xl border border-border bg-card overflow-hidden`}>
           <div className="px-3 py-1.5 border-b border-border text-xs font-semibold text-muted-foreground flex items-center justify-between">
             <span>
               {searchResults
@@ -220,43 +266,52 @@ const StrongCodesPage: React.FC = () => {
             </span>
             {loadingRange && !searchResults && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
           </div>
-          <ul className="flex-1 overflow-y-auto thin-scrollbar max-h-[40vh] lg:max-h-none">
-            {listItems.map(item => {
-              const code = Number(item.code);
-              const active = code === currentCode;
-              return (
-                <li key={item.code} id={`strong-item-${code}`}>
-                  <button
-                    onClick={() => selectCode(code)}
-                    className={`w-full text-left pl-3 pr-2 py-1.5 flex items-center gap-2 border-b border-border/50 border-l-[3px] transition-colors ${
-                      active
-                        ? 'bg-amber-50 dark:bg-amber-900/30 border-l-amber-600'
-                        : 'border-l-transparent hover:bg-muted/60'
-                    }`}
-                  >
-                    <span className={`shrink-0 w-12 font-bold text-[13px] ${active ? 'text-amber-800 dark:text-amber-300' : 'text-amber-700 dark:text-amber-400'}`}>
-                      H{code}
-                    </span>
-                    <span className="flex-1 min-w-0 text-[13px] truncate">{summaries.get(item.code)}</span>
-                    {item.mot_hebreu_original && (
-                      <span dir="rtl" lang="he" className="shrink-0 font-hebrew text-[18px] leading-none text-stone-700 dark:text-stone-200">
-                        {item.mot_hebreu_original}
+          {/* Tableau : Code Strong · Mot translitéré · Mot original · Traduit par */}
+          <div className="flex-1 overflow-y-auto thin-scrollbar max-h-[40vh] lg:max-h-none">
+            <div className={`sticky top-0 z-10 ${LIST_COLUMNS} gap-2 pl-3 pr-2 py-1 bg-muted/80 backdrop-blur border-b border-border text-[11px] font-bold uppercase tracking-wide text-muted-foreground`}>
+              <span>Code</span>
+              <span>Translitéré</span>
+              <span className="text-right">Original</span>
+              <span>Traduit par</span>
+            </div>
+            <ul>
+              {listItems.map(item => {
+                const code = Number(item.code);
+                const active = code === currentCode;
+                const translit = item.mot_hebreu_translitere ? trimApostrophes(parseStrongTransliteration(item.mot_hebreu_translitere).word) : '';
+                return (
+                  <li key={item.code} id={`strong-item-${code}`}>
+                    <button
+                      onClick={() => selectCode(code)}
+                      className={`w-full text-left pl-3 pr-2 py-1.5 ${LIST_COLUMNS} gap-2 items-center border-b border-border/50 border-l-[3px] transition-colors ${
+                        active
+                          ? 'bg-amber-50 dark:bg-amber-900/30 border-l-amber-600'
+                          : 'border-l-transparent hover:bg-muted/60'
+                      }`}
+                    >
+                      <span className={`font-bold text-[13px] ${active ? 'text-amber-800 dark:text-amber-300' : 'text-amber-700 dark:text-amber-400'}`}>
+                        H{code}
                       </span>
-                    )}
-                  </button>
+                      <span className="min-w-0 truncate font-cambria italic text-[13px]" title={translit}>{translit || '—'}</span>
+                      <span dir="rtl" lang="he" className="text-right font-hebrew text-[18px] leading-none text-blue-700 dark:text-blue-300">
+                        {item.mot_hebreu_original || <span className="text-[13px] text-muted-foreground">—</span>}
+                      </span>
+                      <span className="min-w-0 truncate text-[13px]" title={summaries.get(item.code)}>{summaries.get(item.code)}</span>
+                    </button>
+                  </li>
+                );
+              })}
+              {!loadingRange && listItems.length === 0 && (
+                <li className="px-3 py-6 text-sm text-center text-muted-foreground">
+                  {searchResults ? 'Aucun résultat.' : 'Aucun code disponible.'}
                 </li>
-              );
-            })}
-            {!loadingRange && listItems.length === 0 && (
-              <li className="px-3 py-6 text-sm text-center text-muted-foreground">
-                {searchResults ? 'Aucun résultat.' : 'Aucun code disponible.'}
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </div>
         </section>
 
         {/* Fiche du code */}
-        <div className="flex flex-col gap-[18px] min-w-0">
+        <div className="flex flex-col gap-[18px] min-w-0 min-h-[calc(100vh-90px)]">
           {/* En-tête : mot hébreu */}
           {/* Carte du code : mot hébreu à gauche ; Origine puis Traductions à droite */}
           <article className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] text-white shadow-xl shadow-amber-900/20">
@@ -272,133 +327,90 @@ const StrongCodesPage: React.FC = () => {
             )}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
 
-            <div className="relative px-5 sm:px-6 py-3">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-3 py-0.5 rounded-full border border-amber-300/60 text-amber-100 text-[11px] font-bold uppercase tracking-[0.2em]">
-                  Strong · H{currentCode}
-                </span>
-                {entry?.type_mot && (
-                  <span className="px-3 py-0.5 rounded-full bg-white/15 text-[12px] font-semibold">{entry.type_mot}</span>
-                )}
-                <div className="ml-auto flex items-center gap-1">
-                  <button
-                    onClick={() => selectCode(currentCode - 1)}
-                    disabled={currentCode <= 1}
-                    className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-30 transition-colors"
-                    title="Code précédent"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => selectCode(currentCode + 1)}
-                    disabled={currentCode >= STRONG_MAX_CODE}
-                    className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 disabled:opacity-30 transition-colors"
-                    title="Code suivant"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
+            <div className="relative px-4 sm:px-5 py-2.5">
               {loadingEntry ? (
                 <div className="min-h-[8rem] flex items-center justify-center">
                   <Loader2 className="w-6 h-6 animate-spin text-amber-200" />
                 </div>
               ) : (
-                <div className={`grid gap-x-6 gap-y-4 pt-2 ${hasSideSections ? 'xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]' : ''}`}>
+                <div className={`grid gap-x-5 gap-y-3 ${hasSideSections ? 'xl:grid-cols-[minmax(0,3fr)_minmax(0,7fr)]' : ''}`}>
                   {/* Mot hébreu */}
                   <div className="flex flex-col items-center justify-center text-center">
                     {entry?.mot_hebreu_original ? (
-                      <p dir="rtl" lang="he" className="font-hebrew text-[48px] sm:text-[60px] leading-[1.1] text-amber-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
+                      <p dir="rtl" lang="he" className="font-hebrew text-[40px] sm:text-[48px] leading-[1.05] text-amber-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
                         {entry.mot_hebreu_original}
                       </p>
                     ) : (
-                      <p className="font-cambria text-[44px] leading-tight text-amber-50/90">H{currentCode}</p>
+                      <p className="font-cambria text-[36px] leading-tight text-amber-50/90">H{currentCode}</p>
                     )}
                     {translit && (
-                      <p className="mt-1 font-cambria italic text-[20px] sm:text-[22px] text-white">{translit.word}</p>
+                      <p className="font-cambria italic text-[18px] leading-tight text-white">{translit.word}</p>
                     )}
                     {translit?.pronunciation && (
-                      <p className="mt-0.5 text-[13px] tracking-[0.15em] text-amber-200">/ {translit.pronunciation} /</p>
+                      <p className="text-[12px] leading-tight tracking-[0.15em] text-amber-200">/ {translit.pronunciation} /</p>
                     )}
 
-                    {translations && (translations.total !== null || translations.terms.length > 0) && (
-                      <div className="mt-3 pt-2 border-t border-amber-200/25 flex items-stretch justify-center gap-8 sm:gap-10">
-                        {translations.total !== null && (
-                          <div>
-                            <div className="font-cambria text-[22px] font-bold leading-none text-amber-100">{formatCount(translations.total)}</div>
-                            <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-amber-200/80">occurrences</div>
-                          </div>
-                        )}
-                        <div>
-                          <div className="font-cambria text-[22px] font-bold leading-none text-amber-100">{translations.terms.length}</div>
-                          <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
-                            traduction{translations.terms.length > 1 ? 's' : ''}
-                          </div>
+                    {/* Occurrences et traductions comptées dans la Segond 1910 (mêmes chiffres que « Nombre d'emplois ») */}
+                    <div className="mt-2 pt-1.5 border-t border-amber-200/25 flex items-stretch justify-center gap-6 sm:gap-8">
+                      <div>
+                        <div className="font-cambria text-[18px] font-bold leading-none text-amber-100">
+                          {wordForms === null ? <Loader2 className="w-4 h-4 mx-auto animate-spin" /> : formatCount(wordTotal)}
+                        </div>
+                        <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
+                          occurrence{wordTotal > 1 ? 's' : ''}
                         </div>
                       </div>
-                    )}
+                      <div>
+                        <div className="font-cambria text-[18px] font-bold leading-none text-amber-100">
+                          {wordForms === null ? <Loader2 className="w-4 h-4 mx-auto animate-spin" /> : formatCount(wordForms.length)}
+                        </div>
+                        <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-amber-200/80">
+                          traduction{(wordForms?.length ?? 0) > 1 ? 's' : ''}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Origine puis Traductions, à droite dans la carte */}
-                  {hasSideSections && (
-                    <div className="flex flex-col gap-4 min-w-0 pt-3 xl:pt-0 xl:pl-6 border-t xl:border-t-0 xl:border-l border-amber-200/25">
-                      {origin && (
-                        <section>
-                          <SectionTitle tone="dark" icon={<Sprout className="w-4 h-4" />}>Origine</SectionTitle>
-                          <p className="font-cambria text-[16px] leading-relaxed text-amber-50">
-                            {origin.map((part, i) =>
-                              typeof part === 'string' ? (
-                                <span key={i}>{part}</span>
-                              ) : (
-                                <button
-                                  key={i}
-                                  onClick={() => selectCode(part.code)}
-                                  className="mx-0.5 px-2 py-px rounded-full bg-white/15 text-amber-100 text-[13px] font-bold not-italic hover:bg-white/25 transition-colors align-baseline"
-                                  title={`Ouvrir le code H${part.code}`}
-                                >
-                                  H{part.code}
-                                </button>
-                              )
-                            )}
-                          </p>
-                        </section>
-                      )}
-
-                      {translations && translations.terms.length > 0 && (
-                        <section>
-                          <SectionTitle tone="dark" icon={<Languages className="w-4 h-4" />}>Traductions</SectionTitle>
-                          {countedTerms.length > 0 && (
-                            <ul className="space-y-1.5 mb-2.5">
-                              {countedTerms.map(t => (
-                                <li key={t.term} className="grid grid-cols-[minmax(5rem,auto)_1fr_auto] items-center gap-3">
-                                  <span className="font-cambria text-[15px] font-semibold text-amber-50">{t.term}</span>
-                                  <span className="h-1.5 rounded-full bg-white/15 overflow-hidden">
-                                    <span
-                                      className="block h-full rounded-full bg-gradient-to-r from-amber-200 to-amber-400"
-                                      style={{ width: `${Math.max(2, Math.min(100, (t.count! / barBase) * 100))}%` }}
-                                    />
-                                  </span>
-                                  <span className="text-[13px] font-bold tabular-nums text-amber-200">{formatCount(t.count!)}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                          {otherTerms.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5">
-                              {otherTerms.map(t => (
-                                <span
-                                  key={t.term}
-                                  className="px-2.5 py-0.5 rounded-full border border-white/25 bg-white/10 font-cambria text-[14px] text-amber-50"
-                                >
-                                  {t.term}
-                                  {t.count !== null && <span className="ml-1 text-[11px] font-bold text-amber-200">{t.count}</span>}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </section>
-                      )}
+                  {/* Fiche du mot, à droite dans la carte : tableau */}
+                  {hasSideSections && entry && (
+                    <div className="min-w-0 pt-3 xl:pt-0 xl:pl-6 border-t xl:border-t-0 xl:border-l border-amber-200/25 flex items-center">
+                      <table className="w-full font-cambria text-[14px] leading-tight rounded-xl overflow-hidden ring-1 ring-amber-200/30 bg-black/10 backdrop-blur-sm">
+                        <tbody>
+                          {([
+                            ['Code Strong', <span className="font-bold text-amber-100">H{currentCode}</span>],
+                            ['Mot hébreu', entry.mot_hebreu_original
+                              ? <span dir="rtl" lang="he" className="font-hebrew text-[20px] leading-none text-amber-50">{entry.mot_hebreu_original}</span>
+                              : null],
+                            ['Translittération', entry.mot_hebreu_translitere
+                              ? <>{translit?.word}{translit?.pronunciation && <span className="text-amber-200/80"> ({translit.pronunciation})</span>}</>
+                              : null],
+                            ['Origine', origin
+                              ? origin.map((part, i) => typeof part === 'string'
+                                ? <span key={i}>{part}</span>
+                                : (
+                                  <button
+                                    key={i}
+                                    onClick={() => selectCode(part.code)}
+                                    className="mx-0.5 px-1.5 rounded-full bg-white/15 text-amber-100 text-[13px] font-bold hover:bg-white/25 transition-colors"
+                                    title={`Ouvrir le code H${part.code}`}
+                                  >
+                                    H{part.code}
+                                  </button>
+                                ))
+                              : null],
+                            ['Type', entry.type_mot || null],
+                          ] as [string, React.ReactNode][]).map(([label, value], i) => (
+                            <tr key={label} className={i > 0 ? 'border-t border-amber-200/20' : ''}>
+                              <th scope="row" className="w-[9rem] px-3 py-1 text-left align-middle text-[10px] font-bold uppercase tracking-[0.15em] text-amber-200/90 bg-amber-200/[0.06]">
+                                {label}
+                              </th>
+                              <td className="px-3 py-1 align-middle text-amber-50">
+                                {value ?? <span className="text-amber-200/50">—</span>}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   )}
                 </div>
@@ -424,51 +436,136 @@ const StrongCodesPage: React.FC = () => {
                 />
               </section>
 
-              {/* Occurrences par livre */}
-              <StrongOccurrences
-                code={currentCode}
-                renderTitle={aside => (
-                  <SectionTitle icon={<BarChart3 className="w-4 h-4" />} aside={aside}>Occurrences dans la Bible</SectionTitle>
-                )}
-              />
+              {/* Mots de la Segond 1910 portant ce code, avec leur nombre d'occurrences ; clic = versets */}
+              <section className="rounded-xl border border-border bg-card px-5 sm:px-8 py-5">
+                <SectionTitle icon={<Languages className="w-4 h-4" />}>
+                  Nombre d’emplois des mots associés dans la version {lsgVersion?.name ?? lsgLabel}
+                </SectionTitle>
+                <div className="flex flex-wrap items-center gap-2 font-cambria">
+                  {wordForms === null ? (
+                    <span className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                      <Loader2 className="w-4 h-4 animate-spin" /> Chargement…
+                    </span>
+                  ) : wordForms.length === 0 ? (
+                    <span className="italic text-[14px] text-muted-foreground">
+                      Aucun mot relié à ce code dans les livres déjà importés.
+                    </span>
+                  ) : (
+                    <>
+                      {/* Code suivi de la somme des occurrences ; clic = tous les versets du code */}
+                      <button
+                        onClick={() => toggleWord(CODE_SELECTION)}
+                        aria-pressed={selectedWord === CODE_SELECTION}
+                        title={`Voir tous les versets où apparaît H${currentCode}`}
+                        className={`flex items-center gap-1.5 h-8 pl-2.5 pr-1.5 rounded-lg bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] shadow-md shadow-amber-900/20 text-amber-50 text-[14px] transition-all hover:brightness-110 ${
+                          selectedWord === CODE_SELECTION ? 'ring-2 ring-amber-400' : 'ring-1 ring-amber-300/40'
+                        }`}
+                      >
+                        <Search className="w-3.5 h-3.5 text-amber-200" />
+                        <strong>H{currentCode}</strong>
+                        <span className="text-amber-200/90">({lsgLabel})</span>
+                        <span className="ml-0.5 min-w-[2rem] text-center px-1.5 rounded bg-amber-100 text-amber-900 text-[12px] font-bold tabular-nums">
+                          {wordTotal.toLocaleString('fr-FR')}
+                        </span>
+                      </button>
+                      <span className="text-muted-foreground">:</span>
+                      {/* Chaque mot, précédé de son nombre d'occurrences ; clic = ses versets */}
+                      {wordForms.map(form => {
+                        const active = selectedWord === form.word;
+                        return (
+                          <button
+                            key={form.word}
+                            onClick={() => toggleWord(form.word)}
+                            aria-pressed={active}
+                            title={active ? 'Masquer les versets' : `Voir les versets où « ${form.word} » porte H${currentCode}`}
+                            className={`flex items-center gap-1.5 h-8 pl-2.5 pr-1.5 rounded-lg border text-[14px] transition-colors ${
+                              active
+                                ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/40'
+                                : 'border-border bg-background hover:border-amber-400 hover:bg-amber-50/60 dark:hover:bg-amber-950/20'
+                            }`}
+                          >
+                            <strong>{form.word}</strong>
+                            <span className="min-w-[2rem] text-center px-1.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 text-[12px] font-bold tabular-nums">
+                              {form.count.toLocaleString('fr-FR')}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </>
+                  )}
+                </div>
 
-              {/* Codes voisins */}
-              <nav className="grid grid-cols-2 gap-[18px]">
-                {currentCode > 1 ? (
-                  <button
-                    onClick={() => selectCode(currentCode - 1)}
-                    className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-left hover:border-amber-400 hover:shadow-md transition-all"
-                  >
-                    <ChevronLeft className="w-5 h-5 text-amber-700 group-hover:-translate-x-0.5 transition-transform" />
-                    <span className="min-w-0">
-                      <span className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Précédent · H{currentCode - 1}</span>
-                      {prevEntry?.mot_hebreu_original && (
-                        <span dir="rtl" lang="he" className="block font-hebrew text-[20px] leading-tight">{prevEntry.mot_hebreu_original}</span>
-                      )}
-                    </span>
-                  </button>
-                ) : <span />}
-                {currentCode < STRONG_MAX_CODE && (
-                  <button
-                    onClick={() => selectCode(currentCode + 1)}
-                    className="group flex items-center justify-end gap-3 rounded-xl border border-border bg-card px-4 py-3 text-right hover:border-amber-400 hover:shadow-md transition-all"
-                  >
-                    <span className="min-w-0">
-                      <span className="block text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Suivant · H{currentCode + 1}</span>
-                      {nextEntry?.mot_hebreu_original && (
-                        <span dir="rtl" lang="he" className="block font-hebrew text-[20px] leading-tight">{nextEntry.mot_hebreu_original}</span>
-                      )}
-                    </span>
-                    <ChevronRight className="w-5 h-5 text-amber-700 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                {/* Versets (80 %) et livres avec leurs occurrences (20 %) */}
+                {selectedWord && selectedOccurrences && (
+                  <StrongTermVerses
+                    key={selectedWord}
+                    title={selectedWord === CODE_SELECTION ? `H${currentCode}` : `« ${selectedWord} »`}
+                    words={selectedWord === CODE_SELECTION ? wordForms!.map(f => f.word) : [selectedWord]}
+                    occurrences={selectedOccurrences}
+                    versionLabel={lsgLabel}
+                    transliteration={translit?.word}
+                    onClose={() => setSelectedWord(null)}
+                  />
                 )}
-              </nav>
+              </section>
             </>
           )}
 
           {!loadingEntry && !entry && !error && (
             <p className="text-sm text-muted-foreground px-1">Aucune définition pour ce code.</p>
           )}
+
+          {/* Codes voisins : toujours visibles, fixés en bas de l'écran */}
+          <nav className="mt-auto sticky bottom-0 z-20 -mx-[10px] px-[10px] py-2 grid grid-cols-2 gap-[18px] bg-background/90 backdrop-blur border-t border-border shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+            {currentCode > 1 ? (
+              <button
+                onClick={() => selectCode(currentCode - 1)}
+                className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-left hover:border-amber-400 hover:shadow-md transition-all"
+              >
+                <ChevronLeft className="w-5 h-5 text-amber-700 group-hover:-translate-x-0.5 transition-transform" />
+                <span className="min-w-0">
+                  <span className="block text-[11px] leading-none uppercase tracking-[0.15em] text-muted-foreground"><strong className="font-bold text-amber-700 dark:text-amber-400">H{currentCode - 1}</strong> · Précédent</span>
+                  {/* Mot original puis mot translittéré */}
+                  {prevEntry && (
+                    <span className="flex items-baseline gap-2 min-w-0 mt-0.5">
+                      {prevEntry.mot_hebreu_original && (
+                        <span dir="rtl" lang="he" className="shrink-0 font-hebrew text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300">{prevEntry.mot_hebreu_original}</span>
+                      )}
+                      {prevEntry.mot_hebreu_translitere && (
+                        <span className="min-w-0 truncate font-cambria text-[16px] font-bold leading-none uppercase tracking-wide text-foreground/85">
+                          {trimApostrophes(parseStrongTransliteration(prevEntry.mot_hebreu_translitere).word)}
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </span>
+              </button>
+            ) : <span />}
+            {currentCode < STRONG_MAX_CODE && (
+              <button
+                onClick={() => selectCode(currentCode + 1)}
+                className="group flex items-center justify-end gap-3 rounded-xl border border-border bg-card px-4 py-3 text-right hover:border-amber-400 hover:shadow-md transition-all"
+              >
+                <span className="min-w-0">
+                  <span className="block text-[11px] leading-none uppercase tracking-[0.15em] text-muted-foreground">Suivant · <strong className="font-bold text-amber-700 dark:text-amber-400">H{currentCode + 1}</strong></span>
+                  {/* Mot translittéré puis mot original */}
+                  {nextEntry && (
+                    <span className="flex items-baseline gap-2 min-w-0 mt-0.5 justify-end">
+                      {nextEntry.mot_hebreu_translitere && (
+                        <span className="min-w-0 truncate font-cambria text-[16px] font-bold leading-none uppercase tracking-wide text-foreground/85">
+                          {trimApostrophes(parseStrongTransliteration(nextEntry.mot_hebreu_translitere).word)}
+                        </span>
+                      )}
+                      {nextEntry.mot_hebreu_original && (
+                        <span dir="rtl" lang="he" className="shrink-0 font-hebrew text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300">{nextEntry.mot_hebreu_original}</span>
+                      )}
+                    </span>
+                  )}
+                </span>
+                <ChevronRight className="w-5 h-5 text-amber-700 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            )}
+          </nav>
         </div>
       </main>
     </div>

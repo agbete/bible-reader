@@ -31,6 +31,18 @@ import {
 const REFERENCE_VERSION_CODE = 'KJV';
 import { supabase } from '@/integrations/supabase/client';
 
+/** État du panneau, enregistré dans l'historique de navigation (bouton Retour) */
+export interface TreasuresModalState {
+  bookId: number;
+  chapter: number;
+  verseNumber: number;
+  referenceCode: string;
+  versionCode: string;
+  themeIndex: number | null;
+  referencesScroll: number;
+  treasuresScroll: number;
+}
+
 interface VerseTreasuresModalProps {
   isOpen: boolean;
   /** Côté de l'écran où s'affiche le panneau (moitié de la largeur sur grand écran) */
@@ -55,6 +67,11 @@ interface VerseTreasuresModalProps {
   onToggleShowTitles: () => void;
   /** verse : verset à atteindre dans le chapitre (défilement + surlignage) */
   onNavigateToPassage: (book: DbBookItem, chapter: number, verse?: number) => void;
+  /** Appelé à chaque changement d'état (verset, version, thème, défilement des colonnes) */
+  onStateChange?: (state: TreasuresModalState) => void;
+  /** État à rétablir après un retour arrière ; onRestored est appelé une fois appliqué */
+  restoreState?: TreasuresModalState | null;
+  onRestored?: () => void;
 }
 
 export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
@@ -70,7 +87,10 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   classificationNames,
   showTitles,
   onToggleShowTitles,
-  onNavigateToPassage
+  onNavigateToPassage,
+  onStateChange,
+  restoreState,
+  onRestored
 }) => {
   const [activeBook, setActiveBook] = useState<DbBookItem | null>(null);
   const [activeChapter, setActiveChapter] = useState<number>(1);
@@ -292,6 +312,45 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
   useEffect(() => {
     setSelectedThemeIndex(treasures.length > 0 ? 0 : null);
   }, [treasures]);
+
+  // ─── Historique de navigation : état courant signalé à la page, et rétabli au retour ───
+  const referencesColumnRef = useRef<HTMLDivElement>(null);
+  const treasuresColumnRef = useRef<HTMLDivElement>(null);
+  const reportState = () => {
+    if (!isOpen || !activeBook || !activeReferenceCode || !onStateChange) return;
+    onStateChange({
+      bookId: activeBook.id,
+      chapter: activeChapter,
+      verseNumber: activeVerseNumber,
+      referenceCode: activeReferenceCode,
+      versionCode: displayVersionCode,
+      themeIndex: selectedThemeIndex,
+      referencesScroll: referencesColumnRef.current?.scrollTop ?? 0,
+      treasuresScroll: treasuresColumnRef.current?.scrollTop ?? 0,
+    });
+  };
+  const reportStateRef = useRef(reportState);
+  reportStateRef.current = reportState;
+  useEffect(() => {
+    reportStateRef.current();
+  }, [isOpen, activeBook, activeChapter, activeVerseNumber, activeReferenceCode, displayVersionCode, selectedThemeIndex]);
+
+  // Rétablissement : une fois les trésors du bon verset chargés (après la sélection du 1er thème par défaut)
+  useEffect(() => {
+    if (!restoreState || !isOpen || loading) return;
+    if (activeReferenceCode !== restoreState.referenceCode || displayVersionCode !== restoreState.versionCode) return;
+    if (!latestRequestRef.current.startsWith(`${restoreState.referenceCode}__${restoreState.versionCode}__`)) return;
+    if (restoreState.themeIndex !== null && restoreState.themeIndex < treasures.length) {
+      setSelectedThemeIndex(restoreState.themeIndex);
+    }
+    const target = restoreState;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (referencesColumnRef.current) referencesColumnRef.current.scrollTop = target.referencesScroll;
+      if (treasuresColumnRef.current) treasuresColumnRef.current.scrollTop = target.treasuresScroll;
+    }));
+    onRestored?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restoreState, isOpen, loading, treasures, activeReferenceCode, displayVersionCode]);
 
   // Click-outside handlers
   useEffect(() => {
@@ -718,7 +777,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </span>
             </div>
 
-            <div className="flex-1 overflow-y-auto thin-scrollbar pr-1 space-y-[10px]">
+            <div
+              ref={referencesColumnRef}
+              onScroll={() => reportStateRef.current()}
+              className="flex-1 overflow-y-auto thin-scrollbar pr-1 space-y-[10px]"
+            >
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
@@ -779,7 +842,11 @@ export const VerseTreasuresModal: React.FC<VerseTreasuresModalProps> = ({
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto overflow-x-hidden thin-scrollbar pr-1 space-y-3.5 break-words">
+            <div
+              ref={treasuresColumnRef}
+              onScroll={() => reportStateRef.current()}
+              className="flex-1 overflow-y-auto overflow-x-hidden thin-scrollbar pr-1 space-y-3.5 break-words"
+            >
               {loading ? (
                 <div className="py-16 flex flex-col items-center justify-center gap-2 text-muted-foreground">
                   <Loader2 className="w-6 h-6 animate-spin text-amber-600" />

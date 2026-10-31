@@ -19,6 +19,9 @@ export interface ParsedReference {
   chapterOnly: boolean;
   /** Format du champ verses.reference_code, ex. "LUC.11.2" */
   referenceCode: string;
+  /** Fin du passage : chapitre et verset (null = jusqu'à la fin du chapitre) */
+  endChapter: number;
+  endVerse: number | null;
   /** Position du texte de la référence dans le titre, pour en faire un lien */
   start: number;
   end: number;
@@ -59,8 +62,8 @@ const resolveBookCode = (rawName: string, index: BookNameIndex): string | null =
 
 // Une référence : [livre] nombre [:verset] [- fin], ex. « 1 Chroniques 1:5-23 », « 6:22-23 », « 19-22 », « 96 »
 // Le livre commence par une lettre, éventuellement précédée d'un chiffre (« 1 Tan ») ;
-// un demi-verset (« 20b ») est accepté ; la fin d'intervalle (« -23:3 ») est ignorée.
-const PART_PATTERN = /^(?:((?:[1-3]\s*)?\p{L}[^\d]*?)\s*)?(\d+)(?:\s*[:.]\s*(\d+)[a-z]?)?(?:\s*[-–—]\s*\d+[a-z]?(?:\s*[:.]\s*\d+[a-z]?)?)?\s*$/iu;
+// un demi-verset (« 20b ») est accepté ; la fin d'intervalle (« -23 », « —16:3 ») est capturée.
+const PART_PATTERN = /^(?:((?:[1-3]\s*)?\p{L}[^\d]*?)\s*)?(\d+)(?:\s*[:.]\s*(\d+)[a-z]?)?(?:\s*[-–—]\s*(\d+)[a-z]?(?:\s*[:.]\s*(\d+)[a-z]?)?)?\s*$/iu;
 
 /** Toutes les références d'un titre, dans l'ordre */
 export const parseReferences = (title: string, index: BookNameIndex): ParsedReference[] => {
@@ -92,7 +95,7 @@ export const parseReferences = (title: string, index: BookNameIndex): ParsedRefe
       inVerseList = false;
       continue;
     }
-    const [, bookName, firstNumber, verseNumber] = match;
+    const [, bookName, firstNumber, verseNumber, rangeFirst, rangeSecond] = match;
 
     if (bookName) {
       bookCode = resolveBookCode(bookName, index);
@@ -102,17 +105,28 @@ export const parseReferences = (title: string, index: BookNameIndex): ParsedRefe
 
     let verse: number;
     let chapterOnly = false;
+    let endChapter: number;
+    let endVerse: number | null;
     if (verseNumber) {
       chapter = Number(firstNumber);
       verse = Number(verseNumber);
       inVerseList = true;
+      // « 5:15-22 » (même chapitre) ou « 15:25—16:3 » (autre chapitre)
+      endChapter = rangeSecond ? Number(rangeFirst) : chapter;
+      endVerse = rangeSecond ? Number(rangeSecond) : rangeFirst ? Number(rangeFirst) : verse;
     } else if (inVerseList && separator === ',' && chapter !== null) {
+      // « , 19-22 » : versets du même chapitre
       verse = Number(firstNumber);
+      endChapter = rangeSecond ? Number(rangeFirst) : chapter;
+      endVerse = rangeSecond ? Number(rangeSecond) : rangeFirst ? Number(rangeFirst) : verse;
     } else {
+      // Chapitre entier (« Psaumes 96 ») ou suite de chapitres (« 96-97 »)
       chapter = Number(firstNumber);
       verse = 1;
       chapterOnly = true;
       inVerseList = false;
+      endChapter = rangeFirst && !rangeSecond ? Number(rangeFirst) : rangeSecond ? Number(rangeFirst) : chapter;
+      endVerse = rangeSecond ? Number(rangeSecond) : null;
     }
 
     results.push({
@@ -121,6 +135,8 @@ export const parseReferences = (title: string, index: BookNameIndex): ParsedRefe
       verse,
       chapterOnly,
       referenceCode: `${bookCode}.${chapter}.${verse}`,
+      endChapter,
+      endVerse,
       start,
       end
     });

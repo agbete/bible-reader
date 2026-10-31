@@ -74,6 +74,14 @@ const ALLOWED_TAGS = new Set(['P', 'OL', 'UL', 'LI', 'SUP', 'SUB', 'B', 'STRONG'
  * Nettoie le HTML importé : retire les guillemets d'encadrement, les <tr>/<td>,
  * les attributs (onclick…) et les liens externes ; ne garde que les balises de mise en forme.
  */
+const LIST_STYLES: Record<string, string> = {
+  '1': 'decimal',
+  a: 'lower-alpha',
+  A: 'upper-alpha',
+  i: 'lower-roman',
+  I: 'upper-roman',
+};
+
 export function sanitizeStrongHtml(raw: string): string {
   const html = raw
     .trim()
@@ -93,7 +101,13 @@ export function sanitizeStrongHtml(raw: string): string {
       } else {
         const listType = child.tagName === 'OL' ? child.getAttribute('type') : null;
         Array.from(child.attributes).forEach(attr => child.removeAttribute(attr.name));
-        if (listType && /^[1aAiI]$/.test(listType)) child.setAttribute('type', listType);
+        // Numérotation de la liste telle que dans la base (1, a, A, i, I) ; « type » ne distingue pas
+        // les majuscules en CSS, on passe donc par un attribut dédié
+        const listStyle = listType ? LIST_STYLES[listType] : undefined;
+        if (listStyle) {
+          child.setAttribute('type', listType!);
+          child.setAttribute('data-list', listStyle);
+        }
       }
     });
   };
@@ -267,22 +281,87 @@ export interface StrongBookOccurrences {
 const occurrencesCache = new Map<number, StrongBookOccurrences[]>();
 
 /** Occurrences d'un code Strong dans la Segond 1910, regroupées par livre (ordre biblique) */
+type StrongLinkRow = { livre_code: string; livre_nom: string | null; chapitre: number; verset: number; contenu: string | null; data_lm: string | null };
+const linkRowsCache = new Map<number, Promise<StrongLinkRow[]>>();
+
+/** Toutes les lignes de strong_code_bible_links d'un code (lues une seule fois) */
+function getStrongLinkRows(code: number): Promise<StrongLinkRow[]> {
+  if (!linkRowsCache.has(code)) {
+    linkRowsCache.set(code, (async () => {
+      const rows: StrongLinkRow[] = [];
+      for (let from = 0; ; from += 1000) {
+        const { data, error } = await supabase
+          .from('strong_code_bible_links')
+          .select('livre_code, livre_nom, chapitre, verset, contenu, data_lm')
+          .eq('data_ns', String(code))
+          .order('id', { ascending: true })
+          .range(from, from + 999);
+        if (error) throw error;
+        rows.push(...((data || []) as StrongLinkRow[]));
+        if (!data || data.length < 1000) break;
+      }
+      return rows;
+    })().catch(err => { linkRowsCache.delete(code); throw err; }));
+  }
+  return linkRowsCache.get(code)!;
+}
+
+export interface StrongWordOccurrence {
+  /** Code du livre dans la base (GEN, EXO…) et nom du livre */
+  dbCode: string;
+  bookName: string;
+  bookOrder: number;
+  chapter: number;
+  verse: number;
+  /** Format verses.reference_code, ex. GEN.1.1 */
+  referenceCode: string;
+}
+
+export interface StrongWordForm {
+  /** Mot tel qu'il apparaît dans la Segond 1910 (forme la plus fréquente), ex. « pères » */
+  word: string;
+  /** Nombre d'occurrences du mot portant ce code */
+  count: number;
+  occurrences: StrongWordOccurrence[];
+}
+
+/**
+ * Mots de la Segond 1910 qui portent ce code Strong (table strong_code_bible_links),
+ * regroupés par forme (« père », « pères »… ; sans tenir compte des majuscules), du plus fréquent au moins fréquent.
+ */
+export async function getStrongWordForms(code: number): Promise<StrongWordForm[]> {
+  const forms = new Map<string, { variants: Map<string, number>; occurrences: StrongWordOccurrence[] }>();
+  (await getStrongLinkRows(code)).forEach(row => {
+    const order = OSIS_BOOKS.indexOf(row.livre_code);
+    const word = fixMojibake(row.contenu || '').trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').replace(/\s+/g, ' ');
+    if (order === -1 || !word) return;
+    const key = word.toLocaleLowerCase('fr');
+    const form = forms.get(key) ?? { variants: new Map<string, number>(), occurrences: [] };
+    form.variants.set(word, (form.variants.get(word) ?? 0) + 1);
+    const dbCode = DB_BOOKS[order];
+    form.occurrences.push({
+      dbCode,
+      bookName: fixMojibake(row.livre_nom || dbCode),
+      bookOrder: order,
+      chapter: row.chapitre,
+      verse: row.verset,
+      referenceCode: `${dbCode}.${row.chapitre}.${row.verset}`,
+    });
+    forms.set(key, form);
+  });
+  return Array.from(forms.values())
+    .map(form => ({
+      word: [...form.variants.entries()].sort((a, b) => b[1] - a[1])[0][0],
+      count: form.occurrences.length,
+      occurrences: form.occurrences.sort((a, b) => a.bookOrder - b.bookOrder || a.chapter - b.chapter || a.verse - b.verse),
+    }))
+    .sort((a, b) => b.count - a.count || a.word.localeCompare(b.word, 'fr'));
+}
+
 export async function getStrongOccurrences(code: number): Promise<StrongBookOccurrences[]> {
   if (occurrencesCache.has(code)) return occurrencesCache.get(code)!;
 
-  type Row = { livre_code: string; livre_nom: string | null; chapitre: number; verset: number; contenu: string | null };
-  const rows: Row[] = [];
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await supabase
-      .from('strong_code_bible_links')
-      .select('livre_code, livre_nom, chapitre, verset, contenu')
-      .eq('data_ns', String(code))
-      .order('id', { ascending: true })
-      .range(from, from + 999);
-    if (error) throw error;
-    rows.push(...((data || []) as Row[]));
-    if (!data || data.length < 1000) break;
-  }
+  const rows = await getStrongLinkRows(code);
 
   const books = new Map<string, StrongBookOccurrences & { order: number }>();
   rows.forEach(row => {
@@ -319,18 +398,38 @@ export async function getStrongOccurrences(code: number): Promise<StrongBookOccu
   return result;
 }
 
-let lsgVersionId: number | null = null;
+export interface LsgVersionInfo {
+  id: number;
+  code: string;
+  code_display: string | null;
+  name: string;
+  language_id: number;
+}
+
+let lsgVersionPromise: Promise<LsgVersionInfo | null> | null = null;
+
+/** Version Louis Segond (LSG) telle qu'enregistrée dans bible_versions (identifiant, code affiché, nom) */
+export function getLsgVersion(): Promise<LsgVersionInfo | null> {
+  if (!lsgVersionPromise) {
+    lsgVersionPromise = Promise.resolve(
+      supabase.from('bible_versions').select('id, code, code_display, name, language_id').eq('code', STRONG_LINKS_VERSION_CODE).maybeSingle()
+    ).then(({ data }) => (data as LsgVersionInfo) ?? null);
+  }
+  return lsgVersionPromise;
+}
+
+/** Identifiant de la version Louis Segond (LSG) */
+export async function getLsgVersionId(): Promise<number | null> {
+  return (await getLsgVersion())?.id ?? null;
+}
 
 /** Texte Louis Segond de plusieurs versets, par reference_code (ex. GEN.1.1) */
 export async function getLsgVerseTexts(referenceCodes: string[]): Promise<Map<string, string>> {
   const result = new Map<string, string>();
   if (referenceCodes.length === 0) return result;
 
-  if (lsgVersionId === null) {
-    const { data } = await supabase.from('bible_versions').select('id').eq('code', STRONG_LINKS_VERSION_CODE).maybeSingle();
-    lsgVersionId = data?.id ?? null;
-    if (lsgVersionId === null) return result;
-  }
+  const lsgVersionId = await getLsgVersionId();
+  if (lsgVersionId === null) return result;
 
   for (let i = 0; i < referenceCodes.length; i += 150) {
     const chunk = referenceCodes.slice(i, i + 150);
