@@ -1,0 +1,336 @@
+﻿livre_code;livre_nom;chapitre;verset;version;lang;type_entite;data_lm;data_pa;data_ns;contenu
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g3972;3972;Paul,
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g1198;1198;prisoner
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2424;2424;of Christ Jesus,
+Phlm;Philémon;1;1;DBY90;en;reference;Conjunction;5/g2532;2532;and
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g5095;5095;Timotheus
+Phlm;Philémon;1;1;DBY90;en;texte_brut;;;;the
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g0080;80;brother,
+Phlm;Philémon;1;1;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g5371;5371;to Philemon
+Phlm;Philémon;1;1;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";12/g2257;2257;the
+Phlm;Philémon;1;1;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Singular";9/g0027;27;beloved
+Phlm;Philémon;1;1;DBY90;en;reference;Conjunction;10/g2532;2532;and
+Phlm;Philémon;1;1;DBY90;en;texte_brut;;;;our fellow-workman,
+Phlm;Philémon;1;2;DBY90;en;reference;Conjunction;1/g2532;2532;and to
+Phlm;Philémon;1;2;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";3/g0027;27;the sister
+Phlm;Philémon;1;2;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";2/g0682;682;Apphia
+Phlm;Philémon;1;2;DBY90;en;reference;Conjunction;4/g2532;2532;and
+Phlm;Philémon;1;2;DBY90;en;texte_brut;;;;to
+Phlm;Philémon;1;2;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g0751;751;Archippus
+Phlm;Philémon;1;2;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";7/g2257;2257;our
+Phlm;Philémon;1;2;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";6/g4961;4961;fellow-soldier,
+Phlm;Philémon;1;2;DBY90;en;reference;Conjunction;8/g2532;2532;and
+Phlm;Philémon;1;2;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g1577;1577;to the assembly
+Phlm;Philémon;1;2;DBY90;en;texte_brut;;;;which
+Phlm;Philémon;1;2;DBY90;en;mot_ajoute;;;;[is]
+Phlm;Philémon;1;2;DBY90;en;reference;Preposition;9/g2596;2596;in
+Phlm;Philémon;1;2;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";11/g4675;4675;thine
+Phlm;Philémon;1;2;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";10/g3624;3624;house.
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";1/g5485;5485;Grace
+Phlm;Philémon;1;3;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";2/g5213;5213;to you
+Phlm;Philémon;1;3;DBY90;en;reference;Conjunction;3/g2532;2532;and
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g1515;1515;peace
+Phlm;Philémon;1;3;DBY90;en;reference;Preposition;5/g0575;575;from
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2316;2316;God
+Phlm;Philémon;1;3;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";8/g2257;2257;our
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g3962;3962;Father,
+Phlm;Philémon;1;3;DBY90;en;reference;Conjunction;9/g2532;2532;and
+Phlm;Philémon;1;3;DBY90;en;mot_ajoute;;;;[the]
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";10/g2962;2962;Lord
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g2424;2424;Jesus
+Phlm;Philémon;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g5547;5547;Christ.
+Phlm;Philémon;1;4;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g2168;2168;I thank
+Phlm;Philémon;1;4;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";3/g3450;3450;my
+Phlm;Philémon;1;4;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";2/g2316;2316;God,
+Phlm;Philémon;1;4;DBY90;en;reference;Adverb;4/g3842;3842;always
+Phlm;Philémon;1;4;DBY90;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Singular";7/g4160;4160;making
+Phlm;Philémon;1;4;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g3417;3417;mention
+Phlm;Philémon;1;4;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";6/g4675;4675;of thee
+Phlm;Philémon;1;4;DBY90;en;reference;Preposition;8/g1909;1909;at
+Phlm;Philémon;1;4;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";10/g3450;3450;my
+Phlm;Philémon;1;4;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";9/g4335;4335;prayers,
+Phlm;Philémon;1;5;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";1/g0191;191;hearing
+Phlm;Philémon;1;5;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";2/g4675;4675;of thy
+Phlm;Philémon;1;5;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";3/g0026;26;love
+Phlm;Philémon;1;5;DBY90;en;reference;Conjunction;4/g2532;2532;and
+Phlm;Philémon;1;5;DBY90;en;texte_brut;;;;the
+Phlm;Philémon;1;5;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g4102;4102;faith
+Phlm;Philémon;1;5;DBY90;en;reference;"Relative Pronoun ; Accusative ; Feminine ; Singular";6/g3739;3739;which
+Phlm;Philémon;1;5;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Singular";7/g2192;2192;thou hast
+Phlm;Philémon;1;5;DBY90;en;reference;Preposition;8/g4314;4314;towards
+Phlm;Philémon;1;5;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";9/g3588;3588;the
+Phlm;Philémon;1;5;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";10/g2962;2962;Lord
+Phlm;Philémon;1;5;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g2424;2424;Jesus,
+Phlm;Philémon;1;5;DBY90;en;reference;Conjunction;12/g2532;2532;and
+Phlm;Philémon;1;5;DBY90;en;reference;Preposition;13/g1519;1519;towards
+Phlm;Philémon;1;5;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";14/g3956;3956;all
+Phlm;Philémon;1;5;DBY90;en;texte_brut;;;;the
+Phlm;Philémon;1;5;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";15/g0040;40;saints,
+Phlm;Philémon;1;6;DBY90;en;texte_brut;;;;in such sort
+Phlm;Philémon;1;6;DBY90;en;reference;Adverb;1/g3704;3704;that
+Phlm;Philémon;1;6;DBY90;en;texte_brut;;;;thy participation in
+Phlm;Philémon;1;6;DBY90;en;reference;"Definite article ; Nominative ; Feminine ; Singular";2/g3588;3588;the
+Phlm;Philémon;1;6;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g4102;4102;faith
+Phlm;Philémon;1;6;DBY90;en;texte_brut;;;;should
+Phlm;Philémon;1;6;DBY90;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Subjunctive ; 3rd Person ; Singular";7/g1096;1096;become
+Phlm;Philémon;1;6;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Singular";6/g1756;1756;operative
+Phlm;Philémon;1;6;DBY90;en;reference;Preposition;8/g1722;1722;in
+Phlm;Philémon;1;6;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";9/g1922;1922;the acknowledgment
+Phlm;Philémon;1;6;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";10/g3956;3956;of every
+Phlm;Philémon;1;6;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";11/g0018;18;good thing
+Phlm;Philémon;1;6;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Singular";12/g3588;3588;which
+Phlm;Philémon;1;6;DBY90;en;reference;Preposition;13/g1722;1722;is in
+Phlm;Philémon;1;6;DBY90;en;texte_brut;;;;us towards
+Phlm;Philémon;1;6;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";16/g5547;5547;Christ
+Phlm;Philémon;1;6;DBY90;en;mot_ajoute;;;;[Jesus].
+Phlm;Philémon;1;7;DBY90;en;reference;Conjunction;2/g1063;1063;For
+Phlm;Philémon;1;7;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";3/g2192;2192;we have
+Phlm;Philémon;1;7;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";4/g4183;4183;great
+Phlm;Philémon;1;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";1/g5485;5485;thankfulness
+Phlm;Philémon;1;7;DBY90;en;reference;Conjunction;5/g2532;2532;and
+Phlm;Philémon;1;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g3874;3874;encouragement through
+Phlm;Philémon;1;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";9/g4675;4675;thy
+Phlm;Philémon;1;7;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g0026;26;love,
+Phlm;Philémon;1;7;DBY90;en;reference;Conjunction;10/g3754;3754;because
+Phlm;Philémon;1;7;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Plural";11/g3588;3588;the
+Phlm;Philémon;1;7;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";12/g4698;4698;bowels
+Phlm;Philémon;1;7;DBY90;en;reference;"Definite article ; Genitive ; Masculine ; Plural";13/g3588;3588;of the
+Phlm;Philémon;1;7;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";14/g0040;40;saints
+Phlm;Philémon;1;7;DBY90;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";15/g0373;373;are refreshed
+Phlm;Philémon;1;7;DBY90;en;reference;Preposition;16/g1223;1223;by
+Phlm;Philémon;1;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";17/g4675;4675;thee,
+Phlm;Philémon;1;7;DBY90;en;reference;"Noun ; Vocative ; Masculine ; Singular";18/g0080;80;brother.
+Phlm;Philémon;1;8;DBY90;en;reference;Conjunction;1/g1352;1352;Wherefore
+Phlm;Philémon;1;8;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";6/g2192;2192;having
+Phlm;Philémon;1;8;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";2/g4183;4183;much
+Phlm;Philémon;1;8;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g3954;3954;boldness
+Phlm;Philémon;1;8;DBY90;en;reference;Preposition;3/g1722;1722;in
+Phlm;Philémon;1;8;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";4/g5547;5547;Christ
+Phlm;Philémon;1;8;DBY90;en;reference;"Verb ; Present ; Active ; Infinitive";7/g2004;2004;to enjoin
+Phlm;Philémon;1;8;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";8/g4671;4671;thee
+Phlm;Philémon;1;8;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";9/g3588;3588;what
+Phlm;Philémon;1;8;DBY90;en;texte_brut;;;;is fitting,
+Phlm;Philémon;1;9;DBY90;en;reference;Preposition;1/g1223;1223;for
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";2/g0026;26;love's
+Phlm;Philémon;1;9;DBY90;en;texte_brut;;;;sake I
+Phlm;Philémon;1;9;DBY90;en;reference;Adverb;3/g3123;3123;rather
+Phlm;Philémon;1;9;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";4/g3870;3870;exhort,
+Phlm;Philémon;1;9;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Nominative ; Masculine ; Singular";6/g5607;5607;being
+Phlm;Philémon;1;9;DBY90;en;texte_brut;;;;such
+Phlm;Philémon;1;9;DBY90;en;texte_brut;;;;a
+Phlm;Philémon;1;9;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Masculine ; Singular";5/g5108;5108;one
+Phlm;Philémon;1;9;DBY90;en;reference;Adverb;7/g5613;5613;as
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g3972;3972;Paul
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g4246;4246;the aged,
+Phlm;Philémon;1;9;DBY90;en;reference;Conjunction;11/g1161;1161;and
+Phlm;Philémon;1;9;DBY90;en;reference;Adverb;10/g3570;3570;now
+Phlm;Philémon;1;9;DBY90;en;reference;Conjunction;12/g2532;2532;also
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";13/g1198;1198;prisoner
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2424;2424;of Jesus
+Phlm;Philémon;1;9;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;Christ.
+Phlm;Philémon;1;10;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g3870;3870;I exhort
+Phlm;Philémon;1;10;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Singular";2/g4571;4571;thee
+Phlm;Philémon;1;10;DBY90;en;reference;Preposition;3/g4012;4012;for
+Phlm;Philémon;1;10;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";4/g1700;1700;my
+Phlm;Philémon;1;10;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";5/g5043;5043;child,
+Phlm;Philémon;1;10;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";6/g3739;3739;whom
+Phlm;Philémon;1;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";7/g1080;1080;I have begotten
+Phlm;Philémon;1;10;DBY90;en;reference;Preposition;8/g1722;1722;in
+Phlm;Philémon;1;10;DBY90;en;mot_ajoute;;;;[my]
+Phlm;Philémon;1;10;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";9/g1199;1199;bonds,
+Phlm;Philémon;1;10;DBY90;en;texte_brut;;;;Onesimus,
+Phlm;Philémon;1;11;DBY90;en;reference;Particle, Disjunctive Particle;2/g4218;4218;once
+Phlm;Philémon;1;11;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";4/g0890;890;unserviceable
+Phlm;Philémon;1;11;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";3/g4671;4671;to thee,
+Phlm;Philémon;1;11;DBY90;en;reference;Conjunction;6/g1161;1161;but
+Phlm;Philémon;1;11;DBY90;en;reference;Adverb;5/g3570;3570;now
+Phlm;Philémon;1;11;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";10/g2173;2173;serviceable
+Phlm;Philémon;1;11;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";7/g4671;4671;to thee
+Phlm;Philémon;1;11;DBY90;en;reference;Conjunction;8/g2532;2532;and
+Phlm;Philémon;1;11;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";9/g1698;1698;to me:
+Phlm;Philémon;1;12;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";1/g3739;3739;whom
+Phlm;Philémon;1;12;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";2/g0375;375;I have sent back
+Phlm;Philémon;1;12;DBY90;en;texte_brut;;;;to thee:
+Phlm;Philémon;1;12;DBY90;en;mot_ajoute;;;;[but do thou receive]
+Phlm;Philémon;1;12;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";5/g0846;846;him,
+Phlm;Philémon;1;12;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";6/g5124;5124;that
+Phlm;Philémon;1;12;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";7/g2076;2076;is,
+Phlm;Philémon;1;12;DBY90;en;reference;"Possessive Pronoun ; 1st Person ; Nominative ; Neuter ; Plural";8/g1699;1699;my
+Phlm;Philémon;1;12;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";9/g4698;4698;bowels:
+Phlm;Philémon;1;13;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";1/g3739;3739;whom
+Phlm;Philémon;1;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";2/g1473;1473;I
+Phlm;Philémon;1;13;DBY90;en;texte_brut;;;;was
+Phlm;Philémon;1;13;DBY90;en;reference;"Verb ; Imperfect ; Middle or Passive Deponent ; Indicative ; 1st Person ; Singular";3/g1014;1014;desirous
+Phlm;Philémon;1;13;DBY90;en;reference;"Verb ; Present ; Active ; Infinitive";6/g2722;2722;of keeping
+Phlm;Philémon;1;13;DBY90;en;reference;Preposition;4/g4314;4314;with
+Phlm;Philémon;1;13;DBY90;en;reference;"Reflexive Pronoun ; 1st Person ; Accusative ; Masculine ; Singular";5/g1683;1683;myself,
+Phlm;Philémon;1;13;DBY90;en;reference;Conjunction;7/g2443;2443;that
+Phlm;Philémon;1;13;DBY90;en;reference;Preposition;8/g5228;5228;for
+Phlm;Philémon;1;13;DBY90;en;texte_brut;;;;thee
+Phlm;Philémon;1;13;DBY90;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Singular";10/g1247;1247;he might minister
+Phlm;Philémon;1;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";11/g3427;3427;to me
+Phlm;Philémon;1;13;DBY90;en;reference;Preposition;12/g1722;1722;in
+Phlm;Philémon;1;13;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Plural";13/g3588;3588;the
+Phlm;Philémon;1;13;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";14/g1199;1199;bonds
+Phlm;Philémon;1;13;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Singular";15/g3588;3588;of the
+Phlm;Philémon;1;13;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";16/g2098;2098;"glad tidings;"
+Phlm;Philémon;1;14;DBY90;en;reference;Conjunction;2/g1161;1161;but
+Phlm;Philémon;1;14;DBY90;en;texte_brut;;;;I have wished to do
+Phlm;Philémon;1;14;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";5/g3762;3762;nothing
+Phlm;Philémon;1;14;DBY90;en;reference;Adverb;1/g5565;5565;without
+Phlm;Philémon;1;14;DBY90;en;reference;"Possessive Pronoun ; 2nd Person ; Genitive ; Feminine ; Singular";3/g4674;4674;thy
+Phlm;Philémon;1;14;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g1106;1106;mind,
+Phlm;Philémon;1;14;DBY90;en;reference;Conjunction;8/g2443;2443;that
+Phlm;Philémon;1;14;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";14/g4675;4675;thy
+Phlm;Philémon;1;14;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";13/g0018;18;good
+Phlm;Philémon;1;14;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Subjunctive ; 3rd Person ; Singular";15/g5600;5600;might
+Phlm;Philémon;1;14;DBY90;en;reference;Particle, Disjunctive Particle;9/g3361;3361;not
+Phlm;Philémon;1;14;DBY90;en;texte_brut;;;;be
+Phlm;Philémon;1;14;DBY90;en;reference;Adverb;10/g5613;5613;as
+Phlm;Philémon;1;14;DBY90;en;reference;Preposition;11/g2596;2596;of
+Phlm;Philémon;1;14;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g0318;318;necessity
+Phlm;Philémon;1;14;DBY90;en;reference;Conjunction;16/g0235;235;but
+Phlm;Philémon;1;14;DBY90;en;texte_brut;;;;of willingness:
+Phlm;Philémon;1;15;DBY90;en;reference;Conjunction;2/g1063;1063;for
+Phlm;Philémon;1;15;DBY90;en;reference;Adverb;1/g5029;5029;perhaps
+Phlm;Philémon;1;15;DBY90;en;texte_brut;;;;for this reason
+Phlm;Philémon;1;15;DBY90;en;texte_brut;;;;he
+Phlm;Philémon;1;15;DBY90;en;texte_brut;;;;has
+Phlm;Philémon;1;15;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";4/g5563;5563;been separated
+Phlm;Philémon;1;15;DBY90;en;mot_ajoute;;;;[from thee]
+Phlm;Philémon;1;15;DBY90;en;reference;Preposition;5/g4314;4314;for
+Phlm;Philémon;1;15;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g5610;5610;a time,
+Phlm;Philémon;1;15;DBY90;en;reference;Conjunction;7/g2443;2443;that
+Phlm;Philémon;1;15;DBY90;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Singular";10/g0568;568;thou mightest possess
+Phlm;Philémon;1;15;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";9/g0846;846;him
+Phlm;Philémon;1;15;DBY90;en;texte_brut;;;;fully
+Phlm;Philémon;1;15;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";8/g0166;166;"for ever;"
+Phlm;Philémon;1;16;DBY90;en;reference;Adverb;1/g3765;3765;not any longer
+Phlm;Philémon;1;16;DBY90;en;reference;Adverb;2/g5613;5613;as
+Phlm;Philémon;1;16;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g1401;1401;a bondman,
+Phlm;Philémon;1;16;DBY90;en;reference;Conjunction;4/g0235;235;but
+Phlm;Philémon;1;16;DBY90;en;reference;Preposition;5/g5228;5228;above
+Phlm;Philémon;1;16;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g1401;1401;a bondman,
+Phlm;Philémon;1;16;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g0080;80;a beloved brother,
+Phlm;Philémon;1;16;DBY90;en;reference;Adverb;9/g3122;3122;specially
+Phlm;Philémon;1;16;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";10/g1698;1698;to me,
+Phlm;Philémon;1;16;DBY90;en;reference;Conjunction;12/g1161;1161;and
+Phlm;Philémon;1;16;DBY90;en;reference;"Correlative or Interrogative Pronoun ; Dative ; Neuter ; Singular";11/g4214;4214;how much
+Phlm;Philémon;1;16;DBY90;en;reference;Adverb;13/g3123;3123;rather
+Phlm;Philémon;1;16;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";14/g4671;4671;to thee,
+Phlm;Philémon;1;16;DBY90;en;reference;Conjunction;15/g2532;2532;both
+Phlm;Philémon;1;16;DBY90;en;reference;Preposition;16/g1722;1722;in
+Phlm;Philémon;1;16;DBY90;en;mot_ajoute;;;;[the]
+Phlm;Philémon;1;16;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";17/g4561;4561;flesh
+Phlm;Philémon;1;16;DBY90;en;reference;Conjunction;18/g2532;2532;and
+Phlm;Philémon;1;16;DBY90;en;reference;Preposition;19/g1722;1722;in
+Phlm;Philémon;1;16;DBY90;en;mot_ajoute;;;;[the]
+Phlm;Philémon;1;16;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";20/g2962;2962;Lord?
+Phlm;Philémon;1;17;DBY90;en;reference;Conditional Particle or Conjunction;1/g1487;1487;If
+Phlm;Philémon;1;17;DBY90;en;reference;Conjunction;2/g3767;3767;therefore
+Phlm;Philémon;1;17;DBY90;en;texte_brut;;;;thou holdest me to be
+Phlm;Philémon;1;17;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";5/g2844;2844;a partner
+Phlm;Philémon;1;17;DBY90;en;mot_ajoute;;;;[with thee],
+Phlm;Philémon;1;17;DBY90;en;reference;"Verb ; Second Aorist ; Middle ; Imperative ; 2nd Person ; Singular";6/g4355;4355;receive
+Phlm;Philémon;1;17;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";7/g0846;846;him
+Phlm;Philémon;1;17;DBY90;en;reference;Adverb;8/g5613;5613;as
+Phlm;Philémon;1;17;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Singular";9/g1691;1691;"me;"
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;but
+Phlm;Philémon;1;18;DBY90;en;reference;Conditional Particle or Conjunction;1/g1487;1487;if
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;he
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;have
+Phlm;Philémon;1;18;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";3/g0091;91;wronged
+Phlm;Philémon;1;18;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Singular";4/g4571;4571;thee
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;anything
+Phlm;Philémon;1;18;DBY90;en;reference;Particle, Disjunctive Particle;5/g2228;2228;or
+Phlm;Philémon;1;18;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";6/g3784;3784;owe
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;anything
+Phlm;Philémon;1;18;DBY90;en;mot_ajoute;;;;[to thee],
+Phlm;Philémon;1;18;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Singular";9/g1677;1677;put
+Phlm;Philémon;1;18;DBY90;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";7/g5124;5124;this
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;to
+Phlm;Philémon;1;18;DBY90;en;texte_brut;;;;my
+Phlm;Philémon;1;18;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";8/g1698;1698;account.
+Phlm;Philémon;1;19;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";1/g1473;1473;I
+Phlm;Philémon;1;19;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g3972;3972;Paul
+Phlm;Philémon;1;19;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";3/g1125;1125;have written
+Phlm;Philémon;1;19;DBY90;en;mot_ajoute;;;;[it]
+Phlm;Philémon;1;19;DBY90;en;reference;"Possessive Pronoun ; 1st Person ; Dative ; Feminine ; Singular";4/g1699;1699;with mine own
+Phlm;Philémon;1;19;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g5495;5495;"hand;"
+Phlm;Philémon;1;19;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";6/g1473;1473;I
+Phlm;Philémon;1;19;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 1st Person ; Singular";7/g0661;661;will repay
+Phlm;Philémon;1;19;DBY90;en;mot_ajoute;;;;[it]:
+Phlm;Philémon;1;19;DBY90;en;reference;Conjunction;8/g2443;2443;that
+Phlm;Philémon;1;19;DBY90;en;texte_brut;;;;I
+Phlm;Philémon;1;19;DBY90;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Singular";10/g3004;3004;say
+Phlm;Philémon;1;19;DBY90;en;texte_brut;;;;not
+Phlm;Philémon;1;19;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";11/g4671;4671;to thee
+Phlm;Philémon;1;19;DBY90;en;reference;Conjunction;12/g3754;3754;that
+Phlm;Philémon;1;19;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Singular";16/g4359;4359;thou owest
+Phlm;Philémon;1;19;DBY90;en;reference;Conjunction;13/g2532;2532;even
+Phlm;Philémon;1;19;DBY90;en;reference;"Reflexive Pronoun ; 2nd Person ; Accusative ; Masculine ; Singular";14/g4572;4572;thine own self
+Phlm;Philémon;1;19;DBY90;en;texte_brut;;;;also to me.
+Phlm;Philémon;1;20;DBY90;en;reference;Particle, Disjunctive Particle;1/g3483;3483;Yea,
+Phlm;Philémon;1;20;DBY90;en;reference;"Noun ; Vocative ; Masculine ; Singular";2/g0080;80;brother,
+Phlm;Philémon;1;20;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";3/g1473;1473;I
+Phlm;Philémon;1;20;DBY90;en;texte_brut;;;;would
+Phlm;Philémon;1;20;DBY90;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Optative ; 1st Person ; Singular";5/g3685;3685;have profit
+Phlm;Philémon;1;20;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";4/g4675;4675;of thee
+Phlm;Philémon;1;20;DBY90;en;reference;Preposition;6/g1722;1722;in
+Phlm;Philémon;1;20;DBY90;en;mot_ajoute;;;;[the]
+Phlm;Philémon;1;20;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";7/g2962;2962;Lord:
+Phlm;Philémon;1;20;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Singular";8/g0373;373;refresh
+Phlm;Philémon;1;20;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";9/g3450;3450;my
+Phlm;Philémon;1;20;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Plural";10/g4698;4698;bowels
+Phlm;Philémon;1;20;DBY90;en;reference;Preposition;11/g1722;1722;in
+Phlm;Philémon;1;20;DBY90;en;texte_brut;;;;Christ.
+Phlm;Philémon;1;21;DBY90;en;texte_brut;;;;Being
+Phlm;Philémon;1;21;DBY90;en;reference;"Verb ; Second Perfect ; Active ; Participle ; Nominative ; Masculine ; Singular";1/g3982;3982;confident
+Phlm;Philémon;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Singular";3/g4675;4675;of thine
+Phlm;Philémon;1;21;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";2/g5218;5218;obedience,
+Phlm;Philémon;1;21;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";4/g1125;1125;I have written
+Phlm;Philémon;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Singular";5/g4671;4671;to thee,
+Phlm;Philémon;1;21;DBY90;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Singular";6/g1492;1492;knowing
+Phlm;Philémon;1;21;DBY90;en;reference;Conjunction;7/g3754;3754;that
+Phlm;Philémon;1;21;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 2nd Person ; Singular";11/g4160;4160;thou wilt
+Phlm;Philémon;1;21;DBY90;en;texte_brut;;;;do
+Phlm;Philémon;1;21;DBY90;en;texte_brut;;;;even
+Phlm;Philémon;1;21;DBY90;en;reference;Preposition;9/g5228;5228, 3739;more than
+Phlm;Philémon;1;21;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";10/g3004;3004;I say.
+Phlm;Philémon;1;22;DBY90;en;reference;Conjunction;2/g1161;1161;But
+Phlm;Philémon;1;22;DBY90;en;reference;Adverb;1/g0260;260;withal
+Phlm;Philémon;1;22;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Singular";4/g2090;2090;prepare
+Phlm;Philémon;1;22;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";5/g3427;3427;me
+Phlm;Philémon;1;22;DBY90;en;reference;Conjunction;3/g2532;2532;also
+Phlm;Philémon;1;22;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g3578;3578;"a lodging;"
+Phlm;Philémon;1;22;DBY90;en;reference;Conjunction;8/g1063;1063;for
+Phlm;Philémon;1;22;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";7/g1679;1679;I hope
+Phlm;Philémon;1;22;DBY90;en;reference;Conjunction;9/g3754;3754;that
+Phlm;Philémon;1;22;DBY90;en;texte_brut;;;;I shall be granted to you
+Phlm;Philémon;1;22;DBY90;en;reference;Preposition;10/g1223;1223;through
+Phlm;Philémon;1;22;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;your
+Phlm;Philémon;1;22;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";11/g4335;4335;prayers.
+Phlm;Philémon;1;23;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g1889;1889;Epaphras
+Phlm;Philémon;1;23;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Plural";1/g0782;782;salutes
+Phlm;Philémon;1;23;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Singular";2/g4571;4571;thee,
+Phlm;Philémon;1;23;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";5/g3450;3450;my
+Phlm;Philémon;1;23;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";4/g4869;4869;fellow-prisoner
+Phlm;Philémon;1;23;DBY90;en;reference;Preposition;6/g1722;1722;in
+Phlm;Philémon;1;23;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";7/g5547;5547;Christ
+Phlm;Philémon;1;23;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g2424;2424;"Jesus;"
+Phlm;Philémon;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g3138;3138;Mark,
+Phlm;Philémon;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g0708;708;Aristarchus,
+Phlm;Philémon;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g1214;1214;Demas,
+Phlm;Philémon;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g3065;3065;Luke,
+Phlm;Philémon;1;24;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";6/g3450;3450;my
+Phlm;Philémon;1;24;DBY90;en;texte_brut;;;;fellow-workmen.
+Phlm;Philémon;1;25;DBY90;en;reference;"Definite article ; Nominative ; Feminine ; Singular";1/g3588;3588;The
+Phlm;Philémon;1;25;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";2/g5485;5485;grace
+Phlm;Philémon;1;25;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;of our
+Phlm;Philémon;1;25;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";3/g2962;2962;Lord
+Phlm;Philémon;1;25;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2424;2424;Jesus
+Phlm;Philémon;1;25;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g5547;5547;Christ
+Phlm;Philémon;1;25;DBY90;en;mot_ajoute;;;;[be]
+Phlm;Philémon;1;25;DBY90;en;reference;Preposition;7/g3326;3326;with
+Phlm;Philémon;1;25;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";9/g5216;5216;your
+Phlm;Philémon;1;25;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";8/g4151;4151;spirit.

@@ -1,0 +1,1 @@
+select * from bible_versions where id=66

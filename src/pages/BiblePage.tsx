@@ -9,6 +9,10 @@ import { BookSearchSelect } from '@/components/bible/BookSearchSelect';
 import { ChapterNavigator } from '@/components/bible/ChapterNavigator';
 import { VerseTreasuresModal, TreasuresModalState } from '@/components/bible/VerseTreasuresModal';
 import { ReferencePreview, PassagePreview, PassageProps } from '@/components/bible/ReferencePreview';
+import { AudioReaderBar, useBibleAudio } from '@/components/bible/AudioReaderBar';
+import { MultiReaderModal, readMultiReaderOpen } from '@/components/bible/MultiReaderModal';
+import { TITLE_LEVEL_STYLES } from '@/components/bible/titleStyles';
+import { bibleAudio } from '@/services/bibleAudio';
 import { 
   getDbLanguages, 
   getDbAllBooks, 
@@ -48,13 +52,17 @@ import {
   Rows3,
   Hash,
   GripVertical,
+  Headphones,
+  Columns3,
+  Volume2,
   X
 } from 'lucide-react';
 import { showError } from '@/utils/toast';
-import { getStrongLinksForChapter, StrongWordLink, STRONG_LINKS_VERSION_CODE } from '@/services/strongDb';
-import { computeStrongMarks } from '@/utils/strongLinks';
+import { getStrongLinksForChapter, strongSerieOfBook, StrongSerie, StrongWordLink, hasStrongLinks, STRONG_LINKS_VERSION_LABEL } from '@/services/strongDb';
+import { computeStrongMarks, UNTRANSLATED_MARKER } from '@/utils/strongLinks';
 import { buildBookNameIndex, parseReferences, BookNameIndex, ParsedReference } from '@/utils/bibleReference';
 import { MadeWithDyad } from '@/components/made-with-dyad';
+import { saveLastReading } from '@/services/homeDb';
 import { useToast } from '@/hooks/use-toast';
 
 interface DbTestament {
@@ -104,17 +112,6 @@ const DEFAULT_SEE_LABELS: Record<string, string> = {
 // "FRANÇAIS" / "français" → "Français" (chaque mot commence par une majuscule)
 const toProperCase = (str: string) =>
   str.toLocaleLowerCase('fr').replace(/(^|[\s\-'’])(\p{L})/gu, (_, sep, letter) => sep + letter.toLocaleUpperCase('fr'));
-
-// Titres de section : tailles en "em", donc relatives à la taille de lecture choisie.
-// Écarts définis pour un texte de 16px (+2px = 18/16 = 1.125em, -4px = 12/16 = 0.75em),
-// ils grandissent ou rétrécissent proportionnellement avec le texte des versets.
-const TITLE_LEVEL_STYLES: Record<number, { fontSize: string; className: string }> = {
-  1: { fontSize: '1.125em', className: 'font-bold uppercase text-amber-900 dark:text-amber-200' },
-  2: { fontSize: '0.75em', className: 'italic text-foreground' },
-  3: { fontSize: '1.125em', className: 'font-bold text-amber-900 dark:text-amber-200' },
-  4: { fontSize: '1em', className: 'font-bold text-foreground' },
-  5: { fontSize: '0.75em', className: 'italic text-muted-foreground' }
-};
 
 const LANGUAGE_DISPLAY_ORDER =['FR', 'EN', 'FN', 'GO', 'YO', 'HG'];
 const LANGUAGE_COLOR_CLASSES: Record<string, { cell: string; text: string }> = {
@@ -214,7 +211,8 @@ export const BiblePage: React.FC = () => {
     try { localStorage.setItem('reader-show-strong', String(showStrong)); } catch { /* stockage indisponible */ }
   }, [showStrong]);
   /** Mots de chaque verset du chapitre affiché, avec leur code Strong */
-  const [strongLinks, setStrongLinks] = useState<{ key: string; byVerse: Map<number, StrongWordLink[]> } | null>(null);
+  // Codes Strong chargés, par version et chapitre (clé « KJV:GEN:1 »)
+  const [strongLinks, setStrongLinks] = useState<Record<string, Map<number, StrongWordLink[]>>>({});
 
   // Police et taille de lecture (mémorisées dans le navigateur)
   const [readerFontId, setReaderFontId] = useState<string>(() => {
@@ -435,6 +433,16 @@ export const BiblePage: React.FC = () => {
           setSelectedChapter(startChapter);
           if (linkedBook && Number(refVerse) > 0) {
             setPendingScrollVerse({ chapterKey: `${startBook.id}:${startChapter}`, verse: Number(refVerse), verseId: -1, toVerse: true });
+          }
+          // Recherche lancée depuis l'accueil : /bible?q=lumière ouvre la recherche avancée
+          // (« ?q= » vide : recherche ouverte, champ vide)
+          const linkedQuery = new URLSearchParams(window.location.search).get('q');
+          if (linkedQuery !== null) {
+            setSearchRestore({
+              query: linkedQuery.trim(), mode: 'contains', caseSensitive: false, bookIds: null,
+              versionCodes: [defaultVersion], activeVersionId: null, scrollTop: 0
+            });
+            setIsSearchOpen(true);
           }
           await loadVersesForSelectedBook(startBook, startChapter, [defaultVersion]);
         }
@@ -726,6 +734,12 @@ export const BiblePage: React.FC = () => {
     navigate(location.pathname + location.search, { state: {} });
   };
 
+  // Dernier chapitre lu, proposé sur l'accueil (« Reprendre la lecture »)
+  useEffect(() => {
+    if (!selectedBook || loading) return;
+    saveLastReading({ referenceCode: `${selectedBook.code}.${selectedChapter}.1`, bookName: selectedBook.name, chapter: selectedChapter });
+  }, [selectedBook, selectedChapter, loading]);
+
   // Le navigateur ne doit pas remettre le défilement lui-même : c'est la page qui le restaure
   useEffect(() => {
     const previous = window.history.scrollRestoration;
@@ -883,22 +897,32 @@ setSelectedChapter(chapter);
   }, []);
 
   const strongLinksKey = selectedBook ? `${selectedBook.code}:${selectedChapter}` : null;
-  const strongActive = showStrong && selectedVersions.includes(STRONG_LINKS_VERSION_CODE);
+  // Versions affichées qui ont des codes Strong (LSG, KJV…)
+  const strongVersionsKey = selectedVersions.filter(hasStrongLinks).join(',');
+  const strongActive = showStrong && strongVersionsKey !== '';
   useEffect(() => {
-    if (!strongActive || !selectedBook || !strongLinksKey || strongLinks?.key === strongLinksKey) return;
+    if (!strongActive || !selectedBook || !strongLinksKey) return;
     let cancelled = false;
-    getStrongLinksForChapter(selectedBook.code, selectedChapter)
-      .then(byVerse => { if (!cancelled) setStrongLinks({ key: strongLinksKey, byVerse }); })
-      .catch(err => console.error('[BiblePage] Erreur chargement codes Strong:', err));
+    strongVersionsKey.split(',').forEach(versionCode => {
+      const key = `${versionCode}:${strongLinksKey}`;
+      // Déjà en mémoire dans le service : la promesse se résout aussitôt
+      getStrongLinksForChapter(selectedBook.code, selectedChapter, versionCode)
+        .then(byVerse => {
+          if (!cancelled) setStrongLinks(prev => (prev[key] === byVerse ? prev : { ...prev, [key]: byVerse }));
+        })
+        .catch(err => console.error(`[BiblePage] Erreur chargement codes Strong ${versionCode}:`, err));
+    });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [strongActive, strongLinksKey]);
+  }, [strongActive, strongLinksKey, strongVersionsKey]);
 
   /**
    * Survol d'un code : tous les mots et numéros portant ce code sont mis en exergue.
    * Une seule règle CSS est réécrite (pas de nouveau rendu React de la page).
    */
-  const highlightStrongCode = (code: number | null) => {
+  // Codes préfixés par leur série (« H11 », « G11 ») : un code grec ne met pas en exergue l'hébreu de même numéro
+  const highlightStrongCode = (code: string | string[] | null) => {
+    const codes = code === null ? [] : Array.isArray(code) ? code : [code];
     let style = document.getElementById('strong-hover-style');
     if (!style) {
       style = document.createElement('style');
@@ -906,56 +930,121 @@ setSelectedChapter(chapter);
       document.head.appendChild(style);
     }
     // Couleurs de fond et ombre seulement : aucun changement de taille, donc pas de décalage sous la souris
-    style.textContent = code === null ? '' : `
-      [data-strong-word~="${code}"] { background: #FDE68A; color: #451A03; border-radius: 3px; box-shadow: 0 0 0 1px #FDE68A; }
-      .dark [data-strong-word~="${code}"] { background: #B45309; color: #FFFBEB; box-shadow: 0 0 0 1px #B45309; }
-      [data-strong-code="${code}"] { background: #B45309; color: #FFFFFF !important; border-radius: 3px; box-shadow: 0 0 0 2px #B45309; text-decoration: none !important; }
-      .dark [data-strong-code="${code}"] { background: #FBBF24; color: #1C1917 !important; box-shadow: 0 0 0 2px #FBBF24; }
-    `;
+    // Survol d'un mot à plusieurs codes : tous ses codes sont mis en exergue
+    style.textContent = codes.map(c => `
+      [data-strong-word~="${c}"] { background: #FDE68A; color: #451A03; border-radius: 3px; box-shadow: 0 0 0 1px #FDE68A; }
+      .dark [data-strong-word~="${c}"] { background: #B45309; color: #FFFBEB; box-shadow: 0 0 0 1px #B45309; }
+      [data-strong-code="${c}"] { background: #B45309; color: #FFFFFF !important; border-radius: 3px; box-shadow: 0 0 0 2px #B45309; text-decoration: none !important; }
+      .dark [data-strong-code="${c}"] { background: #FBBF24; color: #1C1917 !important; box-shadow: 0 0 0 2px #FBBF24; }
+    `).join('');
   };
   useEffect(() => () => highlightStrongCode(null), []);
 
+  // ─── Lecture audio : la page suit le chapitre lu, surligne le verset ou le titre en cours ───
+  const [isAudioOpen, setIsAudioOpen] = useState(false);
+  // Lecture multiple : rouverte telle quelle au retour sur la page (ex. après un code Strong)
+  const [isMultiReaderOpen, setIsMultiReaderOpen] = useState(readMultiReaderOpen);
+  const { state: audio } = useBibleAudio();
+  const audioActive = audio.status !== 'idle';
+  // Quitter la page arrête la lecture (ses commandes disparaissent avec elle)
+  useEffect(() => () => bibleAudio.stop(), []);
+
+  const audioChapterKey = audioActive && audio.bookCode ? `${audio.bookCode}:${audio.chapter}` : null;
+  useEffect(() => {
+    if (!audioChapterKey || !audio.chapter) return;
+    const book = booksList.find(b => b.code.toUpperCase() === audio.bookCode!.toUpperCase());
+    if (!book || (book.id === selectedBook?.id && audio.chapter === selectedChapter)) return;
+    setSelectedBook(book);
+    setSelectedChapter(audio.chapter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [audioChapterKey]);
+
+  useEffect(() => {
+    document.querySelectorAll('.audio-reading').forEach(el => el.classList.remove('audio-reading'));
+    if (!audioActive || !audio.verse || !selectedBook) return;
+    if (audio.bookCode?.toUpperCase() !== selectedBook.code.toUpperCase() || audio.chapter !== selectedChapter) return;
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(
+      audio.readingTitle ? `[data-title-verse-id="${audio.verseId}"]` : `[data-verse-body="${audio.verse}"]`
+    ));
+    targets.forEach(el => el.classList.add('audio-reading'));
+    // Toujours visible : on ne défile que si l'élément sort de la zone confortable de l'écran
+    const first = targets[0];
+    if (!first) return;
+    const rect = first.getBoundingClientRect();
+    if (rect.top < 110 || rect.bottom > window.innerHeight - 90) {
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [audioActive, audio.verse, audio.verseId, audio.readingTitle, audio.bookCode, audio.chapter, selectedBook?.code, selectedChapter, loadedChapterKey, titleTranslations, displayMode, alignedRows, showTitles]);
+
+  const startAudioAt = (verseNumber: number) => {
+    if (!selectedBook) return;
+    setIsAudioOpen(true);
+    void bibleAudio.start(selectedBook.code, selectedChapter, verseNumber);
+  };
+
   /** Texte du verset avec le code Strong en exposant après chaque mot (clic → fiche du code) */
-  const renderStrongText = (text: string, words: StrongWordLink[]) => {
+  // serie : codes hébreux (AT) ou grecs (NT) ; par défaut, ceux du livre affiché
+  const renderStrongText = (text: string, words: StrongWordLink[], serie: StrongSerie = strongSerieOfBook(selectedBook?.code ?? 'GEN')) => {
     const marks = computeStrongMarks(text, words);
+    const languageWord = serie === 'G' ? 'grec' : 'hébreu';
     if (marks.length === 0) return text;
     const nodes: React.ReactNode[] = [];
     let last = 0;
+    const renderCode = (code: number, key: string, gap: boolean, untranslated: boolean) => (
+      <sup key={key} className={gap ? 'ml-[3px]' : ''}>
+        <button
+          type="button"
+          data-strong-code={`${serie}${code}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            highlightStrongCode(null);
+            navigate(`/code-strong?code=${serie}${code}`);
+          }}
+          onMouseEnter={() => highlightStrongCode(`${serie}${code}`)}
+          onMouseLeave={() => highlightStrongCode(null)}
+          onFocus={() => highlightStrongCode(`${serie}${code}`)}
+          onBlur={() => highlightStrongCode(null)}
+          // inline-block + leading-none : le <sup> a une hauteur de ligne nulle, sans quoi le bouton n'a pas de hauteur
+          // et son fond de survol est invisible ; sa taille ne change pas au survol (pas de décalage)
+          className="inline-block leading-none font-sans text-[0.62em] font-semibold text-amber-600/90 dark:text-amber-400/90 cursor-pointer transition-colors"
+          title={untranslated ? `Code Strong ${serie}${code} : mot ${languageWord} non traduit en français` : `Code Strong ${serie}${code}`}
+        >
+          {code}
+        </button>
+      </sup>
+    );
     marks.forEach(mark => {
       const start = Math.max(mark.start, last);
       nodes.push(text.slice(last, start));
-      nodes.push(
-        <span
-          key={`w-${mark.end}`}
-          data-strong-word={mark.codes.join(' ')}
-          onMouseEnter={() => highlightStrongCode(mark.codes[0])}
-          onMouseLeave={() => highlightStrongCode(null)}
-        >
-          {text.slice(start, mark.end)}
-        </span>
-      );
-      mark.codes.forEach((code, i) => {
+      if (mark.codes.length > 0 && start < mark.end) {
         nodes.push(
-          <sup key={`${mark.end}-${code}`} className={i > 0 ? 'ml-px' : ''}>
-            <button
-              type="button"
-              data-strong-code={code}
-              onClick={(e) => {
-                e.stopPropagation();
-                highlightStrongCode(null);
-                navigate(`/code-strong?code=${code}`);
-              }}
-              onMouseEnter={() => highlightStrongCode(code)}
-              onMouseLeave={() => highlightStrongCode(null)}
-              onFocus={() => highlightStrongCode(code)}
-              onBlur={() => highlightStrongCode(null)}
-              className="font-sans text-[0.62em] font-semibold text-amber-600/90 dark:text-amber-400/90 hover:underline cursor-pointer transition-colors"
-              title={`Code Strong H${code}`}
-            >
-              {code}
-            </button>
-          </sup>
+          <span
+            key={`w-${mark.end}`}
+            data-strong-word={mark.codes.map(c => `${serie}${c}`).join(' ')}
+            onMouseEnter={() => highlightStrongCode(mark.codes.map(c => `${serie}${c}`))}
+            onMouseLeave={() => highlightStrongCode(null)}
+          >
+            {text.slice(start, mark.end)}
+          </span>
         );
+      } else {
+        nodes.push(text.slice(start, mark.end));
+      }
+      mark.codes.forEach((code, i) => nodes.push(renderCode(code, `${mark.end}-${code}`, i > 0, false)));
+      // Mots hébreux ou grecs non traduits (« ◎ ») : à leur place, symbole puis code
+      mark.untranslated.forEach((code, i) => {
+        // Symbole de la source « ◎ » devant le code, à l'endroit du mot non traduit
+        nodes.push(
+          <span
+            key={`${mark.end}-s${code}`}
+            aria-hidden
+            className={`${mark.end > 0 ? 'ml-[2px]' : ''} font-sans text-[0.7em] text-blue-600 dark:text-blue-400 select-none`}
+            title={`Mot ${languageWord} non traduit en français`}
+          >
+            {UNTRANSLATED_MARKER}
+          </span>
+        );
+        nodes.push(renderCode(code, `${mark.end}-u${code}`, false, true));
       });
       last = mark.end;
     });
@@ -966,8 +1055,8 @@ setSelectedChapter(chapter);
   // ─── Verset sans texte : lien « Voir Luc 3:1 » vers le dernier verset non vide qui précède ───
   const renderVerseText = (verse: any, versionCode: string) => {
     if (!verse.is_missing) {
-      const words = strongActive && versionCode === STRONG_LINKS_VERSION_CODE && strongLinks?.key === strongLinksKey
-        ? strongLinks?.byVerse.get(verse.verse_number)
+      const words = strongActive && hasStrongLinks(versionCode)
+        ? strongLinks[`${versionCode}:${strongLinksKey}`]?.get(verse.verse_number)
         : undefined;
       return words?.length ? renderStrongText(verse.text, words) : verse.text;
     }
@@ -1422,6 +1511,7 @@ setSelectedChapter(chapter);
                       >
                         {verse ? (
                           <div
+                            data-verse-body={number}
                             onClick={() => handleVerseClick(verse, code)}
                             className="flex items-start gap-[3px] px-1 py-0.5 rounded-md hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-colors"
                             title="Cliquez pour voir les Références & Trésors"
@@ -1505,6 +1595,7 @@ setSelectedChapter(chapter);
                     <div key={verse.id || verse.verse_number} data-verse-number={verse.verse_number} className="group scroll-mt-[70px] xl:scroll-mt-[100px]">
                       {renderVerseTitles(verse.id, versionCode, verseIndex > 0)}
                       <div 
+                        data-verse-body={verse.verse_number}
                         onClick={() => handleVerseClick(verse, versionCode)}
                         className="flex items-start gap-[3px] px-1.5 py-0.5 rounded-xl hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-all group"
                         title="Cliquez pour voir les Références & Trésors"
@@ -1515,6 +1606,15 @@ setSelectedChapter(chapter);
                         <p className="text-foreground flex-1">
                           {renderVerseText(verse, versionCode)}
                         </p>
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); startAudioAt(verse.verse_number); }}
+                          className="opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity shrink-0 mt-0.5 text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-200"
+                          title="Écouter à partir de ce verset"
+                          aria-label={`Écouter à partir du verset ${verse.verse_number}`}
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
                         <Sparkles className="w-3.5 h-3.5 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5" />
                       </div>
                     </div>
@@ -1531,6 +1631,7 @@ setSelectedChapter(chapter);
                         {verse.is_paragraph && verseIndex > 0 && !titlesHeader && <span className="block h-[0.5em]" aria-hidden="true" />}
                         <span 
                           data-verse-number={verse.verse_number}
+                          data-verse-body={verse.verse_number}
                           onClick={() => handleVerseClick(verse, versionCode)}
                           className="inline scroll-mt-[70px] xl:scroll-mt-[100px] hover:bg-amber-500/15 dark:hover:bg-amber-500/20 rounded pr-1 py-0.5 cursor-pointer transition-colors"
                           title="Cliquez pour voir les Références & Trésors"
@@ -1679,22 +1780,22 @@ setSelectedChapter(chapter);
             <div className="flex-1 hidden md:block h-[25px]">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="w-full h-[25px] flex items-center justify-between px-3 py-0 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white text-xs transition-all group"
+                className="w-full h-[25px] flex items-center justify-between px-3 py-0 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white text-xs transition-all group"
               >
                 <div className="flex items-center gap-2 truncate">
                   <Search className="w-3.5 h-3.5 text-white shrink-0" />
                   <span className="truncate">Rechercher un verset, un livre...</span>
                 </div>
-                <kbd className="hidden lg:inline-block px-1.5 py-0 text-[10px] leading-4 font-mono bg-white/15 border border-white/30 rounded text-white">
+                <kbd className="hidden lg:inline-block px-1.5 py-0 text-[10px] leading-4 font-mono bg-white/15 rounded text-white">
                   ⌘K
                 </kbd>
               </button>
             </div>
 
              {/* Mode et titres */}
-            <div className="flex items-center gap-1.5 shrink-0 border-t border-white/30 xl:h-6 xl:border-t-0 xl:border-l xl:pt-0 xl:pl-2">
+            <div className="flex items-center gap-1.5 shrink-0 xl:h-6 xl:pl-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={() => {
                   setShowTitles(prev => !prev);
@@ -1702,8 +1803,8 @@ setSelectedChapter(chapter);
                 aria-label={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
                 className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                   showTitles
-                    ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
-                    : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                    ? 'bg-white/25 text-white hover:bg-white/30 hover:text-white'
+                    : 'bg-transparent text-white/80 hover:bg-white/15 hover:text-white'
                 }`}
                 title={showTitles ? "Masquer les titres de section" : "Afficher les titres de section"}
               >
@@ -1711,7 +1812,7 @@ setSelectedChapter(chapter);
               </Button>
 
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={() => {
                   const nextMode = displayMode === 'compact' ? 'list' : 'compact';
@@ -1722,8 +1823,8 @@ setSelectedChapter(chapter);
                 aria-label={displayMode === 'compact' ? "Mode compact" : "Mode liste"}
                 className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                   displayMode === 'list'
-                    ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
-                    : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                    ? 'bg-white/25 text-white hover:bg-white/30 hover:text-white'
+                    : 'bg-transparent text-white/80 hover:bg-white/15 hover:text-white'
                 }`}
               >
                 {displayMode === 'compact' ? (
@@ -1735,16 +1836,16 @@ setSelectedChapter(chapter);
             </div>
 
             {/* Police et taille de lecture */}
-            <div className="flex items-center gap-1.5 shrink-0 xl:h-6 xl:border-l xl:border-white/30 xl:pl-2">
+            <div className="flex items-center gap-1.5 shrink-0 xl:h-6 xl:pl-2">
               <Popover>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <PopoverTrigger asChild>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
                         aria-label="Police de lecture"
-                        className="h-9 w-9 rounded-md bg-transparent border-white/30 text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
+                        className="h-9 w-9 rounded-md bg-transparent text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
                       >
                         <Type className="w-3.5 h-3.5" />
                       </Button>
@@ -1775,10 +1876,10 @@ setSelectedChapter(chapter);
                   <TooltipTrigger asChild>
                     <PopoverTrigger asChild>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
                         aria-label="Taille du texte"
-                        className="h-9 w-9 rounded-md bg-transparent border-white/30 text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
+                        className="h-9 w-9 rounded-md bg-transparent text-white/80 hover:bg-white/15 hover:text-white xl:h-6 xl:w-6"
                       >
                         <ALargeSmall className="w-3.5 h-3.5" />
                       </Button>
@@ -1810,15 +1911,15 @@ setSelectedChapter(chapter);
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="icon"
                     onClick={() => setAlignedRows(prev => !prev)}
                     aria-pressed={alignedRows}
                     aria-label={alignedRows ? "Désactiver l'alignement des versets en lignes" : "Aligner les versets en lignes"}
                     className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                       alignedRows
-                        ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
-                        : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                        ? 'bg-white/25 text-white hover:bg-white/30 hover:text-white'
+                        : 'bg-transparent text-white/80 hover:bg-white/15 hover:text-white'
                     }`}
                   >
                     <Rows3 className="w-3.5 h-3.5" />
@@ -1829,19 +1930,40 @@ setSelectedChapter(chapter);
                 </TooltipContent>
               </Tooltip>
 
+              {/* Lecture audio (synthèse vocale) */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsAudioOpen(prev => { if (prev) bibleAudio.stop(); return !prev; })}
+                    aria-pressed={isAudioOpen}
+                    aria-label={isAudioOpen ? 'Fermer la lecture audio' : 'Lecture audio'}
+                    className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
+                      isAudioOpen
+                        ? 'bg-white/25 text-white hover:bg-white/30 hover:text-white'
+                        : 'bg-transparent text-white/80 hover:bg-white/15 hover:text-white'
+                    }`}
+                  >
+                    <Headphones className="w-3.5 h-3.5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Lecture audio</TooltipContent>
+              </Tooltip>
+
               {/* Codes Strong après les mots (Louis Segond 1910) */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="icon"
                     onClick={() => setShowStrong(prev => !prev)}
                     aria-pressed={showStrong}
                     aria-label={showStrong ? 'Masquer les codes Strong' : 'Afficher les codes Strong'}
                     className={`h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 ${
                       showStrong
-                        ? 'bg-white/25 text-white border-white/60 hover:bg-white/30 hover:text-white'
-                        : 'bg-transparent text-white/80 border-white/30 hover:bg-white/15 hover:text-white'
+                        ? 'bg-white/25 text-white hover:bg-white/30 hover:text-white'
+                        : 'bg-transparent text-white/80 hover:bg-white/15 hover:text-white'
                     }`}
                   >
                     <Hash className="w-3.5 h-3.5" />
@@ -1849,8 +1971,24 @@ setSelectedChapter(chapter);
                 </TooltipTrigger>
                 <TooltipContent>
                   {showStrong ? 'Codes Strong (activés)' : 'Codes Strong (désactivés)'}
-                  {!selectedVersions.includes(STRONG_LINKS_VERSION_CODE) && ' — ajoutez la version LSG'}
+                  {!strongVersionsKey && ` — ajoutez la version ${STRONG_LINKS_VERSION_LABEL}`}
                 </TooltipContent>
+              </Tooltip>
+
+              {/* Lecture multiple : plusieurs passages côte à côte, en plein écran */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsMultiReaderOpen(true)}
+                    aria-label="Lecture multiple"
+                    className="h-9 w-9 rounded-md transition-all xl:h-6 xl:w-6 bg-transparent text-white/80 hover:bg-white/15 hover:text-white"
+                  >
+                    <Columns3 className="w-3.5 h-3.5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Lecture multiple (plusieurs passages côte à côte)</TooltipContent>
               </Tooltip>
             </div>
 
@@ -2039,7 +2177,7 @@ setSelectedChapter(chapter);
 
 
 
-      <main className="flex-1 w-full px-[10px] pt-0 pb-6 space-y-6">
+      <main className={`flex-1 w-full px-[10px] pt-0 space-y-6 ${isAudioOpen ? 'pb-[90px]' : 'pb-6'}`}>
         {loadError && (
           <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
@@ -2177,6 +2315,35 @@ setSelectedChapter(chapter);
           isOpen={isDbStatusOpen}
           onClose={() => setIsDbStatusOpen(false)}
         />
+
+        {isMultiReaderOpen && booksList.length > 0 && (
+          <MultiReaderModal
+            booksList={booksList}
+            testamentsList={testamentsList}
+            classificationsList={classificationsList}
+            testamentNames={testamentNames}
+            classificationNames={classificationNames}
+            versions={versions}
+            languages={orderedLanguages}
+            initialBookCode={selectedBook?.code ?? null}
+            initialChapter={selectedChapter}
+            initialVersionCode={selectedVersionCode}
+            readerTextStyle={readerTextStyle}
+            showTitles={showTitles}
+            renderStrongText={showStrong ? renderStrongText : undefined}
+            onClose={() => setIsMultiReaderOpen(false)}
+          />
+        )}
+
+        {isAudioOpen && (
+          <AudioReaderBar
+            bookCode={selectedBook?.code ?? null}
+            chapter={selectedChapter}
+            verseNumbers={(versesData[selectedVersions[0]] || []).filter((v: any) => !v.is_missing).map((v: any) => v.verse_number)}
+            versions={versions}
+            onClose={() => setIsAudioOpen(false)}
+          />
+        )}
 
         {/* <footer className="border-t border-border/80 bg-muted/20 py-8 mt-12">
           <div className="w-full px-[10px] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">

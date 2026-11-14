@@ -29,3 +29,11 @@ dist-ssr
 /playwright/.cache/
 .last-run.json
 .dyad/
+
+# Cache Python
+__pycache__/
+
+# Copies locales de la base Supabase (volumineuses)
+supabase/*.sql
+supabase/.temp/
+supabase/backups/

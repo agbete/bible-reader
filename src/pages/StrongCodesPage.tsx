@@ -3,9 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 import { Navbar } from '@/components/bible/Navbar';
 import { ChevronLeft, ChevronRight, Loader2, Search, X, AlertCircle, ScrollText, Languages, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { StrongTermVerses } from '@/components/strong/StrongTermVerses';
+import { StrongCodeModal, StrongKey, StrongOriginalWord, StrongOriginText, useStrongReferenceClick } from '@/components/strong/StrongCodeModal';
 import {
   StrongCode,
-  STRONG_MAX_CODE,
+  StrongSerie,
+  STRONG_MAX_CODES,
+  STRONG_SERIES,
+  neighbourStrongCode,
+  parseStrongKey,
   getStrongCode,
   getStrongCodesRange,
   searchStrongCodes,
@@ -13,7 +18,6 @@ import {
   strongSummary,
   parseStrongTranslations,
   parseStrongTransliteration,
-  parseStrongOrigin,
   getStrongWordForms,
   StrongWordForm,
   getLsgVersion,
@@ -23,15 +27,18 @@ import {
 const RANGE_SIZE = 100;
 /** Colonnes de la liste : Code Strong · Mot translitéré · Mot original · Traduit par */
 const LIST_COLUMNS = 'grid grid-cols-[3rem_6rem_4.5rem_minmax(0,1fr)]';
-const RANGE_COUNT = Math.ceil(STRONG_MAX_CODE / RANGE_SIZE);
+const rangeCount = (serie: StrongSerie) => Math.ceil(STRONG_MAX_CODES[serie] / RANGE_SIZE);
 
 const rangeOf = (code: number) => Math.floor((code - 1) / RANGE_SIZE);
-const rangeLabel = (index: number) =>
-  `${index * RANGE_SIZE + 1} – ${Math.min((index + 1) * RANGE_SIZE, STRONG_MAX_CODE)}`;
+const rangeLabel = (serie: StrongSerie, index: number) =>
+  `${serie}${index * RANGE_SIZE + 1} – ${serie}${Math.min((index + 1) * RANGE_SIZE, STRONG_MAX_CODES[serie])}`;
 const formatCount = (n: number) => n.toLocaleString('fr-FR');
 
 /** Mot translittéré sans les apostrophes (aleph, ayin…) au début ni à la fin : ’ab → ab */
 const trimApostrophes = (word: string) => word.replace(/^['’‘ʼʾʿ`´]+|['’‘ʼʾʿ`´]+$/g, '');
+
+/** Premier mot seulement (« ’ab, ’abba » → « ’ab ») */
+const firstWord = (text: string) => text.trim().split(/[\s,;/]+/)[0] ?? '';
 
 /** Résumé d'une ligne de liste : les premières traductions, sinon la première définition */
 const listSummary = (item: StrongCode) => {
@@ -54,10 +61,12 @@ const SectionTitle: React.FC<{ icon: React.ReactNode; children: React.ReactNode;
 
 const StrongCodesPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentCode = Math.min(
-    STRONG_MAX_CODE,
-    Math.max(1, parseInt(searchParams.get('code') || '1', 10) || 1)
-  );
+  // « ?code=G25 » (grec), « ?code=H430 » ou « ?code=430 » (hébreu)
+  const urlKey = parseStrongKey(searchParams.get('code')) ?? { serie: 'H' as StrongSerie, code: 1 };
+  const serie = urlKey.serie;
+  const currentCode = Math.min(STRONG_MAX_CODES[serie], Math.max(1, urlKey.code));
+  const currentLabel = `${serie}${currentCode}`;
+  const RANGE_COUNT = rangeCount(serie);
 
   const [rangeIndex, setRangeIndex] = useState(rangeOf(currentCode));
   const [rangeItems, setRangeItems] = useState<StrongCode[]>([]);
@@ -78,57 +87,64 @@ const StrongCodesPage: React.FC = () => {
   }, [showList]);
   const [searching, setSearching] = useState(false);
 
-  const selectCode = (code: number) => {
-    const next = Math.min(STRONG_MAX_CODE, Math.max(1, code));
-    setSearchParams({ code: String(next) });
+  const selectCode = (code: number, nextSerie: StrongSerie = serie) => {
+    const next = Math.min(STRONG_MAX_CODES[nextSerie], Math.max(1, code));
+    setSearchParams({ code: `${nextSerie}${next}` });
+  };
+
+  // Autre série : on repart de son premier code, sans recherche en cours
+  const selectSerie = (next: StrongSerie) => {
+    if (next === serie) return;
+    clearSearch();
+    selectCode(1, next);
   };
 
   // La liste suit le code affiché
   useEffect(() => {
     setRangeIndex(rangeOf(currentCode));
-  }, [currentCode]);
+  }, [currentCode, serie]);
 
   useEffect(() => {
     let cancelled = false;
     setLoadingRange(true);
     const from = rangeIndex * RANGE_SIZE + 1;
-    getStrongCodesRange(from, Math.min(from + RANGE_SIZE - 1, STRONG_MAX_CODE))
+    getStrongCodesRange(serie, from, Math.min(from + RANGE_SIZE - 1, STRONG_MAX_CODES[serie]))
       .then(rows => { if (!cancelled) setRangeItems(rows); })
       .catch(err => { console.error('Error loading Strong codes:', err); if (!cancelled) setError('Impossible de charger les codes Strong.'); })
       .finally(() => { if (!cancelled) setLoadingRange(false); });
     return () => { cancelled = true; };
-  }, [rangeIndex]);
+  }, [serie, rangeIndex]);
 
   useEffect(() => {
     let cancelled = false;
     setLoadingEntry(true);
     setError(null);
-    getStrongCode(String(currentCode))
+    getStrongCode(serie, currentCode)
       .then(row => { if (!cancelled) setEntry(row); })
       .catch(err => { console.error('Error loading Strong code:', err); if (!cancelled) setError('Impossible de charger ce code Strong.'); })
       .finally(() => { if (!cancelled) setLoadingEntry(false); });
     return () => { cancelled = true; };
-  }, [currentCode]);
+  }, [serie, currentCode]);
 
   // Garde le code sélectionné visible dans la liste
   useEffect(() => {
     document.getElementById(`strong-item-${currentCode}`)?.scrollIntoView({ block: 'nearest' });
   }, [currentCode, rangeItems]);
 
-  // Un numéro (avec ou sans H) ouvre le code ; un mot cherche dans les définitions
+  // Un numéro (« 430 », « H430 », « G25 ») ouvre le code ; un mot cherche dans les définitions de la série
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const term = query.trim();
     if (!term) { setSearchResults(null); return; }
-    const number = term.match(/^[hH]?\s*(\d+)$/);
-    if (number) {
-      selectCode(parseInt(number[1], 10));
+    const key = parseStrongKey(term, serie);
+    if (key) {
+      selectCode(key.code, key.serie);
       setSearchResults(null);
       return;
     }
     setSearching(true);
     try {
-      setSearchResults(await searchStrongCodes(term));
+      setSearchResults(await searchStrongCodes(serie, term));
     } catch (err) {
       console.error('Error searching Strong codes:', err);
       setSearchResults([]);
@@ -140,6 +156,7 @@ const StrongCodesPage: React.FC = () => {
   const clearSearch = () => { setQuery(''); setSearchResults(null); };
 
   const listItems = searchResults ?? rangeItems;
+  const onDefinitionClick = useStrongReferenceClick();
   const summaries = useMemo(
     () => new Map(listItems.map(item => [item.code, listSummary(item)])),
     [listItems]
@@ -148,25 +165,26 @@ const StrongCodesPage: React.FC = () => {
   const entryHtml = useMemo(() => (entry ? sanitizeStrongHtml(entry.content) : ''), [entry]);
 
   const translit = useMemo(
-    () => (entry?.mot_hebreu_translitere ? parseStrongTransliteration(entry.mot_hebreu_translitere) : null),
+    () => (entry?.mot_translitere ? parseStrongTransliteration(entry.mot_translitere) : null),
     [entry]
   );
   const translations = useMemo(
     () => (entry?.traduction_generale ? parseStrongTranslations(entry.traduction_generale) : null),
     [entry]
   );
-  const origin = useMemo(() => (entry?.origine_mot ? parseStrongOrigin(entry.origine_mot) : null), [entry]);
+  // Code ouvert dans la fenêtre (renvoi cliqué dans l'origine)
+  const [modalCode, setModalCode] = useState<StrongKey | null>(null);
 
   // Mots de la Segond 1910 qui portent ce code (« père », « pères »…), avec leur nombre d'occurrences
   const [wordForms, setWordForms] = useState<StrongWordForm[] | null>(null);
   useEffect(() => {
     let cancelled = false;
     setWordForms(null);
-    getStrongWordForms(currentCode)
+    getStrongWordForms(currentCode, serie)
       .then(forms => { if (!cancelled) setWordForms(forms); })
       .catch(err => { console.error('Error loading Strong word forms:', err); if (!cancelled) setWordForms([]); });
     return () => { cancelled = true; };
-  }, [currentCode]);
+  }, [serie, currentCode]);
   const wordTotal = wordForms?.reduce((sum, f) => sum + f.count, 0) ?? 0;
   // Libellés de la version Louis Segond, lus dans bible_versions
   const [lsgVersion, setLsgVersion] = useState<LsgVersionInfo | null>(null);
@@ -176,7 +194,7 @@ const StrongCodesPage: React.FC = () => {
   const lsgLabel = lsgVersion?.code_display?.trim() || lsgVersion?.code || 'LSG';
   // Liste de versets ouverte : un mot, ou le code (tous les mots) ; réinitialisée à chaque changement de code
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
-  useEffect(() => { setSelectedWord(null); }, [currentCode]);
+  useEffect(() => { setSelectedWord(null); }, [serie, currentCode]);
   const CODE_SELECTION = '__code__';
   const selectedOccurrences = !wordForms || !selectedWord ? null
     : selectedWord === CODE_SELECTION ? wordForms.flatMap(f => f.occurrences)
@@ -185,9 +203,12 @@ const StrongCodesPage: React.FC = () => {
 
   const hasSideSections = !loadingEntry && !!entry;
 
-  const neighbour = (code: number) => rangeItems.find(item => Number(item.code) === code);
-  const prevEntry = neighbour(currentCode - 1);
-  const nextEntry = neighbour(currentCode + 1);
+  // Codes voisins : les numéros jamais attribués par Strong (G2717, G3203-3302) sont sautés
+  const prevCode = neighbourStrongCode(serie, currentCode, -1);
+  const nextCode = neighbourStrongCode(serie, currentCode, 1);
+  const neighbour = (code: number | null) => (code === null ? undefined : rangeItems.find(item => Number(item.code) === code));
+  const prevEntry = neighbour(prevCode);
+  const nextEntry = neighbour(nextCode);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -207,6 +228,23 @@ const StrongCodesPage: React.FC = () => {
           </button>
           <h1 className="text-[15px] font-bold mr-2">Codes Strong</h1>
 
+          {/* Série : hébreu (Ancien Testament) ou grec (Nouveau Testament) */}
+          <div className="flex items-center h-[24px] rounded-md bg-white/15 p-0.5" role="group" aria-label="Série de codes">
+            {(['H', 'G'] as StrongSerie[]).map(s => (
+              <button
+                key={s}
+                onClick={() => selectSerie(s)}
+                aria-pressed={serie === s}
+                title={`Codes ${STRONG_SERIES[s].language}s (${STRONG_SERIES[s].testament})`}
+                className={`h-full px-2 rounded text-[12px] font-semibold transition-colors ${
+                  serie === s ? 'bg-white text-[#78350F]' : 'text-white/85 hover:bg-white/10'
+                }`}
+              >
+                {STRONG_SERIES[s].label} <span className={serie === s ? 'text-[#B45309]' : 'text-white/60'}>({s === 'H' ? 'AT' : 'NT'})</span>
+              </button>
+            ))}
+          </div>
+
           {/* Plage de codes */}
           <div className="flex items-center h-[24px] rounded-md bg-white/15">
             <button
@@ -223,7 +261,7 @@ const StrongCodesPage: React.FC = () => {
               className="bg-transparent text-[13px] font-semibold outline-none cursor-pointer px-1 [&>option]:text-foreground [&>option]:bg-background"
             >
               {Array.from({ length: RANGE_COUNT }, (_, i) => (
-                <option key={i} value={i}>{rangeLabel(i)}</option>
+                <option key={i} value={i}>{rangeLabel(serie, i)}</option>
               ))}
             </select>
             <button
@@ -242,7 +280,7 @@ const StrongCodesPage: React.FC = () => {
             <input
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Numéro (430), mot (père) ou translittération (elohiym)"
+              placeholder={serie === 'H' ? 'Numéro (430), mot (père) ou translittération (elohiym)' : 'Numéro (25), mot (aimer) ou translittération (agapao)'}
               className="flex-1 min-w-0 bg-transparent px-2 text-[13px] outline-none placeholder:text-white/60"
             />
             {searching && <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin" />}
@@ -262,7 +300,7 @@ const StrongCodesPage: React.FC = () => {
             <span>
               {searchResults
                 ? `${searchResults.length}${searchResults.length === 200 ? '+' : ''} résultat${searchResults.length > 1 ? 's' : ''} pour « ${query.trim()} »`
-                : `Codes ${rangeLabel(rangeIndex)}`}
+                : `Codes ${rangeLabel(serie, rangeIndex)}`}
             </span>
             {loadingRange && !searchResults && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
           </div>
@@ -278,7 +316,7 @@ const StrongCodesPage: React.FC = () => {
               {listItems.map(item => {
                 const code = Number(item.code);
                 const active = code === currentCode;
-                const translit = item.mot_hebreu_translitere ? trimApostrophes(parseStrongTransliteration(item.mot_hebreu_translitere).word) : '';
+                const translit = item.mot_translitere ? trimApostrophes(parseStrongTransliteration(item.mot_translitere).word) : '';
                 return (
                   <li key={item.code} id={`strong-item-${code}`}>
                     <button
@@ -290,11 +328,13 @@ const StrongCodesPage: React.FC = () => {
                       }`}
                     >
                       <span className={`font-bold text-[13px] ${active ? 'text-amber-800 dark:text-amber-300' : 'text-amber-700 dark:text-amber-400'}`}>
-                        H{code}
+                        {serie}{code}
                       </span>
                       <span className="min-w-0 truncate font-cambria italic text-[13px]" title={translit}>{translit || '—'}</span>
-                      <span dir="rtl" lang="he" className="text-right font-hebrew text-[18px] leading-none text-blue-700 dark:text-blue-300">
-                        {item.mot_hebreu_original || <span className="text-[13px] text-muted-foreground">—</span>}
+                      <span className="text-right truncate">
+                        {item.mot_original
+                          ? <StrongOriginalWord serie={item.serie} text={item.mot_original} className={`${item.serie === 'H' ? 'text-[18px]' : 'text-[15px]'} leading-none text-blue-700 dark:text-blue-300`} />
+                          : <span className="text-[13px] text-muted-foreground">—</span>}
                       </span>
                       <span className="min-w-0 truncate text-[13px]" title={summaries.get(item.code)}>{summaries.get(item.code)}</span>
                     </button>
@@ -316,13 +356,9 @@ const StrongCodesPage: React.FC = () => {
           {/* Carte du code : mot hébreu à gauche ; Origine puis Traductions à droite */}
           <article className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] text-white shadow-xl shadow-amber-900/20">
             {/* Filigrane */}
-            {entry?.mot_hebreu_original && (
-              <span
-                aria-hidden
-                dir="rtl"
-                className="pointer-events-none select-none absolute -left-6 -bottom-16 font-hebrew text-[10rem] leading-none text-white/[0.06]"
-              >
-                {entry.mot_hebreu_original}
+            {entry?.mot_original && (
+              <span aria-hidden className="pointer-events-none select-none absolute -left-6 -bottom-16">
+                <StrongOriginalWord serie={entry.serie} text={entry.mot_original} className="text-[10rem] leading-none text-white/[0.06]" />
               </span>
             )}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
@@ -336,12 +372,16 @@ const StrongCodesPage: React.FC = () => {
                 <div className={`grid gap-x-5 gap-y-3 ${hasSideSections ? 'xl:grid-cols-[minmax(0,3fr)_minmax(0,7fr)]' : ''}`}>
                   {/* Mot hébreu */}
                   <div className="flex flex-col items-center justify-center text-center">
-                    {entry?.mot_hebreu_original ? (
-                      <p dir="rtl" lang="he" className="font-hebrew text-[40px] sm:text-[48px] leading-[1.05] text-amber-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
-                        {entry.mot_hebreu_original}
+                    {entry?.mot_original ? (
+                      <p>
+                        <StrongOriginalWord
+                          serie={entry.serie}
+                          text={entry.mot_original}
+                          className={`${entry.serie === 'H' ? 'text-[40px] sm:text-[48px]' : 'text-[34px] sm:text-[40px]'} leading-[1.05] text-amber-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]`}
+                        />
                       </p>
                     ) : (
-                      <p className="font-cambria text-[36px] leading-tight text-amber-50/90">H{currentCode}</p>
+                      <p className="font-cambria text-[36px] leading-tight text-amber-50/90">{currentLabel}</p>
                     )}
                     {translit && (
                       <p className="font-cambria italic text-[18px] leading-tight text-white">{translit.word}</p>
@@ -377,26 +417,15 @@ const StrongCodesPage: React.FC = () => {
                       <table className="w-full font-cambria text-[14px] leading-tight rounded-xl overflow-hidden ring-1 ring-amber-200/30 bg-black/10 backdrop-blur-sm">
                         <tbody>
                           {([
-                            ['Code Strong', <span className="font-bold text-amber-100">H{currentCode}</span>],
-                            ['Mot hébreu', entry.mot_hebreu_original
-                              ? <span dir="rtl" lang="he" className="font-hebrew text-[20px] leading-none text-amber-50">{entry.mot_hebreu_original}</span>
+                            ['Code Strong', <span className="font-bold text-amber-100">{currentLabel}</span>],
+                            [`Mot ${STRONG_SERIES[serie].language}`, entry.mot_original
+                              ? <StrongOriginalWord serie={entry.serie} text={entry.mot_original} className="text-[20px] leading-none text-amber-50" />
                               : null],
-                            ['Translittération', entry.mot_hebreu_translitere
+                            ['Translittération', entry.mot_translitere
                               ? <>{translit?.word}{translit?.pronunciation && <span className="text-amber-200/80"> ({translit.pronunciation})</span>}</>
                               : null],
-                            ['Origine', origin
-                              ? origin.map((part, i) => typeof part === 'string'
-                                ? <span key={i}>{part}</span>
-                                : (
-                                  <button
-                                    key={i}
-                                    onClick={() => selectCode(part.code)}
-                                    className="mx-0.5 px-1.5 rounded-full bg-white/15 text-amber-100 text-[13px] font-bold hover:bg-white/25 transition-colors"
-                                    title={`Ouvrir le code H${part.code}`}
-                                  >
-                                    H{part.code}
-                                  </button>
-                                ))
+                            ['Origine', entry.origine_mot
+                              ? <StrongOriginText raw={entry.origine_mot} serie={entry.serie} onCodeClick={setModalCode} />
                               : null],
                             ['Type', entry.type_mot || null],
                           ] as [string, React.ReactNode][]).map(([label, value], i) => (
@@ -432,6 +461,7 @@ const StrongCodesPage: React.FC = () => {
                 <SectionTitle icon={<ScrollText className="w-4 h-4" />}>Définition</SectionTitle>
                 <div
                   className="strong-content font-cambria text-[17px] leading-relaxed"
+                  onClick={onDefinitionClick}
                   dangerouslySetInnerHTML={{ __html: entryHtml }}
                 />
               </section>
@@ -456,13 +486,13 @@ const StrongCodesPage: React.FC = () => {
                       <button
                         onClick={() => toggleWord(CODE_SELECTION)}
                         aria-pressed={selectedWord === CODE_SELECTION}
-                        title={`Voir tous les versets où apparaît H${currentCode}`}
+                        title={`Voir tous les versets où apparaît ${currentLabel}`}
                         className={`flex items-center gap-1.5 h-8 pl-2.5 pr-1.5 rounded-lg bg-gradient-to-br from-[#451A03] via-[#78350F] to-[#B45309] dark:from-[#1C1917] dark:via-[#292524] dark:to-[#44403C] shadow-md shadow-amber-900/20 text-amber-50 text-[14px] transition-all hover:brightness-110 ${
                           selectedWord === CODE_SELECTION ? 'ring-2 ring-amber-400' : 'ring-1 ring-amber-300/40'
                         }`}
                       >
                         <Search className="w-3.5 h-3.5 text-amber-200" />
-                        <strong>H{currentCode}</strong>
+                        <strong>{currentLabel}</strong>
                         <span className="text-amber-200/90">({lsgLabel})</span>
                         <span className="ml-0.5 min-w-[2rem] text-center px-1.5 rounded bg-amber-100 text-amber-900 text-[12px] font-bold tabular-nums">
                           {wordTotal.toLocaleString('fr-FR')}
@@ -477,7 +507,7 @@ const StrongCodesPage: React.FC = () => {
                             key={form.word}
                             onClick={() => toggleWord(form.word)}
                             aria-pressed={active}
-                            title={active ? 'Masquer les versets' : `Voir les versets où « ${form.word} » porte H${currentCode}`}
+                            title={active ? 'Masquer les versets' : `Voir les versets où « ${form.word} » porte ${currentLabel}`}
                             className={`flex items-center gap-1.5 h-8 pl-2.5 pr-1.5 rounded-lg border text-[14px] transition-colors ${
                               active
                                 ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/40'
@@ -499,7 +529,7 @@ const StrongCodesPage: React.FC = () => {
                 {selectedWord && selectedOccurrences && (
                   <StrongTermVerses
                     key={selectedWord}
-                    title={selectedWord === CODE_SELECTION ? `H${currentCode}` : `« ${selectedWord} »`}
+                    title={selectedWord === CODE_SELECTION ? currentLabel : `« ${selectedWord} »`}
                     words={selectedWord === CODE_SELECTION ? wordForms!.map(f => f.word) : [selectedWord]}
                     occurrences={selectedOccurrences}
                     versionLabel={lsgLabel}
@@ -517,23 +547,24 @@ const StrongCodesPage: React.FC = () => {
 
           {/* Codes voisins : toujours visibles, fixés en bas de l'écran */}
           <nav className="mt-auto sticky bottom-0 z-20 -mx-[10px] px-[10px] py-2 grid grid-cols-2 gap-[18px] bg-background/90 backdrop-blur border-t border-border shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
-            {currentCode > 1 ? (
+            {prevCode !== null ? (
               <button
-                onClick={() => selectCode(currentCode - 1)}
+                onClick={() => selectCode(prevCode)}
+                title="Code précédent"
                 className="group flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-left hover:border-amber-400 hover:shadow-md transition-all"
               >
                 <ChevronLeft className="w-5 h-5 text-amber-700 group-hover:-translate-x-0.5 transition-transform" />
                 <span className="min-w-0">
-                  <span className="block text-[11px] leading-none uppercase tracking-[0.15em] text-muted-foreground"><strong className="font-bold text-amber-700 dark:text-amber-400">H{currentCode - 1}</strong> · Précédent</span>
+                  <span className="block text-[11px] leading-none font-bold text-amber-700 dark:text-amber-400">{serie}{prevCode}</span>
                   {/* Mot original puis mot translittéré */}
                   {prevEntry && (
                     <span className="flex items-baseline gap-2 min-w-0 mt-0.5">
-                      {prevEntry.mot_hebreu_original && (
-                        <span dir="rtl" lang="he" className="shrink-0 font-hebrew text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300">{prevEntry.mot_hebreu_original}</span>
+                      {prevEntry.mot_original && (
+                        <StrongOriginalWord serie={prevEntry.serie} text={firstWord(prevEntry.mot_original)} className="shrink-0 text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300" />
                       )}
-                      {prevEntry.mot_hebreu_translitere && (
+                      {prevEntry.mot_translitere && (
                         <span className="min-w-0 truncate font-cambria text-[16px] font-bold leading-none uppercase tracking-wide text-foreground/85">
-                          {trimApostrophes(parseStrongTransliteration(prevEntry.mot_hebreu_translitere).word)}
+                          {firstWord(trimApostrophes(parseStrongTransliteration(prevEntry.mot_translitere).word))}
                         </span>
                       )}
                     </span>
@@ -541,23 +572,24 @@ const StrongCodesPage: React.FC = () => {
                 </span>
               </button>
             ) : <span />}
-            {currentCode < STRONG_MAX_CODE && (
+            {nextCode !== null && (
               <button
-                onClick={() => selectCode(currentCode + 1)}
+                onClick={() => selectCode(nextCode)}
+                title="Code suivant"
                 className="group flex items-center justify-end gap-3 rounded-xl border border-border bg-card px-4 py-3 text-right hover:border-amber-400 hover:shadow-md transition-all"
               >
                 <span className="min-w-0">
-                  <span className="block text-[11px] leading-none uppercase tracking-[0.15em] text-muted-foreground">Suivant · <strong className="font-bold text-amber-700 dark:text-amber-400">H{currentCode + 1}</strong></span>
+                  <span className="block text-[11px] leading-none font-bold text-amber-700 dark:text-amber-400">{serie}{nextCode}</span>
                   {/* Mot translittéré puis mot original */}
                   {nextEntry && (
                     <span className="flex items-baseline gap-2 min-w-0 mt-0.5 justify-end">
-                      {nextEntry.mot_hebreu_translitere && (
+                      {nextEntry.mot_translitere && (
                         <span className="min-w-0 truncate font-cambria text-[16px] font-bold leading-none uppercase tracking-wide text-foreground/85">
-                          {trimApostrophes(parseStrongTransliteration(nextEntry.mot_hebreu_translitere).word)}
+                          {firstWord(trimApostrophes(parseStrongTransliteration(nextEntry.mot_translitere).word))}
                         </span>
                       )}
-                      {nextEntry.mot_hebreu_original && (
-                        <span dir="rtl" lang="he" className="shrink-0 font-hebrew text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300">{nextEntry.mot_hebreu_original}</span>
+                      {nextEntry.mot_original && (
+                        <StrongOriginalWord serie={nextEntry.serie} text={firstWord(nextEntry.mot_original)} className="shrink-0 text-[20px] font-bold leading-none text-blue-700 dark:text-blue-300" />
                       )}
                     </span>
                   )}
@@ -568,6 +600,13 @@ const StrongCodesPage: React.FC = () => {
           </nav>
         </div>
       </main>
+
+      <StrongCodeModal
+        code={modalCode}
+        onClose={() => setModalCode(null)}
+        onOpenPage={key => { setModalCode(null); selectCode(key.code, key.serie); }}
+        versionLabel={lsgLabel}
+      />
     </div>
   );
 };

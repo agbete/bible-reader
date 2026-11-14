@@ -8,7 +8,12 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:start": "npx supabase@latest start",
+    "db:stop": "npx supabase@latest stop",
+    "db:status": "npx supabase@latest status",
+    "db:backup": "node scripts/db-backup.mjs",
+    "db:restore": "node scripts/db-restore.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

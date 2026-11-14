@@ -37,6 +37,7 @@ interface TitleNavigatorProps {
   languageId?: number;
   onSelectTitle: (chapter: number, verseNumber: number, verseId: number) => void;
   compact?: boolean;
+  dropdownAlign?: 'left' | 'right';
 }
 
 export const TitleNavigator: React.FC<TitleNavigatorProps> = ({
@@ -44,7 +45,8 @@ export const TitleNavigator: React.FC<TitleNavigatorProps> = ({
   selectedChapter,
   languageId,
   onSelectTitle,
-  compact = false
+  compact = false,
+  dropdownAlign = 'left'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -137,10 +139,10 @@ export const TitleNavigator: React.FC<TitleNavigatorProps> = ({
   const arrowClass = 'h-full px-1 flex items-center rounded text-white/80 hover:text-white hover:bg-white/15 transition-colors shrink-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent';
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative min-w-0">
       <div
-        className={`h-9 max-w-[18rem] px-0.5 rounded-md border border-white/30 bg-white/10 text-white text-xs flex items-center gap-0.5 transition-colors hover:border-white/60 ${compact ? 'xl:h-6' : ''} ${
-          isOpen ? 'border-white ring-2 ring-white/30' : ''
+        className={`h-9 max-w-[18rem] px-0.5 rounded-md bg-white/10 text-white text-xs flex items-center gap-0.5 transition-colors hover:bg-white/20 ${compact ? 'xl:h-6' : ''} ${
+          isOpen ? 'ring-2 ring-white/30' : ''
         } ${!loading && !hasTitles ? 'opacity-50' : ''}`}
       >
         {/* PREVIOUS TITLE */}
@@ -188,7 +190,7 @@ export const TitleNavigator: React.FC<TitleNavigatorProps> = ({
       </div>
 
       {isOpen && hasTitles && (
-        <div className="absolute top-full left-0 mt-2 z-50 w-[min(24rem,calc(100vw-2rem))] bg-card border border-border rounded-xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className={`absolute top-full ${dropdownAlign === 'right' ? 'right-0' : 'left-0'} mt-2 z-50 w-[min(24rem,calc(100vw-2rem))] bg-card border border-border rounded-xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200`}>
           <div className="px-3 py-2 border-b border-border bg-amber-50 dark:bg-amber-950/60 text-xs font-bold text-amber-700 dark:text-amber-300">
             {selectedBook.name}
           </div>

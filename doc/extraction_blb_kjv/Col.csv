@@ -1,0 +1,1523 @@
+﻿livre_code;livre_nom;chapitre;verset;version;lang;type_entite;data_lm;data_pa;data_ns;contenu
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g3972;3972;Paul,
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g0652;652;an apostle
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";3/g2424;2424;of Jesus
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g5547;5547;Christ
+Col;Colossiens;1;1;KJV;en;reference;Preposition;5/g1223;1223;by
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";6/g2307;2307;the will
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;of God,
+Col;Colossiens;1;1;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g5095;5095;Timotheus
+Col;Colossiens;1;1;KJV;en;mot_ajoute;;;;our
+Col;Colossiens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";10/g0080;80;brother,
+Col;Colossiens;1;2;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";4/g0040;40;To the saints
+Col;Colossiens;1;2;KJV;en;reference;Conjunction;5/g2532;2532;and
+Col;Colossiens;1;2;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";6/g4103;4103;faithful
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";7/g0080;80;brethren
+Col;Colossiens;1;2;KJV;en;reference;Preposition;8/g1722;1722;in
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";9/g5547;5547;Christ
+Col;Colossiens;1;2;KJV;en;reference;"Definite article ; Dative ; Masculine ; Plural";1/g3588;3588;which
+Col;Colossiens;1;2;KJV;en;reference;Preposition;2/g1722;1722;are at
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";3/g2857;2857;Colosse:
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";10/g5485;5485;Grace
+Col;Colossiens;1;2;KJV;en;mot_ajoute;;;;be
+Col;Colossiens;1;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";11/g5213;5213;unto you,
+Col;Colossiens;1;2;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";13/g1515;1515;peace,
+Col;Colossiens;1;2;KJV;en;reference;Preposition;14/g0575;575;from
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g2316;2316;God
+Col;Colossiens;1;2;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";17/g2257;2257;our
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g3962;3962;Father
+Col;Colossiens;1;2;KJV;en;reference;Conjunction;18/g2532;2532;and
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g2962;2962;the Lord
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";20/g2424;2424;Jesus
+Col;Colossiens;1;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";21/g5547;5547;Christ.
+Col;Colossiens;1;3;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";1/g2168;2168;We give thanks
+Col;Colossiens;1;3;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";3/g2316;2316;to God
+Col;Colossiens;1;3;KJV;en;reference;Conjunction;4/g2532;2532;and
+Col;Colossiens;1;3;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";2/g3588;3588;the
+Col;Colossiens;1;3;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g3962;3962;Father
+Col;Colossiens;1;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";7/g2257;2257;of our
+Col;Colossiens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2962;2962;Lord
+Col;Colossiens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2424;2424;Jesus
+Col;Colossiens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g5547;5547;Christ,
+Col;Colossiens;1;3;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";13/g4336;4336;praying
+Col;Colossiens;1;3;KJV;en;reference;Adverb;10/g3842;3842;always
+Col;Colossiens;1;3;KJV;en;reference;Preposition;11/g4012;4012;for
+Col;Colossiens;1;3;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;you,
+Col;Colossiens;1;4;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g0191;191;Since we heard
+Col;Colossiens;1;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;of your
+Col;Colossiens;1;4;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";2/g4102;4102;faith
+Col;Colossiens;1;4;KJV;en;reference;Preposition;4/g1722;1722;in
+Col;Colossiens;1;4;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g5547;5547;Christ
+Col;Colossiens;1;4;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";6/g2424;2424;Jesus,
+Col;Colossiens;1;4;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;1;4;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";8/g3588;3588;of the
+Col;Colossiens;1;4;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g0026;26;love
+Col;Colossiens;1;4;KJV;en;mot_ajoute;;;;which ye have
+Col;Colossiens;1;4;KJV;en;reference;Preposition;10/g1519;1519;to
+Col;Colossiens;1;4;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";11/g3956;3956;all
+Col;Colossiens;1;4;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";12/g3588;3588;the
+Col;Colossiens;1;4;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";13/g0040;40;saints,
+Col;Colossiens;1;5;KJV;en;reference;Preposition;1/g1223;1223;For
+Col;Colossiens;1;5;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";2/g3588;3588;the
+Col;Colossiens;1;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";3/g1680;1680;hope
+Col;Colossiens;1;5;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";4/g3588;3588;which
+Col;Colossiens;1;5;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Accusative ; Feminine ; Singular";5/g0606;606;is laid up
+Col;Colossiens;1;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";6/g5213;5213;for you
+Col;Colossiens;1;5;KJV;en;reference;Preposition;7/g1722;1722;in
+Col;Colossiens;1;5;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";8/g3772;3772;heaven,
+Col;Colossiens;1;5;KJV;en;reference;"Relative Pronoun ; Accusative ; Feminine ; Singular";9/g3739;3739;whereof
+Col;Colossiens;1;5;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 2nd Person ; Plural";10/g4257;4257;ye heard before
+Col;Colossiens;1;5;KJV;en;reference;Preposition;11/g1722;1722;in
+Col;Colossiens;1;5;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";12/g3588;3588;the
+Col;Colossiens;1;5;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";13/g3056;3056;word
+Col;Colossiens;1;5;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";14/g3588;3588;of the
+Col;Colossiens;1;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";15/g0225;225;truth
+Col;Colossiens;1;5;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";16/g3588;3588;of the
+Col;Colossiens;1;5;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";17/g2098;2098;"gospel;"
+Col;Colossiens;1;6;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";1/g3588;3588;Which
+Col;Colossiens;1;6;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Genitive ; Neuter ; Singular";2/g3918;3918;is come
+Col;Colossiens;1;6;KJV;en;reference;Preposition;3/g1519;1519;unto
+Col;Colossiens;1;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you,
+Col;Colossiens;1;6;KJV;en;reference;Adverb;5/g2531;2531;as
+Col;Colossiens;1;6;KJV;en;mot_ajoute;;;;it is
+Col;Colossiens;1;6;KJV;en;reference;Preposition;6/g1722;1722;in
+Col;Colossiens;1;6;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";7/g3956;3956;all
+Col;Colossiens;1;6;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g2889;2889;"the world;"
+Col;Colossiens;1;6;KJV;en;reference;Conjunction;9/g2532;2532;and
+Col;Colossiens;1;6;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Neuter ; Singular";10/g2592;2592;bringeth forth fruit,
+Col;Colossiens;1;6;KJV;en;reference;Adverb;11/g2531;2531;as
+Col;Colossiens;1;6;KJV;en;mot_ajoute;;;;it doth
+Col;Colossiens;1;6;KJV;en;reference;Conjunction;12/g2532;2532;also
+Col;Colossiens;1;6;KJV;en;reference;Preposition;13/g1722;1722;in
+Col;Colossiens;1;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";14/g5213;5213;you,
+Col;Colossiens;1;6;KJV;en;reference;Preposition;15/g0575;575;since
+Col;Colossiens;1;6;KJV;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";16/g3739;3739;the
+Col;Colossiens;1;6;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";17/g2250;2250;day
+Col;Colossiens;1;6;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 2nd Person ; Plural";18/g0191;191;ye heard
+Col;Colossiens;1;6;KJV;en;mot_ajoute;;;;of it,
+Col;Colossiens;1;6;KJV;en;reference;Conjunction;19/g2532;2532;and
+Col;Colossiens;1;6;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";20/g1921;1921;knew
+Col;Colossiens;1;6;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";21/g3588;3588;the
+Col;Colossiens;1;6;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";22/g5485;5485;grace
+Col;Colossiens;1;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g2316;2316;of God
+Col;Colossiens;1;6;KJV;en;reference;Preposition;24/g1722;1722;in
+Col;Colossiens;1;6;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";25/g0225;225;truth:
+Col;Colossiens;1;7;KJV;en;reference;Adverb;1/g2531;2531;As
+Col;Colossiens;1;7;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";3/g3129;3129;ye
+Col;Colossiens;1;7;KJV;en;reference;Conjunction;2/g2532;2532;also
+Col;Colossiens;1;7;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";3/g3129;3129;learned
+Col;Colossiens;1;7;KJV;en;reference;Preposition;4/g0575;575;of
+Col;Colossiens;1;7;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g1889;1889;Epaphras
+Col;Colossiens;1;7;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";8/g2257;2257;our
+Col;Colossiens;1;7;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Singular";6/g0027;27;dear
+Col;Colossiens;1;7;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g4889;4889;fellowservant,
+Col;Colossiens;1;7;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";9/g3739;3739;who
+Col;Colossiens;1;7;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";10/g2076;2076;is
+Col;Colossiens;1;7;KJV;en;reference;Preposition;12/g5228;5228;for
+Col;Colossiens;1;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";13/g5216;5216;you
+Col;Colossiens;1;7;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";11/g4103;4103;a faithful
+Col;Colossiens;1;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";14/g1249;1249;minister
+Col;Colossiens;1;7;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;"of Christ;"
+Col;Colossiens;1;8;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";1/g3588;3588;Who
+Col;Colossiens;1;8;KJV;en;reference;Conjunction;2/g2532;2532;also
+Col;Colossiens;1;8;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";3/g1213;1213;declared
+Col;Colossiens;1;8;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";4/g2254;2254;unto us
+Col;Colossiens;1;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;your
+Col;Colossiens;1;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g0026;26;love
+Col;Colossiens;1;8;KJV;en;reference;Preposition;7/g1722;1722;in
+Col;Colossiens;1;8;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";8/g4151;4151;the Spirit.
+Col;Colossiens;1;9;KJV;en;reference;Preposition;1/g1223;1223;For
+Col;Colossiens;1;9;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";2/g5124;5124;this cause
+Col;Colossiens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";4/g2249;2249;we
+Col;Colossiens;1;9;KJV;en;reference;Conjunction;3/g2532;2532;also,
+Col;Colossiens;1;9;KJV;en;reference;Preposition;5/g0575;575;since
+Col;Colossiens;1;9;KJV;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";6/g3739;3739;the
+Col;Colossiens;1;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g2250;2250;day
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";8/g0191;191;we heard
+Col;Colossiens;1;9;KJV;en;mot_ajoute;;;;it,
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Present ; Middle ; Indicative ; 1st Person ; Plural";10/g3973;3973;do
+Col;Colossiens;1;9;KJV;en;reference;Particle, Disjunctive Particle;9/g3756;3756;not
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Present ; Middle ; Indicative ; 1st Person ; Plural";10/g3973;3973;cease
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";13/g4336;4336;to pray
+Col;Colossiens;1;9;KJV;en;reference;Preposition;11/g5228;5228;for
+Col;Colossiens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;you,
+Col;Colossiens;1;9;KJV;en;reference;Conjunction;14/g2532;2532;and
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";15/g0154;154;to desire
+Col;Colossiens;1;9;KJV;en;reference;Conjunction;16/g2443;2443;that
+Col;Colossiens;1;9;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 2nd Person ; Plural";17/g4137;4137;ye might be filled
+Col;Colossiens;1;9;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";18/g3588;3588;with the
+Col;Colossiens;1;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";19/g1922;1922;knowledge
+Col;Colossiens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";21/g0846;846;of his
+Col;Colossiens;1;9;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";20/g2307;2307;will
+Col;Colossiens;1;9;KJV;en;reference;Preposition;22/g1722;1722;in
+Col;Colossiens;1;9;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";23/g3956;3956;all
+Col;Colossiens;1;9;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";24/g4678;4678;wisdom
+Col;Colossiens;1;9;KJV;en;reference;Conjunction;25/g2532;2532;and
+Col;Colossiens;1;9;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";27/g4152;4152;spiritual
+Col;Colossiens;1;9;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";26/g4907;4907;"understanding;"
+Col;Colossiens;1;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;That ye
+Col;Colossiens;1;10;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";1/g4043;4043;might walk
+Col;Colossiens;1;10;KJV;en;reference;Adverb;3/g0516;516;worthy
+Col;Colossiens;1;10;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";4/g3588;3588;of the
+Col;Colossiens;1;10;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2962;2962;Lord
+Col;Colossiens;1;10;KJV;en;reference;Preposition;6/g1519;1519;unto
+Col;Colossiens;1;10;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Singular";7/g3956;3956;all
+Col;Colossiens;1;10;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";8/g0699;699;pleasing,
+Col;Colossiens;1;10;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g2592;2592;being fruitful
+Col;Colossiens;1;10;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;1;10;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";10/g3956;3956;every
+Col;Colossiens;1;10;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";12/g0018;18;good
+Col;Colossiens;1;10;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";11/g2041;2041;work,
+Col;Colossiens;1;10;KJV;en;reference;Conjunction;14/g2532;2532;and
+Col;Colossiens;1;10;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";15/g0837;837;increasing
+Col;Colossiens;1;10;KJV;en;reference;Preposition;16/g1519;1519;in
+Col;Colossiens;1;10;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";17/g3588;3588;the
+Col;Colossiens;1;10;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";18/g1922;1922;knowledge
+Col;Colossiens;1;10;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g2316;2316;"of God;"
+Col;Colossiens;1;11;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";4/g1412;1412;Strengthened
+Col;Colossiens;1;11;KJV;en;reference;Preposition;1/g1722;1722;with
+Col;Colossiens;1;11;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";2/g3956;3956;all
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";3/g1411;1411;might,
+Col;Colossiens;1;11;KJV;en;reference;Preposition;5/g2596;2596;according to
+Col;Colossiens;1;11;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";8/g0846;846;his
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g1391;1391;glorious
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";6/g2904;2904;power,
+Col;Colossiens;1;11;KJV;en;reference;Preposition;9/g1519;1519;unto
+Col;Colossiens;1;11;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Singular";10/g3956;3956;all
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g5281;5281;patience
+Col;Colossiens;1;11;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g3115;3115;longsuffering
+Col;Colossiens;1;11;KJV;en;reference;Preposition;14/g3326;3326;with
+Col;Colossiens;1;11;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";15/g5479;5479;"joyfulness;"
+Col;Colossiens;1;12;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g2168;2168;Giving thanks
+Col;Colossiens;1;12;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";2/g3588;3588;unto the
+Col;Colossiens;1;12;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";3/g3962;3962;Father,
+Col;Colossiens;1;12;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";4/g3588;3588;which
+Col;Colossiens;1;12;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Dative ; Masculine ; Singular";5/g2427;2427;hath made
+Col;Colossiens;1;12;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";6/g2248;2248;us
+Col;Colossiens;1;12;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Dative ; Masculine ; Singular";5/g2427;2427;meet
+Col;Colossiens;1;12;KJV;en;reference;Preposition;7/g1519;1519;to
+Col;Colossiens;1;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";8/g3310;3310;be partakers
+Col;Colossiens;1;12;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";9/g3588;3588;of the
+Col;Colossiens;1;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";10/g2819;2819;inheritance
+Col;Colossiens;1;12;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";11/g3588;3588;of the
+Col;Colossiens;1;12;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";12/g0040;40;saints
+Col;Colossiens;1;12;KJV;en;reference;Preposition;13/g1722;1722;in
+Col;Colossiens;1;12;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";14/g5457;5457;light:
+Col;Colossiens;1;13;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;Who
+Col;Colossiens;1;13;KJV;en;reference;"Verb ; Aorist ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";2/g4506;4506;hath delivered
+Col;Colossiens;1;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";3/g2248;2248;us
+Col;Colossiens;1;13;KJV;en;reference;Preposition;4/g1537;1537;from
+Col;Colossiens;1;13;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";5/g3588;3588;the
+Col;Colossiens;1;13;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";6/g1849;1849;power
+Col;Colossiens;1;13;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";7/g4655;4655;of darkness,
+Col;Colossiens;1;13;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;1;13;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";9/g3179;3179;hath translated
+Col;Colossiens;1;13;KJV;en;mot_ajoute;;;;us
+Col;Colossiens;1;13;KJV;en;reference;Preposition;10/g1519;1519;into
+Col;Colossiens;1;13;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";11/g3588;3588;the
+Col;Colossiens;1;13;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g0932;932;kingdom
+Col;Colossiens;1;13;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";15/g0846;846;of his
+Col;Colossiens;1;13;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g0026;26;dear
+Col;Colossiens;1;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";13/g5207;5207;Son:
+Col;Colossiens;1;14;KJV;en;reference;Preposition;1/g1722;1722;In
+Col;Colossiens;1;14;KJV;en;reference;"Relative Pronoun ; Dative ; Masculine ; Singular";2/g3739;3739;whom
+Col;Colossiens;1;14;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";3/g2192;2192;we have
+Col;Colossiens;1;14;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";4/g0629;629;redemption
+Col;Colossiens;1;14;KJV;en;reference;Preposition;5/g1223;1223;through
+Col;Colossiens;1;14;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";7/g0846;846;his
+Col;Colossiens;1;14;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";6/g0129;129;blood,
+Col;Colossiens;1;14;KJV;en;mot_ajoute;;;;even
+Col;Colossiens;1;14;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";8/g3588;3588;the
+Col;Colossiens;1;14;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g0859;859;forgiveness
+Col;Colossiens;1;14;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";10/g0266;266;of sins:
+Col;Colossiens;1;15;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;Who
+Col;Colossiens;1;15;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";2/g2076;2076;is
+Col;Colossiens;1;15;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g1504;1504;the image
+Col;Colossiens;1;15;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";5/g3588;3588;of the
+Col;Colossiens;1;15;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Singular";6/g0517;517;invisible
+Col;Colossiens;1;15;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2316;2316;God,
+Col;Colossiens;1;15;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";7/g4416;4416;the firstborn
+Col;Colossiens;1;15;KJV;en;reference;"Adjective ; Genitive ; Feminine ; Singular";8/g3956;3956;of every
+Col;Colossiens;1;15;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g2937;2937;creature:
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;1/g3754;3754;For
+Col;Colossiens;1;16;KJV;en;reference;Preposition;2/g1722;1722;by
+Col;Colossiens;1;16;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";3/g0846;846;him
+Col;Colossiens;1;16;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";4/g2936;2936;were
+Col;Colossiens;1;16;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";5/g3956;3956;all things
+Col;Colossiens;1;16;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";4/g2936;2936;created,
+Col;Colossiens;1;16;KJV;en;reference;Preposition;6/g1722;1722;that are in
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";7/g3772;3772;heaven,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;1;16;KJV;en;reference;Preposition;9/g1909;1909;that are in
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g1093;1093;earth,
+Col;Colossiens;1;16;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";11/g3707;3707;visible
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;1;16;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";13/g0517;517;invisible,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;14/g1535;1535;whether
+Col;Colossiens;1;16;KJV;en;mot_ajoute;;;;they be
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";15/g2362;2362;thrones,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;16/g1535;1535;or
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Nominative ; Feminine ; Plural";17/g2963;2963;dominions,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;18/g1535;1535;or
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Nominative ; Feminine ; Plural";19/g0746;746;principalities,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;20/g1535;1535;or
+Col;Colossiens;1;16;KJV;en;reference;"Noun ; Nominative ; Feminine ; Plural";21/g1849;1849;powers:
+Col;Colossiens;1;16;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";22/g3956;3956;all things
+Col;Colossiens;1;16;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";28/g2936;2936;were created
+Col;Colossiens;1;16;KJV;en;reference;Preposition;23/g1223;1223;by
+Col;Colossiens;1;16;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";24/g0846;846;him,
+Col;Colossiens;1;16;KJV;en;reference;Conjunction;25/g2532;2532;and
+Col;Colossiens;1;16;KJV;en;reference;Preposition;26/g1519;1519;for
+Col;Colossiens;1;16;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";27/g0846;846;him:
+Col;Colossiens;1;17;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;1;17;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";2/g0846;846;he
+Col;Colossiens;1;17;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";3/g2076;2076;is
+Col;Colossiens;1;17;KJV;en;reference;Preposition;4/g4253;4253;before
+Col;Colossiens;1;17;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";5/g3956;3956;all things,
+Col;Colossiens;1;17;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;1;17;KJV;en;reference;Preposition;8/g1722;1722;by
+Col;Colossiens;1;17;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";9/g0846;846;him
+Col;Colossiens;1;17;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";7/g3956;3956;all things
+Col;Colossiens;1;17;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";10/g4921;4921;consist.
+Col;Colossiens;1;18;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;1;18;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";2/g0846;846;he
+Col;Colossiens;1;18;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";3/g2076;2076;is
+Col;Colossiens;1;18;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";4/g3588;3588;the
+Col;Colossiens;1;18;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";5/g2776;2776;head
+Col;Colossiens;1;18;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";6/g3588;3588;of the
+Col;Colossiens;1;18;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";7/g4983;4983;body,
+Col;Colossiens;1;18;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";8/g3588;3588;the
+Col;Colossiens;1;18;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g1577;1577;church:
+Col;Colossiens;1;18;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";10/g3739;3739;who
+Col;Colossiens;1;18;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";11/g2076;2076;is
+Col;Colossiens;1;18;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";12/g0746;746;the beginning,
+Col;Colossiens;1;18;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";13/g4416;4416;the firstborn
+Col;Colossiens;1;18;KJV;en;reference;Preposition;14/g1537;1537;from
+Col;Colossiens;1;18;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";15/g3588;3588;the
+Col;Colossiens;1;18;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";16/g3498;3498;"dead;"
+Col;Colossiens;1;18;KJV;en;reference;Conjunction;17/g2443;2443;that
+Col;Colossiens;1;18;KJV;en;reference;Preposition;19/g1722;1722;in
+Col;Colossiens;1;18;KJV;en;reference;"Adjective ; Dative ; Neuter ; Plural";20/g3956;3956;all
+Col;Colossiens;1;18;KJV;en;mot_ajoute;;;;things
+Col;Colossiens;1;18;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";21/g0846;846;he
+Col;Colossiens;1;18;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Subjunctive ; 3rd Person ; Singular";18/g1096;1096;might have
+Col;Colossiens;1;18;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";22/g4409;4409;the preeminence.
+Col;Colossiens;1;19;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";4/g2106;2106;For it pleased
+Col;Colossiens;1;19;KJV;en;mot_ajoute;;;;the Father
+Col;Colossiens;1;19;KJV;en;reference;Conjunction;1/g3754;3754;that
+Col;Colossiens;1;19;KJV;en;reference;Preposition;2/g1722;1722;in
+Col;Colossiens;1;19;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";3/g0846;846;him
+Col;Colossiens;1;19;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";7/g2730;2730;should
+Col;Colossiens;1;19;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";5/g3956;3956;all
+Col;Colossiens;1;19;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";6/g4138;4138;fulness
+Col;Colossiens;1;19;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";7/g2730;2730;"dwell;"
+Col;Colossiens;1;20;KJV;en;reference;Conjunction;1/g2532;2532;And,
+Col;Colossiens;1;20;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";8/g1517;1517;having made peace
+Col;Colossiens;1;20;KJV;en;reference;Preposition;9/g1223;1223;through
+Col;Colossiens;1;20;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";10/g3588;3588;the
+Col;Colossiens;1;20;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";11/g0129;129;blood
+Col;Colossiens;1;20;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";13/g0846;846;of his
+Col;Colossiens;1;20;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g4716;4716;cross,
+Col;Colossiens;1;20;KJV;en;reference;Preposition;2/g1223;1223;by
+Col;Colossiens;1;20;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";3/g0846;846;him
+Col;Colossiens;1;20;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";4/g0604;604;to reconcile
+Col;Colossiens;1;20;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";5/g3956;3956;all things
+Col;Colossiens;1;20;KJV;en;reference;Preposition;6/g1519;1519;unto
+Col;Colossiens;1;20;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";7/g0846;846;"himself;"
+Col;Colossiens;1;20;KJV;en;reference;Preposition;14/g1223;1223;by
+Col;Colossiens;1;20;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";15/g0846;846;him,
+Col;Colossiens;1;20;KJV;en;mot_ajoute;;;;I say,
+Col;Colossiens;1;20;KJV;en;reference;Conjunction;16/g1535;1535;whether
+Col;Colossiens;1;20;KJV;en;mot_ajoute;;;;they be
+Col;Colossiens;1;20;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";17/g3588;3588;things
+Col;Colossiens;1;20;KJV;en;reference;Preposition;18/g1909;1909;in
+Col;Colossiens;1;20;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";19/g1093;1093;earth,
+Col;Colossiens;1;20;KJV;en;reference;Conjunction;20/g1535;1535;or
+Col;Colossiens;1;20;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";21/g3588;3588;things
+Col;Colossiens;1;20;KJV;en;reference;Preposition;22/g1722;1722;in
+Col;Colossiens;1;20;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";23/g3772;3772;heaven.
+Col;Colossiens;1;21;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;1;21;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you,
+Col;Colossiens;1;21;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Accusative ; Masculine ; Plural";4/g5607;5607;that were
+Col;Colossiens;1;21;KJV;en;reference;Particle, Disjunctive Particle;3/g4218;4218;sometime
+Col;Colossiens;1;21;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Accusative ; Masculine ; Plural";5/g0526;526;alienated
+Col;Colossiens;1;21;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;1;21;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";7/g2190;2190;enemies
+Col;Colossiens;1;21;KJV;en;mot_ajoute;;;;in your
+Col;Colossiens;1;21;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g1271;1271;mind
+Col;Colossiens;1;21;KJV;en;reference;Preposition;9/g1722;1722;by
+Col;Colossiens;1;21;KJV;en;reference;"Adjective ; Dative ; Neuter ; Plural";11/g4190;4190;wicked
+Col;Colossiens;1;21;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";10/g2041;2041;works,
+Col;Colossiens;1;21;KJV;en;reference;Conjunction;13/g1161;1161;yet
+Col;Colossiens;1;21;KJV;en;reference;Adverb;12/g3570;3570;now
+Col;Colossiens;1;21;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";14/g0604;604;hath he reconciled
+Col;Colossiens;1;22;KJV;en;reference;Preposition;1/g1722;1722;In
+Col;Colossiens;1;22;KJV;en;reference;"Definite article ; Dative ; Neuter ; Singular";2/g3588;3588;the
+Col;Colossiens;1;22;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";3/g4983;4983;body
+Col;Colossiens;1;22;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";5/g0846;846;of his
+Col;Colossiens;1;22;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g4561;4561;flesh
+Col;Colossiens;1;22;KJV;en;reference;Preposition;6/g1223;1223;through
+Col;Colossiens;1;22;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2288;2288;death,
+Col;Colossiens;1;22;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";8/g3936;3936;to present
+Col;Colossiens;1;22;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";9/g5209;5209;you
+Col;Colossiens;1;22;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";10/g0040;40;holy
+Col;Colossiens;1;22;KJV;en;reference;Conjunction;11/g2532;2532;and
+Col;Colossiens;1;22;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";12/g0299;299;unblameable
+Col;Colossiens;1;22;KJV;en;reference;Conjunction;13/g2532;2532;and
+Col;Colossiens;1;22;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";14/g0410;410;unreproveable
+Col;Colossiens;1;22;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";16/g0846;846;in his
+Col;Colossiens;1;22;KJV;en;reference;Preposition;15/g2714;2714;sight:
+Col;Colossiens;1;23;KJV;en;reference;Conditional Particle or Conjunction;1/g1489;1489;If
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";2/g1961;1961;ye continue
+Col;Colossiens;1;23;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";3/g3588;3588;in the
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";4/g4102;4102;faith
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";5/g2311;2311;grounded
+Col;Colossiens;1;23;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;1;23;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";7/g1476;1476;settled,
+Col;Colossiens;1;23;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;1;23;KJV;en;mot_ajoute;;;;be
+Col;Colossiens;1;23;KJV;en;reference;Particle, Disjunctive Particle;9/g3361;3361;not
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";10/g3334;3334;moved away
+Col;Colossiens;1;23;KJV;en;reference;Preposition;11/g0575;575;from
+Col;Colossiens;1;23;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";12/g3588;3588;the
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g1680;1680;hope
+Col;Colossiens;1;23;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";14/g3588;3588;of the
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";15/g2098;2098;gospel,
+Col;Colossiens;1;23;KJV;en;reference;"Relative Pronoun ; Genitive ; Neuter ; Singular";16/g3739;3739;which
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 2nd Person ; Plural";17/g0191;191;ye have heard,
+Col;Colossiens;1;23;KJV;en;mot_ajoute;;;;and
+Col;Colossiens;1;23;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";18/g3588;3588;which
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Genitive ; Neuter ; Singular";19/g2784;2784;was preached
+Col;Colossiens;1;23;KJV;en;reference;Preposition;20/g1722;1722;to
+Col;Colossiens;1;23;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";21/g3956;3956;every
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";22/g2937;2937;creature
+Col;Colossiens;1;23;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";23/g3588;3588;which
+Col;Colossiens;1;23;KJV;en;reference;Preposition;24/g5259;5259;is under
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";25/g3772;3772;"heaven;"
+Col;Colossiens;1;23;KJV;en;reference;"Relative Pronoun ; Genitive ; Neuter ; Singular";26/g3739;3739;whereof
+Col;Colossiens;1;23;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";28/g1473;1473;I
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";29/g3972;3972;Paul
+Col;Colossiens;1;23;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Indicative ; 1st Person ; Singular";27/g1096;1096;am made
+Col;Colossiens;1;23;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";30/g1249;1249;"a minister;"
+Col;Colossiens;1;24;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";2/g5463;5463;Who
+Col;Colossiens;1;24;KJV;en;reference;Adverb;1/g3568;3568;now
+Col;Colossiens;1;24;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";2/g5463;5463;rejoice
+Col;Colossiens;1;24;KJV;en;reference;Preposition;3/g1722;1722;in
+Col;Colossiens;1;24;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";5/g3450;3450;my
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";4/g3804;3804;sufferings
+Col;Colossiens;1;24;KJV;en;reference;Preposition;6/g5228;5228;for
+Col;Colossiens;1;24;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";7/g5216;5216;you,
+Col;Colossiens;1;24;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;1;24;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";9/g0466;466;fill up
+Col;Colossiens;1;24;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";10/g3588;3588;that which
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";11/g5303;5303;is behind
+Col;Colossiens;1;24;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Plural";12/g3588;3588;of the
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";13/g2347;2347;afflictions
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g5547;5547;of Christ
+Col;Colossiens;1;24;KJV;en;reference;Preposition;15/g1722;1722;in
+Col;Colossiens;1;24;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";17/g3450;3450;my
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";16/g4561;4561;flesh
+Col;Colossiens;1;24;KJV;en;reference;Preposition;18/g5228;5228;for
+Col;Colossiens;1;24;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";20/g0846;846;his
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";19/g4983;4983;body's
+Col;Colossiens;1;24;KJV;en;reference;Preposition;18/g5228;5228;sake,
+Col;Colossiens;1;24;KJV;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Singular";21/g3739;3739;which
+Col;Colossiens;1;24;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";22/g2076;2076;is
+Col;Colossiens;1;24;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";23/g3588;3588;the
+Col;Colossiens;1;24;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";24/g1577;1577;church:
+Col;Colossiens;1;25;KJV;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";1/g3739;3739;Whereof
+Col;Colossiens;1;25;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";3/g1473;1473;I
+Col;Colossiens;1;25;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Indicative ; 1st Person ; Singular";2/g1096;1096;am made
+Col;Colossiens;1;25;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g1249;1249;a minister,
+Col;Colossiens;1;25;KJV;en;reference;Preposition;5/g2596;2596;according to
+Col;Colossiens;1;25;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";6/g3588;3588;the
+Col;Colossiens;1;25;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g3622;3622;dispensation
+Col;Colossiens;1;25;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2316;2316;of God
+Col;Colossiens;1;25;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";9/g3588;3588;which
+Col;Colossiens;1;25;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Accusative ; Feminine ; Singular";10/g1325;1325;is given
+Col;Colossiens;1;25;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";11/g3427;3427;to me
+Col;Colossiens;1;25;KJV;en;reference;Preposition;12/g1519;1519;for
+Col;Colossiens;1;25;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";13/g5209;5209;you,
+Col;Colossiens;1;25;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";14/g4137;4137;to fulfil
+Col;Colossiens;1;25;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";15/g3588;3588;the
+Col;Colossiens;1;25;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";16/g3056;3056;word
+Col;Colossiens;1;25;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g2316;2316;"of God;"
+Col;Colossiens;1;26;KJV;en;mot_ajoute;;;;Even
+Col;Colossiens;1;26;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";1/g3588;3588;the
+Col;Colossiens;1;26;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";2/g3466;3466;mystery
+Col;Colossiens;1;26;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";3/g3588;3588;which
+Col;Colossiens;1;26;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Accusative ; Neuter ; Singular";4/g0613;613;hath been hid
+Col;Colossiens;1;26;KJV;en;reference;Preposition;5/g0575;575;from
+Col;Colossiens;1;26;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";6/g0165;165;ages
+Col;Colossiens;1;26;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;1;26;KJV;en;reference;Preposition;8/g0575;575;from
+Col;Colossiens;1;26;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";9/g1074;1074;generations,
+Col;Colossiens;1;26;KJV;en;reference;Conjunction;11/g1161;1161;but
+Col;Colossiens;1;26;KJV;en;reference;Adverb;10/g3570;3570;now
+Col;Colossiens;1;26;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";12/g5319;5319;is made manifest
+Col;Colossiens;1;26;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";14/g0846;846;to his
+Col;Colossiens;1;26;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";13/g0040;40;saints:
+Col;Colossiens;1;27;KJV;en;reference;"Relative Pronoun ; Dative ; Masculine ; Plural";1/g3739;3739;To whom
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2316;2316;God
+Col;Colossiens;1;27;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";2/g2309;2309;would
+Col;Colossiens;1;27;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";4/g1107;1107;make known
+Col;Colossiens;1;27;KJV;en;reference;"Interrogative / Indefinite Pronoun ; Nominative ; Masculine ; Singular";5/g5101;5101;what
+Col;Colossiens;1;27;KJV;en;mot_ajoute;;;;is
+Col;Colossiens;1;27;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";6/g3588;3588;the
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g4149;4149;riches
+Col;Colossiens;1;27;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";8/g3588;3588;of the
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g1391;1391;glory
+Col;Colossiens;1;27;KJV;en;reference;"Demonstrative Pronoun ; Genitive ; Neuter ; Singular";11/g5127;5127;of this
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";10/g3466;3466;mystery
+Col;Colossiens;1;27;KJV;en;reference;Preposition;12/g1722;1722;among
+Col;Colossiens;1;27;KJV;en;reference;"Definite article ; Dative ; Neuter ; Plural";13/g3588;3588;the
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";14/g1484;1484;"Gentiles;"
+Col;Colossiens;1;27;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";15/g3739;3739;which
+Col;Colossiens;1;27;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";16/g2076;2076;is
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";17/g5547;5547;Christ
+Col;Colossiens;1;27;KJV;en;reference;Preposition;18/g1722;1722;in
+Col;Colossiens;1;27;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";19/g5213;5213;you,
+Col;Colossiens;1;27;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";20/g3588;3588;the
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";21/g1680;1680;hope
+Col;Colossiens;1;27;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";22/g1391;1391;of glory:
+Col;Colossiens;1;28;KJV;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";1/g3739;3739;Whom
+Col;Colossiens;1;28;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";2/g2249;2249;we
+Col;Colossiens;1;28;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";3/g2605;2605;preach,
+Col;Colossiens;1;28;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";4/g3560;3560;warning
+Col;Colossiens;1;28;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";5/g3956;3956;every
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g0444;444;man,
+Col;Colossiens;1;28;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;1;28;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";8/g1321;1321;teaching
+Col;Colossiens;1;28;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";9/g3956;3956;every
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";10/g0444;444;man
+Col;Colossiens;1;28;KJV;en;reference;Preposition;11/g1722;1722;in
+Col;Colossiens;1;28;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";12/g3956;3956;all
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g4678;4678;"wisdom;"
+Col;Colossiens;1;28;KJV;en;reference;Conjunction;14/g2443;2443;that
+Col;Colossiens;1;28;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Plural";15/g3936;3936;we may present
+Col;Colossiens;1;28;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";16/g3956;3956;every
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";17/g0444;444;man
+Col;Colossiens;1;28;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";18/g5046;5046;perfect
+Col;Colossiens;1;28;KJV;en;reference;Preposition;19/g1722;1722;in
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";20/g5547;5547;Christ
+Col;Colossiens;1;28;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";21/g2424;2424;Jesus:
+Col;Colossiens;1;29;KJV;en;reference;Preposition;1/g1519;1519;Whereunto
+Col;Colossiens;1;29;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";3/g2872;2872;I
+Col;Colossiens;1;29;KJV;en;reference;Conjunction;2/g2532;2532;also
+Col;Colossiens;1;29;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";3/g2872;2872;labour,
+Col;Colossiens;1;29;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Singular";4/g0075;75;striving
+Col;Colossiens;1;29;KJV;en;reference;Preposition;5/g2596;2596;according to
+Col;Colossiens;1;29;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";7/g0846;846;his
+Col;Colossiens;1;29;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g1753;1753;working,
+Col;Colossiens;1;29;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";8/g3588;3588;which
+Col;Colossiens;1;29;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Accusative ; Feminine ; Singular";9/g1754;1754;worketh
+Col;Colossiens;1;29;KJV;en;reference;Preposition;10/g1722;1722;in
+Col;Colossiens;1;29;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";11/g1698;1698;me
+Col;Colossiens;1;29;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g1411;1411;mightily.
+Col;Colossiens;2;1;KJV;en;reference;Conjunction;2/g1063;1063;For
+Col;Colossiens;2;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g2309;2309;I would
+Col;Colossiens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";3/g5209;5209;that ye
+Col;Colossiens;2;1;KJV;en;reference;"Verb ; Perfect ; Active ; Infinitive";4/g1492;1492;knew
+Col;Colossiens;2;1;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";5/g2245;2245;what great
+Col;Colossiens;2;1;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g0073;73;conflict
+Col;Colossiens;2;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";7/g2192;2192;I have
+Col;Colossiens;2;1;KJV;en;reference;Preposition;8/g4012;4012;for
+Col;Colossiens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";9/g5216;5216;you,
+Col;Colossiens;2;1;KJV;en;reference;Conjunction;10/g2532;2532;and
+Col;Colossiens;2;1;KJV;en;mot_ajoute;;;;for
+Col;Colossiens;2;1;KJV;en;reference;Preposition;11/g1722;1722;them at
+Col;Colossiens;2;1;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g2993;2993;Laodicea,
+Col;Colossiens;2;1;KJV;en;reference;Conjunction;13/g2532;2532;and
+Col;Colossiens;2;1;KJV;en;mot_ajoute;;;;for
+Col;Colossiens;2;1;KJV;en;reference;"Correlative Pronoun ; Nominative ; Masculine ; Plural";14/g3745;3745;as many as
+Col;Colossiens;2;1;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Plural";16/g3708;3708;have
+Col;Colossiens;2;1;KJV;en;reference;Particle, Disjunctive Particle;15/g3756;3756;not
+Col;Colossiens;2;1;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Plural";16/g3708;3708;seen
+Col;Colossiens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";18/g3450;3450;my
+Col;Colossiens;2;1;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";17/g4383;4383;face
+Col;Colossiens;2;1;KJV;en;reference;Preposition;19/g1722;1722;in
+Col;Colossiens;2;1;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";20/g4561;4561;"the flesh;"
+Col;Colossiens;2;2;KJV;en;reference;Conjunction;1/g2443;2443;That
+Col;Colossiens;2;2;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Plural";4/g0846;846;their
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Nominative ; Feminine ; Plural";3/g2588;2588;hearts
+Col;Colossiens;2;2;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Plural";2/g3870;3870;might be comforted,
+Col;Colossiens;2;2;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Genitive ; Masculine ; Plural";5/g4822;4822;being knit together
+Col;Colossiens;2;2;KJV;en;reference;Preposition;6/g1722;1722;in
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g0026;26;love,
+Col;Colossiens;2;2;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;2;2;KJV;en;reference;Preposition;9/g1519;1519;unto
+Col;Colossiens;2;2;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";10/g3956;3956;all
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g4149;4149;riches
+Col;Colossiens;2;2;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";12/g3588;3588;of the
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g4136;4136;full assurance
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g4907;4907;of understanding,
+Col;Colossiens;2;2;KJV;en;reference;Preposition;15/g1519;1519;to
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";16/g1922;1922;the acknowledgement
+Col;Colossiens;2;2;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";17/g3588;3588;of the
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";18/g3466;3466;mystery
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g2316;2316;of God,
+Col;Colossiens;2;2;KJV;en;reference;Conjunction;20/g2532;2532;and
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";21/g3962;3962;of the Father,
+Col;Colossiens;2;2;KJV;en;reference;Conjunction;22/g2532;2532;and
+Col;Colossiens;2;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g5547;5547;"of Christ;"
+Col;Colossiens;2;3;KJV;en;reference;Preposition;1/g1722;1722;In
+Col;Colossiens;2;3;KJV;en;reference;"Relative Pronoun ; Dative ; Masculine ; Singular";2/g3739;3739;whom
+Col;Colossiens;2;3;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";3/g1526;1526;are
+Col;Colossiens;2;3;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";10/g0614;614;hid
+Col;Colossiens;2;3;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";4/g3956;3956;all
+Col;Colossiens;2;3;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";5/g3588;3588;the
+Col;Colossiens;2;3;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";6/g2344;2344;treasures
+Col;Colossiens;2;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g4678;4678;of wisdom
+Col;Colossiens;2;3;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;2;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g1108;1108;knowledge.
+Col;Colossiens;2;4;KJV;en;reference;Conjunction;2/g1161;1161;And
+Col;Colossiens;2;4;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";1/g5124;5124;this
+Col;Colossiens;2;4;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";3/g3004;3004;I say,
+Col;Colossiens;2;4;KJV;en;reference;Particle, Disjunctive Particle;4/g3361;3361, 2443;lest
+Col;Colossiens;2;4;KJV;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";5/g5100;5100;any man
+Col;Colossiens;2;4;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Subjunctive ; 3rd Person ; Singular";7/g3884;3884;should beguile
+Col;Colossiens;2;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";6/g5209;5209;you
+Col;Colossiens;2;4;KJV;en;reference;Preposition;8/g1722;1722;with
+Col;Colossiens;2;4;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";9/g4086;4086;enticing words.
+Col;Colossiens;2;5;KJV;en;reference;Conjunction;1/g1063;1063;For
+Col;Colossiens;2;5;KJV;en;reference;Conjunction;2/g2532;2532;though
+Col;Colossiens;2;5;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 1st Person ; Singular";5/g0548;548;I be absent
+Col;Colossiens;2;5;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";3/g3588;3588;in the
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";4/g4561;4561;flesh,
+Col;Colossiens;2;5;KJV;en;reference;Conjunction;6/g0235;235;yet
+Col;Colossiens;2;5;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 1st Person ; Singular";11/g1510;1510;am I
+Col;Colossiens;2;5;KJV;en;reference;Preposition;9/g4862;4862;with
+Col;Colossiens;2;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";10/g5213;5213;you
+Col;Colossiens;2;5;KJV;en;reference;"Definite article ; Dative ; Neuter ; Singular";7/g3588;3588;in the
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";8/g4151;4151;spirit,
+Col;Colossiens;2;5;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";12/g5463;5463;joying
+Col;Colossiens;2;5;KJV;en;reference;Conjunction;13/g2532;2532;and
+Col;Colossiens;2;5;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";14/g0991;991;beholding
+Col;Colossiens;2;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";15/g5216;5216;your
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";16/g5010;5010;order,
+Col;Colossiens;2;5;KJV;en;reference;Conjunction;17/g2532;2532;and
+Col;Colossiens;2;5;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";18/g3588;3588;the
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";19/g4733;4733;stedfastness
+Col;Colossiens;2;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";23/g5216;5216;of your
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";22/g4102;4102;faith
+Col;Colossiens;2;5;KJV;en;reference;Preposition;20/g1519;1519;in
+Col;Colossiens;2;5;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";21/g5547;5547;Christ.
+Col;Colossiens;2;6;KJV;en;reference;Adverb;1/g5613;5613;As
+Col;Colossiens;2;6;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";3/g3880;3880;ye have
+Col;Colossiens;2;6;KJV;en;reference;Conjunction;2/g3767;3767;therefore
+Col;Colossiens;2;6;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";3/g3880;3880;received
+Col;Colossiens;2;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g5547;5547;Christ
+Col;Colossiens;2;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";5/g2424;2424;Jesus
+Col;Colossiens;2;6;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";6/g3588;3588;the
+Col;Colossiens;2;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g2962;2962;Lord,
+Col;Colossiens;2;6;KJV;en;mot_ajoute;;;;so
+Col;Colossiens;2;6;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";10/g4043;4043;walk ye
+Col;Colossiens;2;6;KJV;en;reference;Preposition;8/g1722;1722;in
+Col;Colossiens;2;6;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";9/g0846;846;him:
+Col;Colossiens;2;7;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";1/g4492;4492;Rooted
+Col;Colossiens;2;7;KJV;en;reference;Conjunction;2/g2532;2532;and
+Col;Colossiens;2;7;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";3/g2026;2026;built up
+Col;Colossiens;2;7;KJV;en;reference;Preposition;4/g1722;1722;in
+Col;Colossiens;2;7;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";5/g0846;846;him,
+Col;Colossiens;2;7;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;2;7;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";7/g0950;950;stablished
+Col;Colossiens;2;7;KJV;en;reference;Preposition;8/g1722;1722;in
+Col;Colossiens;2;7;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";9/g3588;3588;the
+Col;Colossiens;2;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g4102;4102;faith,
+Col;Colossiens;2;7;KJV;en;reference;Adverb;11/g2531;2531;as
+Col;Colossiens;2;7;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";12/g1321;1321;ye have been taught,
+Col;Colossiens;2;7;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g4052;4052;abounding
+Col;Colossiens;2;7;KJV;en;reference;Preposition;14/g1722;1722, 846;therein
+Col;Colossiens;2;7;KJV;en;reference;Preposition;15/g1722;1722;with
+Col;Colossiens;2;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";16/g2169;2169;thanksgiving.
+Col;Colossiens;2;8;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";1/g0991;991;Beware
+Col;Colossiens;2;8;KJV;en;reference;Particle, Disjunctive Particle;2/g3361;3361;lest
+Col;Colossiens;2;8;KJV;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";3/g5100;5100;any man
+Col;Colossiens;2;8;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";5/g4812;4812, 2071;spoil
+Col;Colossiens;2;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you
+Col;Colossiens;2;8;KJV;en;reference;Preposition;6/g1223;1223;through
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g5385;5385;philosophy
+Col;Colossiens;2;8;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;2;8;KJV;en;reference;"Adjective ; Genitive ; Feminine ; Singular";9/g2756;2756;vain
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g0539;539;deceit,
+Col;Colossiens;2;8;KJV;en;reference;Preposition;11/g2596;2596;after
+Col;Colossiens;2;8;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";12/g3588;3588;the
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g3862;3862;tradition
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";14/g0444;444;of men,
+Col;Colossiens;2;8;KJV;en;reference;Preposition;15/g2596;2596;after
+Col;Colossiens;2;8;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";16/g3588;3588;the
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";17/g4747;4747;rudiments
+Col;Colossiens;2;8;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";18/g3588;3588;of the
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g2889;2889;world,
+Col;Colossiens;2;8;KJV;en;reference;Conjunction;20/g2532;2532;and
+Col;Colossiens;2;8;KJV;en;reference;Particle, Disjunctive Particle;21/g3756;3756;not
+Col;Colossiens;2;8;KJV;en;reference;Preposition;22/g2596;2596;after
+Col;Colossiens;2;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";23/g5547;5547;Christ.
+Col;Colossiens;2;9;KJV;en;reference;Conjunction;1/g3754;3754;For
+Col;Colossiens;2;9;KJV;en;reference;Preposition;2/g1722;1722;in
+Col;Colossiens;2;9;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";3/g0846;846;him
+Col;Colossiens;2;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";4/g2730;2730;dwelleth
+Col;Colossiens;2;9;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";5/g3956;3956;all
+Col;Colossiens;2;9;KJV;en;reference;"Definite article ; Nominative ; Neuter ; Singular";6/g3588;3588;the
+Col;Colossiens;2;9;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";7/g4138;4138;fulness
+Col;Colossiens;2;9;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";8/g3588;3588;of the
+Col;Colossiens;2;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g2320;2320;Godhead
+Col;Colossiens;2;9;KJV;en;reference;Adverb;10/g4985;4985;bodily.
+Col;Colossiens;2;10;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;2;10;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 2nd Person ; Plural";2/g2075;2075;ye are
+Col;Colossiens;2;10;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";5/g4137;4137;complete
+Col;Colossiens;2;10;KJV;en;reference;Preposition;3/g1722;1722;in
+Col;Colossiens;2;10;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";4/g0846;846;him,
+Col;Colossiens;2;10;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";6/g3739;3739;which
+Col;Colossiens;2;10;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";7/g2076;2076;is
+Col;Colossiens;2;10;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";8/g3588;3588;the
+Col;Colossiens;2;10;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";9/g2776;2776;head
+Col;Colossiens;2;10;KJV;en;reference;"Adjective ; Genitive ; Feminine ; Singular";10/g3956;3956;of all
+Col;Colossiens;2;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g0746;746;principality
+Col;Colossiens;2;10;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;2;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g1849;1849;power:
+Col;Colossiens;2;11;KJV;en;reference;Preposition;1/g1722;1722;In
+Col;Colossiens;2;11;KJV;en;reference;"Relative Pronoun ; Dative ; Masculine ; Singular";2/g3739;3739;whom
+Col;Colossiens;2;11;KJV;en;reference;Conjunction;3/g2532;2532;also
+Col;Colossiens;2;11;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";4/g4059;4059;ye are circumcised
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g4061;4061;with the circumcision
+Col;Colossiens;2;11;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";6/g0886;886;made without hands,
+Col;Colossiens;2;11;KJV;en;reference;Preposition;7/g1722;1722;in
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g0555;555;putting off
+Col;Colossiens;2;11;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";9/g3588;3588;the
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";10/g4983;4983;body
+Col;Colossiens;2;11;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Plural";11/g3588;3588;of the
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";12/g0266;266;sins
+Col;Colossiens;2;11;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";13/g3588;3588;of the
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g4561;4561;flesh
+Col;Colossiens;2;11;KJV;en;reference;Preposition;15/g1722;1722;by
+Col;Colossiens;2;11;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";16/g3588;3588;the
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";17/g4061;4061;circumcision
+Col;Colossiens;2;11;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g5547;5547;of Christ:
+Col;Colossiens;2;12;KJV;en;reference;"Verb ; Second Aorist ; Passive ; Participle ; Nominative ; Masculine ; Plural";1/g4916;4916;Buried with
+Col;Colossiens;2;12;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";2/g0846;846;him
+Col;Colossiens;2;12;KJV;en;reference;Preposition;3/g1722;1722;in
+Col;Colossiens;2;12;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";4/g0908;908;baptism,
+Col;Colossiens;2;12;KJV;en;reference;Preposition;5/g1722;1722, 3739;wherein
+Col;Colossiens;2;12;KJV;en;reference;Conjunction;6/g2532;2532;also
+Col;Colossiens;2;12;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";7/g4891;4891;ye are risen with
+Col;Colossiens;2;12;KJV;en;mot_ajoute;;;;him
+Col;Colossiens;2;12;KJV;en;reference;Preposition;8/g1223;1223;through
+Col;Colossiens;2;12;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";9/g3588;3588;the
+Col;Colossiens;2;12;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g4102;4102;faith
+Col;Colossiens;2;12;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";11/g3588;3588;of the
+Col;Colossiens;2;12;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";12/g1753;1753;operation
+Col;Colossiens;2;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";13/g2316;2316;of God,
+Col;Colossiens;2;12;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";14/g3588;3588;who
+Col;Colossiens;2;12;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";15/g1453;1453;hath raised
+Col;Colossiens;2;12;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";16/g0846;846;him
+Col;Colossiens;2;12;KJV;en;reference;Preposition;17/g1537;1537;from
+Col;Colossiens;2;12;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";18/g3588;3588;the
+Col;Colossiens;2;12;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";19/g3498;3498;dead.
+Col;Colossiens;2;13;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you,
+Col;Colossiens;2;13;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Accusative ; Masculine ; Plural";4/g5607;5607;being
+Col;Colossiens;2;13;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";3/g3498;3498;dead
+Col;Colossiens;2;13;KJV;en;reference;Preposition;5/g1722;1722;in
+Col;Colossiens;2;13;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";6/g3900;3900;your sins
+Col;Colossiens;2;13;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;2;13;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";8/g3588;3588;the
+Col;Colossiens;2;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";9/g0203;203;uncircumcision
+Col;Colossiens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;of your
+Col;Colossiens;2;13;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g4561;4561;flesh,
+Col;Colossiens;2;13;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";12/g4806;4806;hath he quickened together
+Col;Colossiens;2;13;KJV;en;reference;Preposition;13/g4862;4862;with
+Col;Colossiens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";14/g0846;846;him,
+Col;Colossiens;2;13;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Participle ; Nominative ; Masculine ; Singular";15/g5483;5483;having forgiven
+Col;Colossiens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";16/g2254;2254;you
+Col;Colossiens;2;13;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";17/g3956;3956;all
+Col;Colossiens;2;13;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";18/g3900;3900;"trespasses;"
+Col;Colossiens;2;14;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";1/g1813;1813;Blotting out
+Col;Colossiens;2;14;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";4/g5498;5498;the handwriting
+Col;Colossiens;2;14;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";5/g1378;1378;of ordinances
+Col;Colossiens;2;14;KJV;en;reference;Preposition;2/g2596;2596;that was against
+Col;Colossiens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";3/g2257;2257;us,
+Col;Colossiens;2;14;KJV;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Singular";6/g3739;3739;which
+Col;Colossiens;2;14;KJV;en;reference;"Verb ; Imperfect ; (No voice stated) ; Indicative ; 3rd Person ; Singular";7/g2258;2258;was
+Col;Colossiens;2;14;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";8/g5227;5227;contrary
+Col;Colossiens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";9/g2254;2254;to us,
+Col;Colossiens;2;14;KJV;en;reference;Conjunction;10/g2532;2532;and
+Col;Colossiens;2;14;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";12/g0142;142;took
+Col;Colossiens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";11/g0846;846;it
+Col;Colossiens;2;14;KJV;en;reference;Preposition;13/g1537;1537;out of
+Col;Colossiens;2;14;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Singular";14/g3588;3588;the
+Col;Colossiens;2;14;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";15/g3319;3319;way,
+Col;Colossiens;2;14;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";16/g4338;4338;nailing
+Col;Colossiens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";17/g0846;846;it
+Col;Colossiens;2;14;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";18/g4716;4716;"to his cross;"
+Col;Colossiens;2;15;KJV;en;mot_ajoute;;;;And
+Col;Colossiens;2;15;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Participle ; Nominative ; Masculine ; Singular";1/g0554;554;having spoiled
+Col;Colossiens;2;15;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";2/g0746;746;principalities
+Col;Colossiens;2;15;KJV;en;reference;Conjunction;3/g2532;2532;and
+Col;Colossiens;2;15;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";4/g1849;1849;powers,
+Col;Colossiens;2;15;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";5/g1165;1165;he made a shew of them
+Col;Colossiens;2;15;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g3954;3954;openly,
+Col;Colossiens;2;15;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";7/g2358;2358;triumphing over
+Col;Colossiens;2;15;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Plural";8/g0846;846;them
+Col;Colossiens;2;15;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;2;15;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Neuter ; Singular";10/g0846;846;it.
+Col;Colossiens;2;16;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";5/g2919;2919;Let
+Col;Colossiens;2;16;KJV;en;reference;Particle, Disjunctive Particle;1/g3361;3361;no
+Col;Colossiens;2;16;KJV;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";3/g5100;5100;man
+Col;Colossiens;2;16;KJV;en;reference;Conjunction;2/g3767;3767;therefore
+Col;Colossiens;2;16;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";5/g2919;2919;judge
+Col;Colossiens;2;16;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you
+Col;Colossiens;2;16;KJV;en;reference;Preposition;6/g1722;1722;in
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g1035;1035;meat,
+Col;Colossiens;2;16;KJV;en;reference;Particle, Disjunctive Particle;8/g2228;2228;or
+Col;Colossiens;2;16;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g4213;4213;drink,
+Col;Colossiens;2;16;KJV;en;reference;Particle, Disjunctive Particle;11/g2228;2228;or
+Col;Colossiens;2;16;KJV;en;reference;Preposition;12/g1722;1722;in
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";13/g3313;3313;respect
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g1859;1859;of an holyday,
+Col;Colossiens;2;16;KJV;en;reference;Particle, Disjunctive Particle;15/g2228;2228;or
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";16/g3561;3561;of the new moon,
+Col;Colossiens;2;16;KJV;en;reference;Particle, Disjunctive Particle;17/g2228;2228;or
+Col;Colossiens;2;16;KJV;en;reference;"Noun ; Genitive ; Neuter ; Plural";18/g4521;4521;of the sabbath
+Col;Colossiens;2;16;KJV;en;mot_ajoute;;;;days:
+Col;Colossiens;2;17;KJV;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Plural";1/g3739;3739;Which
+Col;Colossiens;2;17;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";2/g2076;2076;are
+Col;Colossiens;2;17;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g4639;4639;a shadow
+Col;Colossiens;2;17;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Neuter ; Plural";4/g3195;3195;"of things to come;"
+Col;Colossiens;2;17;KJV;en;reference;Conjunction;5/g1161;1161;but
+Col;Colossiens;2;17;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";6/g4983;4983;the body
+Col;Colossiens;2;17;KJV;en;mot_ajoute;;;;is
+Col;Colossiens;2;17;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g5547;5547;of Christ.
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";3/g2603;2603;Let
+Col;Colossiens;2;18;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";1/g3367;3367;no man
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";3/g2603;2603;beguile
+Col;Colossiens;2;18;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";3/g2603;2603;of your reward
+Col;Colossiens;2;18;KJV;en;reference;Preposition;5/g1722;1722;in
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";4/g2309;2309;a voluntary
+Col;Colossiens;2;18;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g5012;5012;humility
+Col;Colossiens;2;18;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;2;18;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g2356;2356;worshipping
+Col;Colossiens;2;18;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";9/g0032;32;of angels,
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";13/g1687;1687;intruding into
+Col;Colossiens;2;18;KJV;en;reference;"Relative Pronoun ; Accusative ; Neuter ; Plural";10/g3739;3739;those things which
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";12/g3708;3708;he hath
+Col;Colossiens;2;18;KJV;en;reference;Particle, Disjunctive Particle;11/g3361;3361;not
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";12/g3708;3708;seen,
+Col;Colossiens;2;18;KJV;en;reference;Adverb;14/g1500;1500;vainly
+Col;Colossiens;2;18;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Singular";15/g5448;5448;puffed up
+Col;Colossiens;2;18;KJV;en;reference;Preposition;16/g5259;5259;by
+Col;Colossiens;2;18;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";19/g0846;846;his
+Col;Colossiens;2;18;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";18/g4561;4561;fleshly
+Col;Colossiens;2;18;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g3563;3563;mind,
+Col;Colossiens;2;19;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;2;19;KJV;en;reference;Particle, Disjunctive Particle;2/g3756;3756;not
+Col;Colossiens;2;19;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";3/g2902;2902;holding
+Col;Colossiens;2;19;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";4/g3588;3588;the
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g2776;2776;Head,
+Col;Colossiens;2;19;KJV;en;reference;Preposition;6/g1537;1537;from
+Col;Colossiens;2;19;KJV;en;reference;"Relative Pronoun ; Genitive ; Masculine ; Singular";7/g3739;3739;which
+Col;Colossiens;2;19;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";8/g3956;3956;all
+Col;Colossiens;2;19;KJV;en;reference;"Definite article ; Nominative ; Neuter ; Singular";9/g3588;3588;the
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";10/g4983;4983;body
+Col;Colossiens;2;19;KJV;en;reference;Preposition;11/g1223;1223;by
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";12/g0860;860;joints
+Col;Colossiens;2;19;KJV;en;reference;Conjunction;13/g2532;2532;and
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";14/g4886;4886;bands
+Col;Colossiens;2;19;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Neuter ; Singular";15/g2023;2023;having nourishment ministered,
+Col;Colossiens;2;19;KJV;en;reference;Conjunction;16/g2532;2532;and
+Col;Colossiens;2;19;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Neuter ; Singular";17/g4822;4822;knit together,
+Col;Colossiens;2;19;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";18/g0837;837;increaseth
+Col;Colossiens;2;19;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";19/g3588;3588;with the
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";20/g0838;838;increase
+Col;Colossiens;2;19;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";21/g2316;2316;of God.
+Col;Colossiens;2;20;KJV;en;reference;Conjunction;2/g3767;3767;Wherefore
+Col;Colossiens;2;20;KJV;en;reference;Conditional Particle or Conjunction;1/g1487;1487;if
+Col;Colossiens;2;20;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";3/g0599;599;ye be dead
+Col;Colossiens;2;20;KJV;en;reference;Preposition;4/g4862;4862;with
+Col;Colossiens;2;20;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g5547;5547;Christ
+Col;Colossiens;2;20;KJV;en;reference;Preposition;6/g0575;575;from
+Col;Colossiens;2;20;KJV;en;reference;"Definite article ; Genitive ; Neuter ; Plural";7/g3588;3588;the
+Col;Colossiens;2;20;KJV;en;reference;"Noun ; Genitive ; Neuter ; Plural";8/g4747;4747;rudiments
+Col;Colossiens;2;20;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";9/g3588;3588;of the
+Col;Colossiens;2;20;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";10/g2889;2889;world,
+Col;Colossiens;2;20;KJV;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Neuter ; Singular";11/g5101;5101;why,
+Col;Colossiens;2;20;KJV;en;reference;Adverb;12/g5613;5613;as though
+Col;Colossiens;2;20;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g2198;2198;living
+Col;Colossiens;2;20;KJV;en;reference;Preposition;14/g1722;1722;in
+Col;Colossiens;2;20;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g2889;2889;the world,
+Col;Colossiens;2;20;KJV;en;reference;"Verb ; Present ; Passive ; Indicative ; 2nd Person ; Plural";16/g1379;1379;are ye subject to ordinances,
+Col;Colossiens;2;21;KJV;en;reference;"Verb ; Aorist ; Middle ; Subjunctive ; 2nd Person ; Singular";2/g0680;680;(Touch
+Col;Colossiens;2;21;KJV;en;reference;Particle, Disjunctive Particle;1/g3361;3361;"not;"
+Col;Colossiens;2;21;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Subjunctive ; 2nd Person ; Singular";4/g1089;1089;taste
+Col;Colossiens;2;21;KJV;en;reference;Conjunction;3/g3366;3366;"not;"
+Col;Colossiens;2;21;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 2nd Person ; Singular";6/g2345;2345;handle
+Col;Colossiens;2;21;KJV;en;reference;Conjunction;5/g3366;3366;"not;"
+Col;Colossiens;2;22;KJV;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Plural";1/g3739;3739;Which
+Col;Colossiens;2;22;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";3/g3956;3956;all
+Col;Colossiens;2;22;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";2/g2076;2076;are
+Col;Colossiens;2;22;KJV;en;reference;Preposition;4/g1519;1519;to
+Col;Colossiens;2;22;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g5356;5356;perish
+Col;Colossiens;2;22;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";6/g3588;3588;with the
+Col;Colossiens;2;22;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g0671;671;"using;)"
+Col;Colossiens;2;22;KJV;en;reference;Preposition;8/g2596;2596;after
+Col;Colossiens;2;22;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";9/g3588;3588;the
+Col;Colossiens;2;22;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";10/g1778;1778;commandments
+Col;Colossiens;2;22;KJV;en;reference;Conjunction;11/g2532;2532;and
+Col;Colossiens;2;22;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";12/g1319;1319;doctrines
+Col;Colossiens;2;22;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";13/g0444;444;of men?
+Col;Colossiens;2;23;KJV;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Plural";1/g3748;3748;Which things
+Col;Colossiens;2;23;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Neuter ; Plural";4/g2192;2192;have
+Col;Colossiens;2;23;KJV;en;reference;Particle, Disjunctive Particle;3/g3303;3303;indeed
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";2/g3056;3056, 2076;a shew
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g4678;4678;of wisdom
+Col;Colossiens;2;23;KJV;en;reference;Preposition;6/g1722;1722;in
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g1479;1479;will worship,
+Col;Colossiens;2;23;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";9/g5012;5012;humility,
+Col;Colossiens;2;23;KJV;en;reference;Conjunction;10/g2532;2532;and
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";11/g0857;857;neglecting
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";12/g4983;4983;"of the body;"
+Col;Colossiens;2;23;KJV;en;reference;Particle, Disjunctive Particle;13/g3756;3756;not
+Col;Colossiens;2;23;KJV;en;reference;Preposition;14/g1722;1722;in
+Col;Colossiens;2;23;KJV;en;reference;"Indefinite Pronoun ; Dative ; Feminine ; Singular";16/g5100;5100;any
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g5092;5092;honour
+Col;Colossiens;2;23;KJV;en;reference;Preposition;17/g4314;4314;to
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";18/g4140;4140;the satisfying
+Col;Colossiens;2;23;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";19/g3588;3588;of the
+Col;Colossiens;2;23;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";20/g4561;4561;flesh.
+Col;Colossiens;3;1;KJV;en;reference;Conditional Particle or Conjunction;1/g1487;1487;If
+Col;Colossiens;3;1;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";3/g4891;4891;ye
+Col;Colossiens;3;1;KJV;en;reference;Conjunction;2/g3767;3767;then
+Col;Colossiens;3;1;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";3/g4891;4891;be risen with
+Col;Colossiens;3;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";4/g5547;5547;Christ,
+Col;Colossiens;3;1;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";7/g2212;2212;seek
+Col;Colossiens;3;1;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";5/g3588;3588;those things which
+Col;Colossiens;3;1;KJV;en;reference;Adverb;6/g0507;507;are above,
+Col;Colossiens;3;1;KJV;en;reference;Adverb;8/g3757;3757;where
+Col;Colossiens;3;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g5547;5547;Christ
+Col;Colossiens;3;1;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Singular";13/g2521;2521;sitteth
+Col;Colossiens;3;1;KJV;en;reference;Preposition;10/g1722;1722;on
+Col;Colossiens;3;1;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";11/g1188;1188;the right hand
+Col;Colossiens;3;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g2316;2316;of God.
+Col;Colossiens;3;2;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g5426;5426;Set your affection
+Col;Colossiens;3;2;KJV;en;reference;Adverb;1/g0507;507;on things above,
+Col;Colossiens;3;2;KJV;en;reference;Particle, Disjunctive Particle;3/g3361;3361;not
+Col;Colossiens;3;2;KJV;en;reference;Preposition;4/g1909;1909;on things on
+Col;Colossiens;3;2;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";5/g3588;3588;the
+Col;Colossiens;3;2;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";6/g1093;1093;earth.
+Col;Colossiens;3;3;KJV;en;reference;Conjunction;2/g1063;1063;For
+Col;Colossiens;3;3;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";1/g0599;599;ye are dead,
+Col;Colossiens;3;3;KJV;en;reference;Conjunction;3/g2532;2532;and
+Col;Colossiens;3;3;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;your
+Col;Colossiens;3;3;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g2222;2222;life
+Col;Colossiens;3;3;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";6/g2928;2928;is hid
+Col;Colossiens;3;3;KJV;en;reference;Preposition;7/g4862;4862;with
+Col;Colossiens;3;3;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g5547;5547;Christ
+Col;Colossiens;3;3;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;3;3;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2316;2316;God.
+Col;Colossiens;3;4;KJV;en;reference;Conjunction;1/g3752;3752;When
+Col;Colossiens;3;4;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g5547;5547;Christ,
+Col;Colossiens;3;4;KJV;en;mot_ajoute;;;;who is
+Col;Colossiens;3;4;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;our
+Col;Colossiens;3;4;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g2222;2222;life,
+Col;Colossiens;3;4;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Singular";3/g5319;5319;shall appear,
+Col;Colossiens;3;4;KJV;en;reference;Adverb;6/g5119;5119;then
+Col;Colossiens;3;4;KJV;en;reference;"Verb ; Future ; Passive ; Indicative ; 2nd Person ; Plural";11/g5319;5319;shall
+Col;Colossiens;3;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";8/g5210;5210;ye
+Col;Colossiens;3;4;KJV;en;reference;Conjunction;7/g2532;2532;also
+Col;Colossiens;3;4;KJV;en;reference;"Verb ; Future ; Passive ; Indicative ; 2nd Person ; Plural";11/g5319;5319;appear
+Col;Colossiens;3;4;KJV;en;reference;Preposition;9/g4862;4862;with
+Col;Colossiens;3;4;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";10/g0846;846;him
+Col;Colossiens;3;4;KJV;en;reference;Preposition;12/g1722;1722;in
+Col;Colossiens;3;4;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g1391;1391;glory.
+Col;Colossiens;3;5;KJV;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";1/g3499;3499;Mortify
+Col;Colossiens;3;5;KJV;en;reference;Conjunction;2/g3767;3767;therefore
+Col;Colossiens;3;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";4/g5216;5216;your
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";3/g3196;3196;members
+Col;Colossiens;3;5;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";5/g3588;3588;which
+Col;Colossiens;3;5;KJV;en;reference;Preposition;6/g1909;1909;are upon
+Col;Colossiens;3;5;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";7/g3588;3588;the
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g1093;1093;"earth;"
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g4202;4202;fornication,
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g0167;167;uncleanness,
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";11/g3806;3806;inordinate affection,
+Col;Colossiens;3;5;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Singular";13/g2556;2556;evil
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g1939;1939;concupiscence,
+Col;Colossiens;3;5;KJV;en;reference;Conjunction;14/g2532;2532;and
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";15/g4124;4124;covetousness,
+Col;Colossiens;3;5;KJV;en;reference;"Relative Pronoun ; Nominative ; Feminine ; Singular";16/g3748;3748;which
+Col;Colossiens;3;5;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";17/g2076;2076;is
+Col;Colossiens;3;5;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";18/g1495;1495;idolatry:
+Col;Colossiens;3;6;KJV;en;reference;Preposition;1/g1223;1223;For
+Col;Colossiens;3;6;KJV;en;reference;"Relative Pronoun ; Accusative ; Neuter ; Plural";2/g3739;3739;which things' sake
+Col;Colossiens;3;6;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";4/g3588;3588;the
+Col;Colossiens;3;6;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";5/g3709;3709;wrath
+Col;Colossiens;3;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2316;2316;of God
+Col;Colossiens;3;6;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";3/g2064;2064;cometh
+Col;Colossiens;3;6;KJV;en;reference;Preposition;7/g1909;1909;on
+Col;Colossiens;3;6;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";8/g3588;3588;the
+Col;Colossiens;3;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";9/g5207;5207;children
+Col;Colossiens;3;6;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g0543;543;of disobedience:
+Col;Colossiens;3;7;KJV;en;reference;Preposition;1/g1722;1722;In
+Col;Colossiens;3;7;KJV;en;reference;"Relative Pronoun ; Dative ; Masculine ; Plural";2/g3739;3739;the which
+Col;Colossiens;3;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";4/g5210;5210;ye
+Col;Colossiens;3;7;KJV;en;reference;Conjunction;3/g2532;2532;also
+Col;Colossiens;3;7;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 2nd Person ; Plural";5/g4043;4043;walked
+Col;Colossiens;3;7;KJV;en;reference;Particle, Disjunctive Particle;6/g4218;4218;some time,
+Col;Colossiens;3;7;KJV;en;reference;Adverb;7/g3753;3753;when
+Col;Colossiens;3;7;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 2nd Person ; Plural";8/g2198;2198;ye lived
+Col;Colossiens;3;7;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;3;7;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Neuter ; Plural";10/g0846;846;them.
+Col;Colossiens;3;8;KJV;en;reference;Conjunction;2/g1161;1161;But
+Col;Colossiens;3;8;KJV;en;reference;Adverb;1/g3570;3570;now
+Col;Colossiens;3;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";5/g5210;5210;ye
+Col;Colossiens;3;8;KJV;en;reference;Conjunction;4/g2532;2532;also
+Col;Colossiens;3;8;KJV;en;reference;"Verb ; Second Aorist ; Middle ; Imperative ; 2nd Person ; Plural";3/g0659;659;put off
+Col;Colossiens;3;8;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";6/g3956;3956;"all these;"
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g3709;3709;anger,
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g2372;2372;wrath,
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g2549;2549;malice,
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g0988;988;blasphemy,
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g0148;148;filthy communication
+Col;Colossiens;3;8;KJV;en;reference;Preposition;12/g1537;1537;out of
+Col;Colossiens;3;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";14/g5216;5216;your
+Col;Colossiens;3;8;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";13/g4750;4750;mouth.
+Col;Colossiens;3;9;KJV;en;reference;"Verb ; Present ; Middle ; Imperative ; 2nd Person ; Plural";2/g5574;5574;Lie
+Col;Colossiens;3;9;KJV;en;reference;Particle, Disjunctive Particle;1/g3361;3361;not
+Col;Colossiens;3;9;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";4/g0240;240;one
+Col;Colossiens;3;9;KJV;en;reference;Preposition;3/g1519;1519;to
+Col;Colossiens;3;9;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";4/g0240;240;another,
+Col;Colossiens;3;9;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Participle ; Nominative ; Masculine ; Plural";5/g0554;554;seeing that ye have put off
+Col;Colossiens;3;9;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";6/g3588;3588;the
+Col;Colossiens;3;9;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";7/g3820;3820;old
+Col;Colossiens;3;9;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g0444;444;man
+Col;Colossiens;3;9;KJV;en;reference;Preposition;9/g4862;4862;with
+Col;Colossiens;3;9;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";11/g0846;846;his
+Col;Colossiens;3;9;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";10/g4234;4234;"deeds;"
+Col;Colossiens;3;10;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;3;10;KJV;en;reference;"Verb ; Aorist ; Middle ; Participle ; Nominative ; Masculine ; Plural";2/g1746;1746;have put on
+Col;Colossiens;3;10;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";3/g3588;3588;the
+Col;Colossiens;3;10;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";4/g3501;3501;new
+Col;Colossiens;3;10;KJV;en;mot_ajoute;;;;man,
+Col;Colossiens;3;10;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";5/g3588;3588;which
+Col;Colossiens;3;10;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Accusative ; Masculine ; Singular";6/g0341;341;is renewed
+Col;Colossiens;3;10;KJV;en;reference;Preposition;7/g1519;1519;in
+Col;Colossiens;3;10;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";8/g1922;1922;knowledge
+Col;Colossiens;3;10;KJV;en;reference;Preposition;9/g2596;2596;after
+Col;Colossiens;3;10;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g1504;1504;the image of him
+Col;Colossiens;3;10;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";11/g2936;2936;that created
+Col;Colossiens;3;10;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";12/g0846;846;him:
+Col;Colossiens;3;11;KJV;en;reference;Adverb;1/g3699;3699;Where
+Col;Colossiens;3;11;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";3/g1762;1762;there is
+Col;Colossiens;3;11;KJV;en;reference;Particle, Disjunctive Particle;2/g3756;3756;neither
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g1672;1672;Greek
+Col;Colossiens;3;11;KJV;en;reference;Conjunction;5/g2532;2532;nor
+Col;Colossiens;3;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";6/g2453;2453;Jew,
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";7/g4061;4061;circumcision
+Col;Colossiens;3;11;KJV;en;reference;Conjunction;8/g2532;2532;nor
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";9/g0203;203;uncircumcision,
+Col;Colossiens;3;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";10/g0915;915;Barbarian,
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";11/g4658;4658;Scythian,
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g1401;1401;bond
+Col;Colossiens;3;11;KJV;en;mot_ajoute;;;;nor
+Col;Colossiens;3;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";13/g1658;1658;free:
+Col;Colossiens;3;11;KJV;en;reference;Conjunction;14/g0235;235;but
+Col;Colossiens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";19/g5547;5547;Christ
+Col;Colossiens;3;11;KJV;en;mot_ajoute;;;;is
+Col;Colossiens;3;11;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Plural";15/g3956;3956;all,
+Col;Colossiens;3;11;KJV;en;reference;Conjunction;16/g2532;2532;and
+Col;Colossiens;3;11;KJV;en;reference;Preposition;17/g1722;1722;in
+Col;Colossiens;3;11;KJV;en;reference;"Adjective ; Dative ; Neuter ; Plural";18/g3956;3956;all.
+Col;Colossiens;3;12;KJV;en;reference;"Verb ; Aorist ; Middle ; Imperative ; 2nd Person ; Plural";1/g1746;1746;Put on
+Col;Colossiens;3;12;KJV;en;reference;Conjunction;2/g3767;3767;therefore,
+Col;Colossiens;3;12;KJV;en;reference;Adverb;3/g5613;5613;as
+Col;Colossiens;3;12;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";4/g1588;1588;the elect
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;of God,
+Col;Colossiens;3;12;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";6/g0040;40;holy
+Col;Colossiens;3;12;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;3;12;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";8/g0025;25;beloved,
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";9/g4698;4698;bowels
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";10/g3628;3628;of mercies,
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g5544;5544;kindness,
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g5012;5012;humbleness of mind,
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g4236;4236;meekness,
+Col;Colossiens;3;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";14/g3115;3115;"longsuffering;"
+Col;Colossiens;3;13;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";1/g0430;430;Forbearing
+Col;Colossiens;3;13;KJV;en;reference;"Reciprocal Pronoun ; Genitive ; Masculine ; Plural";2/g0240;240;one another,
+Col;Colossiens;3;13;KJV;en;reference;Conjunction;3/g2532;2532;and
+Col;Colossiens;3;13;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";4/g5483;5483;forgiving
+Col;Colossiens;3;13;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Dative ; Masculine ; Plural";5/g1438;1438;one another,
+Col;Colossiens;3;13;KJV;en;reference;Conditional Particle or Conjunction;6/g1437;1437;if
+Col;Colossiens;3;13;KJV;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";7/g5100;5100;any man
+Col;Colossiens;3;13;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Singular";10/g2192;2192;have
+Col;Colossiens;3;13;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g3437;3437;a quarrel
+Col;Colossiens;3;13;KJV;en;reference;Preposition;8/g4314;4314;against
+Col;Colossiens;3;13;KJV;en;reference;"Indefinite Pronoun ; Accusative ; Masculine ; Singular";9/g5100;5100;any:
+Col;Colossiens;3;13;KJV;en;reference;Adverb;12/g2531;2531;even as
+Col;Colossiens;3;13;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";13/g5547;5547;Christ
+Col;Colossiens;3;13;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Indicative ; 3rd Person ; Singular";14/g5483;5483;forgave
+Col;Colossiens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";15/g5213;5213;you,
+Col;Colossiens;3;13;KJV;en;reference;Adverb;16/g3779;3779;so
+Col;Colossiens;3;13;KJV;en;reference;Conjunction;17/g2532;2532;also
+Col;Colossiens;3;13;KJV;en;mot_ajoute;;;;do
+Col;Colossiens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";18/g5210;5210;ye.
+Col;Colossiens;3;14;KJV;en;reference;Conjunction;3/g1161;1161;And
+Col;Colossiens;3;14;KJV;en;reference;Preposition;1/g1909;1909;above
+Col;Colossiens;3;14;KJV;en;reference;"Adjective ; Dative ; Neuter ; Plural";2/g3956;3956;all
+Col;Colossiens;3;14;KJV;en;reference;"Demonstrative Pronoun ; Dative ; Neuter ; Plural";4/g5125;5125;these things
+Col;Colossiens;3;14;KJV;en;mot_ajoute;;;;put on
+Col;Colossiens;3;14;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g0026;26;charity,
+Col;Colossiens;3;14;KJV;en;reference;"Relative Pronoun ; Nominative ; Feminine ; Singular";6/g3748;3748;which
+Col;Colossiens;3;14;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";7/g2076;2076;is
+Col;Colossiens;3;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g4886;4886;the bond
+Col;Colossiens;3;14;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g5047;5047;of perfectness.
+Col;Colossiens;3;15;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;3;15;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";5/g1018;1018;let
+Col;Colossiens;3;15;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";2/g3588;3588;the
+Col;Colossiens;3;15;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g1515;1515;peace
+Col;Colossiens;3;15;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2316;2316;of God
+Col;Colossiens;3;15;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";5/g1018;1018;rule
+Col;Colossiens;3;15;KJV;en;reference;Preposition;6/g1722;1722;in
+Col;Colossiens;3;15;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;your
+Col;Colossiens;3;15;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";7/g2588;2588;hearts,
+Col;Colossiens;3;15;KJV;en;reference;Preposition;9/g1519;1519;to
+Col;Colossiens;3;15;KJV;en;reference;"Relative Pronoun ; Accusative ; Feminine ; Singular";10/g3739;3739;the which
+Col;Colossiens;3;15;KJV;en;reference;Conjunction;11/g2532;2532;also
+Col;Colossiens;3;15;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";12/g2564;2564;ye are called
+Col;Colossiens;3;15;KJV;en;reference;Preposition;13/g1722;1722;in
+Col;Colossiens;3;15;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";14/g1520;1520;one
+Col;Colossiens;3;15;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";15/g4983;4983;"body;"
+Col;Colossiens;3;15;KJV;en;reference;Conjunction;16/g2532;2532;and
+Col;Colossiens;3;15;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";18/g1096;1096;be ye
+Col;Colossiens;3;15;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";17/g2170;2170;thankful.
+Col;Colossiens;3;16;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";4/g1774;1774;Let
+Col;Colossiens;3;16;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";1/g3588;3588;the
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g3056;3056;word
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";3/g5547;5547;of Christ
+Col;Colossiens;3;16;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";4/g1774;1774;dwell
+Col;Colossiens;3;16;KJV;en;reference;Preposition;5/g1722;1722;in
+Col;Colossiens;3;16;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";6/g5213;5213;you
+Col;Colossiens;3;16;KJV;en;reference;Adverb;7/g4146;4146;richly
+Col;Colossiens;3;16;KJV;en;reference;Preposition;8/g1722;1722;in
+Col;Colossiens;3;16;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";9/g3956;3956;all
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g4678;4678;"wisdom;"
+Col;Colossiens;3;16;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g1321;1321;teaching
+Col;Colossiens;3;16;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;3;16;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g3560;3560;admonishing
+Col;Colossiens;3;16;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Accusative ; Masculine ; Plural";14/g1438;1438;one another
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";15/g5568;5568;in psalms
+Col;Colossiens;3;16;KJV;en;reference;Conjunction;16/g2532;2532;and
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";17/g5215;5215;hymns
+Col;Colossiens;3;16;KJV;en;reference;Conjunction;18/g2532;2532;and
+Col;Colossiens;3;16;KJV;en;reference;"Adjective ; Dative ; Feminine ; Plural";20/g4152;4152;spiritual
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";19/g5603;5603;songs,
+Col;Colossiens;3;16;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";23/g0103;103;singing
+Col;Colossiens;3;16;KJV;en;reference;Preposition;21/g1722;1722;with
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";22/g5485;5485;grace
+Col;Colossiens;3;16;KJV;en;reference;Preposition;24/g1722;1722;in
+Col;Colossiens;3;16;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";26/g5216;5216;your
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";25/g2588;2588;hearts
+Col;Colossiens;3;16;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";27/g3588;3588;to the
+Col;Colossiens;3;16;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";28/g2962;2962;Lord.
+Col;Colossiens;3;17;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;3;17;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";2/g3956;3956, 3739, 5100;whatsoever
+Col;Colossiens;3;17;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";3/g4160;4160;ye do
+Col;Colossiens;3;17;KJV;en;reference;Preposition;4/g1722;1722;in
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g3056;3056;word
+Col;Colossiens;3;17;KJV;en;reference;Particle, Disjunctive Particle;6/g2228;2228;or
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";7/g2041;2041;deed,
+Col;Colossiens;3;17;KJV;en;mot_ajoute;;;;do
+Col;Colossiens;3;17;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";8/g3956;3956;all
+Col;Colossiens;3;17;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";10/g3686;3686;the name
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g2962;2962;of the Lord
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g2424;2424;Jesus,
+Col;Colossiens;3;17;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g2168;2168;giving thanks
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g2316;2316;to God
+Col;Colossiens;3;17;KJV;en;reference;Conjunction;15/g2532;2532;and
+Col;Colossiens;3;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";16/g3962;3962;the Father
+Col;Colossiens;3;17;KJV;en;reference;Preposition;17/g1223;1223;by
+Col;Colossiens;3;17;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";18/g0846;846;him.
+Col;Colossiens;3;18;KJV;en;reference;"Noun ; Nominative ; Feminine ; Plural";1/g1135;1135;Wives,
+Col;Colossiens;3;18;KJV;en;reference;"Verb ; Present ; Middle ; Imperative ; 2nd Person ; Plural";2/g5293;5293;submit yourselves
+Col;Colossiens;3;18;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";3/g2398;2398;unto your own
+Col;Colossiens;3;18;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";4/g0435;435;husbands,
+Col;Colossiens;3;18;KJV;en;reference;Adverb;5/g5613;5613;as
+Col;Colossiens;3;18;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";6/g0433;433;it is fit
+Col;Colossiens;3;18;KJV;en;reference;Preposition;7/g1722;1722;in
+Col;Colossiens;3;18;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g2962;2962;the Lord.
+Col;Colossiens;3;19;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g0435;435;Husbands,
+Col;Colossiens;3;19;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g0025;25;love
+Col;Colossiens;3;19;KJV;en;mot_ajoute;;;;your
+Col;Colossiens;3;19;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";3/g1135;1135;wives,
+Col;Colossiens;3;19;KJV;en;reference;Conjunction;4/g2532;2532;and
+Col;Colossiens;3;19;KJV;en;reference;"Verb ; Present ; Passive ; Imperative ; 2nd Person ; Plural";6/g4087;4087;be
+Col;Colossiens;3;19;KJV;en;reference;Particle, Disjunctive Particle;5/g3361;3361;not
+Col;Colossiens;3;19;KJV;en;reference;"Verb ; Present ; Passive ; Imperative ; 2nd Person ; Plural";6/g4087;4087;bitter
+Col;Colossiens;3;19;KJV;en;reference;Preposition;7/g4314;4314;against
+Col;Colossiens;3;19;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Feminine ; Plural";8/g0846;846;them.
+Col;Colossiens;3;20;KJV;en;reference;"Noun ; Nominative ; Neuter ; Plural";1/g5043;5043;Children,
+Col;Colossiens;3;20;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g5219;5219;obey
+Col;Colossiens;3;20;KJV;en;mot_ajoute;;;;your
+Col;Colossiens;3;20;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";3/g1118;1118;parents
+Col;Colossiens;3;20;KJV;en;reference;Preposition;4/g2596;2596;in
+Col;Colossiens;3;20;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";5/g3956;3956;all things:
+Col;Colossiens;3;20;KJV;en;reference;Conjunction;7/g1063;1063;for
+Col;Colossiens;3;20;KJV;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";6/g5124;5124;this
+Col;Colossiens;3;20;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";8/g2076;2076;is
+Col;Colossiens;3;20;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";9/g2101;2101;well pleasing
+Col;Colossiens;3;20;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";10/g3588;3588;unto the
+Col;Colossiens;3;20;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";11/g2962;2962;Lord.
+Col;Colossiens;3;21;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g3962;3962;Fathers,
+Col;Colossiens;3;21;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";3/g2042;2042;provoke
+Col;Colossiens;3;21;KJV;en;reference;Particle, Disjunctive Particle;2/g3361;3361;not
+Col;Colossiens;3;21;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;your
+Col;Colossiens;3;21;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";4/g5043;5043;children
+Col;Colossiens;3;21;KJV;en;mot_ajoute;;;;to anger,
+Col;Colossiens;3;21;KJV;en;reference;Particle, Disjunctive Particle;6/g3361;3361, 2443;lest
+Col;Colossiens;3;21;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Plural";7/g0120;120;they be discouraged.
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g1401;1401;Servants,
+Col;Colossiens;3;22;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g5219;5219;obey
+Col;Colossiens;3;22;KJV;en;reference;Preposition;3/g2596;2596;in
+Col;Colossiens;3;22;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";4/g3956;3956;all things
+Col;Colossiens;3;22;KJV;en;mot_ajoute;;;;your
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";7/g2962;2962;masters
+Col;Colossiens;3;22;KJV;en;reference;Preposition;5/g2596;2596;according to
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g4561;4561;"the flesh;"
+Col;Colossiens;3;22;KJV;en;reference;Particle, Disjunctive Particle;8/g3361;3361;not
+Col;Colossiens;3;22;KJV;en;reference;Preposition;9/g1722;1722;with
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";10/g3787;3787;eyeservice,
+Col;Colossiens;3;22;KJV;en;reference;Adverb;11/g5613;5613;as
+Col;Colossiens;3;22;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";12/g0441;441;"menpleasers;"
+Col;Colossiens;3;22;KJV;en;reference;Conjunction;13/g0235;235;but
+Col;Colossiens;3;22;KJV;en;reference;Preposition;14/g1722;1722;in
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g0572;572;singleness
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";16/g2588;2588;of heart,
+Col;Colossiens;3;22;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";17/g5399;5399;fearing
+Col;Colossiens;3;22;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";18/g2316;2316;God:
+Col;Colossiens;3;23;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;3;23;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";2/g3956;3956, 3739, 5100, 1437;whatsoever
+Col;Colossiens;3;23;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";3/g4160;4160;ye do,
+Col;Colossiens;3;23;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";5/g2038;2038;do
+Col;Colossiens;3;23;KJV;en;mot_ajoute;;;;it
+Col;Colossiens;3;23;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g5590;5590, 1537;heartily,
+Col;Colossiens;3;23;KJV;en;reference;Adverb;6/g5613;5613;as
+Col;Colossiens;3;23;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";7/g3588;3588;to the
+Col;Colossiens;3;23;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g2962;2962;Lord,
+Col;Colossiens;3;23;KJV;en;reference;Conjunction;9/g2532;2532;and
+Col;Colossiens;3;23;KJV;en;reference;Particle, Disjunctive Particle;10/g3756;3756;not
+Col;Colossiens;3;23;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";11/g0444;444;"unto men;"
+Col;Colossiens;3;24;KJV;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g1492;1492;Knowing
+Col;Colossiens;3;24;KJV;en;reference;Conjunction;2/g3754;3754;that
+Col;Colossiens;3;24;KJV;en;reference;Preposition;3/g0575;575;of
+Col;Colossiens;3;24;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2962;2962;the Lord
+Col;Colossiens;3;24;KJV;en;reference;"Verb ; Future ; Middle Deponent ; Indicative ; 2nd Person ; Plural";5/g0618;618;ye shall receive
+Col;Colossiens;3;24;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";6/g3588;3588;the
+Col;Colossiens;3;24;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g0469;469;reward
+Col;Colossiens;3;24;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";8/g3588;3588;of the
+Col;Colossiens;3;24;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g2817;2817;inheritance:
+Col;Colossiens;3;24;KJV;en;reference;Conjunction;10/g1063;1063;for
+Col;Colossiens;3;24;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";13/g1398;1398;ye serve
+Col;Colossiens;3;24;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";11/g2962;2962;the Lord
+Col;Colossiens;3;24;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g5547;5547;Christ.
+Col;Colossiens;3;25;KJV;en;reference;Conjunction;1/g1161;1161;But
+Col;Colossiens;3;25;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";2/g0091;91;he that doeth wrong
+Col;Colossiens;3;25;KJV;en;reference;"Verb ; Future ; Middle Deponent ; Indicative ; 3rd Person ; Singular";3/g2865;2865;shall receive
+Col;Colossiens;3;25;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";5/g0091;91;for the wrong
+Col;Colossiens;3;25;KJV;en;reference;"Relative Pronoun ; Accusative ; Neuter ; Singular";4/g3739;3739;which
+Col;Colossiens;3;25;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";5/g0091;91;he hath done:
+Col;Colossiens;3;25;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;3;25;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";8/g2076;2076;there is
+Col;Colossiens;3;25;KJV;en;reference;Particle, Disjunctive Particle;7/g3756;3756;no
+Col;Colossiens;3;25;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";9/g4382;4382;respect of persons.
+Col;Colossiens;4;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g2962;2962;Masters,
+Col;Colossiens;4;1;KJV;en;reference;"Verb ; Present ; Middle ; Imperative ; 2nd Person ; Plural";7/g3930;3930;give
+Col;Colossiens;4;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";6/g1401;1401;unto your servants
+Col;Colossiens;4;1;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";2/g3588;3588;that which
+Col;Colossiens;4;1;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";3/g1342;1342;is just
+Col;Colossiens;4;1;KJV;en;reference;Conjunction;4/g2532;2532;and
+Col;Colossiens;4;1;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g2471;2471;"equal;"
+Col;Colossiens;4;1;KJV;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";8/g1492;1492;knowing
+Col;Colossiens;4;1;KJV;en;reference;Conjunction;9/g3754;3754;that
+Col;Colossiens;4;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";11/g5210;5210;ye
+Col;Colossiens;4;1;KJV;en;reference;Conjunction;10/g2532;2532;also
+Col;Colossiens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";12/g2192;2192;have
+Col;Colossiens;4;1;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";13/g2962;2962;a Master
+Col;Colossiens;4;1;KJV;en;reference;Preposition;14/g1722;1722;in
+Col;Colossiens;4;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";15/g3772;3772;heaven.
+Col;Colossiens;4;2;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g4342;4342;Continue
+Col;Colossiens;4;2;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";1/g4335;4335;in prayer,
+Col;Colossiens;4;2;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g1127;1127;and watch
+Col;Colossiens;4;2;KJV;en;reference;Preposition;4/g1722;1722;in
+Col;Colossiens;4;2;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Feminine ; Singular";5/g0846;846;the same
+Col;Colossiens;4;2;KJV;en;reference;Preposition;6/g1722;1722;with
+Col;Colossiens;4;2;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g2169;2169;"thanksgiving;"
+Col;Colossiens;4;3;KJV;en;reference;Adverb;2/g0260;260;Withal
+Col;Colossiens;4;3;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";1/g4336;4336;praying
+Col;Colossiens;4;3;KJV;en;reference;Conjunction;3/g2532;2532;also
+Col;Colossiens;4;3;KJV;en;reference;Preposition;4/g4012;4012;for
+Col;Colossiens;4;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;us,
+Col;Colossiens;4;3;KJV;en;reference;Conjunction;6/g2443;2443;that
+Col;Colossiens;4;3;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g2316;2316;God
+Col;Colossiens;4;3;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";8/g0455;455;would open
+Col;Colossiens;4;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";9/g2254;2254;unto us
+Col;Colossiens;4;3;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g2374;2374;a door
+Col;Colossiens;4;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g3056;3056;of utterance,
+Col;Colossiens;4;3;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";12/g2980;2980;to speak
+Col;Colossiens;4;3;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";13/g3588;3588;the
+Col;Colossiens;4;3;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";14/g3466;3466;mystery
+Col;Colossiens;4;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;of Christ,
+Col;Colossiens;4;3;KJV;en;reference;Preposition;16/g1223;1223;for
+Col;Colossiens;4;3;KJV;en;reference;"Relative Pronoun ; Accusative ; Neuter ; Singular";17/g3739;3739;which
+Col;Colossiens;4;3;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 1st Person ; Singular";19/g1210;1210;I am
+Col;Colossiens;4;3;KJV;en;reference;Conjunction;18/g2532;2532;also
+Col;Colossiens;4;3;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 1st Person ; Singular";19/g1210;1210;in bonds:
+Col;Colossiens;4;4;KJV;en;reference;Conjunction;1/g2443;2443;That
+Col;Colossiens;4;4;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Singular";2/g5319;5319;I may make
+Col;Colossiens;4;4;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";3/g0846;846;it
+Col;Colossiens;4;4;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Singular";2/g5319;5319;manifest,
+Col;Colossiens;4;4;KJV;en;reference;Adverb;4/g5613;5613;as
+Col;Colossiens;4;4;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Singular";6/g3165;3165;I
+Col;Colossiens;4;4;KJV;en;reference;"Verb ; Present ; Impersonal Active ; Indicative ; 3rd Person ; Singular";5/g1163;1163;ought
+Col;Colossiens;4;4;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";7/g2980;2980;to speak.
+Col;Colossiens;4;5;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";3/g4043;4043;Walk
+Col;Colossiens;4;5;KJV;en;reference;Preposition;1/g1722;1722;in
+Col;Colossiens;4;5;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";2/g4678;4678;wisdom
+Col;Colossiens;4;5;KJV;en;reference;Preposition;4/g4314;4314;toward
+Col;Colossiens;4;5;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";5/g3588;3588;them that
+Col;Colossiens;4;5;KJV;en;reference;Adverb;6/g1854;1854;are without,
+Col;Colossiens;4;5;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";9/g1805;1805;redeeming
+Col;Colossiens;4;5;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";7/g3588;3588;the
+Col;Colossiens;4;5;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g2540;2540;time.
+Col;Colossiens;4;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";2/g5216;5216;Let your
+Col;Colossiens;4;6;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g3056;3056;speech
+Col;Colossiens;4;6;KJV;en;mot_ajoute;;;;be
+Col;Colossiens;4;6;KJV;en;reference;Adverb;3/g3842;3842;alway
+Col;Colossiens;4;6;KJV;en;reference;Preposition;4/g1722;1722;with
+Col;Colossiens;4;6;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g5485;5485;grace,
+Col;Colossiens;4;6;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Singular";7/g0741;741;seasoned
+Col;Colossiens;4;6;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";6/g0217;217;with salt,
+Col;Colossiens;4;6;KJV;en;reference;"Verb ; Perfect ; Active ; Infinitive";8/g1492;1492;that ye may know
+Col;Colossiens;4;6;KJV;en;reference;Adverb;9/g4459;4459;how
+Col;Colossiens;4;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";11/g5209;5209;ye
+Col;Colossiens;4;6;KJV;en;reference;"Verb ; Present ; Impersonal Active ; Indicative ; 3rd Person ; Singular";10/g1163;1163;ought
+Col;Colossiens;4;6;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Infinitive";14/g0611;611;to answer
+Col;Colossiens;4;6;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";13/g1538;1538;every
+Col;Colossiens;4;6;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";12/g1520;1520;man.
+Col;Colossiens;4;7;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";3/g3956;3956;All
+Col;Colossiens;4;7;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Singular";2/g1691;1691;my
+Col;Colossiens;4;7;KJV;en;reference;Preposition;1/g2596;2596;state
+Col;Colossiens;4;7;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";4/g1107;1107;shall
+Col;Colossiens;4;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g5190;5190;Tychicus
+Col;Colossiens;4;7;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";4/g1107;1107;declare
+Col;Colossiens;4;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";5/g5213;5213;unto you,
+Col;Colossiens;4;7;KJV;en;mot_ajoute;;;;who is
+Col;Colossiens;4;7;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";7/g3588;3588;a
+Col;Colossiens;4;7;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";8/g0027;27;beloved
+Col;Colossiens;4;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g0080;80;brother,
+Col;Colossiens;4;7;KJV;en;reference;Conjunction;10/g2532;2532;and
+Col;Colossiens;4;7;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";11/g4103;4103;a faithful
+Col;Colossiens;4;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g1249;1249;minister
+Col;Colossiens;4;7;KJV;en;reference;Conjunction;13/g2532;2532;and
+Col;Colossiens;4;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";14/g4889;4889;fellowservant
+Col;Colossiens;4;7;KJV;en;reference;Preposition;15/g1722;1722;in
+Col;Colossiens;4;7;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";16/g2962;2962;the Lord:
+Col;Colossiens;4;8;KJV;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";1/g3739;3739;Whom
+Col;Colossiens;4;8;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";2/g3992;3992;I have sent
+Col;Colossiens;4;8;KJV;en;reference;Preposition;3/g4314;4314;unto
+Col;Colossiens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you
+Col;Colossiens;4;8;KJV;en;reference;Preposition;5/g1519;1519;for
+Col;Colossiens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";6/g0846;846;the same
+Col;Colossiens;4;8;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";7/g5124;5124;purpose,
+Col;Colossiens;4;8;KJV;en;reference;Conjunction;8/g2443;2443;that
+Col;Colossiens;4;8;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";9/g1097;1097;he might know
+Col;Colossiens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;your
+Col;Colossiens;4;8;KJV;en;reference;Preposition;10/g4012;4012;estate,
+Col;Colossiens;4;8;KJV;en;reference;Conjunction;12/g2532;2532;and
+Col;Colossiens;4;8;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";13/g3870;3870;comfort
+Col;Colossiens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";15/g5216;5216;your
+Col;Colossiens;4;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";14/g2588;2588;"hearts;"
+Col;Colossiens;4;9;KJV;en;reference;Preposition;1/g4862;4862;With
+Col;Colossiens;4;9;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";2/g3682;3682;Onesimus,
+Col;Colossiens;4;9;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";3/g3588;3588;a
+Col;Colossiens;4;9;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";4/g4103;4103;faithful
+Col;Colossiens;4;9;KJV;en;reference;Conjunction;5/g2532;2532;and
+Col;Colossiens;4;9;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";6/g0027;27;beloved
+Col;Colossiens;4;9;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";7/g0080;80;brother,
+Col;Colossiens;4;9;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";8/g3739;3739;who
+Col;Colossiens;4;9;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";9/g2076;2076;is
+Col;Colossiens;4;9;KJV;en;mot_ajoute;;;;one
+Col;Colossiens;4;9;KJV;en;reference;Preposition;10/g1537;1537;of
+Col;Colossiens;4;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;you.
+Col;Colossiens;4;9;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Plural";14/g1107;1107;They shall make known
+Col;Colossiens;4;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";13/g5213;5213;unto you
+Col;Colossiens;4;9;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";12/g3956;3956;all things
+Col;Colossiens;4;9;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";15/g3588;3588;which
+Col;Colossiens;4;9;KJV;en;mot_ajoute;;;;are done
+Col;Colossiens;4;9;KJV;en;reference;Adverb;16/g5602;5602;here.
+Col;Colossiens;4;10;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g0708;708;Aristarchus
+Col;Colossiens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";5/g3450;3450;my
+Col;Colossiens;4;10;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";4/g4869;4869;fellowprisoner
+Col;Colossiens;4;10;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";1/g0782;782;saluteth
+Col;Colossiens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you,
+Col;Colossiens;4;10;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;4;10;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g3138;3138;Marcus,
+Col;Colossiens;4;10;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g0431;431;sister's son
+Col;Colossiens;4;10;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g0921;921;to Barnabas,
+Col;Colossiens;4;10;KJV;en;reference;Preposition;10/g4012;4012;(touching
+Col;Colossiens;4;10;KJV;en;reference;"Relative Pronoun ; Genitive ; Masculine ; Singular";11/g3739;3739;whom
+Col;Colossiens;4;10;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";12/g2983;2983;ye received
+Col;Colossiens;4;10;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";13/g1785;1785;commandments:
+Col;Colossiens;4;10;KJV;en;reference;Conditional Particle or Conjunction;14/g1437;1437;if
+Col;Colossiens;4;10;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";15/g2064;2064;he come
+Col;Colossiens;4;10;KJV;en;reference;Preposition;16/g4314;4314;unto
+Col;Colossiens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";17/g5209;5209;you,
+Col;Colossiens;4;10;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Imperative ; 2nd Person ; Plural";18/g1209;1209;receive
+Col;Colossiens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";19/g0846;846;"him;)"
+Col;Colossiens;4;11;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g2424;2424;Jesus,
+Col;Colossiens;4;11;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";3/g3588;3588;which
+Col;Colossiens;4;11;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Singular";4/g3004;3004;is called
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g2459;2459;Justus,
+Col;Colossiens;4;11;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";6/g3588;3588;who
+Col;Colossiens;4;11;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Nominative ; Masculine ; Plural";7/g5607;5607;are
+Col;Colossiens;4;11;KJV;en;reference;Preposition;8/g1537;1537;of
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g4061;4061;the circumcision.
+Col;Colossiens;4;11;KJV;en;reference;"Demonstrative Pronoun ; Nominative ; Masculine ; Plural";10/g3778;3778;These
+Col;Colossiens;4;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";11/g3441;3441;only
+Col;Colossiens;4;11;KJV;en;mot_ajoute;;;;are my
+Col;Colossiens;4;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";12/g4904;4904;fellowworkers
+Col;Colossiens;4;11;KJV;en;reference;Preposition;13/g1519;1519;unto
+Col;Colossiens;4;11;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";14/g3588;3588;the
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";15/g0932;932;kingdom
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g2316;2316;of God,
+Col;Colossiens;4;11;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Plural";17/g3748;3748;which
+Col;Colossiens;4;11;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 3rd Person ; Plural";18/g1096;1096;have been
+Col;Colossiens;4;11;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";20/g3931;3931;a comfort
+Col;Colossiens;4;11;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Singular";19/g3427;3427;unto me.
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g1889;1889;Epaphras,
+Col;Colossiens;4;12;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";4/g3588;3588;who
+Col;Colossiens;4;12;KJV;en;reference;Preposition;5/g1537;1537;is one of
+Col;Colossiens;4;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;you,
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g1401;1401;a servant
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g5547;5547;of Christ,
+Col;Colossiens;4;12;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";1/g0782;782;saluteth
+Col;Colossiens;4;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you,
+Col;Colossiens;4;12;KJV;en;reference;Adverb;9/g3842;3842;always
+Col;Colossiens;4;12;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Singular";10/g0075;75;labouring fervently
+Col;Colossiens;4;12;KJV;en;reference;Preposition;11/g5228;5228;for
+Col;Colossiens;4;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;you
+Col;Colossiens;4;12;KJV;en;reference;Preposition;13/g1722;1722;in
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";14/g4335;4335;prayers,
+Col;Colossiens;4;12;KJV;en;reference;Conjunction;15/g2443;2443;that
+Col;Colossiens;4;12;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 2nd Person ; Plural";16/g2476;2476;ye may stand
+Col;Colossiens;4;12;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";17/g5046;5046;perfect
+Col;Colossiens;4;12;KJV;en;reference;Conjunction;18/g2532;2532;and
+Col;Colossiens;4;12;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";19/g4137;4137;complete
+Col;Colossiens;4;12;KJV;en;reference;Preposition;20/g1722;1722;in
+Col;Colossiens;4;12;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";21/g3956;3956;all
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";22/g2307;2307;the will
+Col;Colossiens;4;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g2316;2316;of God.
+Col;Colossiens;4;13;KJV;en;reference;Conjunction;2/g1063;1063;For
+Col;Colossiens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g3140;3140;I bear
+Col;Colossiens;4;13;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";3/g0846;846;him
+Col;Colossiens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g3140;3140;record,
+Col;Colossiens;4;13;KJV;en;reference;Conjunction;4/g3754;3754;that
+Col;Colossiens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";5/g2192;2192;he hath
+Col;Colossiens;4;13;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";7/g4183;4183;a great
+Col;Colossiens;4;13;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g2205;2205;zeal
+Col;Colossiens;4;13;KJV;en;reference;Preposition;8/g5228;5228;for
+Col;Colossiens;4;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";9/g5216;5216;you,
+Col;Colossiens;4;13;KJV;en;reference;Conjunction;10/g2532;2532;and
+Col;Colossiens;4;13;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";11/g3588;3588;them
+Col;Colossiens;4;13;KJV;en;mot_ajoute;;;;that are
+Col;Colossiens;4;13;KJV;en;reference;Preposition;12/g1722;1722;in
+Col;Colossiens;4;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g2993;2993;Laodicea,
+Col;Colossiens;4;13;KJV;en;reference;Conjunction;14/g2532;2532;and
+Col;Colossiens;4;13;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";15/g3588;3588;them
+Col;Colossiens;4;13;KJV;en;reference;Preposition;16/g1722;1722;in
+Col;Colossiens;4;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";17/g2404;2404;Hierapolis.
+Col;Colossiens;4;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g3065;3065;Luke,
+Col;Colossiens;4;14;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";5/g3588;3588;the
+Col;Colossiens;4;14;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";6/g0027;27;beloved
+Col;Colossiens;4;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g2395;2395;physician,
+Col;Colossiens;4;14;KJV;en;reference;Conjunction;7/g2532;2532;and
+Col;Colossiens;4;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g1214;1214;Demas,
+Col;Colossiens;4;14;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";1/g0782;782;greet
+Col;Colossiens;4;14;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you.
+Col;Colossiens;4;15;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Imperative ; 2nd Person ; Plural";1/g0782;782;Salute
+Col;Colossiens;4;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";5/g0080;80;the brethren
+Col;Colossiens;4;15;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";2/g3588;3588;which
+Col;Colossiens;4;15;KJV;en;reference;Preposition;3/g1722;1722;are in
+Col;Colossiens;4;15;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";4/g2993;2993;Laodicea,
+Col;Colossiens;4;15;KJV;en;reference;Conjunction;6/g2532;2532;and
+Col;Colossiens;4;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g3564;3564;Nymphas,
+Col;Colossiens;4;15;KJV;en;reference;Conjunction;8/g2532;2532;and
+Col;Colossiens;4;15;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g1577;1577;the church
+Col;Colossiens;4;15;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";9/g3588;3588;which
+Col;Colossiens;4;15;KJV;en;reference;Preposition;10/g2596;2596;is in
+Col;Colossiens;4;15;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";12/g0846;846;his
+Col;Colossiens;4;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g3624;3624;house.
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;2/g3752;3752;when
+Col;Colossiens;4;16;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";6/g1992;1992;this epistle
+Col;Colossiens;4;16;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Singular";3/g0314;314;is read
+Col;Colossiens;4;16;KJV;en;reference;Preposition;4/g3844;3844;among
+Col;Colossiens;4;16;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";5/g5213;5213;you,
+Col;Colossiens;4;16;KJV;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";7/g4160;4160;cause
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;8/g2443;2443;that
+Col;Colossiens;4;16;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Singular";14/g0314;314;it be read
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;9/g2532;2532;also
+Col;Colossiens;4;16;KJV;en;reference;Preposition;10/g1722;1722;in
+Col;Colossiens;4;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g1577;1577;the church
+Col;Colossiens;4;16;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";11/g3588;3588;of the
+Col;Colossiens;4;16;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";12/g2994;2994;"Laodiceans;"
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;15/g2532;2532;and
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;19/g2443;2443;that
+Col;Colossiens;4;16;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";21/g5210;5210;ye
+Col;Colossiens;4;16;KJV;en;reference;Conjunction;20/g2532;2532;likewise
+Col;Colossiens;4;16;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 2nd Person ; Plural";22/g0314;314;read
+Col;Colossiens;4;16;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";16/g3588;3588;the
+Col;Colossiens;4;16;KJV;en;mot_ajoute;;;;epistle
+Col;Colossiens;4;16;KJV;en;reference;Preposition;17/g1537;1537;from
+Col;Colossiens;4;16;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";18/g2993;2993;Laodicea.
+Col;Colossiens;4;17;KJV;en;reference;Conjunction;1/g2532;2532;And
+Col;Colossiens;4;17;KJV;en;reference;"Verb ; Second Aorist ; Active ; Imperative ; 2nd Person ; Plural";2/g2036;2036;say
+Col;Colossiens;4;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";3/g0751;751;to Archippus,
+Col;Colossiens;4;17;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Singular";4/g0991;991;Take heed
+Col;Colossiens;4;17;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";5/g3588;3588;to the
+Col;Colossiens;4;17;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g1248;1248;ministry
+Col;Colossiens;4;17;KJV;en;reference;"Relative Pronoun ; Accusative ; Feminine ; Singular";7/g3739;3739;which
+Col;Colossiens;4;17;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Singular";8/g3880;3880;thou hast received
+Col;Colossiens;4;17;KJV;en;reference;Preposition;9/g1722;1722;in
+Col;Colossiens;4;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2962;2962;the Lord,
+Col;Colossiens;4;17;KJV;en;reference;Conjunction;11/g2443;2443;that
+Col;Colossiens;4;17;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Singular";13/g4137;4137;thou fulfil
+Col;Colossiens;4;17;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Feminine ; Singular";12/g0846;846;it.
+Col;Colossiens;4;18;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";1/g3588;3588;The
+Col;Colossiens;4;18;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g0783;783;salutation
+Col;Colossiens;4;18;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";4/g5495;5495;by the hand
+Col;Colossiens;4;18;KJV;en;reference;"Possessive Pronoun ; 1st Person ; Dative ; Feminine ; Singular";3/g1699;1699;of me
+Col;Colossiens;4;18;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g3972;3972;Paul.
+Col;Colossiens;4;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";6/g3421;3421;Remember
+Col;Colossiens;4;18;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";7/g3450;3450;my
+Col;Colossiens;4;18;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";8/g1199;1199;bonds.
+Col;Colossiens;4;18;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";9/g5485;5485;Grace
+Col;Colossiens;4;18;KJV;en;mot_ajoute;;;;be
+Col;Colossiens;4;18;KJV;en;reference;Preposition;10/g3326;3326;with
+Col;Colossiens;4;18;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;you.
+Col;Colossiens;4;18;KJV;en;reference;Hebrew transliterated word (indeclinable);12/g0281;281;Amen.
+Col;Colossiens;4;18;KJV;en;souscription;"Verb ; Second Aorist ; Passive ; Indicative ; 3rd Person ; Singular";15/g1125;1125;[[[Written
+Col;Colossiens;4;18;KJV;en;souscription;Preposition;16/g0575;575;from
+Col;Colossiens;4;18;KJV;en;souscription;"Noun ; Genitive ; Feminine ; Singular";17/g4516;4516;Rome
+Col;Colossiens;4;18;KJV;en;souscription;Preposition;13/g4314;4314;to
+Col;Colossiens;4;18;KJV;en;souscription;"Noun ; Accusative ; Masculine ; Plural";14/g2858;2858;Colossians
+Col;Colossiens;4;18;KJV;en;souscription;Preposition;18/g1223;1223;by
+Col;Colossiens;4;18;KJV;en;souscription;"Noun ; Genitive ; Masculine ; Singular";19/g5190;5190;Tychicus
+Col;Colossiens;4;18;KJV;en;souscription;Conjunction;20/g2532;2532;and
+Col;Colossiens;4;18;KJV;en;souscription;"Noun ; Genitive ; Masculine ; Singular";21/g3682;3682;Onesimus.]]]

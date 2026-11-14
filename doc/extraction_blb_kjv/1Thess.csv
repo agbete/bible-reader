@@ -1,0 +1,1411 @@
+﻿livre_code;livre_nom;chapitre;verset;version;lang;type_entite;data_lm;data_pa;data_ns;contenu
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g3972;3972;Paul,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Conjunction;2/g2532;2532;and
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g4610;4610;Silvanus,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Conjunction;4/g2532;2532;and
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g5095;5095;Timotheus,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";6/g3588;3588;unto the
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g1577;1577;church
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";8/g2331;2331;of the Thessalonians
+1Thess;1 Thessaloniciens;1;1;KJV;en;mot_ajoute;;;;which is
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Preposition;9/g1722;1722;in
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2316;2316;God
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";11/g3962;3962;the Father
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Conjunction;12/g2532;2532;and
+1Thess;1 Thessaloniciens;1;1;KJV;en;mot_ajoute;;;;in
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";13/g2962;2962;the Lord
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g5547;5547;Christ:
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";16/g5485;5485;Grace
+1Thess;1 Thessaloniciens;1;1;KJV;en;mot_ajoute;;;;be
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";17/g5213;5213;unto you,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Conjunction;18/g2532;2532;and
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";19/g1515;1515;peace,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Preposition;20/g0575;575;from
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";21/g2316;2316;God
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";23/g2257;2257;our
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";22/g3962;3962;Father,
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;Conjunction;24/g2532;2532;and
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";25/g2962;2962;the Lord
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";26/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;1;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";27/g5547;5547;Christ.
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";1/g2168;2168;We give thanks
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";2/g2316;2316;to God
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;Adverb;3/g3842;3842;always
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;Preposition;4/g4012;4012;for
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;you
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";5/g3956;3956;all,
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";9/g4160;4160;making
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g3417;3417;mention
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;of you
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;Preposition;10/g1909;1909;in
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";12/g2257;2257;our
+1Thess;1 Thessaloniciens;1;2;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";11/g4335;4335;"prayers;"
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";2/g3421;3421;Remembering
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;Adverb;1/g0089;89;without ceasing
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;your
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";4/g2041;2041;work
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g4102;4102;of faith,
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2873;2873;labour
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g0026;26;of love,
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g5281;5281;patience
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g1680;1680;of hope
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";13/g2257;2257;in our
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g2962;2962;Lord
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;Christ,
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;Preposition;16/g1715;1715;in the sight
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g2316;2316;of God
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;Conjunction;18/g2532;2532;and
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";20/g2257;2257;our
+1Thess;1 Thessaloniciens;1;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g3962;3962;"Father;"
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g1492;1492;Knowing,
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";2/g0080;80;brethren
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";3/g0025;25;beloved,
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";7/g5216;5216;your
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g1589;1589;election
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;Preposition;4/g5259;5259;of
+1Thess;1 Thessaloniciens;1;4;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;God.
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Conjunction;1/g3754;3754;For
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";3/g2257;2257;our
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";2/g2098;2098;gospel
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 3rd Person ; Singular";5/g1096;1096;came
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Particle, Disjunctive Particle;4/g3756;3756;not
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;6/g1519;1519;unto
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";7/g5209;5209;you
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;8/g1722;1722;in
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";9/g3056;3056;word
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Adverb;10/g3440;3440;only,
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Conjunction;11/g0235;235;but
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Conjunction;12/g2532;2532;also
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;13/g1722;1722;in
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";14/g1411;1411;power,
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Conjunction;15/g2532;2532;and
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;16/g1722;1722;in
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";18/g0040;40;the Holy
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";17/g4151;4151;Ghost,
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Conjunction;19/g2532;2532;and
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;20/g1722;1722;in
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";22/g4183;4183;much
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";21/g4136;4136;"assurance;"
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Adverb;23/g2531;2531;as
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";24/g1492;1492;ye know
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Correlative Pronoun ; Nominative ; Masculine ; Plural";25/g3634;3634;what manner of men
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 1st Person ; Plural";26/g1096;1096;we were
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;27/g1722;1722;among
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";28/g5213;5213;you
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;Preposition;29/g1223;1223;for
+1Thess;1 Thessaloniciens;1;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";30/g5209;5209;your sake.
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";2/g5210;5210;ye
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 2nd Person ; Plural";5/g1096;1096;became
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";3/g3402;3402;followers
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;of us,
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";7/g3588;3588;of the
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2962;2962;Lord,
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Participle ; Nominative ; Masculine ; Plural";9/g1209;1209;having received
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";10/g3588;3588;the
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g3056;3056;word
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;Preposition;12/g1722;1722;in
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";14/g4183;4183;much
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g2347;2347;affliction,
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;Preposition;15/g3326;3326;with
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";16/g5479;5479;joy
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";18/g0040;40;of the Holy
+1Thess;1 Thessaloniciens;1;6;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";17/g4151;4151;Ghost:
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;Conjunction;1/g5620;5620;So
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";3/g5209;5209;that ye
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Infinitive";2/g1096;1096;were
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";4/g5179;5179;ensamples
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";5/g3956;3956;to all
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Plural";6/g4100;4100;that believe
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;Preposition;7/g1722;1722;in
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g3109;3109;Macedonia
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;1;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g0882;882;Achaia.
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Conjunction;3/g1063;1063;For
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Preposition;1/g0575;575;from
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";2/g5216;5216;you
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";4/g1837;1837;sounded out
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";5/g3588;3588;the
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g3056;3056;word
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";7/g3588;3588;of the
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2962;2962;Lord
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Particle, Disjunctive Particle;9/g3756;3756;not
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Adverb;10/g3440;3440;only
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Preposition;11/g1722;1722;in
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g3109;3109;Macedonia
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Conjunction;13/g2532;2532;and
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";14/g0882;882;Achaia,
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Conjunction;15/g0235;235;but
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Conjunction;16/g2532;2532;also
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Preposition;17/g1722;1722;in
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";18/g3956;3956;every
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";19/g5117;5117;place
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";21/g5216;5216;your
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";20/g4102;4102;faith
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Preposition;22/g4314;4314;to
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";23/g2316;2316;God-ward
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";24/g1831;1831;"is spread abroad;"
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Conjunction;25/g5620;5620;so
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";28/g2248;2248;that we
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";27/g5532;5532;need
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;Particle, Disjunctive Particle;26/g3361;3361;not
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";29/g2980;2980;to speak
+1Thess;1 Thessaloniciens;1;8;KJV;en;reference;"Indefinite Pronoun ; Accusative ; Neuter ; Singular";30/g5100;5100;any thing.
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";5/g0518;518;they
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";1/g0846;846;themselves
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";5/g0518;518;shew
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Preposition;3/g4012;4012;of
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;us
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Singular";6/g3697;3697;what manner
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g1529;1529;of entering in
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";8/g2192;2192;we had
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Preposition;9/g4314;4314;unto
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";10/g5209;5209;you,
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Conjunction;11/g2532;2532;and
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Adverb;12/g4459;4459;how
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 2nd Person ; Plural";13/g1994;1994;ye turned
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Preposition;14/g4314;4314;to
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";15/g2316;2316;God
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Preposition;16/g0575;575;from
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Noun ; Genitive ; Neuter ; Plural";17/g1497;1497;idols
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";18/g1398;1398;to serve
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";20/g2198;2198;the living
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;Conjunction;21/g2532;2532;and
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";22/g0228;228;true
+1Thess;1 Thessaloniciens;1;9;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";19/g2316;2316;"God;"
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";2/g0362;362;to wait for
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";4/g0846;846;his
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g5207;5207;Son
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;Preposition;5/g1537;1537;from
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";6/g3772;3772;heaven,
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";7/g3739;3739;whom
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";8/g1453;1453;he raised
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;Preposition;9/g1537;1537;from
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";10/g3498;3498;the dead,
+1Thess;1 Thessaloniciens;1;10;KJV;en;mot_ajoute;;;;even
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g2424;2424;Jesus,
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";12/g3588;3588;which
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Accusative ; Masculine ; Singular";13/g4506;4506;delivered
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";14/g2248;2248;us
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;Preposition;15/g0575;575;from
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Singular";16/g3588;3588;the
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";17/g3709;3709;wrath
+1Thess;1 Thessaloniciens;1;10;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Genitive ; Feminine ; Singular";18/g2064;2064;to come.
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";1/g0846;846;yourselves,
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";4/g0080;80;brethren,
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";3/g1492;1492;know
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";6/g2257;2257;our
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g1529;1529;entrance in
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;Preposition;7/g4314;4314;unto
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";8/g5209;5209;you,
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;Conjunction;9/g3754;3754;that
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Verb ; Second Perfect ; Active ; Indicative ; 3rd Person ; Singular";12/g1096;1096;it was
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;Particle, Disjunctive Particle;10/g3756;3756;not
+1Thess;1 Thessaloniciens;2;1;KJV;en;reference;"Adjective ; Nominative ; Feminine ; Singular";11/g2756;2756;in vain:
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Conjunction;1/g0235;235;But
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Conjunction;2/g2532;2532;even
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g4310;4310;after that we had suffered before,
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Conjunction;4/g2532;2532;and
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Masculine ; Plural";5/g5195;5195;were shamefully entreated,
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Adverb;6/g2531;2531;as
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";7/g1492;1492;ye know,
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Preposition;8/g1722;1722;at
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";9/g5375;5375;Philippi,
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Indicative ; 1st Person ; Plural";10/g3955;3955;we were bold
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Preposition;11/g1722;1722;in
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";13/g2257;2257;our
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g2316;2316;God
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";14/g2980;2980;to speak
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Preposition;15/g4314;4314;unto
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";16/g5209;5209;you
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";17/g3588;3588;the
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";18/g2098;2098;gospel
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g2316;2316;of God
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;Preposition;20/g1722;1722;with
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Adjective ; Dative ; Masculine ; Singular";21/g4183;4183;much
+1Thess;1 Thessaloniciens;2;2;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";22/g0073;73;contention.
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Conjunction;1/g1063;1063;For
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";3/g2257;2257;our
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";2/g3874;3874;exhortation
+1Thess;1 Thessaloniciens;2;3;KJV;en;mot_ajoute;;;;was
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Particle, Disjunctive Particle;4/g3756;3756;not
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Preposition;5/g1537;1537;of
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";6/g4106;4106;deceit,
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Adverb;7/g3761;3761;nor
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Preposition;8/g1537;1537;of
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g0167;167;uncleanness,
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Conjunction;10/g3777;3777;nor
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;Preposition;11/g1722;1722;in
+1Thess;1 Thessaloniciens;2;3;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g1388;1388;guile:
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Conjunction;1/g0235;235;But
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Adverb;2/g2531;2531;as
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 1st Person ; Plural";3/g1381;1381;we were allowed
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Preposition;4/g5259;5259;of
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;God
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Verb ; Aorist ; Passive ; Infinitive";6/g4100;4100;to be put in trust
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";7/g3588;3588;with the
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";8/g2098;2098;gospel,
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Adverb;9/g3779;3779;even so
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";10/g2980;2980;"we speak;"
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Particle, Disjunctive Particle;11/g3756;3756;not
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Adverb;12/g5613;5613;as
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";14/g0700;700;pleasing
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";13/g0444;444;men,
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;Conjunction;15/g0235;235;but
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";16/g2316;2316;God,
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Definite article ; Dative ; Masculine ; Singular";17/g3588;3588;which
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";18/g1381;1381;trieth
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";20/g2257;2257;our
+1Thess;1 Thessaloniciens;2;4;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";19/g2588;2588;hearts.
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;Conjunction;1/g3777;3777;neither
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;Particle, Disjunctive Particle;3/g4218;4218;at any time
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 1st Person ; Plural";6/g1096;1096;used we
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g2850;2850;flattering
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";4/g3056;3056;words,
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;Adverb;7/g2531;2531;as
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";8/g1492;1492;ye know,
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;Conjunction;9/g3777;3777;nor
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g4392;4392;a cloke
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g4124;4124;"of covetousness;"
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g2316;2316;God
+1Thess;1 Thessaloniciens;2;5;KJV;en;mot_ajoute;;;;is
+1Thess;1 Thessaloniciens;2;5;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";13/g3144;3144;witness:
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Conjunction;1/g3777;3777;Nor
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Preposition;3/g1537;1537;of
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";4/g0444;444;men
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";2/g2212;2212;sought
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g1391;1391;we glory,
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Conjunction;6/g3777;3777;neither
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Preposition;7/g0575;575;of
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;you,
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Conjunction;9/g3777;3777;nor
+1Thess;1 Thessaloniciens;2;6;KJV;en;mot_ajoute;;;;yet
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Preposition;10/g0575;575;of
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";11/g0243;243;others,
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";12/g1410;1410;when we might
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Infinitive";14/g1511;1511;have been
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";13/g0922;922;burdensome,
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;Adverb;15/g5613;5613;as
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";17/g0652;652;the apostles
+1Thess;1 Thessaloniciens;2;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g5547;5547;of Christ.
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;Conjunction;1/g0235;235;But
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 1st Person ; Plural";2/g1096;1096;we were
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";3/g2261;2261;gentle
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";4/g3319;3319, 1722;among
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;you,
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;Adverb;6/g5613;5613;even as
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";7/g5162;5162;a nurse
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Singular";8/g2282;2282;cherisheth
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Feminine ; Singular";9/g1438;1438;her
+1Thess;1 Thessaloniciens;2;7;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";10/g5043;5043;children:
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Adverb;1/g3779;3779;So
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";2/g2442;2442;being affectionately desirous
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;of you,
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 1st Person ; Plural";4/g2106;2106;we were willing
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";5/g3330;3330;to have imparted
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";6/g5213;5213;unto you,
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Particle, Disjunctive Particle;7/g3756;3756;not
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";9/g3588;3588;the
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";10/g2098;2098;gospel
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g2316;2316;of God
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Adverb;8/g3440;3440;only,
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Conjunction;12/g0235;235;but
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Conjunction;13/g2532;2532;also
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Masculine ; Plural";14/g1438;1438;our own
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";15/g5590;5590;souls,
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;Conjunction;16/g1360;1360;because
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 2nd Person ; Plural";19/g1096;1096;ye were
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";17/g0027;27;dear
+1Thess;1 Thessaloniciens;2;8;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";18/g2254;2254;unto us.
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";1/g3421;3421;ye remember,
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";3/g0080;80;brethren,
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;our
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g2873;2873;labour
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g3449;3449;travail:
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Conjunction;9/g1063;1063;for
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";12/g2038;2038;labouring
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g3571;3571;night
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g2250;2250;day,
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Preposition;13/g4314;4314;because
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";15/g1912;1912;we would
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Particle, Disjunctive Particle;14/g3361;3361;not
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";15/g1912;1912;be chargeable
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Indefinite Pronoun ; Accusative ; Masculine ; Singular";16/g5100;5100;unto any
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";17/g5216;5216;of you,
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";18/g2784;2784;we preached
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;Preposition;19/g1519;1519;unto
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";20/g5209;5209;you
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";21/g3588;3588;the
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";22/g2098;2098;gospel
+1Thess;1 Thessaloniciens;2;9;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g2316;2316;of God.
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";1/g5210;5210;Ye
+1Thess;1 Thessaloniciens;2;10;KJV;en;mot_ajoute;;;;are
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";2/g3144;3144;witnesses,
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Conjunction;3/g2532;2532;and
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g2316;2316;God
+1Thess;1 Thessaloniciens;2;10;KJV;en;mot_ajoute;;;;also,
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Adverb;5/g5613;5613;how
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Adverb;6/g3743;3743;holily
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Adverb;8/g1346;1346;justly
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;Adverb;10/g0274;274;unblameably
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 1st Person ; Plural";13/g1096;1096;we behaved ourselves
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";11/g5213;5213;among you
+1Thess;1 Thessaloniciens;2;10;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Plural";12/g4100;4100;that believe:
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;Adverb;1/g2509;2509;As
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";2/g1492;1492;ye know
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;Adverb;3/g5613;5613;how
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g3870;3870;we exhorted
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;Conjunction;12/g2532;2532;and
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";13/g3888;3888;comforted
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;Conjunction;14/g2532;2532;and
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";15/g3140;3140;charged
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";5/g1538;1538;every
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";4/g1520;1520;one
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;of you,
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;Adverb;7/g5613;5613;as
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g3962;3962;a father
+1Thess;1 Thessaloniciens;2;11;KJV;en;mot_ajoute;;;;doth
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Masculine ; Singular";10/g1438;1438;his
+1Thess;1 Thessaloniciens;2;11;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";9/g5043;5043;children,
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;Preposition;1/g1519;1519;That
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";3/g5209;5209;ye
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";2/g4043;4043;would walk
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;Adverb;4/g0516;516;worthy
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;of God,
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";6/g3588;3588;who
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Masculine ; Singular";7/g2564;2564;hath called
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";8/g5209;5209;you
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;Preposition;9/g1519;1519;unto
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Masculine ; Singular";10/g1438;1438;his
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g0932;932;kingdom
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;Conjunction;12/g2532;2532;and
+1Thess;1 Thessaloniciens;2;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g1391;1391;glory.
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";2/g5124;5124;For this
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Preposition;1/g1223;1223;cause
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Conjunction;3/g2532;2532;also
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";5/g2168;2168;thank
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";4/g2249;2249;we
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";6/g2316;2316;God
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Adverb;7/g0089;89;without ceasing,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Conjunction;8/g3754;3754;because,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";9/g3880;3880;when ye received
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";10/g3056;3056;the word
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2316;2316;of God
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g0189;189;which ye heard
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Preposition;12/g3844;3844;of
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";13/g2257;2257;us,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Indicative ; 2nd Person ; Plural";15/g1209;1209;ye received
+1Thess;1 Thessaloniciens;2;13;KJV;en;mot_ajoute;;;;it
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Particle, Disjunctive Particle;16/g3756;3756;not
+1Thess;1 Thessaloniciens;2;13;KJV;en;mot_ajoute;;;;as
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";17/g3056;3056;the word
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";18/g0444;444;of men,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Conjunction;19/g0235;235;but
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Adverb;20/g2531;2531;as
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";21/g2076;2076;it is
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Adverb;22/g0230;230;in truth,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";23/g3056;3056;the word
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";24/g2316;2316;of God,
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";25/g3739;3739;which
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Present ; Middle ; Indicative ; 3rd Person ; Singular";27/g1754;1754;effectually worketh
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Conjunction;26/g2532;2532;also
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;Preposition;28/g1722;1722;in
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";29/g5213;5213;you
+1Thess;1 Thessaloniciens;2;13;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Plural";30/g4100;4100;that believe.
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";1/g5210;5210;ye,
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";5/g0080;80;brethren,
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 2nd Person ; Plural";4/g1096;1096;became
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";3/g3402;3402;followers
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Plural";6/g3588;3588;of the
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Genitive ; Feminine ; Plural";7/g1577;1577;churches
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2316;2316;of God
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Definite article ; Genitive ; Feminine ; Plural";9/g3588;3588;which
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Preposition;11/g1722;1722;in
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g2449;2449;Judaea
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Genitive ; Feminine ; Plural";10/g5607;5607;are
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Preposition;13/g1722;1722;in
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g5547;5547;Christ
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g2424;2424;Jesus:
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Conjunction;16/g3754;3754;for
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";20/g5210;5210;ye
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Conjunction;19/g2532;2532;also
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";18/g3958;3958;have suffered
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Plural";17/g5024;5024;like things
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Preposition;21/g5259;5259;of
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";22/g2398;2398;your own
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";23/g4853;4853;countrymen,
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Conjunction;25/g2532;2532;even
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Adverb;24/g2531;2531;as
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";26/g0846;846;they
+1Thess;1 Thessaloniciens;2;14;KJV;en;mot_ajoute;;;;have
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;Preposition;27/g5259;5259;of
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";28/g3588;3588;the
+1Thess;1 Thessaloniciens;2;14;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";29/g2453;2453;Jews:
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";1/g3588;3588;Who
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Conjunction;2/g2532;2532;both
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Genitive ; Masculine ; Plural";5/g0615;615;killed
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";3/g3588;3588;the
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g2962;2962;Lord
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g2424;2424;Jesus,
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";8/g2398;2398;their own
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";9/g4396;4396;prophets,
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Verb ; Aorist ; Active ; Participle ; Genitive ; Masculine ; Plural";12/g1559;1559;have persecuted
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";11/g5209;5209;"us;"
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Conjunction;13/g2532;2532;and
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Masculine ; Plural";16/g0700;700;they please
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Particle, Disjunctive Particle;15/g3361;3361;not
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g2316;2316;God,
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;Conjunction;17/g2532;2532;and
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";20/g1727;1727;are contrary
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";18/g3956;3956;to all
+1Thess;1 Thessaloniciens;2;15;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";19/g0444;444;men:
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Masculine ; Plural";1/g2967;2967;Forbidding
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";2/g2248;2248;us
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";5/g2980;2980;to speak
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Definite article ; Dative ; Neuter ; Plural";3/g3588;3588;to the
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Noun ; Dative ; Neuter ; Plural";4/g1484;1484;Gentiles
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Conjunction;6/g2443;2443;that
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Plural";7/g4982;4982;they might be saved,
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Preposition;8/g1519;1519;to
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";9/g0378;378;fill up
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Plural";10/g0846;846;their
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";11/g0266;266;sins
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Adverb;12/g3842;3842;alway:
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Conjunction;14/g1161;1161;for
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";17/g3588;3588;the
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";18/g3709;3709;wrath
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";13/g5348;5348;is come
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Preposition;15/g1909;1909;upon
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Plural";16/g0846;846;them
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;Preposition;19/g1519;1519;to
+1Thess;1 Thessaloniciens;2;16;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";20/g5056;5056;the uttermost.
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";1/g2249;2249;we,
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";3/g0080;80;brethren,
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Masculine ; Plural";4/g0642;642;being taken
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Preposition;5/g0575;575;from
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;you
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Preposition;7/g4314;4314;for
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g5610;5610;a short
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g2540;2540;time
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";10/g4383;4383;in presence,
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Particle, Disjunctive Particle;11/g3756;3756;not
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g2588;2588;in heart,
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";14/g4704;4704;endeavoured
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Adverb;13/g4056;4056;the more abundantly
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";17/g3708;3708;to see
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";16/g5216;5216;your
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";15/g4383;4383;face
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;Preposition;18/g1722;1722;with
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";19/g4183;4183;great
+1Thess;1 Thessaloniciens;2;17;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";20/g1939;1939;desire.
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Conjunction;1/g1352;1352;Wherefore
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";2/g2309;2309;we would
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";3/g2064;2064;have come
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Preposition;4/g4314;4314;unto
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";5/g5209;5209;you,
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Particle, Disjunctive Particle;7/g3303;3303;even
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";6/g1473;1473;I
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g3972;3972;Paul,
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Adverb;9/g0530;530;once
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Adverb;11/g1364;1364;"again;"
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;Conjunction;12/g2532;2532;but
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";15/g4567;4567;Satan
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";13/g1465;1465;hindered
+1Thess;1 Thessaloniciens;2;18;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";14/g2248;2248;us.
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Interrogative / Indefinite Pronoun ; Nominative ; Feminine ; Singular";1/g5101;5101;what
+1Thess;1 Thessaloniciens;2;19;KJV;en;mot_ajoute;;;;is
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";3/g2257;2257;our
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g1680;1680;hope,
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Particle, Disjunctive Particle;5/g2228;2228;or
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";6/g5479;5479;joy,
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Particle, Disjunctive Particle;7/g2228;2228;or
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g4735;4735;crown
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g2746;2746;of rejoicing?
+1Thess;1 Thessaloniciens;2;19;KJV;en;mot_ajoute;;;;Are
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Particle, Disjunctive Particle;10/g3780;3780;not
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Conjunction;11/g2532;2532;even
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";12/g5210;5210;ye
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Preposition;13/g1715;1715;in the presence
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";15/g2257;2257;of our
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2962;2962;Lord
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g5547;5547;Christ
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;Preposition;18/g1722;1722;at
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";19/g0846;846;his
+1Thess;1 Thessaloniciens;2;19;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";20/g3952;3952;coming?
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";1/g5210;5210;ye
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 2nd Person ; Plural";3/g2075;2075;are
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;our
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g1391;1391;glory
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;2;20;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";7/g5479;5479;joy.
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;Conjunction;1/g1352;1352;Wherefore
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g4722;4722;when we could
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;Adverb;2/g3371;3371;no longer
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g4722;4722;forbear,
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";4/g2106;2106;we thought it good
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Verb ; Aorist ; Passive ; Infinitive";5/g2641;2641;to be left
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;Preposition;6/g1722;1722;at
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";7/g0116;116;Athens
+1Thess;1 Thessaloniciens;3;1;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";8/g3441;3441;"alone;"
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";2/g3992;3992;sent
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g5095;5095;Timotheus,
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;our
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g0080;80;brother,
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g1249;1249;minister
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2316;2316;of God,
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";11/g2257;2257;our
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";10/g4904;4904;fellowlabourer
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Preposition;12/g1722;1722;in
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Definite article ; Dative ; Neuter ; Singular";13/g3588;3588;the
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";14/g2098;2098;gospel
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;of Christ,
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Preposition;16/g1519;1519;to
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";17/g4741;4741;establish
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";18/g5209;5209;you,
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Conjunction;19/g2532;2532;and
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";20/g3870;3870;to comfort
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";21/g5209;5209;you
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;Preposition;22/g4012;4012;concerning
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";24/g5216;5216;your
+1Thess;1 Thessaloniciens;3;2;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";23/g4102;4102;faith:
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";1/g3367;3367;That no man
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Verb ; Present ; Passive ; Infinitive";2/g4525;4525;should be moved
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;Preposition;3/g1722;1722;by
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Demonstrative Pronoun ; Dative ; Feminine ; Plural";5/g3778;3778;these
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";4/g2347;2347;afflictions:
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;Conjunction;7/g1063;1063;for
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";6/g0846;846;yourselves
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";8/g1492;1492;know
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;Conjunction;9/g3754;3754;that
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 1st Person ; Plural";11/g2749;2749;we are appointed
+1Thess;1 Thessaloniciens;3;3;KJV;en;reference;Preposition;10/g1519;1519, 5124;thereunto.
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Conjunction;1/g2532;2532;verily,
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Adverb;3/g3753;3753;when
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Imperfect ; (No voice stated) ; Indicative ; 1st Person ; Plural";6/g1510;1510;we were
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Preposition;4/g4314;4314;with
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";5/g5209;5209;you,
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 1st Person ; Plural";7/g4302;4302;we told
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";8/g5213;5213;you
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 1st Person ; Plural";7/g4302;4302;before
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Conjunction;9/g3754;3754;that
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";10/g3195;3195;we should
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Present ; Passive ; Infinitive";11/g2346;2346;"suffer tribulation;"
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Conjunction;13/g2532;2532;even
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Adverb;12/g2531;2531;as
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Indicative ; 3rd Person ; Singular";14/g1096;1096;it came to pass,
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;Conjunction;15/g2532;2532;and
+1Thess;1 Thessaloniciens;3;4;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";16/g1492;1492;ye know.
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";2/g5124;5124;For this
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Preposition;1/g1223;1223;cause,
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular ; Comparative";3/g2504;2504;when I
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";5/g4722;4722;could
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Adverb;4/g3371;3371;no longer
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";5/g4722;4722;forbear,
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";6/g3992;3992;I sent
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Preposition;7/g1519;1519;to
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";8/g1097;1097;know
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";10/g5216;5216;your
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g4102;4102;faith,
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Conjunction;11/g3381;3381;lest by some means
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";14/g3588;3588;the
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";15/g3985;3985;tempter
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";12/g3985;3985;have tempted
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";13/g5209;5209;you,
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Conjunction;16/g2532;2532;and
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";21/g2257;2257;our
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";20/g2873;2873;labour
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Subjunctive ; 3rd Person ; Singular";19/g1096;1096;be
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;Preposition;17/g1519;1519;in
+1Thess;1 Thessaloniciens;3;5;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";18/g2756;2756;vain.
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Adverb;1/g0737;737;now
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g5095;5095;when Timotheus
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";3/g2064;2064;came
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Preposition;7/g0575;575;from
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;you
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Preposition;5/g4314;4314;unto
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";6/g2248;2248;us,
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Aorist ; Middle ; Participle ; Genitive ; Masculine ; Singular";10/g2097;2097;brought
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Dative ; Plural";11/g2254;2254;us
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Aorist ; Middle ; Participle ; Genitive ; Masculine ; Singular";10/g2097;2097;good tidings
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";15/g5216;5216;of your
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g4102;4102;faith
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;13/g2532;2532;and
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";14/g0026;26;charity,
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;16/g2532;2532;and
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;17/g3754;3754;that
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";18/g2192;2192;ye have
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Singular";21/g0018;18;good
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";19/g3417;3417;remembrance
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";20/g2257;2257;of us
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Adverb;22/g3842;3842;always,
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";23/g1971;1971;desiring greatly
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";25/g3708;3708;to see
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";24/g2248;2248;us,
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Adverb;26/g2509;2509;as
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";28/g2249;2249;we
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;Conjunction;27/g2532;2532;also
+1Thess;1 Thessaloniciens;3;6;KJV;en;mot_ajoute;;;;to see
+1Thess;1 Thessaloniciens;3;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";29/g5209;5209;you:
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;Preposition;1/g1223;1223, 5124;Therefore,
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";3/g0080;80;brethren,
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 1st Person ; Plural";2/g3870;3870;we were comforted
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;Preposition;4/g1909;1909;over
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";5/g5213;5213;you
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;Preposition;6/g1909;1909;in
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";7/g3956;3956;all
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";11/g2257;2257;our
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g2347;2347;affliction
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g0318;318;distress
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;Preposition;12/g1223;1223;by
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";13/g5216;5216;your
+1Thess;1 Thessaloniciens;3;7;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g4102;4102;faith:
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;Conjunction;1/g3754;3754;For
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;Adverb;2/g3568;3568;now
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";3/g2198;2198;we live,
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;Conditional Particle or Conjunction;4/g1437;1437;if
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";5/g5210;5210;ye
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";6/g4739;4739;stand fast
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;Preposition;7/g1722;1722;in
+1Thess;1 Thessaloniciens;3;8;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g2962;2962;the Lord.
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Feminine ; Singular";1/g5101;5101;what
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";3/g2169;2169;thanks
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 1st Person ; Plural";4/g1410;1410;can we
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";6/g0467;467;render
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g2316;2316;to God
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";6/g0467;467;again
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;Preposition;7/g4012;4012;for
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;you,
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;Preposition;9/g1909;1909;for
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";10/g3956;3956;all
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";11/g3588;3588;the
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g5479;5479;joy
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Relative Pronoun ; Dative ; Feminine ; Singular";13/g3739;3739;wherewith
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";14/g5463;5463;we joy
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;Preposition;15/g1223;1223;for
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";16/g5209;5209;your sakes
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;Preposition;17/g1715;1715;before
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";19/g2257;2257;our
+1Thess;1 Thessaloniciens;3;9;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g2316;2316;"God;"
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";1/g3571;3571;Night
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;Conjunction;2/g2532;2532;and
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";3/g2250;2250;day
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";5/g1189;1189;praying
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;Adverb;4/g4057;4057, 5228;exceedingly
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;Preposition;6/g1519;1519;that
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";7/g3708;3708;we might see
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;your
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";9/g4383;4383;face,
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";11/g2675;2675;might perfect
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Plural";12/g3588;3588;that which
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Noun ; Accusative ; Neuter ; Plural";13/g5303;5303;is lacking
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";15/g5216;5216;in your
+1Thess;1 Thessaloniciens;3;10;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g4102;4102;faith?
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;Conjunction;2/g1161;1161;Now
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2316;2316;God
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";1/g0846;846;himself
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;Conjunction;4/g2532;2532;and
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";6/g2257;2257;our
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g3962;3962;Father,
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";9/g2257;2257;our
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g2962;2962;Lord
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";10/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";11/g5547;5547;Christ,
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";12/g2720;2720;direct
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";14/g2257;2257;our
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g3598;3598;way
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;Preposition;15/g4314;4314;unto
+1Thess;1 Thessaloniciens;3;11;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";16/g5209;5209;you.
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Conjunction;2/g1161;1161;And
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";3/g3588;3588;the
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g2962;2962;Lord
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";5/g4121;4121;make
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";1/g5209;5209;you
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";5/g4121;4121;to increase
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";7/g4052;4052;abound
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g0026;26;in love
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";10/g0240;240;one
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Preposition;9/g1519;1519;toward
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";10/g0240;240;another,
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Conjunction;11/g2532;2532;and
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Preposition;12/g1519;1519;toward
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";13/g3956;3956;all
+1Thess;1 Thessaloniciens;3;12;KJV;en;mot_ajoute;;;;men,
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Conjunction;15/g2532;2532;even
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Adverb;14/g2509;2509;as
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";16/g2249;2249;we
+1Thess;1 Thessaloniciens;3;12;KJV;en;mot_ajoute;;;;do
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;Preposition;17/g1519;1519;toward
+1Thess;1 Thessaloniciens;3;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";18/g5209;5209;you:
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Preposition;1/g1519;1519;To the end
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Verb ; Aorist ; Active ; Infinitive";2/g4741;4741;he may stablish
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;your
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";4/g2588;2588;hearts
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Adjective ; Accusative ; Feminine ; Plural";5/g0273;273;unblameable
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Preposition;6/g1722;1722;in
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g0042;42;holiness
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Preposition;8/g1715;1715;before
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g2316;2316;God,
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Conjunction;10/g2532;2532;even
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";12/g2257;2257;our
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g3962;3962;Father,
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Preposition;13/g1722;1722;at
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";14/g3588;3588;the
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g3952;3952;coming
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";17/g2257;2257;of our
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g2962;2962;Lord
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g5547;5547;Christ
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;Preposition;20/g3326;3326;with
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";21/g3956;3956;all
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";23/g0846;846;his
+1Thess;1 Thessaloniciens;3;13;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";22/g0040;40;saints.
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";1/g3063;3063;Furthermore
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Conjunction;2/g3767;3767;then
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";4/g2065;2065;we beseech
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";5/g5209;5209;you,
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";3/g0080;80;brethren,
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";7/g3870;3870;exhort
+1Thess;1 Thessaloniciens;4;1;KJV;en;mot_ajoute;;;;you
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Preposition;8/g1722;1722;by
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";9/g2962;2962;the Lord
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2424;2424;Jesus,
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Adverb;11/g2531;2531;that as
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 2nd Person ; Plural";12/g3880;3880;ye have received
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Preposition;13/g3844;3844;of
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";14/g2257;2257;us
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Adverb;15/g4459;4459;how
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";17/g5209;5209;ye
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Impersonal Active ; Indicative ; 3rd Person ; Singular";16/g1163;1163;ought
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";18/g4043;4043;to walk
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Conjunction;19/g2532;2532;and
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";20/g0700;700;to please
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";21/g2316;2316;God,
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Conjunction;22/g2443;2443;so
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";23/g4052;4052;ye would abound
+1Thess;1 Thessaloniciens;4;1;KJV;en;reference;Adverb;24/g3123;3123;more and more.
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";1/g1492;1492;ye know
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Feminine ; Plural";3/g5101;5101;what
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";4/g3852;3852;commandments
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";5/g1325;1325;we gave
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";6/g5213;5213;you
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;Preposition;7/g1223;1223;by
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";8/g3588;3588;the
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g2962;2962;Lord
+1Thess;1 Thessaloniciens;4;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";10/g2424;2424;Jesus.
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";1/g5124;5124;this
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";3/g2076;2076;is
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";4/g2307;2307;the will
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;of God,
+1Thess;1 Thessaloniciens;4;3;KJV;en;mot_ajoute;;;;even
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";7/g5216;5216;your
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g0038;38;sanctification,
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";9/g5209;5209;that ye
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Verb ; Present ; Middle ; Infinitive";8/g0567;567;should abstain
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;Preposition;10/g0575;575;from
+1Thess;1 Thessaloniciens;4;3;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g4202;4202;fornication:
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";2/g1538;1538;That every one
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;of you
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Verb ; Perfect ; Active ; Infinitive";1/g1492;1492;should know
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Infinitive";6/g2932;2932;how to possess
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Masculine ; Singular";4/g1438;1438;his
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";5/g4632;4632;vessel
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;Preposition;7/g1722;1722;in
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";8/g0038;38;sanctification
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;4;4;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g5092;5092;"honour;"
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;Particle, Disjunctive Particle;1/g3361;3361;Not
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;Preposition;2/g1722;1722;in
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";3/g3806;3806;the lust
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g1939;1939;of concupiscence,
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;Conjunction;6/g2532;2532;even
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;Adverb;5/g2509;2509;as
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Definite article ; Nominative ; Neuter ; Plural";7/g3588;3588;the
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Noun ; Nominative ; Neuter ; Plural";8/g1484;1484;Gentiles
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Definite article ; Nominative ; Neuter ; Plural";9/g3588;3588;which
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Neuter ; Plural";11/g1492;1492;know
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;Particle, Disjunctive Particle;10/g3361;3361;not
+1Thess;1 Thessaloniciens;4;5;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";12/g2316;2316;God:
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Particle, Disjunctive Particle;1/g3361;3361;That no
+1Thess;1 Thessaloniciens;4;6;KJV;en;mot_ajoute;;;;man
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";2/g5233;5233;go beyond
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Conjunction;3/g2532;2532;and
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";4/g4122;4122;defraud
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";8/g0846;846;his
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g0080;80;brother
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Preposition;5/g1722;1722;in
+1Thess;1 Thessaloniciens;4;6;KJV;en;mot_ajoute;;;;any
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";6/g4229;4229;matter:
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Conjunction;9/g1360;1360;because
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";11/g3588;3588;that the
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g2962;2962;Lord
+1Thess;1 Thessaloniciens;4;6;KJV;en;mot_ajoute;;;;is
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";10/g1558;1558;the avenger
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Preposition;13/g4012;4012;of
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";14/g3956;3956;all
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Demonstrative Pronoun ; Genitive ; Masculine ; Plural";15/g5130;5130;such,
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Adverb;16/g2531;2531;as
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";18/g4277;4277;we
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Conjunction;17/g2532;2532;also
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";18/g4277;4277;have forewarned
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";19/g5213;5213;you
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;Conjunction;20/g2532;2532;and
+1Thess;1 Thessaloniciens;4;6;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Indicative ; 1st Person ; Plural";21/g1263;1263;testified.
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g2316;2316;God
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";3/g2564;2564;hath
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;Particle, Disjunctive Particle;1/g3756;3756;not
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";3/g2564;2564;called
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";4/g2248;2248;us
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;Preposition;6/g1909;1909;unto
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g0167;167;uncleanness,
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;Conjunction;8/g0235;235;but
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;Preposition;9/g1722;1722;unto
+1Thess;1 Thessaloniciens;4;7;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g0038;38;holiness.
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;Particle, Disjunctive Particle;1/g5105;5105;He therefore
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";2/g0114;114;that despiseth,
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";5/g0114;114;despiseth
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;Particle, Disjunctive Particle;3/g3756;3756;not
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g0444;444;man,
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;Conjunction;6/g0235;235;but
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g2316;2316;God,
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";8/g3588;3588;who
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Accusative ; Masculine ; Singular";10/g1325;1325;hath
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;Conjunction;9/g2532;2532;also
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Accusative ; Masculine ; Singular";10/g1325;1325;given
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;Preposition;14/g1519;1519;unto
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";15/g2248;2248;us
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";12/g0846;846;his
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";13/g0040;40;holy
+1Thess;1 Thessaloniciens;4;8;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";11/g4151;4151;Spirit.
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;Preposition;1/g4012;4012;as touching
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";3/g5360;5360;brotherly love
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g5532;5532, 2192;ye need
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;Particle, Disjunctive Particle;4/g3756;3756;not
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";6/g1125;1125;that I write
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";7/g5213;5213;unto you:
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;Conjunction;9/g1063;1063;for
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";10/g5210;5210;ye
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";8/g0846;846;yourselves
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 2nd Person ; Plural";12/g2075;2075;are
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";11/g2312;2312;taught of God
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;Preposition;13/g1519;1519;to
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";14/g0025;25;love
+1Thess;1 Thessaloniciens;4;9;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";15/g0240;240;one another.
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Conjunction;2/g1063;1063;indeed
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";3/g4160;4160;ye do
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";4/g0846;846;it
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Preposition;5/g1519;1519;toward
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";6/g3956;3956;all
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";7/g3588;3588;the
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";8/g0080;80;brethren
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";9/g3588;3588;which
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Preposition;10/g1722;1722;are in
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Adjective ; Dative ; Feminine ; Singular";11/g3650;3650;all
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g3109;3109;Macedonia:
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Conjunction;14/g1161;1161;but
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";13/g3870;3870;we beseech
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";15/g5209;5209;you,
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";16/g0080;80;brethren,
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";17/g4052;4052;that ye increase
+1Thess;1 Thessaloniciens;4;10;KJV;en;reference;Adverb;18/g3123;3123;"more and more;"
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Infinitive";2/g5389;5389;that ye study
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";3/g2270;2270;to be quiet,
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;Conjunction;4/g2532;2532;and
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";5/g4238;4238;to do
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";6/g2398;2398;your own business,
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Infinitive";8/g2038;2038;to work with
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;your
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Adjective ; Dative ; Feminine ; Plural";9/g2398;2398;own
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";10/g5495;5495;hands,
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;Adverb;12/g2531;2531;as
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Plural";14/g3853;3853;we commanded
+1Thess;1 Thessaloniciens;4;11;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";13/g5213;5213;"you;"
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;Conjunction;1/g2443;2443;That
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";2/g4043;4043;ye may walk
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;Adverb;3/g2156;2156;honestly
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;Preposition;4/g4314;4314;toward
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";5/g3588;3588;them that
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;Adverb;6/g1854;1854;are without,
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;4;12;KJV;en;mot_ajoute;;;;that
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 2nd Person ; Plural";10/g2192;2192;ye may have
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g5532;5532;lack
+1Thess;1 Thessaloniciens;4;12;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";8/g3367;3367;of nothing.
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Conjunction;3/g1161;1161;But
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";2/g2309;2309;I would
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Particle, Disjunctive Particle;1/g3756;3756;not
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";2/g2309;2309;have
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Infinitive";5/g0050;50;to be ignorant,
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";6/g0080;80;brethren,
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Preposition;7/g4012;4012;concerning
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";8/g3588;3588;them which
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Perfect ; Passive ; Participle ; Genitive ; Masculine ; Plural";9/g2837;2837;are asleep,
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Conjunction;10/g2443;2443;that
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Present ; Passive ; Subjunctive ; 2nd Person ; Plural";12/g3076;3076;ye sorrow
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Particle, Disjunctive Particle;11/g3361;3361;not,
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Conjunction;14/g2532;2532;even
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Adverb;13/g2531;2531;as
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";15/g3062;3062;others
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";16/g3588;3588;which
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";18/g2192;2192;have
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;Particle, Disjunctive Particle;17/g3361;3361;no
+1Thess;1 Thessaloniciens;4;13;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";19/g1680;1680;hope.
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Conditional Particle or Conjunction;1/g1487;1487;if
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";3/g4100;4100;we believe
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Conjunction;4/g3754;3754;that
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";6/g0599;599;died
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Conjunction;7/g2532;2532;and
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";8/g0450;450;rose again,
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Adverb;9/g3779;3779;even so
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Conjunction;10/g2532;2532;them also
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";12/g3588;3588;which
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Accusative ; Masculine ; Plural";13/g2837;2837;sleep
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Preposition;14/g1223;1223;in
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";16/g0071;71;will
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";11/g2316;2316;God
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";16/g0071;71;bring
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;Preposition;17/g4862;4862;with
+1Thess;1 Thessaloniciens;4;14;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";18/g0846;846;him.
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";1/g5124;5124;this
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";4/g3004;3004;we say
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";3/g5213;5213;unto you
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;Preposition;5/g1722;1722;by
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";6/g3056;3056;the word
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2962;2962;of the Lord,
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;Conjunction;8/g3754;3754;that
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";9/g2249;2249;we
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";10/g3588;3588;which
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g2198;2198;are alive
+1Thess;1 Thessaloniciens;4;15;KJV;en;mot_ajoute;;;;and
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Present ; Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";12/g4035;4035;remain
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;Preposition;13/g1519;1519;unto
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";14/g3588;3588;the
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";15/g3952;3952;coming
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";16/g3588;3588;of the
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g2962;2962;Lord
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Plural";19/g5348;5348;shall
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;Particle, Disjunctive Particle;18/g3361;3361;not
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Plural";19/g5348;5348;prevent
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";20/g3588;3588;them which
+1Thess;1 Thessaloniciens;4;15;KJV;en;reference;"Verb ; Aorist ; Passive ; Participle ; Accusative ; Masculine ; Plural";21/g2837;2837;are asleep.
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Conjunction;1/g3754;3754;For
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";3/g3588;3588;the
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g2962;2962;Lord
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";2/g0846;846;himself
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Verb ; Future ; Middle Deponent ; Indicative ; 3rd Person ; Singular";14/g2597;2597;shall descend
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Preposition;15/g0575;575;from
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g3772;3772;heaven
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Preposition;5/g1722;1722;with
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";6/g2752;2752;a shout,
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Preposition;7/g1722;1722;with
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";8/g5456;5456;the voice
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g0743;743;of the archangel,
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Preposition;11/g1722;1722;with
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g4536;4536;the trump
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";13/g2316;2316;of God:
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Conjunction;17/g2532;2532;and
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";18/g3588;3588;the
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";19/g3498;3498;dead
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Preposition;20/g1722;1722;in
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";21/g5547;5547;Christ
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;"Verb ; Future ; Middle ; Indicative ; 3rd Person ; Plural";22/g0450;450;shall rise
+1Thess;1 Thessaloniciens;4;16;KJV;en;reference;Adverb;23/g4412;4412;first:
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Adverb;1/g1899;1899;Then
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";2/g2249;2249;we
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";3/g3588;3588;which
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";4/g2198;2198;are alive
+1Thess;1 Thessaloniciens;4;17;KJV;en;mot_ajoute;;;;and
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Verb ; Present ; Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";5/g4035;4035;remain
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Verb ; Second Future ; Passive ; Indicative ; 1st Person ; Plural";9/g0726;726;shall be caught up
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Adverb;6/g0260;260;together
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Preposition;7/g4862;4862;with
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Plural";8/g0846;846;them
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Preposition;10/g1722;1722;in
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Noun ; Dative ; Feminine ; Plural";11/g3507;3507;the clouds,
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Preposition;12/g1519;1519;to
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g0529;529;meet
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";14/g3588;3588;the
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g2962;2962;Lord
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Preposition;16/g1519;1519;in
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";17/g0109;109;the air:
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Conjunction;18/g2532;2532;and
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Adverb;19/g3779;3779;so
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Verb ; Future ; (No voice stated) ; Indicative ; 1st Person ; Plural";23/g2071;2071;shall we
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Adverb;20/g3842;3842;ever
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Verb ; Future ; (No voice stated) ; Indicative ; 1st Person ; Plural";23/g2071;2071;be
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;Preposition;21/g4862;4862;with
+1Thess;1 Thessaloniciens;4;17;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";22/g2962;2962;the Lord.
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;Conjunction;1/g5620;5620;Wherefore
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g3870;3870;comfort
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";3/g0240;240;one another
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;Preposition;4/g1722;1722;with
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;"Demonstrative Pronoun ; Dative ; Masculine ; Plural";6/g5125;5125;these
+1Thess;1 Thessaloniciens;4;18;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";5/g3056;3056;words.
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;Preposition;1/g4012;4012;of
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";3/g3588;3588;the
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";4/g5550;5550;times
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;Conjunction;5/g2532;2532;and
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";6/g3588;3588;the
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Noun ; Genitive ; Masculine ; Plural";7/g2540;2540;seasons,
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";8/g0080;80;brethren,
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";11/g2192;2192;ye have
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;Particle, Disjunctive Particle;9/g3756;3756;no
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g5532;5532;need
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Verb ; Present ; Passive ; Infinitive";13/g1125;1125;that I write
+1Thess;1 Thessaloniciens;5;1;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";12/g5213;5213;unto you.
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";1/g0846;846;yourselves
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";4/g1492;1492;know
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Adverb;3/g0199;199;perfectly
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Conjunction;5/g3754;3754;that
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";6/g3588;3588;the
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";7/g2250;2250;day
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2962;2962;of the Lord
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Adverb;13/g3779;3779;so
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";14/g2064;2064;cometh
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Adverb;9/g5613;5613;as
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";10/g2812;2812;a thief
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;Preposition;11/g1722;1722;in
+1Thess;1 Thessaloniciens;5;2;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g3571;3571;the night.
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Conjunction;1/g3752;3752;when
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Plural";3/g3004;3004;they shall say,
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";4/g1515;1515;Peace
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Conjunction;5/g2532;2532;and
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";6/g0803;803;"safety;"
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Adverb;7/g5119;5119;then
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";8/g0160;160;sudden
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";11/g3639;3639;destruction
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Verb ; Present ; Middle ; Indicative ; 3rd Person ; Singular";10/g2186;2186;cometh upon
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Plural";9/g0846;846;them,
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Adverb;12/g5618;5618;as
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";13/g5604;5604;travail
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Preposition;14/g1722;1722;upon
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g1064;1064, 2192;"a woman with child;"
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Conjunction;16/g2532;2532;and
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Plural";18/g1628;1628;they shall
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;Particle, Disjunctive Particle;17/g3361;3361;not
+1Thess;1 Thessaloniciens;5;3;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Plural";18/g1628;1628;escape.
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";1/g5210;5210;ye,
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";3/g0080;80;brethren,
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 2nd Person ; Plural";5/g2075;2075;are
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;Particle, Disjunctive Particle;4/g3756;3756;not
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;Preposition;6/g1722;1722;in
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";7/g4655;4655;darkness,
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;Conjunction;8/g2443;2443;that
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";9/g2250;2250;that day
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";13/g2638;2638;should overtake
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";10/g5209;5209;you
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;Adverb;11/g5613;5613;as
+1Thess;1 Thessaloniciens;5;4;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g2812;2812;a thief.
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";2/g5210;5210;Ye
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 2nd Person ; Plural";5/g2075;2075;are
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";1/g3956;3956;all
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";3/g5207;5207;the children
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";4/g5457;5457;of light,
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Nominative ; Masculine ; Plural";7/g5207;5207;the children
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g2250;2250;of the day:
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 1st Person ; Plural";10/g2070;2070;we are
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;Particle, Disjunctive Particle;9/g3756;3756;not
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g3571;3571;of the night,
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;Adverb;12/g3761;3761;nor
+1Thess;1 Thessaloniciens;5;5;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";13/g4655;4655;of darkness.
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;Particle, Disjunctive Particle;1/g0686;686, 3767;Therefore
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";3/g2518;2518;let us
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;Particle, Disjunctive Particle;2/g3361;3361;not
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";3/g2518;2518;sleep,
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;Adverb;4/g5613;5613;as
+1Thess;1 Thessaloniciens;5;6;KJV;en;mot_ajoute;;;;do
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Plural";5/g3062;3062;"others;"
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;Conjunction;6/g0235;235;but
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";7/g1127;1127;let us watch
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;Conjunction;8/g2532;2532;and
+1Thess;1 Thessaloniciens;5;6;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";9/g3525;3525;be sober.
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;Conjunction;2/g1063;1063;For
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";1/g3588;3588;they that
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g2518;2518;sleep
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";5/g2518;2518;sleep
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g3571;3571;"in the night;"
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;Conjunction;6/g2532;2532;and
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Plural";7/g3588;3588;they that
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";8/g3182;3182;be drunken
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";10/g3184;3184;are drunken
+1Thess;1 Thessaloniciens;5;7;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g3571;3571;in the night.
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;Conjunction;2/g1161;1161;But
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";5/g3525;3525;let
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Plural";1/g2249;2249;us,
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Verb ; Present ; (No voice stated) ; Participle ; Nominative ; Masculine ; Plural";4/g5607;5607;who are
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";3/g2250;2250;of the day,
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";5/g3525;3525;be sober,
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Verb ; Aorist ; Middle ; Participle ; Nominative ; Masculine ; Plural";6/g1746;1746;putting on
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g2382;2382;the breastplate
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g4102;4102;of faith
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;Conjunction;9/g2532;2532;and
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g0026;26;"love;"
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;Conjunction;11/g2532;2532;and
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g4030;4030;for an helmet,
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g1680;1680;the hope
+1Thess;1 Thessaloniciens;5;8;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g4991;4991;of salvation.
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Conjunction;1/g3754;3754;For
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g2316;2316;God
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Verb ; Second Aorist ; Middle ; Indicative ; 3rd Person ; Singular";3/g5087;5087;hath
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Particle, Disjunctive Particle;2/g3756;3756;not
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Verb ; Second Aorist ; Middle ; Indicative ; 3rd Person ; Singular";3/g5087;5087;appointed
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";4/g2248;2248;us
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Preposition;6/g1519;1519;to
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g3709;3709;wrath,
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Conjunction;8/g0235;235;but
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Preposition;9/g1519;1519;to
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g4047;4047;obtain
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g4991;4991;salvation
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;Preposition;12/g1223;1223;by
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";14/g2257;2257;our
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";13/g2962;2962;Lord
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;5;9;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g5547;5547;Christ,
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Singular";1/g3588;3588;Who
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";2/g0599;599;died
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Preposition;3/g5228;5228;for
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;us,
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Conjunction;5/g2443;2443;that,
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Conjunction;6/g1535;1535;whether
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";7/g1127;1127;we wake
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Conjunction;8/g1535;1535;or
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Verb ; Present ; Active ; Subjunctive ; 1st Person ; Plural";9/g2518;2518;sleep,
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Plural";13/g2198;2198;we should live
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Adverb;10/g0260;260;together
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;Preposition;11/g4862;4862;with
+1Thess;1 Thessaloniciens;5;10;KJV;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";12/g0846;846;him.
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;Conjunction;1/g1352;1352;Wherefore
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g3870;3870;comfort
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";3/g0240;240;yourselves together,
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;Conjunction;4/g2532;2532;and
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";5/g3618;3618;edify
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";6/g1520;1520;one
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Singular";7/g1520;1520;another,
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;Adverb;8/g2531;2531;even
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;Conjunction;9/g2532;2532;as also
+1Thess;1 Thessaloniciens;5;11;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";10/g4160;4160;ye do.
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;Conjunction;2/g1161;1161;And
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";1/g2065;2065;we beseech
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";3/g5209;5209;you,
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";4/g0080;80;brethren,
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Verb ; Perfect ; Active ; Infinitive";5/g1492;1492;to know
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";6/g3588;3588;them which
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";7/g2872;2872;labour
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;Preposition;8/g1722;1722;among
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";9/g5213;5213;you,
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;Conjunction;10/g2532;2532;and
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Verb ; Present ; Middle ; Participle ; Accusative ; Masculine ; Plural";11/g4291;4291;are over
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;you
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;Preposition;13/g1722;1722;in
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g2962;2962;the Lord,
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;Conjunction;15/g2532;2532;and
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";16/g3560;3560;admonish
+1Thess;1 Thessaloniciens;5;12;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";17/g5209;5209;"you;"
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Conjunction;1/g2532;2532;And
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Infinitive";2/g2233;2233;to esteem
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Plural";3/g0846;846;them
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Preposition;4/g5228;5228;very
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Adverb;5/g4057;4057;highly
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Preposition;6/g1722;1722;in
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";7/g0026;26;love
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Preposition;8/g1223;1223;for
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Plural";10/g0846;846;their
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";9/g2041;2041;work's sake.
+1Thess;1 Thessaloniciens;5;13;KJV;en;mot_ajoute;;;;And
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";11/g1514;1514;be at peace
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;Preposition;12/g1722;1722;among
+1Thess;1 Thessaloniciens;5;13;KJV;en;reference;"Reflexive Pronoun ; 3rd Person ; Dative ; Masculine ; Plural";13/g1438;1438;yourselves.
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;Conjunction;2/g1161;1161;Now
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Plural";1/g3870;3870;we exhort
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";3/g5209;5209;you,
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";4/g0080;80;brethren,
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";5/g3560;3560;warn
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";6/g3588;3588;them that
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";7/g0813;813;are unruly,
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";8/g3888;3888;comfort
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";9/g3588;3588;the
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";10/g3642;3642;feebleminded,
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";11/g0472;472;support
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Definite article ; Genitive ; Masculine ; Plural";12/g3588;3588;the
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Adjective ; Genitive ; Masculine ; Plural";13/g0772;772;weak,
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";14/g3114;3114;be patient
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;Preposition;15/g4314;4314;toward
+1Thess;1 Thessaloniciens;5;14;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";16/g3956;3956;all
+1Thess;1 Thessaloniciens;5;14;KJV;en;mot_ajoute;;;;men.
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";1/g3708;3708;See
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Particle, Disjunctive Particle;2/g3361;3361, 5100;that none
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";7/g0591;591;render
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";3/g2556;2556;evil
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Preposition;4/g0473;473;for
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";5/g2556;2556;evil
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Indefinite Pronoun ; Dative ; Masculine ; Singular";6/g5100;5100;unto any
+1Thess;1 Thessaloniciens;5;15;KJV;en;mot_ajoute;;;;"man;"
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Conjunction;8/g0235;235;but
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Adverb;9/g3842;3842;ever
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";12/g1377;1377;follow
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";10/g3588;3588;that which
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";11/g0018;18;is good,
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Conjunction;13/g2532;2532;both
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Preposition;14/g1519;1519;among
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";15/g0240;240;yourselves,
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Conjunction;16/g2532;2532;and
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;Preposition;17/g1519;1519;to
+1Thess;1 Thessaloniciens;5;15;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";18/g3956;3956;all
+1Thess;1 Thessaloniciens;5;15;KJV;en;mot_ajoute;;;;men.
+1Thess;1 Thessaloniciens;5;16;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g5463;5463;Rejoice
+1Thess;1 Thessaloniciens;5;16;KJV;en;reference;Adverb;1/g3842;3842;evermore.
+1Thess;1 Thessaloniciens;5;17;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";2/g4336;4336;Pray
+1Thess;1 Thessaloniciens;5;17;KJV;en;reference;Adverb;1/g0089;89;without ceasing.
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;Preposition;1/g1722;1722;In
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";2/g3956;3956;every thing
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";3/g2168;2168;give thanks:
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;Conjunction;5/g1063;1063;for
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";4/g5124;5124;this
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";6/g2307;2307;is the will
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;of God
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;Preposition;8/g1722;1722;in
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";9/g5547;5547;Christ
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;Preposition;11/g1519;1519;concerning
+1Thess;1 Thessaloniciens;5;18;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";12/g5209;5209;you.
+1Thess;1 Thessaloniciens;5;19;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";4/g4570;4570;Quench
+1Thess;1 Thessaloniciens;5;19;KJV;en;reference;Particle, Disjunctive Particle;3/g3361;3361;not
+1Thess;1 Thessaloniciens;5;19;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";1/g3588;3588;the
+1Thess;1 Thessaloniciens;5;19;KJV;en;reference;"Noun ; Accusative ; Neuter ; Singular";2/g4151;4151;Spirit.
+1Thess;1 Thessaloniciens;5;20;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";3/g1848;1848;Despise
+1Thess;1 Thessaloniciens;5;20;KJV;en;reference;Particle, Disjunctive Particle;2/g3361;3361;not
+1Thess;1 Thessaloniciens;5;20;KJV;en;reference;"Noun ; Accusative ; Feminine ; Plural";1/g4394;4394;prophesyings.
+1Thess;1 Thessaloniciens;5;21;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";2/g1381;1381;Prove
+1Thess;1 Thessaloniciens;5;21;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Plural";1/g3956;3956;"all things;"
+1Thess;1 Thessaloniciens;5;21;KJV;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";5/g2722;2722;hold fast
+1Thess;1 Thessaloniciens;5;21;KJV;en;reference;"Definite article ; Accusative ; Neuter ; Singular";3/g3588;3588;that which
+1Thess;1 Thessaloniciens;5;21;KJV;en;reference;"Adjective ; Accusative ; Neuter ; Singular";4/g2570;2570;is good.
+1Thess;1 Thessaloniciens;5;22;KJV;en;reference;"Verb ; Present ; Middle ; Imperative ; 2nd Person ; Plural";5/g0567;567;Abstain
+1Thess;1 Thessaloniciens;5;22;KJV;en;reference;Preposition;1/g0575;575;from
+1Thess;1 Thessaloniciens;5;22;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";2/g3956;3956;all
+1Thess;1 Thessaloniciens;5;22;KJV;en;reference;"Noun ; Genitive ; Neuter ; Singular";3/g1491;1491;appearance
+1Thess;1 Thessaloniciens;5;22;KJV;en;reference;"Adjective ; Genitive ; Neuter ; Singular";4/g4190;4190;of evil.
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Conjunction;2/g1161;1161;And
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";1/g0846;846;the very
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2316;2316;God
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g1515;1515;of peace
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";5/g0037;37;sanctify
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";6/g5209;5209;you
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";7/g3651;3651;"wholly;"
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Conjunction;8/g2532;2532;and
+1Thess;1 Thessaloniciens;5;23;KJV;en;mot_ajoute;;;;I pray God
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";10/g5216;5216;your
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Adjective ; Nominative ; Neuter ; Singular";9/g3648;3648;whole
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";11/g4151;4151;spirit
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Conjunction;12/g2532;2532;and
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";13/g5590;5590;soul
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Conjunction;14/g2532;2532;and
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Nominative ; Neuter ; Singular";15/g4983;4983;body
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Verb ; Aorist ; Passive ; Optative ; 3rd Person ; Singular";24/g5083;5083;be preserved
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Adverb;16/g0274;274;blameless
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;Preposition;17/g1722;1722;unto
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Definite article ; Dative ; Feminine ; Singular";18/g3588;3588;the
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Dative ; Feminine ; Singular";19/g3952;3952;coming
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";21/g2257;2257;of our
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";20/g2962;2962;Lord
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";22/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;5;23;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g5547;5547;Christ.
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Adjective ; Nominative ; Masculine ; Singular";1/g4103;4103;Faithful
+1Thess;1 Thessaloniciens;5;24;KJV;en;mot_ajoute;;;;is
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Definite article ; Nominative ; Masculine ; Singular";2/g3588;3588;he that
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";3/g2564;2564;calleth
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";4/g5209;5209;you,
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";5/g3739;3739;who
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;Conjunction;6/g2532;2532;also
+1Thess;1 Thessaloniciens;5;24;KJV;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";7/g4160;4160;will do
+1Thess;1 Thessaloniciens;5;24;KJV;en;mot_ajoute;;;;it.
+1Thess;1 Thessaloniciens;5;25;KJV;en;reference;"Noun ; Vocative ; Masculine ; Plural";1/g0080;80;Brethren,
+1Thess;1 Thessaloniciens;5;25;KJV;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";2/g4336;4336;pray
+1Thess;1 Thessaloniciens;5;25;KJV;en;reference;Preposition;3/g4012;4012;for
+1Thess;1 Thessaloniciens;5;25;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;us.
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Verb ; Aorist ; Middle Deponent ; Imperative ; 2nd Person ; Plural";1/g0782;782;Greet
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Adjective ; Accusative ; Masculine ; Plural";4/g3956;3956;all
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Plural";2/g3588;3588;the
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Noun ; Accusative ; Masculine ; Plural";3/g0080;80;brethren
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;Preposition;5/g1722;1722;with
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Adjective ; Dative ; Neuter ; Singular";7/g0040;40;an holy
+1Thess;1 Thessaloniciens;5;26;KJV;en;reference;"Noun ; Dative ; Neuter ; Singular";6/g5370;5370;kiss.
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";1/g3726;3726;I charge
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Definite article ; Accusative ; Masculine ; Singular";3/g3588;3588;by the
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g2962;2962;Lord
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Definite article ; Accusative ; Feminine ; Singular";6/g3588;3588;that this
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g1992;1992;epistle
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Verb ; Aorist ; Passive ; Infinitive";5/g0314;314;be read
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";8/g3956;3956;unto all
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Definite article ; Dative ; Masculine ; Plural";9/g3588;3588;the
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Adjective ; Dative ; Masculine ; Plural";10/g0040;40;holy
+1Thess;1 Thessaloniciens;5;27;KJV;en;reference;"Noun ; Dative ; Masculine ; Plural";11/g0080;80;brethren.
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Definite article ; Nominative ; Feminine ; Singular";1/g3588;3588;The
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Noun ; Nominative ; Feminine ; Singular";2/g5485;5485;grace
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";4/g2257;2257;of our
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";3/g2962;2962;Lord
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2424;2424;Jesus
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g5547;5547;Christ
+1Thess;1 Thessaloniciens;5;28;KJV;en;mot_ajoute;;;;be
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;Preposition;7/g3326;3326;with
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";8/g5216;5216;you.
+1Thess;1 Thessaloniciens;5;28;KJV;en;reference;Hebrew transliterated word (indeclinable);9/g0281;281;Amen.
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;"Adjective ; Nominative ; Feminine ; Singular";12/g4413;4413;[[[The first
+1Thess;1 Thessaloniciens;5;28;KJV;en;mot_ajoute;;;;epistle
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;Preposition;10/g4314;4314;to
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;"Noun ; Accusative ; Masculine ; Plural";11/g2331;2331;the Thessalonians
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;"Verb ; Second Aorist ; Passive ; Indicative ; 3rd Person ; Singular";13/g1125;1125;was written
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;Preposition;14/g0575;575;from
+1Thess;1 Thessaloniciens;5;28;KJV;en;souscription;"Noun ; Genitive ; Feminine ; Plural";15/g0116;116;Athens.]]]

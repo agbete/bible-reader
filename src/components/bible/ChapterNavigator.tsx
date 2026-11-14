@@ -25,6 +25,8 @@ interface ChapterNavigatorProps {
   /** false : pas de sélecteur de titres (la fenêtre des trésors affiche ses thèmes à la place) */
   showTitleNavigator?: boolean;
   compact?: boolean;
+  /** Côté d'ouverture des listes (chapitres, titres) */
+  dropdownAlign?: 'left' | 'right';
 }
 
 export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
@@ -36,7 +38,8 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   titleLanguageId,
   onSelectTitle,
   showTitleNavigator = true,
-  compact = false
+  compact = false,
+  dropdownAlign = 'left'
 }) => {
   const [isChapterDropdownOpen, setIsChapterDropdownOpen] = useState(false);
   const [chapterInput, setChapterInput] = useState('');
@@ -108,10 +111,10 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
   };
 
   return (
-    <div className={`flex items-center ${compact ? 'flex-nowrap gap-1' : 'flex-wrap gap-2'}`}>
+    <div className={`flex items-center min-w-0 ${compact ? 'flex-nowrap gap-1' : 'flex-wrap gap-2'}`}>
       {/* CHAPTER SELECTOR (DROPDOWN) with previous / next chapter inside */}
-      <div className="relative">
-        <div className={`h-9 px-0.5 rounded-full bg-white/10 border border-white/30 text-white text-[18px] leading-none font-bold flex items-center gap-0.5 ${compact ? 'xl:h-6' : ''}`}>
+      <div className="relative shrink-0">
+        <div className={`h-9 px-0.5 rounded-full bg-white/10 text-white text-[18px] leading-none font-bold flex items-center gap-0.5 ${compact ? 'xl:h-6' : ''}`}>
           {/* PREVIOUS CHAPTER (←) */}
           <button
             type="button"
@@ -153,7 +156,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
               className="fixed inset-0 z-30" 
               onClick={() => setIsChapterDropdownOpen(false)}
             />
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40 w-72 bg-card border border-border rounded-2xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className={`absolute top-full ${dropdownAlign === 'right' ? 'right-0' : 'left-1/2 -translate-x-1/2'} mt-2 z-40 w-72 bg-card border border-border rounded-2xl shadow-2xl p-3 animate-in fade-in slide-in-from-top-2 duration-200`}>
               <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2 px-1">
                 Aller au chapitre
               </div>
@@ -209,6 +212,7 @@ export const ChapterNavigator: React.FC<ChapterNavigatorProps> = ({
           languageId={titleLanguageId}
           onSelectTitle={onSelectTitle ?? ((chapter) => onChapterChange(chapter))}
           compact={compact}
+          dropdownAlign={dropdownAlign}
         />
       )}
     </div>

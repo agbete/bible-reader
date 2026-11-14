@@ -1,0 +1,72 @@
+﻿
+=== 2026-11-14 17:35:05 : 2 livre(s)
+Phlm   (Philémon                 ):   1 chapitres,    334 lignes, 327 avec code Strong -> Phlm.csv
+VERSET SANS TEXTE - 3John 1:15 (See Footnote)
+3John  (3 Jean                   ):   1 chapitres,    213 lignes, 208 avec code Strong -> 3John.csv
+
+=== 2026-11-14 17:35:18 : 66 livre(s)
+Gen    (Genèse                   ):  50 chapitres,  22474 lignes, 21072 avec code Strong -> Gen.csv
+Exod   (Exode                    ):  40 chapitres,  18106 lignes, 16974 avec code Strong -> Exod.csv
+Lev    (Lévitique                ):  27 chapitres,  13104 lignes, 12090 avec code Strong -> Lev.csv
+Num    (Nombres                  ):  36 chapitres,  17759 lignes, 16690 avec code Strong -> Num.csv
+Deut   (Deutéronome              ):  34 chapitres,  15353 lignes, 14264 avec code Strong -> Deut.csv
+Josh   (Josué                    ):  24 chapitres,  10571 lignes, 9985 avec code Strong -> Josh.csv
+Judg   (Juges                    ):  21 chapitres,  10712 lignes, 10070 avec code Strong -> Judg.csv
+Ruth   (Ruth                     ):   4 chapitres,   1392 lignes, 1280 avec code Strong -> Ruth.csv
+1Sam   (1 Samuel                 ):  31 chapitres,  14474 lignes, 13576 avec code Strong -> 1Sam.csv
+2Sam   (2 Samuel                 ):  24 chapitres,  12011 lignes, 11312 avec code Strong -> 2Sam.csv
+1Kgs   (1 Rois                   ):  22 chapitres,  14203 lignes, 13409 avec code Strong -> 1Kgs.csv
+2Kgs   (2 Rois                   ):  25 chapitres,  13132 lignes, 12460 avec code Strong -> 2Kgs.csv
+1Chr   (1 Chroniques             ):  29 chapitres,  11497 lignes, 10727 avec code Strong -> 1Chr.csv
+2Chr   (2 Chroniques             ):  36 chapitres,  14411 lignes, 13670 avec code Strong -> 2Chr.csv
+Ezra   (Esdras                   ):  10 chapitres,   4080 lignes, 3845 avec code Strong -> Ezra.csv
+Neh    (Néhémie                  ):  13 chapitres,   5752 lignes, 5405 avec code Strong -> Neh.csv
+Esth   (Esther                   ):  10 chapitres,   3290 lignes, 3102 avec code Strong -> Esth.csv
+Job    (Job                      ):  42 chapitres,   9672 lignes, 8864 avec code Strong -> Job.csv
+Ps     (Psaumes                  ): 150 chapitres,  22464 lignes, 20398 avec code Strong -> Ps.csv
+Prov   (Proverbes                ):  31 chapitres,   8274 lignes, 7424 avec code Strong -> Prov.csv
+Eccl   (Ecclésiaste              ):  12 chapitres,   3332 lignes, 3044 avec code Strong -> Eccl.csv
+Song   (Cantique des Cantiques   ):   8 chapitres,   1464 lignes, 1267 avec code Strong -> Song.csv
+Isa    (Ésaïe                    ):  66 chapitres,  19330 lignes, 17947 avec code Strong -> Isa.csv
+Jer    (Jérémie                  ):  52 chapitres,  23687 lignes, 22382 avec code Strong -> Jer.csv
+Lam    (Lamentations             ):   5 chapitres,   1700 lignes, 1561 avec code Strong -> Lam.csv
+Ezek   (Ézéchiel                 ):  48 chapitres,  20621 lignes, 19204 avec code Strong -> Ezek.csv
+Dan    (Daniel                   ):  12 chapitres,   6503 lignes, 6127 avec code Strong -> Dan.csv
+Hos    (Osée                     ):  14 chapitres,   2668 lignes, 2435 avec code Strong -> Hos.csv
+Joel   (Joël                     ):   3 chapitres,   1043 lignes, 996 avec code Strong -> Joel.csv
+Amos   (Amos                     ):   9 chapitres,   2272 lignes, 2168 avec code Strong -> Amos.csv
+Obad   (Abdias                   ):   1 chapitres,    329 lignes, 302 avec code Strong -> Obad.csv
+Jonah  (Jonas                    ):   4 chapitres,    752 lignes, 713 avec code Strong -> Jonah.csv
+Mic    (Michée                   ):   7 chapitres,   1556 lignes, 1458 avec code Strong -> Mic.csv
+Nah    (Nahum                    ):   3 chapitres,    640 lignes, 585 avec code Strong -> Nah.csv
+Hab    (Habakuk                  ):   3 chapitres,    765 lignes, 695 avec code Strong -> Hab.csv
+Zeph   (Sophonie                 ):   3 chapitres,    845 lignes, 796 avec code Strong -> Zeph.csv
+Hag    (Aggée                    ):   2 chapitres,    652 lignes, 612 avec code Strong -> Hag.csv
+Zech   (Zacharie                 ):  14 chapitres,   3475 lignes, 3264 avec code Strong -> Zech.csv
+Mal    (Malachie                 ):   4 chapitres,    968 lignes, 897 avec code Strong -> Mal.csv
+Matt   (Matthieu                 ):  28 chapitres,  17506 lignes, 17147 avec code Strong -> Matt.csv
+Mark   (Marc                     ):  16 chapitres,  10956 lignes, 10748 avec code Strong -> Mark.csv
+Luke   (Luc                      ):  24 chapitres,  18866 lignes, 18439 avec code Strong -> Luke.csv
+John   (Jean                     ):  21 chapitres,  14910 lignes, 14678 avec code Strong -> John.csv
+Acts   (Actes                    ):  28 chapitres,  17549 lignes, 17189 avec code Strong -> Acts.csv
+Rom    (Romains                  ):  16 chapitres,   6741 lignes, 6539 avec code Strong -> Rom.csv
+1Cor   (1 Corinthiens            ):  16 chapitres,   6753 lignes, 6520 avec code Strong -> 1Cor.csv
+2Cor   (2 Corinthiens            ):  13 chapitres,   4392 lignes, 4194 avec code Strong -> 2Cor.csv
+Gal    (Galates                  ):   6 chapitres,   2210 lignes, 2154 avec code Strong -> Gal.csv
+Eph    (Éphésiens                ):   6 chapitres,   2260 lignes, 2213 avec code Strong -> Eph.csv
+Phil   (Philippiens              ):   4 chapitres,   1577 lignes, 1524 avec code Strong -> Phil.csv
+Col    (Colossiens               ):   4 chapitres,   1522 lignes, 1476 avec code Strong -> Col.csv
+1Thess (1 Thessaloniciens        ):   5 chapitres,   1410 lignes, 1374 avec code Strong -> 1Thess.csv
+2Thess (2 Thessaloniciens        ):   3 chapitres,    793 lignes, 778 avec code Strong -> 2Thess.csv
+1Tim   (1 Timothée               ):   6 chapitres,   1600 lignes, 1558 avec code Strong -> 1Tim.csv
+2Tim   (2 Timothée               ):   4 chapitres,   1228 lignes, 1192 avec code Strong -> 2Tim.csv
+Titus  (Tite                     ):   3 chapitres,    655 lignes, 639 avec code Strong -> Titus.csv
+Heb    (Hébreux                  ):  13 chapitres,   4772 lignes, 4630 avec code Strong -> Heb.csv
+Jas    (Jacques                  ):   5 chapitres,   1679 lignes, 1632 avec code Strong -> Jas.csv
+1Pet   (1 Pierre                 ):   5 chapitres,   1674 lignes, 1605 avec code Strong -> 1Pet.csv
+2Pet   (2 Pierre                 ):   3 chapitres,   1047 lignes, 1016 avec code Strong -> 2Pet.csv
+1John  (1 Jean                   ):   5 chapitres,   1972 lignes, 1948 avec code Strong -> 1John.csv
+2John  (2 Jean                   ):   1 chapitres,    236 lignes, 233 avec code Strong -> 2John.csv
+Jude   (Jude                     ):   1 chapitres,    426 lignes, 417 avec code Strong -> Jude.csv
+VERSET SANS TEXTE - Rev 12:18 (See Footnote)
+Rev    (Apocalypse               ):  22 chapitres,   9263 lignes, 9079 avec code Strong -> Rev.csv

@@ -1,0 +1,1836 @@
+﻿livre_code;livre_nom;chapitre;verset;version;lang;type_entite;data_lm;data_pa;data_ns;contenu
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";1/g4074;4074;Peter,
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g0652;652;apostle
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";3/g2424;2424;of Jesus
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g5547;5547;Christ,
+1Pet;1 Pierre;1;1;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;1;1;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";5/g3927;3927;sojourners
+1Pet;1 Pierre;1;1;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;1;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";6/g1290;1290;dispersion of
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g4195;4195;Pontus,
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g1053;1053;Galatia,
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g2587;2587;Cappadocia,
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";10/g0773;773;Asia,
+1Pet;1 Pierre;1;1;DBY90;en;reference;Conjunction;11/g2532;2532;and
+1Pet;1 Pierre;1;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";12/g0978;978;Bithynia,
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";1/g1588;1588;elect
+1Pet;1 Pierre;1;2;DBY90;en;reference;Preposition;2/g2596;2596;according
+1Pet;1 Pierre;1;2;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;1;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";3/g4268;4268;foreknowledge
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2316;2316;of God
+1Pet;1 Pierre;1;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g3962;3962;Father,
+1Pet;1 Pierre;1;2;DBY90;en;reference;Preposition;6/g1722;1722;by
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";7/g0038;38;sanctification
+1Pet;1 Pierre;1;2;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";8/g4151;4151;Spirit,
+1Pet;1 Pierre;1;2;DBY90;en;reference;Preposition;9/g1519;1519;unto
+1Pet;1 Pierre;1;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g5218;5218;obedience
+1Pet;1 Pierre;1;2;DBY90;en;reference;Conjunction;11/g2532;2532;and
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";12/g4473;4473;sprinkling
+1Pet;1 Pierre;1;2;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";13/g0129;129;blood
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2424;2424;of Jesus
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g5547;5547;Christ:
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";16/g5485;5485;Grace
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";17/g5213;5213;to you
+1Pet;1 Pierre;1;2;DBY90;en;reference;Conjunction;18/g2532;2532;and
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";19/g1515;1515;peace
+1Pet;1 Pierre;1;2;DBY90;en;reference;"Verb ; Aorist ; Passive ; Optative ; 3rd Person ; Singular";20/g4129;4129;be multiplied.
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";1/g2128;2128;Blessed
+1Pet;1 Pierre;1;3;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";2/g3588;3588;the
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2316;2316;God
+1Pet;1 Pierre;1;3;DBY90;en;reference;Conjunction;4/g2532;2532;and
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g3962;3962;Father
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";7/g2257;2257;of our
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2962;2962;Lord
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2424;2424;Jesus
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g5547;5547;Christ,
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";10/g3588;3588;who,
+1Pet;1 Pierre;1;3;DBY90;en;reference;Preposition;11/g2596;2596;according to
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";13/g0846;846;his
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";12/g4183;4183;great
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";14/g1656;1656;mercy,
+1Pet;1 Pierre;1;3;DBY90;en;texte_brut;;;;has begotten
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";16/g2248;2248;us
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";15/g0313;313;again
+1Pet;1 Pierre;1;3;DBY90;en;reference;Preposition;17/g1519;1519;to
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Feminine ; Singular";19/g2198;2198;a living
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";18/g1680;1680;hope
+1Pet;1 Pierre;1;3;DBY90;en;reference;Preposition;20/g1223;1223;through
+1Pet;1 Pierre;1;3;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";21/g0386;386;resurrection
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";22/g2424;2424;of Jesus
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g5547;5547;Christ
+1Pet;1 Pierre;1;3;DBY90;en;reference;Preposition;24/g1537;1537;from
+1Pet;1 Pierre;1;3;DBY90;en;texte_brut;;;;among
+1Pet;1 Pierre;1;3;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;3;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";25/g3498;3498;dead,
+1Pet;1 Pierre;1;4;DBY90;en;reference;Preposition;1/g1519;1519;to
+1Pet;1 Pierre;1;4;DBY90;en;texte_brut;;;;an
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";3/g0862;862;incorruptible
+1Pet;1 Pierre;1;4;DBY90;en;reference;Conjunction;4/g2532;2532;and
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";5/g0283;283;undefiled
+1Pet;1 Pierre;1;4;DBY90;en;reference;Conjunction;6/g2532;2532;and
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";7/g0263;263;unfading inheritance,
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Accusative ; Feminine ; Singular";8/g5083;5083;reserved
+1Pet;1 Pierre;1;4;DBY90;en;reference;Preposition;9/g1722;1722;in
+1Pet;1 Pierre;1;4;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";10/g3772;3772;heavens
+1Pet;1 Pierre;1;4;DBY90;en;reference;Preposition;11/g1519;1519;for
+1Pet;1 Pierre;1;4;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";12/g2248;2248;you,
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Plural";1/g3588;3588;who
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Accusative ; Masculine ; Plural";5/g5432;5432;are kept
+1Pet;1 Pierre;1;5;DBY90;en;texte_brut;;;;guarded
+1Pet;1 Pierre;1;5;DBY90;en;reference;Preposition;2/g1722;1722;by
+1Pet;1 Pierre;1;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";3/g1411;1411;power
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2316;2316;of God
+1Pet;1 Pierre;1;5;DBY90;en;reference;Preposition;6/g1223;1223;through
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g4102;4102;faith
+1Pet;1 Pierre;1;5;DBY90;en;reference;Preposition;8/g1519;1519;for
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g4991;4991;salvation
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";10/g2092;2092;ready
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Verb ; Aorist ; Passive ; Infinitive";11/g0601;601;to be revealed
+1Pet;1 Pierre;1;5;DBY90;en;reference;Preposition;12/g1722;1722;in
+1Pet;1 Pierre;1;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Singular";14/g2078;2078;last
+1Pet;1 Pierre;1;5;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";13/g2540;2540;time.
+1Pet;1 Pierre;1;6;DBY90;en;reference;Preposition;1/g1722;1722, 3739;Wherein
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 2nd Person ; Plural";2/g0021;21;ye exult,
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";3/g3641;3641;for a little
+1Pet;1 Pierre;1;6;DBY90;en;texte_brut;;;;while at present,
+1Pet;1 Pierre;1;6;DBY90;en;reference;Conditional Particle or Conjunction;5/g1487;1487;if
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Verb ; Present ; Impersonal Active ; Participle ; Nominative ; Neuter ; Singular";6/g1163;1163;needed,
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";7/g2076;2076;put
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Masculine ; Plural";8/g3076;3076;to
+1Pet;1 Pierre;1;6;DBY90;en;reference;Preposition;9/g1722;1722;grief
+1Pet;1 Pierre;1;6;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";10/g4164;4164;by various
+1Pet;1 Pierre;1;6;DBY90;en;texte_brut;;;;trials,
+1Pet;1 Pierre;1;7;DBY90;en;reference;Conjunction;1/g2443;2443;that
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";2/g3588;3588;the
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";3/g1383;1383;proving
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";4/g5216;5216;of your
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g4102;4102;faith,
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";6/g4183;4183;much
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular ; Comparative";7/g5093;5093;more precious
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";8/g5553;5553;than of gold
+1Pet;1 Pierre;1;7;DBY90;en;texte_brut;;;;which
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Verb ; Present ; Middle ; Participle ; Genitive ; Neuter ; Singular";9/g0622;622;perishes,
+1Pet;1 Pierre;1;7;DBY90;en;reference;Preposition;10/g1223;1223;though
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Genitive ; Neuter ; Singular";12/g1381;1381;it be proved
+1Pet;1 Pierre;1;7;DBY90;en;texte_brut;;;;by
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";11/g4442;4442;fire,
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Singular";13/g2147;2147;be found
+1Pet;1 Pierre;1;7;DBY90;en;reference;Preposition;14/g1519;1519;to
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";15/g1868;1868;praise
+1Pet;1 Pierre;1;7;DBY90;en;reference;Conjunction;16/g2532;2532;and
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";19/g1391;1391;glory
+1Pet;1 Pierre;1;7;DBY90;en;texte_brut;;;;and
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";17/g5092;5092;honour
+1Pet;1 Pierre;1;7;DBY90;en;reference;Preposition;20/g1722;1722;in
+1Pet;1 Pierre;1;7;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";21/g0602;602;revelation
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";22/g2424;2424;of Jesus
+1Pet;1 Pierre;1;7;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g5547;5547;Christ:
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";1/g3739;3739;whom,
+1Pet;1 Pierre;1;8;DBY90;en;texte_brut;;;;having
+1Pet;1 Pierre;1;8;DBY90;en;reference;Particle, Disjunctive Particle;2/g3756;3756;not
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g1492;1492;seen,
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";4/g0025;25;"ye love;"
+1Pet;1 Pierre;1;8;DBY90;en;reference;Preposition;5/g1519;1519;on
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";6/g3739;3739;whom
+1Pet;1 Pierre;1;8;DBY90;en;mot_ajoute;;;;[though]
+1Pet;1 Pierre;1;8;DBY90;en;reference;Adverb;7/g0737;737;not now
+1Pet;1 Pierre;1;8;DBY90;en;texte_brut;;;;looking,
+1Pet;1 Pierre;1;8;DBY90;en;reference;Conjunction;11/g1161;1161;but
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";10/g4100;4100;believing,
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 2nd Person ; Plural";12/g0021;21;ye exult
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g5479;5479;with joy
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";14/g0412;412;unspeakable
+1Pet;1 Pierre;1;8;DBY90;en;reference;Conjunction;15/g2532;2532;and
+1Pet;1 Pierre;1;8;DBY90;en;texte_brut;;;;filled with
+1Pet;1 Pierre;1;8;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;8;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Dative ; Feminine ; Singular";16/g1392;1392;glory,
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Verb ; Present ; Middle ; Participle ; Nominative ; Masculine ; Plural";1/g2865;2865;receiving
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";2/g3588;3588;the
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";3/g5056;5056;end
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;of your
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g4102;4102;faith,
+1Pet;1 Pierre;1;9;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g4991;4991;salvation
+1Pet;1 Pierre;1;9;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;9;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;1;9;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";7/g5590;5590;souls.
+1Pet;1 Pierre;1;10;DBY90;en;reference;Preposition;1/g4012;4012;Concerning
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";2/g3739;3739;which
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";3/g4991;4991;salvation
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";7/g4396;4396;prophets,
+1Pet;1 Pierre;1;10;DBY90;en;texte_brut;;;;who have
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";12/g4395;4395;prophesied
+1Pet;1 Pierre;1;10;DBY90;en;reference;Preposition;8/g4012;4012;of
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g5485;5485;the grace
+1Pet;1 Pierre;1;10;DBY90;en;reference;Preposition;9/g1519;1519;towards
+1Pet;1 Pierre;1;10;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";10/g5209;5209;you,
+1Pet;1 Pierre;1;10;DBY90;en;texte_brut;;;;"sought out and searched out;"
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g2045;2045;searching
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Masculine ; Singular";2/g5101;5101;what,
+1Pet;1 Pierre;1;11;DBY90;en;reference;Particle, Disjunctive Particle;3/g2228;2228;or
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Masculine ; Singular";4/g4169;4169;what manner
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";5/g2540;2540;of time,
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";10/g4151;4151;the Spirit
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g5547;5547;of Christ
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";7/g3588;3588;which
+1Pet;1 Pierre;1;11;DBY90;en;mot_ajoute;;;;[was]
+1Pet;1 Pierre;1;11;DBY90;en;reference;Preposition;8/g1722;1722;in
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Plural";9/g0846;846;them
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";6/g1213;1213;pointed
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Neuter ; Singular";12/g4303;4303;out, testifying before
+1Pet;1 Pierre;1;11;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Plural";15/g3804;3804;the sufferings
+1Pet;1 Pierre;1;11;DBY90;en;texte_brut;;;;which
+1Pet;1 Pierre;1;11;DBY90;en;mot_ajoute;;;;[belonged]
+1Pet;1 Pierre;1;11;DBY90;en;reference;Preposition;13/g1519;1519;to
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";14/g5547;5547;Christ,
+1Pet;1 Pierre;1;11;DBY90;en;reference;Conjunction;16/g2532;2532;and
+1Pet;1 Pierre;1;11;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";18/g1391;1391;the glories
+1Pet;1 Pierre;1;11;DBY90;en;reference;Preposition;17/g3326;3326;after
+1Pet;1 Pierre;1;11;DBY90;en;texte_brut;;;;these.
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Relative Pronoun ; Dative ; Masculine ; Plural";1/g3739;3739;To whom
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";2/g0601;601;it was revealed,
+1Pet;1 Pierre;1;12;DBY90;en;reference;Conjunction;3/g3754;3754;that
+1Pet;1 Pierre;1;12;DBY90;en;reference;Particle, Disjunctive Particle;4/g3756;3756;not
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Reflexive Pronoun ; 3rd Person ; Dative ; Masculine ; Plural";5/g1438;1438;to themselves
+1Pet;1 Pierre;1;12;DBY90;en;reference;Conjunction;7/g1161;1161;but
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;to you
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Plural";8/g1247;1247;they ministered
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;those
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Plural";9/g0846;846;things,
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Relative Pronoun ; Accusative ; Neuter ; Plural";10/g3739;3739;which
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;1;12;DBY90;en;reference;Adverb;11/g3568;3568;now
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Indicative ; 3rd Person ; Singular";12/g0312;312;been announced
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";13/g5213;5213;to you
+1Pet;1 Pierre;1;12;DBY90;en;reference;Preposition;14/g1223;1223;by
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Definite article ; Genitive ; Masculine ; Plural";15/g3588;3588;those who
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;declared
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";17/g5209;5209;to you
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;the glad
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Aorist ; Middle ; Participle ; Genitive ; Masculine ; Plural";16/g2097;2097;tidings
+1Pet;1 Pierre;1;12;DBY90;en;reference;Preposition;18/g1722;1722;by
+1Pet;1 Pierre;1;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Adjective ; Dative ; Neuter ; Singular";20/g0040;40;Holy
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";19/g4151;4151;Spirit,
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Participle ; Dative ; Neuter ; Singular";21/g0649;649;sent
+1Pet;1 Pierre;1;12;DBY90;en;reference;Preposition;22/g0575;575;from
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g3772;3772;heaven,
+1Pet;1 Pierre;1;12;DBY90;en;texte_brut;;;;which
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";27/g0032;32;angels
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";26/g1937;1937;desire
+1Pet;1 Pierre;1;12;DBY90;en;reference;"Verb ; Aorist ; Active ; Infinitive";28/g3879;3879;to look
+1Pet;1 Pierre;1;12;DBY90;en;reference;Preposition;24/g1519;1519;into.
+1Pet;1 Pierre;1;13;DBY90;en;reference;Conjunction;1/g1352;1352;Wherefore,
+1Pet;1 Pierre;1;13;DBY90;en;texte_brut;;;;having
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Verb ; Aorist ; Middle ; Participle ; Nominative ; Masculine ; Plural";2/g0328;328;girded up
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Plural";3/g3588;3588;the
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";4/g3751;3751;loins
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;of your
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g1271;1271;mind,
+1Pet;1 Pierre;1;13;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";7/g3525;3525;sober
+1Pet;1 Pierre;1;13;DBY90;en;mot_ajoute;;;;[and]
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";9/g1679;1679;hope
+1Pet;1 Pierre;1;13;DBY90;en;reference;Adverb;8/g5049;5049;with perfect stedfastness in the
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";13/g5485;5485;grace
+1Pet;1 Pierre;1;13;DBY90;en;mot_ajoute;;;;[which will be]
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Accusative ; Feminine ; Singular";11/g5342;5342;brought
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";12/g5213;5213;to you
+1Pet;1 Pierre;1;13;DBY90;en;reference;Preposition;14/g1722;1722;at
+1Pet;1 Pierre;1;13;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g0602;602;revelation
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";16/g2424;2424;of Jesus
+1Pet;1 Pierre;1;13;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g5547;5547;"Christ;"
+1Pet;1 Pierre;1;14;DBY90;en;reference;Adverb;1/g5613;5613;as
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";2/g5043;5043;children
+1Pet;1 Pierre;1;14;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";3/g5218;5218;obedience,
+1Pet;1 Pierre;1;14;DBY90;en;reference;Particle, Disjunctive Particle;4/g3361;3361;not
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Verb ; Present ; Either Middle or Passive ; Participle ; Nominative ; Masculine ; Plural";5/g4964;4964;conformed to
+1Pet;1 Pierre;1;14;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";7/g4386;4386;former
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";11/g1939;1939;lusts
+1Pet;1 Pierre;1;14;DBY90;en;reference;Preposition;8/g1722;1722;in
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";10/g5216;5216;your
+1Pet;1 Pierre;1;14;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";9/g0052;52;"ignorance;"
+1Pet;1 Pierre;1;15;DBY90;en;reference;Conjunction;1/g0235;235;but
+1Pet;1 Pierre;1;15;DBY90;en;reference;Preposition;2/g2596;2596;as
+1Pet;1 Pierre;1;15;DBY90;en;texte_brut;;;;he who
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Accusative ; Masculine ; Singular";4/g2564;2564;has called
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";5/g5209;5209;you
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";6/g0040;40;is holy,
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Verb ; Aorist ; Passive Deponent ; Imperative ; 2nd Person ; Plural";13/g1096;1096;be
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Plural";8/g0846;846;ye
+1Pet;1 Pierre;1;15;DBY90;en;texte_brut;;;;also
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";9/g0040;40;holy
+1Pet;1 Pierre;1;15;DBY90;en;reference;Preposition;10/g1722;1722;in
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";11/g3956;3956;all
+1Pet;1 Pierre;1;15;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;1;15;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";12/g0391;391;"conversation;"
+1Pet;1 Pierre;1;16;DBY90;en;reference;Conjunction;1/g1360;1360;because
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";2/g1125;1125;it is written,
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Imperative ; 2nd Person ; Plural";4/g1096;1096;Be ye
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";3/g0040;40;holy,
+1Pet;1 Pierre;1;16;DBY90;en;reference;Conjunction;5/g3754;3754;for
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Nominative ; Singular";6/g1473;1473;I
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 1st Person ; Singular";8/g1510;1510;am
+1Pet;1 Pierre;1;16;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";7/g0040;40;holy.
+1Pet;1 Pierre;1;17;DBY90;en;reference;Conjunction;1/g2532;2532;And
+1Pet;1 Pierre;1;17;DBY90;en;reference;Conditional Particle or Conjunction;2/g1487;1487;if
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Verb ; Present ; Middle ; Indicative ; 2nd Person ; Plural";4/g1941;1941;ye invoke as
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g3962;3962;Father
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;him
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";5/g3588;3588;who,
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;without
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;regard
+1Pet;1 Pierre;1;17;DBY90;en;reference;Adverb;6/g0678;678;of persons,
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Singular";7/g2919;2919;judges
+1Pet;1 Pierre;1;17;DBY90;en;reference;Preposition;8/g2596;2596;according to
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Singular";9/g1538;1538;the
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";10/g2041;2041;work
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;of each,
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Imperative ; 2nd Person ; Plural";16/g0390;390;pass
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;your
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";15/g5550;5550;time
+1Pet;1 Pierre;1;17;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g3940;3940;sojourn
+1Pet;1 Pierre;1;17;DBY90;en;reference;Preposition;11/g1722;1722;in
+1Pet;1 Pierre;1;17;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g5401;5401;fear,
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";1/g1492;1492;knowing
+1Pet;1 Pierre;1;18;DBY90;en;reference;Conjunction;2/g3754;3754;that
+1Pet;1 Pierre;1;18;DBY90;en;texte_brut;;;;ye have been
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";8/g3084;3084;redeemed,
+1Pet;1 Pierre;1;18;DBY90;en;texte_brut;;;;not by
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Adjective ; Dative ; Neuter ; Plural";4/g5349;5349;corruptible
+1Pet;1 Pierre;1;18;DBY90;en;mot_ajoute;;;;[things, as]
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";5/g0694;694;silver
+1Pet;1 Pierre;1;18;DBY90;en;reference;Particle, Disjunctive Particle;6/g2228;2228;or
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";7/g5553;5553;gold,
+1Pet;1 Pierre;1;18;DBY90;en;reference;Preposition;9/g1537;1537;from
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;your
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";10/g3152;3152;vain
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";12/g0391;391;conversation
+1Pet;1 Pierre;1;18;DBY90;en;texte_brut;;;;handed down
+1Pet;1 Pierre;1;18;DBY90;en;texte_brut;;;;from
+1Pet;1 Pierre;1;18;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;1;18;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";13/g3970;3970;fathers,
+1Pet;1 Pierre;1;19;DBY90;en;reference;Conjunction;1/g0235;235;but
+1Pet;1 Pierre;1;19;DBY90;en;texte_brut;;;;by
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Adjective ; Dative ; Neuter ; Singular";2/g5093;5093;precious
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";3/g0129;129;blood,
+1Pet;1 Pierre;1;19;DBY90;en;reference;Adverb;4/g5613;5613;as
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g0286;286;of a lamb
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Singular";6/g0299;299;without blemish
+1Pet;1 Pierre;1;19;DBY90;en;reference;Conjunction;7/g2532;2532;and
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Singular";8/g0784;784;without spot,
+1Pet;1 Pierre;1;19;DBY90;en;mot_ajoute;;;;[the blood]
+1Pet;1 Pierre;1;19;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;19;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g5547;5547;Christ,
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Genitive ; Masculine ; Singular";1/g4267;4267;foreknown
+1Pet;1 Pierre;1;20;DBY90;en;reference;Particle, Disjunctive Particle;2/g3303;3303;indeed
+1Pet;1 Pierre;1;20;DBY90;en;reference;Preposition;3/g4253;4253;before
+1Pet;1 Pierre;1;20;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g2602;2602;foundation
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;20;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2889;2889;world,
+1Pet;1 Pierre;1;20;DBY90;en;reference;Conjunction;7/g1161;1161;but
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;who
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;has
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;been
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Genitive ; Masculine ; Singular";6/g5319;5319;manifested
+1Pet;1 Pierre;1;20;DBY90;en;reference;Preposition;8/g1909;1909;at
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";9/g2078;2078;the
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;end of
+1Pet;1 Pierre;1;20;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";10/g5550;5550;times
+1Pet;1 Pierre;1;20;DBY90;en;reference;Preposition;11/g1223;1223;for
+1Pet;1 Pierre;1;20;DBY90;en;texte_brut;;;;your sakes,
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Plural";1/g3588;3588;who
+1Pet;1 Pierre;1;21;DBY90;en;reference;Preposition;2/g1223;1223;by
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";3/g0846;846;him
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";4/g4100;4100;do believe
+1Pet;1 Pierre;1;21;DBY90;en;reference;Preposition;5/g1519;1519;on
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g2316;2316;God,
+1Pet;1 Pierre;1;21;DBY90;en;texte_brut;;;;who
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Accusative ; Masculine ; Singular";7/g1453;1453;has raised
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";8/g0846;846;him
+1Pet;1 Pierre;1;21;DBY90;en;reference;Preposition;9/g1537;1537;from
+1Pet;1 Pierre;1;21;DBY90;en;texte_brut;;;;among
+1Pet;1 Pierre;1;21;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";10/g3498;3498;dead
+1Pet;1 Pierre;1;21;DBY90;en;reference;Conjunction;11/g2532;2532;and
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Accusative ; Masculine ; Singular";14/g1325;1325;given
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";13/g0846;846;him
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g1391;1391;glory,
+1Pet;1 Pierre;1;21;DBY90;en;reference;Conjunction;15/g5620;5620;that
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";17/g5216;5216;your
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";16/g4102;4102;faith
+1Pet;1 Pierre;1;21;DBY90;en;reference;Conjunction;18/g2532;2532;and
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";19/g1680;1680;hope
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Infinitive";20/g1511;1511;should be
+1Pet;1 Pierre;1;21;DBY90;en;reference;Preposition;21/g1519;1519;in
+1Pet;1 Pierre;1;21;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";22/g2316;2316;God.
+1Pet;1 Pierre;1;22;DBY90;en;texte_brut;;;;Having
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g0048;48;purified
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";2/g5216;5216;your
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";1/g5590;5590;souls
+1Pet;1 Pierre;1;22;DBY90;en;reference;Preposition;4/g1722;1722;by
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g5218;5218;obedience
+1Pet;1 Pierre;1;22;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Definite article ; Genitive ; Feminine ; Singular";6/g3588;3588;the
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g0225;225;truth
+1Pet;1 Pierre;1;22;DBY90;en;reference;Preposition;10/g1519;1519;to
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";12/g0505;505;unfeigned
+1Pet;1 Pierre;1;22;DBY90;en;texte_brut;;;;brotherly
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g5360;5360;love,
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";17/g0025;25;love
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";16/g0240;240;one another
+1Pet;1 Pierre;1;22;DBY90;en;reference;Preposition;13/g1537;1537;out of
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";14/g2513;2513;a pure
+1Pet;1 Pierre;1;22;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";15/g2588;2588;heart
+1Pet;1 Pierre;1;22;DBY90;en;reference;Adverb;18/g1619;1619;"fervently;"
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";1/g0313;313;being born again,
+1Pet;1 Pierre;1;23;DBY90;en;reference;Particle, Disjunctive Particle;2/g3756;3756;not
+1Pet;1 Pierre;1;23;DBY90;en;reference;Preposition;3/g1537;1537;of
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";5/g5349;5349;corruptible
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";4/g4701;4701;seed,
+1Pet;1 Pierre;1;23;DBY90;en;reference;Conjunction;6/g0235;235;but
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";7/g0862;862;of incorruptible,
+1Pet;1 Pierre;1;23;DBY90;en;reference;Preposition;8/g1223;1223;by
+1Pet;1 Pierre;1;23;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g3056;3056;living and abiding word
+1Pet;1 Pierre;1;23;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g2316;2316;of God.
+1Pet;1 Pierre;1;24;DBY90;en;reference;Conjunction;1/g1360;1360;Because
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Singular";2/g3956;3956;all
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g4561;4561;flesh
+1Pet;1 Pierre;1;24;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;1;24;DBY90;en;reference;Adverb;4/g5613;5613;as
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g5528;5528;grass,
+1Pet;1 Pierre;1;24;DBY90;en;reference;Conjunction;6/g2532;2532;and
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Singular";7/g3956;3956;all
+1Pet;1 Pierre;1;24;DBY90;en;texte_brut;;;;its
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";8/g1391;1391;glory
+1Pet;1 Pierre;1;24;DBY90;en;reference;Adverb;10/g5613;5613;as
+1Pet;1 Pierre;1;24;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";11/g0438;438;flower
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";12/g5528;5528;of grass.
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";14/g3588;3588;The
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";15/g5528;5528;grass
+1Pet;1 Pierre;1;24;DBY90;en;texte_brut;;;;has
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";13/g3583;3583;withered
+1Pet;1 Pierre;1;24;DBY90;en;reference;Conjunction;16/g2532;2532;and
+1Pet;1 Pierre;1;24;DBY90;en;mot_ajoute;;;;[its]
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";18/g0438;438;flower
+1Pet;1 Pierre;1;24;DBY90;en;texte_brut;;;;has
+1Pet;1 Pierre;1;24;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";20/g1601;1601;"fallen;"
+1Pet;1 Pierre;1;25;DBY90;en;reference;Conjunction;2/g1161;1161;but
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";1/g3588;3588;the
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";3/g4487;4487;word
+1Pet;1 Pierre;1;25;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;1;25;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2962;2962;Lord
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";5/g3306;3306;abides
+1Pet;1 Pierre;1;25;DBY90;en;reference;Preposition;6/g1519;1519;for
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g0165;165;eternity.
+1Pet;1 Pierre;1;25;DBY90;en;reference;Conjunction;9/g1161;1161;But
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";8/g5124;5124;this
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";10/g2076;2076;is
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";11/g3588;3588;the
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";12/g4487;4487;word
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";13/g3588;3588;which
+1Pet;1 Pierre;1;25;DBY90;en;texte_brut;;;;in
+1Pet;1 Pierre;1;25;DBY90;en;texte_brut;;;;the glad tidings
+1Pet;1 Pierre;1;25;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Neuter ; Singular";14/g2097;2097;preached
+1Pet;1 Pierre;1;25;DBY90;en;reference;Preposition;15/g1519;1519;to
+1Pet;1 Pierre;1;25;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";16/g5209;5209;you.
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Verb ; Second Aorist ; Middle ; Participle ; Nominative ; Masculine ; Plural";1/g0659;659;Laying aside
+1Pet;1 Pierre;2;1;DBY90;en;reference;Conjunction;2/g3767;3767;therefore
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";3/g3956;3956;all
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";4/g2549;2549;malice
+1Pet;1 Pierre;2;1;DBY90;en;reference;Conjunction;5/g2532;2532;and
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";6/g3956;3956;all
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g1388;1388;guile
+1Pet;1 Pierre;2;1;DBY90;en;reference;Conjunction;8/g2532;2532;and
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";9/g5272;5272;hypocrisies
+1Pet;1 Pierre;2;1;DBY90;en;reference;Conjunction;10/g2532;2532;and
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Plural";11/g5355;5355;envyings
+1Pet;1 Pierre;2;1;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Plural";13/g3956;3956;all
+1Pet;1 Pierre;2;1;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";14/g2636;2636;evil speakings,
+1Pet;1 Pierre;2;2;DBY90;en;reference;Adverb;1/g5613;5613;as
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Plural";2/g0738;738;newborn
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";3/g1025;1025;babes
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";8/g1971;1971;desire
+1Pet;1 Pierre;2;2;DBY90;en;texte_brut;;;;earnestly
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";6/g0097;97;the pure mental
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";7/g1051;1051;milk
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";4/g3588;3588;of the
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";5/g3050;3050;word,
+1Pet;1 Pierre;2;2;DBY90;en;reference;Conjunction;9/g2443;2443;that
+1Pet;1 Pierre;2;2;DBY90;en;texte_brut;;;;by it
+1Pet;1 Pierre;2;2;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 2nd Person ; Plural";11/g0837;837;ye may grow
+1Pet;1 Pierre;2;2;DBY90;en;texte_brut;;;;up
+1Pet;1 Pierre;2;2;DBY90;en;reference;Preposition;10/g1722;1722, 846;to
+1Pet;1 Pierre;2;2;DBY90;en;texte_brut;;;;salvation,
+1Pet;1 Pierre;2;3;DBY90;en;reference;Conditional Particle or Conjunction;1/g1512;1512;if indeed
+1Pet;1 Pierre;2;3;DBY90;en;reference;"Verb ; Aorist ; Middle Deponent ; Indicative ; 2nd Person ; Plural";2/g1089;1089;ye have tasted
+1Pet;1 Pierre;2;3;DBY90;en;reference;Conjunction;3/g3754;3754;that
+1Pet;1 Pierre;2;3;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";5/g3588;3588;the
+1Pet;1 Pierre;2;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g2962;2962;Lord
+1Pet;1 Pierre;2;3;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;2;3;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";4/g5543;5543;good.
+1Pet;1 Pierre;2;4;DBY90;en;reference;Preposition;1/g4314;4314;To
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";2/g3739;3739;whom
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";3/g4334;4334;coming,
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Singular";5/g2198;2198;a living
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";4/g3037;3037;stone,
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Accusative ; Masculine ; Singular";9/g0593;593;cast away
+1Pet;1 Pierre;2;4;DBY90;en;reference;Particle, Disjunctive Particle;8/g3303;3303;indeed
+1Pet;1 Pierre;2;4;DBY90;en;texte_brut;;;;as worthless
+1Pet;1 Pierre;2;4;DBY90;en;reference;Preposition;6/g5259;5259;by
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";7/g0444;444;men,
+1Pet;1 Pierre;2;4;DBY90;en;reference;Conjunction;11/g1161;1161;but
+1Pet;1 Pierre;2;4;DBY90;en;texte_brut;;;;with
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g2316;2316;God
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";13/g1588;1588;chosen,
+1Pet;1 Pierre;2;4;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";14/g1784;1784;precious,
+1Pet;1 Pierre;2;5;DBY90;en;texte_brut;;;;yourselves
+1Pet;1 Pierre;2;5;DBY90;en;reference;Conjunction;1/g2532;2532;also,
+1Pet;1 Pierre;2;5;DBY90;en;reference;Adverb;3/g5613;5613;as
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";5/g2198;2198;living
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";4/g3037;3037;stones,
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Verb ; Present ; Passive ; Indicative ; 2nd Person ; Plural";6/g3618;3618;are being built up
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";8/g4152;4152;a spiritual
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g3624;3624;house,
+1Pet;1 Pierre;2;5;DBY90;en;texte_brut;;;;a
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";10/g0040;40;holy
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";9/g2406;2406;priesthood,
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Verb ; Aorist ; Active ; Infinitive";11/g0399;399;to offer
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Plural";12/g4152;4152;spiritual
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";13/g2378;2378;sacrifices
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Plural";14/g2144;2144;acceptable
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g2316;2316;to God
+1Pet;1 Pierre;2;5;DBY90;en;reference;Preposition;16/g1223;1223;by
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";17/g2424;2424;Jesus
+1Pet;1 Pierre;2;5;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g5547;5547;Christ.
+1Pet;1 Pierre;2;6;DBY90;en;texte_brut;;;;Because
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";3/g4023;4023;it is contained
+1Pet;1 Pierre;2;6;DBY90;en;reference;Preposition;4/g1722;1722;in
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Definite article ; Dative ; Feminine ; Singular";5/g3588;3588;the
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g1124;1124;scripture:
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Imperative ; 2nd Person ; Singular";7/g2400;2400;Behold,
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";8/g5087;5087;I lay
+1Pet;1 Pierre;2;6;DBY90;en;reference;Preposition;9/g1722;1722;in
+1Pet;1 Pierre;2;6;DBY90;en;reference;Indeclinable Proper Noun;10/g4622;4622;Zion
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";12/g0204;204;a corner
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g3037;3037;stone,
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";13/g1588;1588;elect,
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";14/g1784;1784;precious:
+1Pet;1 Pierre;2;6;DBY90;en;reference;Conjunction;15/g2532;2532;and
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";16/g3588;3588;he that
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";17/g4100;4100;believes
+1Pet;1 Pierre;2;6;DBY90;en;reference;Preposition;18/g1909;1909;on
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";19/g0846;846;him
+1Pet;1 Pierre;2;6;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Singular";21/g2617;2617;shall
+1Pet;1 Pierre;2;6;DBY90;en;reference;Particle, Disjunctive Particle;20/g3361;3361;not
+1Pet;1 Pierre;2;6;DBY90;en;texte_brut;;;;be put to shame.
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";1/g5213;5213;To you
+1Pet;1 Pierre;2;7;DBY90;en;reference;Conjunction;2/g3767;3767;therefore
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Plural";4/g3588;3588;who
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Plural";5/g4100;4100;believe
+1Pet;1 Pierre;2;7;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;2;7;DBY90;en;texte_brut;;;;the
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g5092;5092;"preciousness;"
+1Pet;1 Pierre;2;7;DBY90;en;reference;Conjunction;7/g1161;1161;but
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Plural";6/g0544;544;to the disobedient,
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g3037;3037;the stone
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Relative Pronoun ; Accusative ; Masculine ; Singular";9/g3739;3739;which
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g3618;3618;the builders
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Plural";10/g0593;593;cast away
+1Pet;1 Pierre;2;7;DBY90;en;texte_brut;;;;as worthless,
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Masculine ; Singular";12/g3778;3778;this
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 3rd Person ; Singular";13/g1096;1096;is become
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";14/g2776;2776;head
+1Pet;1 Pierre;2;7;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;2;7;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;2;7;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";15/g1137;1137;corner,
+1Pet;1 Pierre;2;8;DBY90;en;reference;Conjunction;1/g2532;2532;and
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";2/g3037;3037;a stone
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";3/g4348;4348;of stumbling
+1Pet;1 Pierre;2;8;DBY90;en;reference;Conjunction;4/g2532;2532;and
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";5/g4073;4073;rock
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";6/g4625;4625;"of offence;"
+1Pet;1 Pierre;2;8;DBY90;en;mot_ajoute;;;;[who]
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";8/g4350;4350;stumble
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Singular";9/g3588;3588;at the
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g3056;3056;word,
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g0544;544;being disobedient
+1Pet;1 Pierre;2;8;DBY90;en;reference;Preposition;12/g1519;1519, 3739;to which
+1Pet;1 Pierre;2;8;DBY90;en;reference;Conjunction;13/g2532;2532;also
+1Pet;1 Pierre;2;8;DBY90;en;texte_brut;;;;they have
+1Pet;1 Pierre;2;8;DBY90;en;texte_brut;;;;been
+1Pet;1 Pierre;2;8;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Plural";14/g5087;5087;appointed.
+1Pet;1 Pierre;2;9;DBY90;en;reference;Conjunction;2/g1161;1161;But
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";1/g5210;5210;ye
+1Pet;1 Pierre;2;9;DBY90;en;mot_ajoute;;;;[are]
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";4/g1588;1588;a chosen
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";3/g1085;1085;race,
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";5/g0934;934;a kingly
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";6/g2406;2406;priesthood,
+1Pet;1 Pierre;2;9;DBY90;en;texte_brut;;;;a
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";8/g0040;40;holy
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";7/g1484;1484;nation,
+1Pet;1 Pierre;2;9;DBY90;en;texte_brut;;;;a
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g2992;2992;people
+1Pet;1 Pierre;2;9;DBY90;en;texte_brut;;;;for a
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g4047;4047, 1519;possession,
+1Pet;1 Pierre;2;9;DBY90;en;reference;Adverb;11/g3704;3704;that
+1Pet;1 Pierre;2;9;DBY90;en;texte_brut;;;;ye
+1Pet;1 Pierre;2;9;DBY90;en;texte_brut;;;;might set
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 2nd Person ; Plural";14/g1804;1804;forth
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Plural";12/g3588;3588;the
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";13/g0703;703;excellencies
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";18/g2564;2564;of him who has called
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";17/g5209;5209;you
+1Pet;1 Pierre;2;9;DBY90;en;reference;Preposition;15/g1537;1537;out of
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";16/g4655;4655;darkness
+1Pet;1 Pierre;2;9;DBY90;en;reference;Preposition;19/g1519;1519;to
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";21/g0846;846;his
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";20/g2298;2298;wonderful
+1Pet;1 Pierre;2;9;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";22/g5457;5457;"light;"
+1Pet;1 Pierre;2;10;DBY90;en;texte_brut;;;;who
+1Pet;1 Pierre;2;10;DBY90;en;reference;Particle, Disjunctive Particle;2/g4218;4218;once
+1Pet;1 Pierre;2;10;DBY90;en;mot_ajoute;;;;[were]
+1Pet;1 Pierre;2;10;DBY90;en;reference;Particle, Disjunctive Particle;3/g3756;3756;not
+1Pet;1 Pierre;2;10;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g2992;2992;a people,
+1Pet;1 Pierre;2;10;DBY90;en;reference;Conjunction;6/g1161;1161;but
+1Pet;1 Pierre;2;10;DBY90;en;reference;Adverb;5/g3568;3568;now
+1Pet;1 Pierre;2;10;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2316;2316;God's
+1Pet;1 Pierre;2;10;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g2992;2992;"people;"
+1Pet;1 Pierre;2;10;DBY90;en;texte_brut;;;;who were
+1Pet;1 Pierre;2;10;DBY90;en;reference;Particle, Disjunctive Particle;10/g3756;3756;not
+1Pet;1 Pierre;2;10;DBY90;en;texte_brut;;;;enjoying
+1Pet;1 Pierre;2;10;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Plural";11/g1653;1653;mercy,
+1Pet;1 Pierre;2;10;DBY90;en;reference;Conjunction;13/g1161;1161;but
+1Pet;1 Pierre;2;10;DBY90;en;reference;Adverb;12/g3568;3568;now
+1Pet;1 Pierre;2;10;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;2;10;DBY90;en;texte_brut;;;;found
+1Pet;1 Pierre;2;10;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Masculine ; Plural";14/g1653;1653;mercy.
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Adjective ; Vocative ; Masculine ; Plural";1/g0027;27;Beloved,
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";2/g3870;3870;I exhort
+1Pet;1 Pierre;2;11;DBY90;en;mot_ajoute;;;;[you],
+1Pet;1 Pierre;2;11;DBY90;en;reference;Adverb;3/g5613;5613;as
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";4/g3941;3941;strangers
+1Pet;1 Pierre;2;11;DBY90;en;reference;Conjunction;5/g2532;2532;and
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";6/g3927;3927;sojourners, to
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Verb ; Present ; Middle ; Infinitive";7/g0567;567;abstain from
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Plural";8/g4559;4559;fleshly
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";9/g1939;1939;lusts,
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Relative Pronoun ; Nominative ; Feminine ; Plural";10/g3748;3748;which
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Verb ; Present ; Middle ; Indicative ; 3rd Person ; Plural";11/g4754;4754;war
+1Pet;1 Pierre;2;11;DBY90;en;reference;Preposition;12/g2596;2596;against
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Definite article ; Genitive ; Feminine ; Singular";13/g3588;3588;the
+1Pet;1 Pierre;2;11;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";14/g5590;5590;"soul;"
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";6/g2192;2192;having
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";2/g5216;5216;your
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";1/g0391;391;conversation
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";7/g2570;2570;honest
+1Pet;1 Pierre;2;12;DBY90;en;reference;Preposition;3/g1722;1722;among
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Definite article ; Dative ; Neuter ; Plural";4/g3588;3588;the
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Dative ; Neuter ; Plural";5/g1484;1484;Gentiles,
+1Pet;1 Pierre;2;12;DBY90;en;reference;Conjunction;8/g2443;2443;that
+1Pet;1 Pierre;2;12;DBY90;en;mot_ajoute;;;;[as to that]
+1Pet;1 Pierre;2;12;DBY90;en;reference;Preposition;9/g1722;1722, 3739;in which
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";10/g2635;2635;they speak against
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;you
+1Pet;1 Pierre;2;12;DBY90;en;reference;Adverb;12/g5613;5613;as
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";13/g2555;2555;evildoers,
+1Pet;1 Pierre;2;12;DBY90;en;texte_brut;;;;they may
+1Pet;1 Pierre;2;12;DBY90;en;reference;Preposition;14/g1537;1537;through
+1Pet;1 Pierre;2;12;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Plural";15/g2570;2570;good
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";16/g2041;2041;works,
+1Pet;1 Pierre;2;12;DBY90;en;mot_ajoute;;;;[themselves]
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";17/g2029;2029;witnessing
+1Pet;1 Pierre;2;12;DBY90;en;mot_ajoute;;;;[them],
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 3rd Person ; Plural";18/g1392;1392;glorify
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";19/g2316;2316;God
+1Pet;1 Pierre;2;12;DBY90;en;reference;Preposition;20/g1722;1722;in
+1Pet;1 Pierre;2;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";21/g2250;2250;day
+1Pet;1 Pierre;2;12;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";22/g1984;1984;of visitation.
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Imperative ; 2nd Person ; Plural";1/g5293;5293;Be in subjection
+1Pet;1 Pierre;2;13;DBY90;en;mot_ajoute;;;;[therefore]
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";2/g3956;3956;to every
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";3/g0442;442;human institution
+1Pet;1 Pierre;2;13;DBY90;en;reference;Preposition;5/g1223;1223;for
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";6/g3588;3588;the
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";7/g2962;2962;"Lord's sake;"
+1Pet;1 Pierre;2;13;DBY90;en;reference;Conjunction;8/g1535;1535;whether
+1Pet;1 Pierre;2;13;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;2;13;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";9/g0935;935;king
+1Pet;1 Pierre;2;13;DBY90;en;reference;Adverb;10/g5613;5613;as
+1Pet;1 Pierre;2;13;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";11/g5242;5242;supreme,
+1Pet;1 Pierre;2;14;DBY90;en;reference;Conjunction;1/g1535;1535;or
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";2/g2232;2232;to rulers
+1Pet;1 Pierre;2;14;DBY90;en;reference;Adverb;3/g5613;5613;as
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Dative ; Masculine ; Plural";6/g3992;3992;sent
+1Pet;1 Pierre;2;14;DBY90;en;reference;Preposition;4/g1223;1223;by
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";5/g0846;846;him,
+1Pet;1 Pierre;2;14;DBY90;en;reference;Preposition;7/g1519;1519;for
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";8/g1557;1557;vengeance on
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";9/g2555;2555;evildoers,
+1Pet;1 Pierre;2;14;DBY90;en;reference;Conjunction;11/g1161;1161;and
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";10/g1868;1868;praise
+1Pet;1 Pierre;2;14;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;2;14;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";12/g0017;17;them that do well.
+1Pet;1 Pierre;2;15;DBY90;en;reference;Conjunction;1/g3754;3754;Because
+1Pet;1 Pierre;2;15;DBY90;en;reference;Adverb;2/g3779;3779;so
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";3/g2076;2076;is
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";4/g3588;3588;the
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";5/g2307;2307;will
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2316;2316;of God,
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";7/g0015;15;that by well-doing
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Verb ; Present ; Active ; Infinitive";8/g5392;5392;ye put to silence
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Singular";9/g3588;3588;the
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g0056;56;ignorance
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";10/g0878;878;of senseless
+1Pet;1 Pierre;2;15;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";11/g0444;444;"men;"
+1Pet;1 Pierre;2;16;DBY90;en;reference;Adverb;1/g5613;5613;as
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";2/g1658;1658;free,
+1Pet;1 Pierre;2;16;DBY90;en;reference;Conjunction;3/g2532;2532;and
+1Pet;1 Pierre;2;16;DBY90;en;reference;Particle, Disjunctive Particle;4/g3361;3361;not
+1Pet;1 Pierre;2;16;DBY90;en;texte_brut;;;;as
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";7/g2192;2192;having
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";9/g1657;1657;liberty
+1Pet;1 Pierre;2;16;DBY90;en;reference;Adverb;5/g5613;5613;as
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";6/g1942;1942;a cloak
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g2549;2549;of malice,
+1Pet;1 Pierre;2;16;DBY90;en;reference;Conjunction;10/g0235;235;but
+1Pet;1 Pierre;2;16;DBY90;en;reference;Adverb;11/g5613;5613;as
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";13/g2316;2316;God's
+1Pet;1 Pierre;2;16;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";12/g1401;1401;bondmen.
+1Pet;1 Pierre;2;17;DBY90;en;texte_brut;;;;Shew
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";2/g5091;5091;honour
+1Pet;1 Pierre;2;17;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";1/g3956;3956;all,
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";5/g0025;25;love
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Singular";3/g3588;3588;the
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";4/g0081;81;brotherhood,
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Imperative ; 2nd Person ; Plural";7/g5399;5399;fear
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";6/g2316;2316;God,
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 2nd Person ; Plural";10/g5091;5091;honour
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";8/g3588;3588;the
+1Pet;1 Pierre;2;17;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";9/g0935;935;king.
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g3610;3610;Servants,
+1Pet;1 Pierre;2;18;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";2/g5293;5293;subject
+1Pet;1 Pierre;2;18;DBY90;en;texte_brut;;;;with all
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";5/g5401;5401;fear
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";6/g1203;1203;to your masters,
+1Pet;1 Pierre;2;18;DBY90;en;reference;Particle, Disjunctive Particle;7/g3756;3756;not
+1Pet;1 Pierre;2;18;DBY90;en;reference;Adverb;8/g3440;3440;only
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Plural";9/g3588;3588;to the
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";10/g0018;18;good
+1Pet;1 Pierre;2;18;DBY90;en;reference;Conjunction;11/g2532;2532;and
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";12/g1933;1933;gentle,
+1Pet;1 Pierre;2;18;DBY90;en;reference;Conjunction;13/g0235;235;but
+1Pet;1 Pierre;2;18;DBY90;en;reference;Conjunction;14/g2532;2532;also
+1Pet;1 Pierre;2;18;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Plural";15/g3588;3588;to the
+1Pet;1 Pierre;2;18;DBY90;en;texte_brut;;;;ill-tempered.
+1Pet;1 Pierre;2;19;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";1/g5124;5124;this
+1Pet;1 Pierre;2;19;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";3/g5485;5485;acceptable,
+1Pet;1 Pierre;2;19;DBY90;en;reference;Conditional Particle or Conjunction;4/g1487;1487;if
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";9/g5100;5100;one,
+1Pet;1 Pierre;2;19;DBY90;en;reference;Preposition;5/g1223;1223;for
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g4893;4893;conscience
+1Pet;1 Pierre;2;19;DBY90;en;texte_brut;;;;sake
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;towards God,
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";8/g5297;5297;endure
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";10/g3077;3077;griefs,
+1Pet;1 Pierre;2;19;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";11/g3958;3958;suffering
+1Pet;1 Pierre;2;19;DBY90;en;texte_brut;;;;unjustly.
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Nominative ; Neuter ; Singular";1/g4169;4169;what
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";3/g2811;2811;glory
+1Pet;1 Pierre;2;20;DBY90;en;mot_ajoute;;;;[is it],
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conditional Particle or Conjunction;4/g1487;1487;if
+1Pet;1 Pierre;2;20;DBY90;en;texte_brut;;;;sinning
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conjunction;6/g2532;2532;and
+1Pet;1 Pierre;2;20;DBY90;en;texte_brut;;;;being
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";7/g2852;2852;buffeted
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 2nd Person ; Plural";8/g5278;5278;ye shall bear
+1Pet;1 Pierre;2;20;DBY90;en;mot_ajoute;;;;[it]?
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conjunction;9/g0235;235;but
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conditional Particle or Conjunction;10/g1487;1487;if,
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g0015;15;doing good
+1Pet;1 Pierre;2;20;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";13/g3958;3958;suffering,
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 2nd Person ; Plural";14/g5278;5278;ye shall bear
+1Pet;1 Pierre;2;20;DBY90;en;mot_ajoute;;;;[it],
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";15/g5124;5124;this
+1Pet;1 Pierre;2;20;DBY90;en;texte_brut;;;;is
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";16/g5485;5485;acceptable
+1Pet;1 Pierre;2;20;DBY90;en;reference;Preposition;17/g3844;3844;with
+1Pet;1 Pierre;2;20;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";18/g2316;2316;God.
+1Pet;1 Pierre;2;21;DBY90;en;reference;Conjunction;3/g1063;1063;For
+1Pet;1 Pierre;2;21;DBY90;en;reference;Preposition;1/g1519;1519;to
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Demonstrative Pronoun ; Accusative ; Neuter ; Singular";2/g5124;5124;this
+1Pet;1 Pierre;2;21;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";4/g2564;2564;"ye been called;"
+1Pet;1 Pierre;2;21;DBY90;en;reference;Conjunction;5/g3754;3754;for
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g5547;5547;Christ
+1Pet;1 Pierre;2;21;DBY90;en;reference;Conjunction;6/g2532;2532;also
+1Pet;1 Pierre;2;21;DBY90;en;texte_brut;;;;has
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";8/g3958;3958;suffered
+1Pet;1 Pierre;2;21;DBY90;en;reference;Preposition;9/g5228;5228;for
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";10/g2257;2257;you,
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";12/g5277;5277;leaving
+1Pet;1 Pierre;2;21;DBY90;en;texte_brut;;;;you a model
+1Pet;1 Pierre;2;21;DBY90;en;reference;Conjunction;14/g2443;2443;that
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 2nd Person ; Plural";15/g1872;1872;ye should follow
+1Pet;1 Pierre;2;21;DBY90;en;texte_brut;;;;in
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";17/g0846;846;his
+1Pet;1 Pierre;2;21;DBY90;en;reference;"Noun ; Dative ; Neuter ; Plural";16/g2487;2487;steps:
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;who
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";4/g4160;4160;did
+1Pet;1 Pierre;2;22;DBY90;en;reference;Particle, Disjunctive Particle;3/g3756;3756;no
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";2/g0266;266;sin,
+1Pet;1 Pierre;2;22;DBY90;en;reference;Adverb;5/g3761;3761;neither
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g1388;1388;was guile
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";6/g2147;2147;found
+1Pet;1 Pierre;2;22;DBY90;en;reference;Preposition;8/g1722;1722;in
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";10/g0846;846;his
+1Pet;1 Pierre;2;22;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";9/g4750;4750;"mouth;"
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;who,
+1Pet;1 Pierre;2;23;DBY90;en;mot_ajoute;;;;[when]
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Singular";2/g3058;3058;reviled,
+1Pet;1 Pierre;2;23;DBY90;en;texte_brut;;;;reviled
+1Pet;1 Pierre;2;23;DBY90;en;reference;Particle, Disjunctive Particle;3/g3756;3756;not
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";4/g0486;486;"again;"
+1Pet;1 Pierre;2;23;DBY90;en;mot_ajoute;;;;[when]
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";5/g3958;3958;suffering,
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";7/g0546;546;threatened
+1Pet;1 Pierre;2;23;DBY90;en;reference;Particle, Disjunctive Particle;6/g3756;3756;"not;"
+1Pet;1 Pierre;2;23;DBY90;en;reference;Conjunction;9/g1161;1161;but
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Singular";8/g3860;3860;gave
+1Pet;1 Pierre;2;23;DBY90;en;mot_ajoute;;;;[himself]
+1Pet;1 Pierre;2;23;DBY90;en;texte_brut;;;;over into
+1Pet;1 Pierre;2;23;DBY90;en;texte_brut;;;;the
+1Pet;1 Pierre;2;23;DBY90;en;texte_brut;;;;hands
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Singular";10/g3588;3588;of him
+1Pet;1 Pierre;2;23;DBY90;en;texte_brut;;;;who
+1Pet;1 Pierre;2;23;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";11/g2919;2919;judges
+1Pet;1 Pierre;2;23;DBY90;en;reference;Adverb;12/g1346;1346;"righteously;"
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;who
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Personal / Possessive Pronoun ; Nominative ; Masculine ; Singular";4/g0846;846;himself
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";5/g0399;399;bore
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";3/g2257;2257;our
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";2/g0266;266;sins
+1Pet;1 Pierre;2;24;DBY90;en;reference;Preposition;6/g1722;1722;in
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;his
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";7/g4983;4983;body
+1Pet;1 Pierre;2;24;DBY90;en;reference;Preposition;9/g1909;1909;on
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";10/g3588;3588;the
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";11/g3586;3586;tree,
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;in order
+1Pet;1 Pierre;2;24;DBY90;en;reference;Conjunction;12/g2443;2443;that,
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Participle ; Nominative ; Masculine ; Plural";14/g0581;581;being dead
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";13/g0266;266;to sins,
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;we
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;may
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 1st Person ; Plural";16/g2198;2198;live
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";15/g1343;1343;to righteousness:
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Relative Pronoun ; Genitive ; Masculine ; Singular";17/g3739;3739;by
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";19/g0846;846;whose
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";18/g3468;3468;stripes
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;ye
+1Pet;1 Pierre;2;24;DBY90;en;texte_brut;;;;have been
+1Pet;1 Pierre;2;24;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";20/g2390;2390;healed.
+1Pet;1 Pierre;2;25;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Verb ; Imperfect ; (No voice stated) ; Indicative ; 2nd Person ; Plural";1/g2258;2258;ye were
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Neuter ; Plural";5/g4105;4105;going astray
+1Pet;1 Pierre;2;25;DBY90;en;texte_brut;;;;as
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";4/g4263;4263;sheep,
+1Pet;1 Pierre;2;25;DBY90;en;reference;Conjunction;6/g0235;235;but
+1Pet;1 Pierre;2;25;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;2;25;DBY90;en;reference;Adverb;8/g3568;3568;now
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Indicative ; 2nd Person ; Plural";7/g1994;1994;returned
+1Pet;1 Pierre;2;25;DBY90;en;reference;Preposition;9/g1909;1909;to
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";10/g3588;3588;the
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g4166;4166;shepherd
+1Pet;1 Pierre;2;25;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";13/g1985;1985;overseer
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";15/g5216;5216;of your
+1Pet;1 Pierre;2;25;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";14/g5590;5590;souls.
+1Pet;1 Pierre;3;1;DBY90;en;reference;Adverb;1/g3668;3668;Likewise,
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Plural";2/g1135;1135;wives,
+1Pet;1 Pierre;3;1;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Feminine ; Plural";3/g5293;5293;subject
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";4/g2398;2398;to your own
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";5/g0435;435;husbands,
+1Pet;1 Pierre;3;1;DBY90;en;reference;Conjunction;6/g2443;2443;that,
+1Pet;1 Pierre;3;1;DBY90;en;texte_brut;;;;even
+1Pet;1 Pierre;3;1;DBY90;en;reference;Conditional Particle or Conjunction;8/g1487;1487;if
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Plural";9/g5100;5100;any
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Plural";10/g0544;544;are disobedient to
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Singular";11/g3588;3588;the
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g3056;3056;word,
+1Pet;1 Pierre;3;1;DBY90;en;texte_brut;;;;they
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Plural";20/g2770;2770;may
+1Pet;1 Pierre;3;1;DBY90;en;texte_brut;;;;be gained
+1Pet;1 Pierre;3;1;DBY90;en;reference;Preposition;18/g0427;427;without
+1Pet;1 Pierre;3;1;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";19/g3056;3056;word
+1Pet;1 Pierre;3;1;DBY90;en;reference;Preposition;13/g1223;1223;by
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Definite article ; Genitive ; Feminine ; Singular";14/g3588;3588;the
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";17/g0391;391;conversation
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Definite article ; Genitive ; Feminine ; Plural";15/g3588;3588;of the
+1Pet;1 Pierre;3;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";16/g1135;1135;wives,
+1Pet;1 Pierre;3;2;DBY90;en;texte_brut;;;;having witnessed
+1Pet;1 Pierre;3;2;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";6/g5216;5216;your
+1Pet;1 Pierre;3;2;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";4/g0053;53;pure
+1Pet;1 Pierre;3;2;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g0391;391;conversation
+1Pet;1 Pierre;3;2;DBY90;en;mot_ajoute;;;;[carried out]
+1Pet;1 Pierre;3;2;DBY90;en;reference;Preposition;2/g1722;1722;in
+1Pet;1 Pierre;3;2;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";3/g5401;5401;"fear;"
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Plural";1/g3739;3739;whose
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";13/g2889;2889;adorning
+1Pet;1 Pierre;3;3;DBY90;en;texte_brut;;;;let it
+1Pet;1 Pierre;3;3;DBY90;en;reference;Particle, Disjunctive Particle;3/g3756;3756;not
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Imperative ; 3rd Person ; Singular";2/g2077;2077;be
+1Pet;1 Pierre;3;3;DBY90;en;reference;Adverb;4/g1855;1855;that outward
+1Pet;1 Pierre;3;3;DBY90;en;texte_brut;;;;one of tressing of
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";6/g2359;2359;hair,
+1Pet;1 Pierre;3;3;DBY90;en;reference;Conjunction;7/g2532;2532;and
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g4025;4025;wearing
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";9/g5553;5553;gold,
+1Pet;1 Pierre;3;3;DBY90;en;reference;Particle, Disjunctive Particle;10/g2228;2228;or
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g1745;1745;putting on
+1Pet;1 Pierre;3;3;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";12/g2440;2440;"apparel;"
+1Pet;1 Pierre;3;4;DBY90;en;reference;Conjunction;1/g0235;235;but
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";2/g3588;3588;the
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";3/g2927;2927;hidden
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g0444;444;man
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Definite article ; Genitive ; Feminine ; Singular";4/g3588;3588;of the
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g2588;2588;heart,
+1Pet;1 Pierre;3;4;DBY90;en;reference;Preposition;7/g1722;1722;in
+1Pet;1 Pierre;3;4;DBY90;en;texte_brut;;;;the incorruptible
+1Pet;1 Pierre;3;4;DBY90;en;mot_ajoute;;;;[ornament]
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Singular";10/g3588;3588;of a
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";11/g4239;4239;meek
+1Pet;1 Pierre;3;4;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";13/g2272;2272;quiet
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";14/g4151;4151;spirit,
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Relative Pronoun ; Nominative ; Neuter ; Singular";15/g3739;3739;which
+1Pet;1 Pierre;3;4;DBY90;en;reference;Adverb;17/g1799;1799;in the sight
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g2316;2316;of God
+1Pet;1 Pierre;3;4;DBY90;en;texte_brut;;;;is
+1Pet;1 Pierre;3;4;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";19/g4185;4185;of great price.
+1Pet;1 Pierre;3;5;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;3;5;DBY90;en;reference;Adverb;1/g3779;3779;thus
+1Pet;1 Pierre;3;5;DBY90;en;texte_brut;;;;also the
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Plural";6/g0040;40;holy
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Plural";7/g1135;1135;women
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Definite article ; Nominative ; Feminine ; Plural";8/g3588;3588;who
+1Pet;1 Pierre;3;5;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Feminine ; Plural";9/g1679;1679;hoped
+1Pet;1 Pierre;3;5;DBY90;en;reference;Preposition;10/g1909;1909;in
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";11/g2316;2316;God
+1Pet;1 Pierre;3;5;DBY90;en;texte_brut;;;;heretofore
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Verb ; Imperfect ; Active ; Indicative ; 3rd Person ; Plural";12/g2885;2885;adorned
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Reflexive Pronoun ; 3rd Person ; Accusative ; Feminine ; Plural";13/g1438;1438;themselves,
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Feminine ; Plural";14/g5293;5293;being subject
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";15/g2398;2398;to their own
+1Pet;1 Pierre;3;5;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";16/g0435;435;"husbands;"
+1Pet;1 Pierre;3;6;DBY90;en;reference;Adverb;1/g5613;5613;as
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";2/g4564;4564;Sarah
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";3/g5219;5219;obeyed
+1Pet;1 Pierre;3;6;DBY90;en;reference;Indeclinable Proper Noun;4/g0011;11;Abraham,
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Feminine ; Singular";7/g2564;2564;calling
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";6/g0846;846;him
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";5/g2962;2962;"lord;"
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";8/g3739;3739;whose
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Plural";10/g5043;5043;children
+1Pet;1 Pierre;3;6;DBY90;en;texte_brut;;;;ye
+1Pet;1 Pierre;3;6;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Verb ; Aorist ; Passive Deponent ; Indicative ; 2nd Person ; Plural";9/g1096;1096;become,
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Feminine ; Plural";11/g0015;15;doing good,
+1Pet;1 Pierre;3;6;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;3;6;DBY90;en;reference;Particle, Disjunctive Particle;13/g3361;3361;not
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Feminine ; Plural";14/g5399;5399;fearing
+1Pet;1 Pierre;3;6;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";15/g3367;3367;with any
+1Pet;1 Pierre;3;6;DBY90;en;texte_brut;;;;kind of consternation.
+1Pet;1 Pierre;3;7;DBY90;en;mot_ajoute;;;;[Ye]
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";1/g0435;435;husbands
+1Pet;1 Pierre;3;7;DBY90;en;reference;Adverb;2/g3668;3668;likewise,
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g4924;4924;dwell with
+1Pet;1 Pierre;3;7;DBY90;en;mot_ajoute;;;;[them]
+1Pet;1 Pierre;3;7;DBY90;en;reference;Preposition;4/g2596;2596;according to
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";5/g1108;1108;knowledge,
+1Pet;1 Pierre;3;7;DBY90;en;reference;Adverb;6/g5613;5613;as
+1Pet;1 Pierre;3;7;DBY90;en;texte_brut;;;;with a
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Adjective ; Dative ; Neuter ; Singular ; Comparative";7/g0772;772;weaker,
+1Pet;1 Pierre;3;7;DBY90;en;mot_ajoute;;;;[even]
+1Pet;1 Pierre;3;7;DBY90;en;texte_brut;;;;the female,
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";8/g4632;4632;vessel,
+1Pet;1 Pierre;3;7;DBY90;en;reference;Conjunction;14/g2532;2532;giving
+1Pet;1 Pierre;3;7;DBY90;en;mot_ajoute;;;;[them]
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g5092;5092;honour,
+1Pet;1 Pierre;3;7;DBY90;en;reference;Adverb;13/g5613;5613;as
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";15/g4789;4789;also fellow-heirs
+1Pet;1 Pierre;3;7;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;3;7;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";16/g5485;5485;grace
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";17/g2222;2222;of life,
+1Pet;1 Pierre;3;7;DBY90;en;reference;Preposition;18/g1519;1519;that
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";22/g5216;5216;your
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";21/g4335;4335;prayers
+1Pet;1 Pierre;3;7;DBY90;en;texte_brut;;;;be
+1Pet;1 Pierre;3;7;DBY90;en;reference;Particle, Disjunctive Particle;19/g3361;3361;not
+1Pet;1 Pierre;3;7;DBY90;en;reference;"Verb ; Present ; Passive ; Infinitive";20/g1581;1581;hindered.
+1Pet;1 Pierre;3;8;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";1/g5056;5056;Finally,
+1Pet;1 Pierre;3;8;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;3;8;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";2/g3956;3956;all
+1Pet;1 Pierre;3;8;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";3/g3675;3675;of one mind,
+1Pet;1 Pierre;3;8;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";4/g4835;4835;sympathising, full of brotherly
+1Pet;1 Pierre;3;8;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";5/g5361;5361;love,
+1Pet;1 Pierre;3;8;DBY90;en;texte_brut;;;;"tender hearted, humble minded;"
+1Pet;1 Pierre;3;9;DBY90;en;reference;Particle, Disjunctive Particle;1/g3361;3361;not
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";2/g0591;591;rendering
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";3/g2556;2556;evil
+1Pet;1 Pierre;3;9;DBY90;en;reference;Preposition;4/g0473;473;for
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";5/g2556;2556;evil,
+1Pet;1 Pierre;3;9;DBY90;en;reference;Particle, Disjunctive Particle;6/g2228;2228;or
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g3059;3059;railing
+1Pet;1 Pierre;3;9;DBY90;en;reference;Preposition;8/g0473;473;for
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g3059;3059;"railing;"
+1Pet;1 Pierre;3;9;DBY90;en;reference;Conjunction;11/g1161;1161;but
+1Pet;1 Pierre;3;9;DBY90;en;texte_brut;;;;on the
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Adverb ; Comparative";10/g5121;5121;contrary,
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";18/g2129;2129;blessing
+1Pet;1 Pierre;3;9;DBY90;en;mot_ajoute;;;;[others],
+1Pet;1 Pierre;3;9;DBY90;en;reference;Conjunction;14/g3754;3754;because
+1Pet;1 Pierre;3;9;DBY90;en;texte_brut;;;;ye have been
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 2nd Person ; Plural";16/g2564;2564;called
+1Pet;1 Pierre;3;9;DBY90;en;texte_brut;;;;to this,
+1Pet;1 Pierre;3;9;DBY90;en;reference;Conjunction;17/g2443;2443;that
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 2nd Person ; Plural";19/g2816;2816;ye should inherit
+1Pet;1 Pierre;3;9;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";12/g2127;2127;blessing.
+1Pet;1 Pierre;3;10;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";1/g3588;3588;he that
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";3/g2309;2309;will
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Verb ; Present ; Active ; Infinitive";5/g0025;25;love
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";4/g2222;2222;life
+1Pet;1 Pierre;3;10;DBY90;en;reference;Conjunction;6/g2532;2532;and
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Infinitive";7/g3708;3708;see
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Plural";9/g0018;18;good
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";8/g2250;2250;days,
+1Pet;1 Pierre;3;10;DBY90;en;texte_brut;;;;let him
+1Pet;1 Pierre;3;10;DBY90;en;texte_brut;;;;cause
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";12/g0846;846;his
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g1100;1100;tongue
+1Pet;1 Pierre;3;10;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 3rd Person ; Singular";10/g3973;3973;cease
+1Pet;1 Pierre;3;10;DBY90;en;reference;Preposition;13/g0575;575;from
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";14/g2556;2556;evil
+1Pet;1 Pierre;3;10;DBY90;en;reference;Conjunction;15/g2532;2532;and
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";17/g0846;846;his
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Plural";16/g5491;5491;lips
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Infinitive";19/g2980;2980;that they speak
+1Pet;1 Pierre;3;10;DBY90;en;reference;Particle, Disjunctive Particle;18/g3361;3361;no
+1Pet;1 Pierre;3;10;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";20/g1388;1388;guile.
+1Pet;1 Pierre;3;11;DBY90;en;texte_brut;;;;And
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 3rd Person ; Singular";1/g1578;1578;let him avoid
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";2/g2556;2556;evil,
+1Pet;1 Pierre;3;11;DBY90;en;reference;Conjunction;3/g2532;2532;and
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 3rd Person ; Singular";4/g4160;4160;do
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Singular";5/g0018;18;"good;"
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 3rd Person ; Singular";6/g2212;2212;let him seek
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";7/g1515;1515;peace
+1Pet;1 Pierre;3;11;DBY90;en;reference;Conjunction;8/g2532;2532;and
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 3rd Person ; Singular";9/g1377;1377;pursue
+1Pet;1 Pierre;3;11;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Feminine ; Singular";10/g0846;846;"it;"
+1Pet;1 Pierre;3;12;DBY90;en;reference;Conjunction;1/g3754;3754;because
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";3/g3788;3788;eyes
+1Pet;1 Pierre;3;12;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g2962;2962;Lord
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[are]
+1Pet;1 Pierre;3;12;DBY90;en;reference;Preposition;5/g1909;1909;on
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";6/g1342;1342;righteous,
+1Pet;1 Pierre;3;12;DBY90;en;reference;Conjunction;7/g2532;2532;and
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";9/g0846;846;his
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Plural";8/g3775;3775;ears
+1Pet;1 Pierre;3;12;DBY90;en;reference;Preposition;10/g1519;1519;towards
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Plural";12/g0846;846;their
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g1162;1162;"supplications;"
+1Pet;1 Pierre;3;12;DBY90;en;reference;Conjunction;14/g1161;1161;but
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";13/g4383;4383;face
+1Pet;1 Pierre;3;12;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";15/g2962;2962;Lord
+1Pet;1 Pierre;3;12;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;3;12;DBY90;en;reference;Preposition;16/g1909;1909;against
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";17/g4160;4160;them that do
+1Pet;1 Pierre;3;12;DBY90;en;reference;"Adjective ; Accusative ; Neuter ; Plural";18/g2556;2556;evil.
+1Pet;1 Pierre;3;13;DBY90;en;reference;Conjunction;1/g2532;2532;And
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Nominative ; Masculine ; Singular";2/g5101;5101;who
+1Pet;1 Pierre;3;13;DBY90;en;texte_brut;;;;shall
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Verb ; Future ; Active ; Participle ; Nominative ; Masculine ; Singular";4/g2559;2559;injure
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";5/g5209;5209;you
+1Pet;1 Pierre;3;13;DBY90;en;reference;Conditional Particle or Conjunction;6/g1437;1437;if
+1Pet;1 Pierre;3;13;DBY90;en;texte_brut;;;;ye
+1Pet;1 Pierre;3;13;DBY90;en;texte_brut;;;;have
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Verb ; Second Aorist ; Middle Deponent ; Subjunctive ; 2nd Person ; Plural";9/g1096;1096;become
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";8/g3402;3402;imitators
+1Pet;1 Pierre;3;13;DBY90;en;texte_brut;;;;of that which
+1Pet;1 Pierre;3;13;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;3;13;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";7/g0018;18;good?
+1Pet;1 Pierre;3;14;DBY90;en;reference;Conjunction;1/g0235;235;But
+1Pet;1 Pierre;3;14;DBY90;en;reference;Conditional Particle or Conjunction;2/g1487;1487;if
+1Pet;1 Pierre;3;14;DBY90;en;texte_brut;;;;also
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Verb ; Present ; Active ; Optative ; 2nd Person ; Plural";4/g3958;3958;ye should suffer
+1Pet;1 Pierre;3;14;DBY90;en;reference;Preposition;5/g1223;1223;for
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g1343;1343;righteousness' sake,
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";7/g3107;3107;blessed
+1Pet;1 Pierre;3;14;DBY90;en;mot_ajoute;;;;"[are ye];"
+1Pet;1 Pierre;3;14;DBY90;en;reference;Conjunction;8/g1161;1161;but
+1Pet;1 Pierre;3;14;DBY90;en;texte_brut;;;;be
+1Pet;1 Pierre;3;14;DBY90;en;reference;Particle, Disjunctive Particle;11/g3361;3361;not
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Verb ; Aorist ; Passive Deponent ; Imperative ; 2nd Person ; Plural";12/g5399;5399;afraid
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Plural";10/g0846;846;of their
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";9/g5401;5401;fear,
+1Pet;1 Pierre;3;14;DBY90;en;reference;Conjunction;13/g3366;3366;neither
+1Pet;1 Pierre;3;14;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 2nd Person ; Plural";14/g5015;5015;"be troubled;"
+1Pet;1 Pierre;3;15;DBY90;en;reference;Conjunction;2/g1161;1161;but
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";4/g0037;37;sanctify
+1Pet;1 Pierre;3;15;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";1/g2962;2962;Lord
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g2316;2316;the Christ
+1Pet;1 Pierre;3;15;DBY90;en;reference;Preposition;5/g1722;1722;in
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";7/g5216;5216;your
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";6/g2588;2588;hearts,
+1Pet;1 Pierre;3;15;DBY90;en;reference;Conjunction;9/g1161;1161;and
+1Pet;1 Pierre;3;15;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;3;15;DBY90;en;reference;Adverb;10/g0104;104;always
+1Pet;1 Pierre;3;15;DBY90;en;texte_brut;;;;prepared
+1Pet;1 Pierre;3;15;DBY90;en;reference;Preposition;11/g4314;4314;to
+1Pet;1 Pierre;3;15;DBY90;en;mot_ajoute;;;;[give]
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g0627;627;an answer
+1Pet;1 Pierre;3;15;DBY90;en;mot_ajoute;;;;[to]
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Singular";13/g3956;3956;every
+1Pet;1 Pierre;3;15;DBY90;en;texte_brut;;;;one
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";14/g0154;154;that asks
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";15/g5209;5209;you
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";16/g3056;3056;to give an account
+1Pet;1 Pierre;3;15;DBY90;en;reference;Preposition;17/g4012;4012;of
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";20/g1680;1680;the hope
+1Pet;1 Pierre;3;15;DBY90;en;texte_brut;;;;that
+1Pet;1 Pierre;3;15;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;3;15;DBY90;en;reference;Preposition;18/g1722;1722;in
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";19/g5213;5213;you,
+1Pet;1 Pierre;3;15;DBY90;en;texte_brut;;;;but
+1Pet;1 Pierre;3;15;DBY90;en;reference;Preposition;21/g3326;3326;with
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";22/g4240;4240;meekness
+1Pet;1 Pierre;3;15;DBY90;en;reference;Conjunction;23/g2532;2532;and
+1Pet;1 Pierre;3;15;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";24/g5401;5401;"fear;"
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";2/g2192;2192;having
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";3/g0018;18;a good
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";1/g4893;4893;conscience,
+1Pet;1 Pierre;3;16;DBY90;en;reference;Conjunction;4/g2443;2443;that
+1Pet;1 Pierre;3;16;DBY90;en;mot_ajoute;;;;[as to that]
+1Pet;1 Pierre;3;16;DBY90;en;reference;Preposition;5/g1722;1722, 3739;in which
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Plural";6/g2635;2635;they speak against
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";7/g5216;5216;you
+1Pet;1 Pierre;3;16;DBY90;en;reference;Adverb;8/g5613;5613;as
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";9/g2555;2555;evildoers,
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Plural";10/g2617;2617;they may be ashamed
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g1908;1908;who calumniate
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;your
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";13/g0018;18;good
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";16/g0391;391;conversation
+1Pet;1 Pierre;3;16;DBY90;en;reference;Preposition;14/g1722;1722;in
+1Pet;1 Pierre;3;16;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g5547;5547;Christ.
+1Pet;1 Pierre;3;17;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;3;17;DBY90;en;mot_ajoute;;;;[it is]
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";1/g2909;2909;better,
+1Pet;1 Pierre;3;17;DBY90;en;reference;Conditional Particle or Conjunction;4/g1487;1487;if
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";6/g3588;3588;the
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";7/g2307;2307;will
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g2316;2316;of God
+1Pet;1 Pierre;3;17;DBY90;en;texte_brut;;;;should
+1Pet;1 Pierre;3;17;DBY90;en;texte_brut;;;;will
+1Pet;1 Pierre;3;17;DBY90;en;texte_brut;;;;it,
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";5/g2309;2309;to
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Verb ; Present ; Active ; Infinitive";9/g3958;3958;suffer
+1Pet;1 Pierre;3;17;DBY90;en;mot_ajoute;;;;[as]
+1Pet;1 Pierre;3;17;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";3/g0015;15;well-doers
+1Pet;1 Pierre;3;17;DBY90;en;reference;Particle, Disjunctive Particle;10/g2228;2228;than
+1Pet;1 Pierre;3;17;DBY90;en;mot_ajoute;;;;[as]
+1Pet;1 Pierre;3;17;DBY90;en;texte_brut;;;;"evildoers;"
+1Pet;1 Pierre;3;18;DBY90;en;reference;Conjunction;1/g3754;3754;for
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g5547;5547;Christ
+1Pet;1 Pierre;3;18;DBY90;en;reference;Conjunction;2/g2532;2532;indeed
+1Pet;1 Pierre;3;18;DBY90;en;reference;Adverb;4/g0530;530;has once
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";7/g3958;3958;suffered
+1Pet;1 Pierre;3;18;DBY90;en;reference;Preposition;5/g4012;4012;for
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";6/g0266;266;sins,
+1Pet;1 Pierre;3;18;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";8/g1342;1342;just
+1Pet;1 Pierre;3;18;DBY90;en;reference;Preposition;9/g5228;5228;for
+1Pet;1 Pierre;3;18;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";10/g0094;94;unjust,
+1Pet;1 Pierre;3;18;DBY90;en;reference;Conjunction;11/g2443;2443;that
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";13/g4317;4317;he might bring
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";12/g2248;2248;us
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g2316;2316;"to God;"
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Verb ; Perfect ; Passive ; Participle ; Nominative ; Masculine ; Singular";15/g2289;2289;being put to death
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";16/g4561;4561;in flesh,
+1Pet;1 Pierre;3;18;DBY90;en;reference;Conjunction;18/g1161;1161;but
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Nominative ; Masculine ; Singular";17/g2227;2227;made
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Definite article ; Dative ; Neuter ; Singular";19/g3588;3588;alive in
+1Pet;1 Pierre;3;18;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;18;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";20/g4151;4151;Spirit,
+1Pet;1 Pierre;3;19;DBY90;en;reference;Preposition;1/g1722;1722;in
+1Pet;1 Pierre;3;19;DBY90;en;reference;"Relative Pronoun ; Dative ; Neuter ; Singular";2/g3739;3739;which
+1Pet;1 Pierre;3;19;DBY90;en;reference;Conjunction;3/g2532;2532;also
+1Pet;1 Pierre;3;19;DBY90;en;texte_brut;;;;going he
+1Pet;1 Pierre;3;19;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 3rd Person ; Singular";9/g2784;2784;preached
+1Pet;1 Pierre;3;19;DBY90;en;reference;"Definite article ; Dative ; Neuter ; Plural";4/g3588;3588;to the
+1Pet;1 Pierre;3;19;DBY90;en;reference;"Noun ; Dative ; Neuter ; Plural";7/g4151;4151;spirits
+1Pet;1 Pierre;3;19;DBY90;en;mot_ajoute;;;;[which are]
+1Pet;1 Pierre;3;19;DBY90;en;reference;Preposition;5/g1722;1722;in
+1Pet;1 Pierre;3;19;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g5438;5438;prison,
+1Pet;1 Pierre;3;20;DBY90;en;texte_brut;;;;heretofore
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Dative ; Masculine ; Plural";1/g0544;544;disobedient,
+1Pet;1 Pierre;3;20;DBY90;en;reference;Adverb;3/g3753;3753;when
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Definite article ; Nominative ; Feminine ; Singular";6/g3588;3588;the
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";8/g3115;3115;longsuffering
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;of God
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Verb ; Imperfect ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";5/g1551;1551;waited
+1Pet;1 Pierre;3;20;DBY90;en;reference;Preposition;9/g1722;1722;in
+1Pet;1 Pierre;3;20;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";10/g2250;2250;days
+1Pet;1 Pierre;3;20;DBY90;en;reference;Indeclinable Proper Noun;11/g3575;3575;of Noah
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g2787;2787;while the ark
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Genitive ; Feminine ; Singular";12/g2680;2680;was preparing,
+1Pet;1 Pierre;3;20;DBY90;en;reference;Preposition;14/g1519;1519, 3739;into which
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Plural";15/g3641;3641;few,
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Demonstrative Pronoun ; Nominative ; Neuter ; Singular";16/g5124;5124;that
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";17/g2076;2076;is,
+1Pet;1 Pierre;3;20;DBY90;en;reference;Indeclinable Numeral (Adjective);18/g3638;3638;eight
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Plural";19/g5590;5590;souls,
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Plural";20/g1295;1295;were saved
+1Pet;1 Pierre;3;20;DBY90;en;reference;Preposition;21/g1223;1223;through
+1Pet;1 Pierre;3;20;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";22/g5204;5204;water:
+1Pet;1 Pierre;3;21;DBY90;en;texte_brut;;;;which
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Adjective ; Nominative ; Neuter ; Singular";4/g0499;499;figure
+1Pet;1 Pierre;3;21;DBY90;en;reference;Conjunction;2/g2532;2532;also
+1Pet;1 Pierre;3;21;DBY90;en;reference;Adverb;5/g3568;3568;now
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";6/g4982;4982;saves
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";3/g2248;2248;you,
+1Pet;1 Pierre;3;21;DBY90;en;mot_ajoute;;;;[even]
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";7/g0908;908;baptism,
+1Pet;1 Pierre;3;21;DBY90;en;reference;Particle, Disjunctive Particle;8/g3756;3756;not
+1Pet;1 Pierre;3;21;DBY90;en;texte_brut;;;;a
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";10/g0595;595;putting away
+1Pet;1 Pierre;3;21;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;3;21;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g4509;4509;filth
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g4561;4561;of flesh,
+1Pet;1 Pierre;3;21;DBY90;en;reference;Conjunction;12/g0235;235;but
+1Pet;1 Pierre;3;21;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";15/g1906;1906;demand as before God
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";14/g0018;18;of a good
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g4893;4893;conscience,
+1Pet;1 Pierre;3;21;DBY90;en;reference;Preposition;18/g1223;1223;by
+1Pet;1 Pierre;3;21;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";19/g0386;386;resurrection
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";20/g2424;2424;of Jesus
+1Pet;1 Pierre;3;21;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";21/g5547;5547;Christ,
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Singular";1/g3739;3739;who
+1Pet;1 Pierre;3;22;DBY90;en;texte_brut;;;;is at
+1Pet;1 Pierre;3;22;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Singular";4/g1188;1188;right hand
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g2316;2316;of God,
+1Pet;1 Pierre;3;22;DBY90;en;texte_brut;;;;gone into
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g3772;3772;heaven,
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";11/g0032;32;angels
+1Pet;1 Pierre;3;22;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";13/g1849;1849;authorities
+1Pet;1 Pierre;3;22;DBY90;en;reference;Conjunction;14/g2532;2532;and
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";15/g1411;1411;powers
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Participle ; Genitive ; Masculine ; Plural";9/g5293;5293;being subjected
+1Pet;1 Pierre;3;22;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";10/g0846;846;to him.
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";1/g5547;5547;Christ,
+1Pet;1 Pierre;4;1;DBY90;en;texte_brut;;;;then, having
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Genitive ; Masculine ; Singular";3/g3958;3958;suffered
+1Pet;1 Pierre;4;1;DBY90;en;reference;Preposition;4/g5228;5228;for
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";5/g2257;2257;us
+1Pet;1 Pierre;4;1;DBY90;en;texte_brut;;;;in
+1Pet;1 Pierre;4;1;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g4561;4561;flesh,
+1Pet;1 Pierre;4;1;DBY90;en;texte_brut;;;;do ye also
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Verb ; Aorist ; Middle ; Imperative ; 2nd Person ; Plural";12/g3695;3695;arm
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Nominative ; Plural";8/g5210;5210;yourselves
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Singular";9/g3588;3588;with the
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Feminine ; Singular";10/g0846;846;same
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";11/g1771;1771;"mind;"
+1Pet;1 Pierre;4;1;DBY90;en;reference;Conjunction;13/g3754;3754;for
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";14/g3588;3588;he that
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";15/g3958;3958;has suffered
+1Pet;1 Pierre;4;1;DBY90;en;reference;Preposition;16/g1722;1722;in
+1Pet;1 Pierre;4;1;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";17/g4561;4561;flesh
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Verb ; Perfect ; Passive ; Indicative ; 3rd Person ; Singular";18/g3973;3973;has done with
+1Pet;1 Pierre;4;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";19/g0266;266;sin,
+1Pet;1 Pierre;4;2;DBY90;en;reference;Adverb;2/g3371;3371;no longer
+1Pet;1 Pierre;4;2;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Verb ; Aorist ; Active ; Infinitive";12/g0980;980;live
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Singular";8/g3588;3588;the
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";9/g1954;1954;rest of
+1Pet;1 Pierre;4;2;DBY90;en;mot_ajoute;;;;[his]
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";13/g5550;5550;time
+1Pet;1 Pierre;4;2;DBY90;en;reference;Preposition;10/g1722;1722;in
+1Pet;1 Pierre;4;2;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";11/g4561;4561;flesh
+1Pet;1 Pierre;4;2;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";3/g0444;444;men's
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";4/g1939;1939;lusts,
+1Pet;1 Pierre;4;2;DBY90;en;reference;Conjunction;5/g0235;235;but
+1Pet;1 Pierre;4;2;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;4;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;God's
+1Pet;1 Pierre;4;2;DBY90;en;texte_brut;;;;will.
+1Pet;1 Pierre;4;3;DBY90;en;reference;Conjunction;2/g1063;1063;For
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";4/g3588;3588;the
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";6/g5550;5550;time
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Verb ; Second Perfect ; Active ; Participle ; Nominative ; Masculine ; Singular";5/g3928;3928;past
+1Pet;1 Pierre;4;3;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";1/g0713;713;sufficient
+1Pet;1 Pierre;4;3;DBY90;en;mot_ajoute;;;;[for us]
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Verb ; Aorist ; Middle Deponent ; Infinitive";12/g2716;2716;to have wrought
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";8/g3588;3588;the
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";9/g2307;2307;will
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Plural";10/g3588;3588;of the
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";11/g1484;1484;Gentiles,
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Verb ; Perfect ; Middle or Passive Deponent ; Participle ; Accusative ; Masculine ; Plural";13/g4198;4198;walking
+1Pet;1 Pierre;4;3;DBY90;en;reference;Preposition;14/g1722;1722;in
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";15/g0766;766;lasciviousness,
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";16/g1939;1939;lusts,
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";17/g3632;3632;wine-drinking,
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";18/g2970;2970;revels,
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Masculine ; Plural";19/g4224;4224;drinkings,
+1Pet;1 Pierre;4;3;DBY90;en;reference;Conjunction;20/g2532;2532;and
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Adjective ; Dative ; Feminine ; Plural";21/g0111;111;unhallowed
+1Pet;1 Pierre;4;3;DBY90;en;reference;"Noun ; Dative ; Feminine ; Plural";22/g1495;1495;idolatries.
+1Pet;1 Pierre;4;4;DBY90;en;reference;Preposition;1/g1722;1722, 3739;Wherein
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Verb ; Present ; Passive ; Indicative ; 3rd Person ; Plural";2/g3579;3579;they think it strange
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;that ye
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Masculine ; Plural";4/g4936;4936;run
+1Pet;1 Pierre;4;4;DBY90;en;reference;Particle, Disjunctive Particle;3/g3361;3361;not
+1Pet;1 Pierre;4;4;DBY90;en;texte_brut;;;;with
+1Pet;1 Pierre;4;4;DBY90;en;mot_ajoute;;;;[them]
+1Pet;1 Pierre;4;4;DBY90;en;reference;Preposition;6/g1519;1519;to
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Singular";7/g3588;3588;the
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Feminine ; Singular";8/g0846;846;same
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";10/g0401;401;sink
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";9/g0810;810;of corruption,
+1Pet;1 Pierre;4;4;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";11/g0987;987;speaking injuriously
+1Pet;1 Pierre;4;4;DBY90;en;mot_ajoute;;;;"[of you];"
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Relative Pronoun ; Nominative ; Masculine ; Plural";1/g3739;3739;who
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Plural";2/g0591;591;shall render
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";3/g3056;3056;account
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Definite article ; Dative ; Masculine ; Singular";4/g3588;3588;to him
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Dative ; Masculine ; Singular";6/g2192;2192;who is
+1Pet;1 Pierre;4;5;DBY90;en;reference;Adverb;5/g2093;2093;ready
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Verb ; Aorist ; Active ; Infinitive";7/g2919;2919;to judge
+1Pet;1 Pierre;4;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Accusative ; Masculine ; Plural";8/g2198;2198;living
+1Pet;1 Pierre;4;5;DBY90;en;reference;Conjunction;9/g2532;2532;and
+1Pet;1 Pierre;4;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;5;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";10/g3498;3498;dead.
+1Pet;1 Pierre;4;6;DBY90;en;reference;Conjunction;3/g1063;1063;For
+1Pet;1 Pierre;4;6;DBY90;en;reference;Preposition;1/g1519;1519;to
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;this
+1Pet;1 Pierre;4;6;DBY90;en;mot_ajoute;;;;[end]
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;were
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Verb ; Aorist ; Passive ; Indicative ; 3rd Person ; Singular";6/g2097;2097;the glad tidings preached
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;4;6;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";5/g3498;3498;dead
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;also,
+1Pet;1 Pierre;4;6;DBY90;en;reference;Conjunction;7/g2443;2443;that
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Verb ; Aorist ; Passive ; Subjunctive ; 3rd Person ; Plural";8/g2919;2919;they might be judged,
+1Pet;1 Pierre;4;6;DBY90;en;reference;Preposition;9/g2596;2596;as regards
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Plural";10/g0444;444;men,
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;after
+1Pet;1 Pierre;4;6;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";11/g4561;4561;flesh,
+1Pet;1 Pierre;4;6;DBY90;en;reference;Conjunction;13/g1161;1161;but
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Verb ; Present ; Active ; Subjunctive ; 3rd Person ; Plural";12/g2198;2198;live,
+1Pet;1 Pierre;4;6;DBY90;en;reference;Preposition;14/g2596;2596;as regards
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";15/g2316;2316;God,
+1Pet;1 Pierre;4;6;DBY90;en;texte_brut;;;;after
+1Pet;1 Pierre;4;6;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;6;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";16/g4151;4151;Spirit.
+1Pet;1 Pierre;4;7;DBY90;en;reference;Conjunction;2/g1161;1161;But
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";3/g3588;3588;the
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";4/g5056;5056;end
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Plural";1/g3956;3956;of all things
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Verb ; Perfect ; Active ; Indicative ; 3rd Person ; Singular";5/g1448;1448;is drawn nigh:
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";6/g4993;4993;be sober
+1Pet;1 Pierre;4;7;DBY90;en;reference;Conjunction;7/g3767;3767;therefore,
+1Pet;1 Pierre;4;7;DBY90;en;reference;Conjunction;8/g2532;2532;and
+1Pet;1 Pierre;4;7;DBY90;en;texte_brut;;;;be
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";9/g3525;3525;watchful
+1Pet;1 Pierre;4;7;DBY90;en;reference;Preposition;10/g1519;1519;unto
+1Pet;1 Pierre;4;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";11/g4335;4335;"prayers;"
+1Pet;1 Pierre;4;8;DBY90;en;reference;Conjunction;3/g1161;1161;but
+1Pet;1 Pierre;4;8;DBY90;en;reference;Preposition;1/g4253;4253;before
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Plural";2/g3956;3956;all things
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";8/g2192;2192;having
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";7/g1618;1618;fervent
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g0026;26;love
+1Pet;1 Pierre;4;8;DBY90;en;reference;Preposition;4/g1519;1519;among
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Reflexive Pronoun ; 3rd Person ; Accusative ; Masculine ; Plural";5/g1438;1438;yourselves,
+1Pet;1 Pierre;4;8;DBY90;en;reference;Conjunction;9/g3754;3754;because
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";10/g0026;26;love
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Verb ; Future ; Active ; Indicative ; 3rd Person ; Singular";11/g2572;2572;covers
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";12/g4128;4128;a multitude
+1Pet;1 Pierre;4;8;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Plural";13/g0266;266;"of sins;"
+1Pet;1 Pierre;4;9;DBY90;en;texte_brut;;;;hospitable
+1Pet;1 Pierre;4;9;DBY90;en;texte_brut;;;;one
+1Pet;1 Pierre;4;9;DBY90;en;reference;Preposition;2/g1519;1519;to
+1Pet;1 Pierre;4;9;DBY90;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";3/g0240;240;another,
+1Pet;1 Pierre;4;9;DBY90;en;reference;Preposition;4/g0427;427;without
+1Pet;1 Pierre;4;9;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";5/g1112;1112;"murmuring;"
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";1/g1538;1538;each
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;according
+1Pet;1 Pierre;4;10;DBY90;en;reference;Adverb;2/g2531;2531;as
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;he
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Indicative ; 3rd Person ; Singular";3/g2983;2983;has received
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;a
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";4/g5486;5486;gift,
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";8/g1247;1247;ministering
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;it
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Neuter ; Singular";7/g0846;846;to
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;one
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Reflexive Pronoun ; 3rd Person ; Accusative ; Masculine ; Plural";6/g1438;1438;another,
+1Pet;1 Pierre;4;10;DBY90;en;reference;Adverb;9/g5613;5613;as
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Plural";10/g2570;2570;good
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";11/g3623;3623;stewards
+1Pet;1 Pierre;4;10;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;4;10;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";12/g4164;4164;various
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";13/g5485;5485;grace
+1Pet;1 Pierre;4;10;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";14/g2316;2316;of God.
+1Pet;1 Pierre;4;11;DBY90;en;reference;Conditional Particle or Conjunction;1/g1487;1487;If
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";2/g5100;5100;any one
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";3/g2980;2980;speak–
+1Pet;1 Pierre;4;11;DBY90;en;reference;Adverb;4/g5613;5613;as
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Plural";5/g3051;3051;oracles
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2316;2316;"of God;"
+1Pet;1 Pierre;4;11;DBY90;en;reference;Conditional Particle or Conjunction;7/g1487;1487;if
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Indefinite Pronoun ; Nominative ; Masculine ; Singular";8/g5100;5100;any one
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";9/g1247;1247;minister–
+1Pet;1 Pierre;4;11;DBY90;en;reference;Adverb;10/g5613;5613;as
+1Pet;1 Pierre;4;11;DBY90;en;reference;Preposition;11/g1537;1537;of
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";12/g2479;2479;strength
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Relative Pronoun ; Genitive ; Feminine ; Singular";13/g3739;3739;which
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";15/g2316;2316;God
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";14/g5524;5524;"supplies;"
+1Pet;1 Pierre;4;11;DBY90;en;reference;Conjunction;16/g2443;2443;that
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";20/g2316;2316;God
+1Pet;1 Pierre;4;11;DBY90;en;reference;Preposition;17/g1722;1722;in
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Adjective ; Dative ; Neuter ; Plural";18/g3956;3956;all things
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Verb ; Present ; Passive ; Subjunctive ; 3rd Person ; Singular";19/g1392;1392;may be glorified
+1Pet;1 Pierre;4;11;DBY90;en;reference;Preposition;21/g1223;1223;through
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";22/g2424;2424;Jesus
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";23/g5547;5547;Christ,
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Relative Pronoun ; Dative ; Masculine ; Singular";24/g3739;3739;to whom
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Indicative ; 3rd Person ; Singular";25/g2076;2076;is
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";26/g1391;1391;the glory
+1Pet;1 Pierre;4;11;DBY90;en;reference;Conjunction;27/g2532;2532;and
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";28/g2904;2904;the might
+1Pet;1 Pierre;4;11;DBY90;en;reference;Preposition;29/g1519;1519;for
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Plural";30/g0165;165;the
+1Pet;1 Pierre;4;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";31/g0165;165;ages of ages.
+1Pet;1 Pierre;4;11;DBY90;en;reference;Hebrew transliterated word (indeclinable);32/g0281;281;Amen.
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Adjective ; Vocative ; Masculine ; Plural";1/g0027;27;Beloved,
+1Pet;1 Pierre;4;12;DBY90;en;texte_brut;;;;take
+1Pet;1 Pierre;4;12;DBY90;en;reference;Particle, Disjunctive Particle;2/g3361;3361;not
+1Pet;1 Pierre;4;12;DBY90;en;mot_ajoute;;;;[as]
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Verb ; Present ; Passive ; Imperative ; 2nd Person ; Plural";3/g3579;3579;strange
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";5/g5213;5213;the
+1Pet;1 Pierre;4;12;DBY90;en;texte_brut;;;;fire
+1Pet;1 Pierre;4;12;DBY90;en;mot_ajoute;;;;[of persecution]
+1Pet;1 Pierre;4;12;DBY90;en;texte_brut;;;;which has taken place amongst you for
+1Pet;1 Pierre;4;12;DBY90;en;mot_ajoute;;;;[your]
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";6/g4451;4451;trial,
+1Pet;1 Pierre;4;12;DBY90;en;reference;Adverb;11/g5613;5613;as
+1Pet;1 Pierre;4;12;DBY90;en;texte_brut;;;;if a
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Singular";12/g3581;3581;strange thing
+1Pet;1 Pierre;4;12;DBY90;en;texte_brut;;;;was
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Neuter ; Singular";14/g4819;4819;happening
+1Pet;1 Pierre;4;12;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";13/g5213;5213;"to you;"
+1Pet;1 Pierre;4;13;DBY90;en;reference;Conjunction;1/g0235;235;but
+1Pet;1 Pierre;4;13;DBY90;en;reference;Adverb;2/g2526;2526;as
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 2nd Person ; Plural";3/g2841;2841;ye have share in the sufferings
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g5547;5547;of Christ,
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Noun ; Dative ; Neuter ; Plural";5/g3804;3804;rejoice,
+1Pet;1 Pierre;4;13;DBY90;en;reference;Conjunction;7/g2443;2443;that
+1Pet;1 Pierre;4;13;DBY90;en;reference;Preposition;9/g1722;1722;in
+1Pet;1 Pierre;4;13;DBY90;en;texte_brut;;;;the
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";10/g0602;602;revelation
+1Pet;1 Pierre;4;13;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";12/g0846;846;his
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";11/g1391;1391;glory
+1Pet;1 Pierre;4;13;DBY90;en;texte_brut;;;;also
+1Pet;1 Pierre;4;13;DBY90;en;reference;"Verb ; Second Aorist ; Passive Deponent ; Subjunctive ; 2nd Person ; Plural";13/g5463;5463;ye may rejoice
+1Pet;1 Pierre;4;13;DBY90;en;texte_brut;;;;with exultation.
+1Pet;1 Pierre;4;14;DBY90;en;reference;Conditional Particle or Conjunction;1/g1487;1487;If
+1Pet;1 Pierre;4;14;DBY90;en;texte_brut;;;;ye
+1Pet;1 Pierre;4;14;DBY90;en;texte_brut;;;;are
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Verb ; Present ; Passive ; Indicative ; 2nd Person ; Plural";2/g3679;3679;reproached
+1Pet;1 Pierre;4;14;DBY90;en;reference;Preposition;3/g1722;1722;in
+1Pet;1 Pierre;4;14;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";4/g3686;3686;name
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";5/g5547;5547;of Christ,
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";6/g3107;3107;blessed
+1Pet;1 Pierre;4;14;DBY90;en;mot_ajoute;;;;"[are ye];"
+1Pet;1 Pierre;4;14;DBY90;en;reference;Conjunction;7/g3754;3754;for
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Singular";10/g3588;3588;the
+1Pet;1 Pierre;4;14;DBY90;en;mot_ajoute;;;;[Spirit]
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";8/g1391;1391;of glory
+1Pet;1 Pierre;4;14;DBY90;en;reference;Conjunction;9/g2532;2532;and
+1Pet;1 Pierre;4;14;DBY90;en;texte_brut;;;;the Spirit
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g2316;2316;of God
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Verb ; Present ; Middle ; Indicative ; 3rd Person ; Singular";15/g0373;373;rests
+1Pet;1 Pierre;4;14;DBY90;en;reference;Preposition;13/g1909;1909;upon
+1Pet;1 Pierre;4;14;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";14/g5209;5209;you:
+1Pet;1 Pierre;4;14;DBY90;en;mot_ajoute;;;;[on their part he is blasphemed, but on your part he is glorified.]
+1Pet;1 Pierre;4;15;DBY90;en;texte_brut;;;;Let
+1Pet;1 Pierre;4;15;DBY90;en;reference;Particle, Disjunctive Particle;1/g3361;3361;none
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";2/g5216;5216;of you
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";3/g3958;3958;suffer
+1Pet;1 Pierre;4;15;DBY90;en;texte_brut;;;;indeed
+1Pet;1 Pierre;4;15;DBY90;en;reference;Adverb;4/g5613;5613;as
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";5/g5406;5406;murderer,
+1Pet;1 Pierre;4;15;DBY90;en;reference;Particle, Disjunctive Particle;6/g2228;2228;or
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g2812;2812;thief,
+1Pet;1 Pierre;4;15;DBY90;en;reference;Particle, Disjunctive Particle;8/g2228;2228;or
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";9/g2555;2555;evildoer,
+1Pet;1 Pierre;4;15;DBY90;en;reference;Particle, Disjunctive Particle;10/g2228;2228;or
+1Pet;1 Pierre;4;15;DBY90;en;reference;Adverb;11/g5613;5613;as
+1Pet;1 Pierre;4;15;DBY90;en;texte_brut;;;;overseer
+1Pet;1 Pierre;4;15;DBY90;en;texte_brut;;;;of other
+1Pet;1 Pierre;4;15;DBY90;en;texte_brut;;;;people's
+1Pet;1 Pierre;4;15;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g0244;244;"matters;"
+1Pet;1 Pierre;4;16;DBY90;en;reference;Conjunction;2/g1161;1161;but
+1Pet;1 Pierre;4;16;DBY90;en;reference;Conditional Particle or Conjunction;1/g1487;1487;if
+1Pet;1 Pierre;4;16;DBY90;en;reference;Adverb;3/g5613;5613;as
+1Pet;1 Pierre;4;16;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g5546;5546;a christian,
+1Pet;1 Pierre;4;16;DBY90;en;texte_brut;;;;let him
+1Pet;1 Pierre;4;16;DBY90;en;reference;Particle, Disjunctive Particle;5/g3361;3361;not
+1Pet;1 Pierre;4;16;DBY90;en;reference;"Verb ; Present ; Passive ; Imperative ; 3rd Person ; Singular";6/g0153;153;be ashamed,
+1Pet;1 Pierre;4;16;DBY90;en;reference;Conjunction;8/g1161;1161;but
+1Pet;1 Pierre;4;16;DBY90;en;reference;"Verb ; Present ; Active ; Imperative ; 3rd Person ; Singular";7/g1392;1392;glorify
+1Pet;1 Pierre;4;16;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";9/g2316;2316;God
+1Pet;1 Pierre;4;16;DBY90;en;reference;Preposition;10/g1722;1722;in
+1Pet;1 Pierre;4;16;DBY90;en;reference;"Demonstrative Pronoun ; Dative ; Neuter ; Singular";12/g5129;5129;this
+1Pet;1 Pierre;4;16;DBY90;en;texte_brut;;;;name.
+1Pet;1 Pierre;4;17;DBY90;en;reference;Conjunction;1/g3754;3754;For
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";2/g3588;3588;the
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2540;2540;time
+1Pet;1 Pierre;4;17;DBY90;en;texte_brut;;;;of
+1Pet;1 Pierre;4;17;DBY90;en;texte_brut;;;;having
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";5/g2917;2917;the judgment
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Verb ; Aorist ; Middle ; Infinitive";4/g0756;756;begin
+1Pet;1 Pierre;4;17;DBY90;en;reference;Preposition;6/g0575;575;from
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Definite article ; Genitive ; Masculine ; Singular";7/g3588;3588;the
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";8/g3624;3624;house
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";9/g2316;2316;of God
+1Pet;1 Pierre;4;17;DBY90;en;mot_ajoute;;;;"[is come];"
+1Pet;1 Pierre;4;17;DBY90;en;reference;Conjunction;11/g1161;1161;but
+1Pet;1 Pierre;4;17;DBY90;en;reference;Conditional Particle or Conjunction;10/g1487;1487;if
+1Pet;1 Pierre;4;17;DBY90;en;reference;Adverb;12/g4412;4412;first
+1Pet;1 Pierre;4;17;DBY90;en;reference;Preposition;13/g0575;575;from
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Plural";14/g2257;2257;us,
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Nominative ; Neuter ; Singular";15/g5101;5101;what
+1Pet;1 Pierre;4;17;DBY90;en;mot_ajoute;;;;[shall be]
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";16/g5056;5056;the end
+1Pet;1 Pierre;4;17;DBY90;en;texte_brut;;;;of those who
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Masculine ; Plural";18/g0544;544;obey not
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Definite article ; Dative ; Neuter ; Singular";19/g3588;3588;the
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";21/g2098;2098;glad tidings
+1Pet;1 Pierre;4;17;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";20/g2316;2316;of God?
+1Pet;1 Pierre;4;18;DBY90;en;reference;Conjunction;1/g2532;2532;And
+1Pet;1 Pierre;4;18;DBY90;en;reference;Conditional Particle or Conjunction;2/g1487;1487;if
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";3/g3588;3588;the
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";4/g1342;1342;righteous
+1Pet;1 Pierre;4;18;DBY90;en;reference;Adverb;5/g3433;3433;is difficultly
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Verb ; Present ; Passive ; Indicative ; 3rd Person ; Singular";6/g4982;4982;saved,
+1Pet;1 Pierre;4;18;DBY90;en;reference;Particle, Disjunctive Particle;11/g4226;4226;where
+1Pet;1 Pierre;4;18;DBY90;en;texte_brut;;;;shall
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";7/g3588;3588;the
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";8/g0765;765;impious
+1Pet;1 Pierre;4;18;DBY90;en;reference;Conjunction;9/g2532;2532;and
+1Pet;1 Pierre;4;18;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";10/g0268;268;sinner
+1Pet;1 Pierre;4;18;DBY90;en;reference;"Verb ; Future ; Middle Deponent ; Indicative ; 3rd Person ; Singular";12/g5316;5316;appear?
+1Pet;1 Pierre;4;19;DBY90;en;reference;Conjunction;1/g5620;5620;Wherefore
+1Pet;1 Pierre;4;19;DBY90;en;texte_brut;;;;also
+1Pet;1 Pierre;4;19;DBY90;en;texte_brut;;;;let
+1Pet;1 Pierre;4;19;DBY90;en;texte_brut;;;;them who
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g3958;3958;suffer
+1Pet;1 Pierre;4;19;DBY90;en;reference;Preposition;4/g2596;2596;according to
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";5/g3588;3588;the
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";6/g2307;2307;will
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;of God
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Verb ; Present ; Passive ; Imperative ; 3rd Person ; Plural";11/g3908;3908;commit
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Reflexive Pronoun ; 3rd Person ; Genitive ; Masculine ; Plural";13/g1438;1438;their
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Plural";12/g5590;5590;souls
+1Pet;1 Pierre;4;19;DBY90;en;reference;Preposition;14/g1722;1722;in
+1Pet;1 Pierre;4;19;DBY90;en;texte_brut;;;;well-doing
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Singular";9/g4103;4103;to a faithful
+1Pet;1 Pierre;4;19;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g2939;2939;Creator.
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Plural";1/g4245;4245;The elders
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Definite article ; Accusative ; Masculine ; Plural";2/g3588;3588;which
+1Pet;1 Pierre;5;1;DBY90;en;mot_ajoute;;;;[are]
+1Pet;1 Pierre;5;1;DBY90;en;reference;Preposition;3/g1722;1722;among
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";4/g5213;5213;you
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 1st Person ; Singular";5/g3870;3870;I exhort,
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";6/g3588;3588;who
+1Pet;1 Pierre;5;1;DBY90;en;mot_ajoute;;;;[am their]
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";7/g4850;4850;fellow-elder
+1Pet;1 Pierre;5;1;DBY90;en;reference;Conjunction;8/g2532;2532;and
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g3144;3144;witness
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Plural";10/g3588;3588;of the
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";12/g3804;3804;sufferings
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";11/g5547;5547;of the Christ,
+1Pet;1 Pierre;5;1;DBY90;en;reference;Conjunction;13/g2532;2532;who also
+1Pet;1 Pierre;5;1;DBY90;en;mot_ajoute;;;;[am]
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";17/g2844;2844;partaker
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";16/g1391;1391;of the glory
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Genitive ; Feminine ; Singular";14/g3195;3195;about to
+1Pet;1 Pierre;5;1;DBY90;en;reference;"Verb ; Present ; Passive ; Infinitive";15/g0601;601;be revealed:
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";1/g4165;4165;shepherd
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Noun ; Accusative ; Neuter ; Singular";5/g4168;4168;the flock
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g2316;2316;of God
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Definite article ; Accusative ; Neuter ; Singular";2/g3588;3588;which
+1Pet;1 Pierre;5;2;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;5;2;DBY90;en;reference;Preposition;3/g1722;1722;among
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";4/g5213;5213;you,
+1Pet;1 Pierre;5;2;DBY90;en;texte_brut;;;;exercising
+1Pet;1 Pierre;5;2;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";7/g1983;1983;oversight,
+1Pet;1 Pierre;5;2;DBY90;en;reference;Particle, Disjunctive Particle;8/g3361;3361;not
+1Pet;1 Pierre;5;2;DBY90;en;reference;Adverb;9/g0317;317;by necessity,
+1Pet;1 Pierre;5;2;DBY90;en;reference;Conjunction;10/g0235;235;but
+1Pet;1 Pierre;5;2;DBY90;en;reference;Adverb;11/g1596;1596;"willingly;"
+1Pet;1 Pierre;5;2;DBY90;en;reference;Conjunction;12/g3366;3366;not
+1Pet;1 Pierre;5;2;DBY90;en;reference;Adverb;13/g0147;147;for base gain,
+1Pet;1 Pierre;5;2;DBY90;en;reference;Conjunction;14/g0235;235;but
+1Pet;1 Pierre;5;2;DBY90;en;texte_brut;;;;"readily;"
+1Pet;1 Pierre;5;3;DBY90;en;reference;Conjunction;1/g3366;3366;not
+1Pet;1 Pierre;5;3;DBY90;en;reference;Adverb;2/g5613;5613;as
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Plural";3/g2634;2634;lording it over
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";4/g2819;2819;your possessions,
+1Pet;1 Pierre;5;3;DBY90;en;reference;Conjunction;5/g0235;235;but
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Plural";7/g1096;1096;being
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Plural";6/g5179;5179;models
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Definite article ; Genitive ; Neuter ; Singular";8/g3588;3588;for the
+1Pet;1 Pierre;5;3;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Singular";9/g4168;4168;flock.
+1Pet;1 Pierre;5;4;DBY90;en;reference;Conjunction;1/g2532;2532;And
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Definite article ; Genitive ; Masculine ; Singular";3/g3588;3588;when the
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";4/g0750;750;chief shepherd
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Verb ; Aorist ; Passive ; Participle ; Genitive ; Masculine ; Singular";2/g5319;5319;is manifested
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Verb ; Future ; Middle Deponent ; Indicative ; 2nd Person ; Plural";5/g2865;2865;ye shall receive
+1Pet;1 Pierre;5;4;DBY90;en;texte_brut;;;;the
+1Pet;1 Pierre;5;4;DBY90;en;texte_brut;;;;unfading
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Singular";8/g4735;4735;crown
+1Pet;1 Pierre;5;4;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";7/g1391;1391;of glory.
+1Pet;1 Pierre;5;5;DBY90;en;reference;Adverb;1/g3668;3668;Likewise
+1Pet;1 Pierre;5;5;DBY90;en;mot_ajoute;;;;[ye]
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural ; Comparative";2/g3501;3501;younger,
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Verb ; Second Aorist ; Passive ; Imperative ; 2nd Person ; Plural";3/g5293;5293;be subject
+1Pet;1 Pierre;5;5;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;5;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";4/g4245;4245;elder,
+1Pet;1 Pierre;5;5;DBY90;en;reference;Conjunction;6/g1161;1161;and
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Plural";5/g3956;3956;all
+1Pet;1 Pierre;5;5;DBY90;en;texte_brut;;;;of you
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Verb ; Present ; Passive ; Participle ; Nominative ; Masculine ; Plural";8/g5293;5293;bind on humility towards
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Reciprocal Pronoun ; Dative ; Masculine ; Plural";7/g0240;240;"one another;"
+1Pet;1 Pierre;5;5;DBY90;en;reference;Conjunction;11/g3754;3754;for
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";12/g2316;2316;God
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Verb ; Present ; Middle ; Indicative ; 3rd Person ; Singular";14/g0498;498;sets himself against
+1Pet;1 Pierre;5;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";13/g5244;5244;proud,
+1Pet;1 Pierre;5;5;DBY90;en;reference;Conjunction;16/g1161;1161;but
+1Pet;1 Pierre;5;5;DBY90;en;texte_brut;;;;to
+1Pet;1 Pierre;5;5;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";15/g5011;5011;humble
+1Pet;1 Pierre;5;5;DBY90;en;texte_brut;;;;gives
+1Pet;1 Pierre;5;5;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";18/g5485;5485;grace.
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Verb ; Aorist ; Passive ; Imperative ; 2nd Person ; Plural";1/g5013;5013;Humble yourselves
+1Pet;1 Pierre;5;6;DBY90;en;reference;Conjunction;2/g3767;3767;therefore
+1Pet;1 Pierre;5;6;DBY90;en;reference;Preposition;3/g5259;5259;under
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Definite article ; Accusative ; Feminine ; Singular";4/g3588;3588;the
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";5/g2900;2900;mighty
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";6/g5495;5495;hand
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";7/g2316;2316;of God,
+1Pet;1 Pierre;5;6;DBY90;en;reference;Conjunction;8/g2443;2443;that
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Verb ; Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";10/g5312;5312;he may exalt
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";9/g5209;5209;you
+1Pet;1 Pierre;5;6;DBY90;en;reference;Preposition;11/g1722;1722;in
+1Pet;1 Pierre;5;6;DBY90;en;mot_ajoute;;;;[the due]
+1Pet;1 Pierre;5;6;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";12/g2540;2540;"time;"
+1Pet;1 Pierre;5;7;DBY90;en;texte_brut;;;;having
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Plural";4/g1977;1977;cast
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";1/g3956;3956;all
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";3/g5216;5216;your
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";2/g3308;3308;care
+1Pet;1 Pierre;5;7;DBY90;en;reference;Preposition;5/g1909;1909;upon
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Personal / Possessive Pronoun ; Accusative ; Masculine ; Singular";6/g0846;846;him,
+1Pet;1 Pierre;5;7;DBY90;en;reference;Conjunction;7/g3754;3754;for
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";8/g0846;846;he
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Verb ; Present ; Impersonal Active ; Indicative ; 3rd Person ; Singular";9/g3199;3199;cares
+1Pet;1 Pierre;5;7;DBY90;en;reference;Preposition;10/g4012;4012;about
+1Pet;1 Pierre;5;7;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";11/g5216;5216;you.
+1Pet;1 Pierre;5;8;DBY90;en;texte_brut;;;;Be
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Verb ; Aorist ; Active ; Imperative ; 2nd Person ; Plural";2/g1127;1127;vigilant,
+1Pet;1 Pierre;5;8;DBY90;en;reference;Conjunction;3/g3754;3754;watch.
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";5/g5216;5216;Your
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";4/g0476;476;adversary
+1Pet;1 Pierre;5;8;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Adjective ; Nominative ; Masculine ; Singular";6/g1228;1228;devil
+1Pet;1 Pierre;5;8;DBY90;en;reference;Adverb;7/g5613;5613;as
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Participle ; Nominative ; Masculine ; Singular";9/g5612;5612;a roaring
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g3023;3023;lion
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Verb ; Present ; Active ; Indicative ; 3rd Person ; Singular";10/g4043;4043;walks about
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";11/g2212;2212;seeking
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Interrogative / Indefinite Pronoun ; Accusative ; Masculine ; Singular";12/g5101;5101;whom
+1Pet;1 Pierre;5;8;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Subjunctive ; 3rd Person ; Singular";13/g2666;2666;he may devour.
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Relative Pronoun ; Dative ; Masculine ; Singular";1/g3739;3739;Whom
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Imperative ; 2nd Person ; Plural";2/g0436;436;resist,
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Plural";3/g4731;4731;stedfast
+1Pet;1 Pierre;5;9;DBY90;en;texte_brut;;;;in
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g4102;4102;faith,
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Verb ; Perfect ; Active ; Participle ; Nominative ; Masculine ; Plural";6/g1492;1492;knowing
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Definite article ; Nominative ; Neuter ; Plural";7/g3588;3588;that the
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Personal / Possessive Pronoun ; Nominative ; Neuter ; Plural";8/g0846;846;selfsame
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Noun ; Genitive ; Neuter ; Plural";9/g3804;3804;sufferings
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Verb ; Present ; Passive ; Infinitive";14/g2005;2005;are accomplished
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Genitive ; Plural";12/g5216;5216;in your
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";13/g0081;81;brotherhood
+1Pet;1 Pierre;5;9;DBY90;en;texte_brut;;;;which
+1Pet;1 Pierre;5;9;DBY90;en;mot_ajoute;;;;[is]
+1Pet;1 Pierre;5;9;DBY90;en;reference;Preposition;10/g1722;1722;in
+1Pet;1 Pierre;5;9;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;9;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";11/g2889;2889;world.
+1Pet;1 Pierre;5;10;DBY90;en;reference;Conjunction;2/g1161;1161;But
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";1/g3588;3588;the
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";3/g2316;2316;God
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Adjective ; Genitive ; Feminine ; Singular";4/g3956;3956;of all
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g5485;5485;grace
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Definite article ; Nominative ; Masculine ; Singular";6/g3588;3588;who
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Participle ; Nominative ; Masculine ; Singular";7/g2564;2564;has called
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Accusative ; Plural";8/g2248;2248;you
+1Pet;1 Pierre;5;10;DBY90;en;reference;Preposition;9/g1519;1519;to
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Personal / Possessive Pronoun ; Genitive ; Masculine ; Singular";11/g0846;846;his
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";10/g0166;166;eternal
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";12/g1391;1391;glory
+1Pet;1 Pierre;5;10;DBY90;en;reference;Preposition;13/g1722;1722;in
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";14/g5547;5547;Christ
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";15/g2424;2424;Jesus,
+1Pet;1 Pierre;5;10;DBY90;en;texte_brut;;;;when
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Verb ; Second Aorist ; Active ; Participle ; Accusative ; Masculine ; Plural";17/g3958;3958;ye have suffered
+1Pet;1 Pierre;5;10;DBY90;en;texte_brut;;;;for
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Adjective ; Accusative ; Masculine ; Singular";16/g3641;3641;a little while,
+1Pet;1 Pierre;5;10;DBY90;en;texte_brut;;;;himself shall
+1Pet;1 Pierre;5;10;DBY90;en;texte_brut;;;;make
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";18/g2675;2675;perfect,
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";20/g4741;4741;stablish,
+1Pet;1 Pierre;5;10;DBY90;en;reference;"Verb ; Aorist ; Active ; Optative ; 3rd Person ; Singular";21/g4599;4599;strengthen,
+1Pet;1 Pierre;5;10;DBY90;en;texte_brut;;;;ground:
+1Pet;1 Pierre;5;11;DBY90;en;reference;"Personal / Possessive Pronoun ; Dative ; Masculine ; Singular";1/g0846;846;to him
+1Pet;1 Pierre;5;11;DBY90;en;mot_ajoute;;;;[be]
+1Pet;1 Pierre;5;11;DBY90;en;texte_brut;;;;the
+1Pet;1 Pierre;5;11;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";2/g1391;1391;glory
+1Pet;1 Pierre;5;11;DBY90;en;reference;Conjunction;3/g2532;2532;and
+1Pet;1 Pierre;5;11;DBY90;en;reference;"Noun ; Nominative ; Neuter ; Singular";4/g2904;2904;the might
+1Pet;1 Pierre;5;11;DBY90;en;reference;Preposition;5/g1519;1519;for
+1Pet;1 Pierre;5;11;DBY90;en;reference;"Noun ; Accusative ; Masculine ; Plural";6/g0165;165;the
+1Pet;1 Pierre;5;11;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Plural";7/g0165;165;ages of the ages.
+1Pet;1 Pierre;5;11;DBY90;en;reference;Hebrew transliterated word (indeclinable);8/g0281;281;Amen.
+1Pet;1 Pierre;5;12;DBY90;en;reference;Preposition;1/g1223;1223;By
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";2/g4610;4610;Silvanus,
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Definite article ; Genitive ; Masculine ; Singular";4/g3588;3588;the
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Adjective ; Genitive ; Masculine ; Singular";5/g4103;4103;faithful
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";6/g0080;80;brother,
+1Pet;1 Pierre;5;12;DBY90;en;reference;Adverb;7/g5613;5613;as
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 1st Person ; Singular";8/g3049;3049;I suppose,
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Aorist ; Active ; Indicative ; 1st Person ; Singular";10/g1125;1125;I have written
+1Pet;1 Pierre;5;12;DBY90;en;texte_brut;;;;to you
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Adjective ; Genitive ; Neuter ; Plural";9/g3641;3641, 1223;"briefly;"
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";11/g3870;3870;exhorting
+1Pet;1 Pierre;5;12;DBY90;en;reference;Conjunction;12/g2532;2532;and
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Present ; Active ; Participle ; Nominative ; Masculine ; Singular";13/g1957;1957;testifying
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Demonstrative Pronoun ; Accusative ; Feminine ; Singular";14/g3778;3778;that this
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Present ; (No voice stated) ; Infinitive";15/g1511;1511;is
+1Pet;1 Pierre;5;12;DBY90;en;mot_ajoute;;;;[the]
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Adjective ; Accusative ; Feminine ; Singular";16/g0227;227;true
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Noun ; Accusative ; Feminine ; Singular";17/g5485;5485;grace
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Noun ; Genitive ; Masculine ; Singular";18/g2316;2316;of God
+1Pet;1 Pierre;5;12;DBY90;en;reference;Preposition;19/g1519;1519, 3739;in which
+1Pet;1 Pierre;5;12;DBY90;en;reference;"Verb ; Perfect ; Active ; Indicative ; 2nd Person ; Plural";20/g2476;2476;ye stand.
+1Pet;1 Pierre;5;13;DBY90;en;texte_brut;;;;She
+1Pet;1 Pierre;5;13;DBY90;en;texte_brut;;;;that is
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Adjective ; Nominative ; Feminine ; Singular";6/g4899;4899;elected with
+1Pet;1 Pierre;5;13;DBY90;en;mot_ajoute;;;;[you]
+1Pet;1 Pierre;5;13;DBY90;en;texte_brut;;;;in
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Noun ; Dative ; Feminine ; Singular";5/g0897;897;Babylon
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Verb ; Present ; Middle or Passive Deponent ; Indicative ; 3rd Person ; Singular";1/g0782;782;salutes
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Accusative ; Plural";2/g5209;5209;you,
+1Pet;1 Pierre;5;13;DBY90;en;reference;Conjunction;7/g2532;2532;and
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";8/g3138;3138;Marcus
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Personal / Possessive Pronoun ; 1st Person ; Genitive ; Singular";10/g3450;3450;my
+1Pet;1 Pierre;5;13;DBY90;en;reference;"Noun ; Nominative ; Masculine ; Singular";9/g5207;5207;son.
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Verb ; Aorist ; Middle Deponent ; Imperative ; 2nd Person ; Plural";1/g0782;782;Salute
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Reciprocal Pronoun ; Accusative ; Masculine ; Plural";2/g0240;240;one another
+1Pet;1 Pierre;5;14;DBY90;en;reference;Preposition;3/g1722;1722;with
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Noun ; Dative ; Neuter ; Singular";4/g5370;5370;a kiss
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Noun ; Genitive ; Feminine ; Singular";5/g0026;26;of love.
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Noun ; Nominative ; Feminine ; Singular";6/g1515;1515;Peace
+1Pet;1 Pierre;5;14;DBY90;en;texte_brut;;;;be
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Personal / Possessive Pronoun ; 2nd Person ; Dative ; Plural";7/g5213;5213;with you
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Adjective ; Dative ; Masculine ; Plural";8/g3956;3956;all
+1Pet;1 Pierre;5;14;DBY90;en;texte_brut;;;;who
+1Pet;1 Pierre;5;14;DBY90;en;mot_ajoute;;;;[are]
+1Pet;1 Pierre;5;14;DBY90;en;reference;Preposition;9/g1722;1722;in
+1Pet;1 Pierre;5;14;DBY90;en;reference;"Noun ; Dative ; Masculine ; Singular";10/g5547;5547;Christ.

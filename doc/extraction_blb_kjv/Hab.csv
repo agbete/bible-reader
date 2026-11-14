@@ -1,0 +1,766 @@
+﻿livre_code;livre_nom;chapitre;verset;version;lang;type_entite;data_lm;data_pa;data_ns;contenu
+Hab;Habakuk;1;1;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";1/h4853;4853;The burden
+Hab;Habakuk;1;1;KJV;en;reference;"Particle ; Particle: Relative";2/h0834;834;which
+Hab;Habakuk;1;1;KJV;en;reference;"Noun ; Noun: Proper Name";4/h2265;2265;Habakkuk
+Hab;Habakuk;1;1;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";5/h5030;5030;the prophet
+Hab;Habakuk;1;1;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";3/h2372;2372;did see.
+Hab;Habakuk;1;2;KJV;en;reference;"Noun ; Noun: Proper Name";3/h3068;3068;O LORD,
+Hab;Habakuk;1;2;KJV;en;reference;Preposition;1/h5704;5704;how
+Hab;Habakuk;1;2;KJV;en;reference;Adverb;2/h0575;575;long
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Piel Perfect (qatal) First Person Common Singular";4/h7768;7768;shall I cry,
+Hab;Habakuk;1;2;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";5/h3808;3808;and
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";6/h8085;8085;thou wilt
+Hab;Habakuk;1;2;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";5/h3808;3808;not
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";6/h8085;8085;hear!
+Hab;Habakuk;1;2;KJV;en;mot_ajoute;;;;even
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) First Person Common Singular";7/h2199;2199;cry out
+Hab;Habakuk;1;2;KJV;en;reference;"Preposition ; Suffix: Pronominal 2nd Person Masculine Singular";8/h0413;413;unto thee
+Hab;Habakuk;1;2;KJV;en;mot_ajoute;;;;of
+Hab;Habakuk;1;2;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";9/h2555;2555;violence,
+Hab;Habakuk;1;2;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";10/h3808;3808;and
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular";11/h3467;3467;thou wilt
+Hab;Habakuk;1;2;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";10/h3808;3808;not
+Hab;Habakuk;1;2;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular";11/h3467;3467;save!
+Hab;Habakuk;1;3;KJV;en;reference;"Particle ; Preposition ; Particle: Interrogative";1/h4100;4100;Why
+Hab;Habakuk;1;3;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular ; Suffix: Pronominal First Person Common Singular";2/h7200;7200;dost thou shew me
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h0205;205;iniquity,
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Both Singular Absolute";4/h5999;5999;and
+Hab;Habakuk;1;3;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular";5/h5027;5027;cause me to behold
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Both Singular Absolute";4/h5999;5999;grievance?
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";6/h7701;7701;for spoiling
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";7/h2555;2555;and violence
+Hab;Habakuk;1;3;KJV;en;mot_ajoute;;;;are
+Hab;Habakuk;1;3;KJV;en;reference;"Preposition ; Suffix: Pronominal First Person Common Singular";8/h5048;5048;before me:
+Hab;Habakuk;1;3;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";9/h1961;1961;and there are
+Hab;Habakuk;1;3;KJV;en;mot_ajoute;;;;that
+Hab;Habakuk;1;3;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";12/h5375;5375;raise up
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";10/h7379;7379;strife
+Hab;Habakuk;1;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";11/h4066;4066;and contention.
+Hab;Habakuk;1;4;KJV;en;reference;Preposition;1/h5921;5921, 3651;Therefore
+Hab;Habakuk;1;4;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";3/h8451;8451;the law
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";2/h6313;6313;is slacked,
+Hab;Habakuk;1;4;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";4/h3808;3808;and
+Hab;Habakuk;1;4;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h4941;4941;judgment
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";5/h3318;3318;doth
+Hab;Habakuk;1;4;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";4/h3808;3808, 5331;never
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";5/h3318;3318;go forth:
+Hab;Habakuk;1;4;KJV;en;reference;Conjunction;7/h3588;3588;for
+Hab;Habakuk;1;4;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";8/h7563;7563;the wicked
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Hiphil Participle Active Masculine Singular Absolute";9/h3803;3803;doth compass about
+Hab;Habakuk;1;4;KJV;en;reference;"Adjective ; Particle: Definite Article ; Adjective: Adjective Masculine Singular Absolute";10/h6662;6662;"the righteous;"
+Hab;Habakuk;1;4;KJV;en;reference;Preposition;11/h5921;5921, 3651;therefore
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Piel Participle Passive Masculine Singular Absolute";14/h6127;6127;wrong
+Hab;Habakuk;1;4;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";13/h4941;4941;judgment
+Hab;Habakuk;1;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";12/h3318;3318;proceedeth.
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Verb: Qal Imperative 2nd Person Masculine Plural";1/h7200;7200;Behold ye
+Hab;Habakuk;1;5;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Plural Absolute";2/h1471;1471;among the heathen,
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Imperative 2nd Person Masculine Plural";3/h5027;5027;and regard,
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Hithpael Imperative 2nd Person Masculine Plural";4/h8539;8539, 8539;and wonder marvellously:
+Hab;Habakuk;1;5;KJV;en;reference;Conjunction;5/h3588;3588;for
+Hab;Habakuk;1;5;KJV;en;mot_ajoute;;;;I
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";7/h6466;6466;will work
+Hab;Habakuk;1;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h6467;6467;a work
+Hab;Habakuk;1;5;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Plural";8/h3117;3117;in your days,
+Hab;Habakuk;1;5;KJV;en;mot_ajoute;;;;which
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Plural";10/h0539;539;ye will
+Hab;Habakuk;1;5;KJV;en;reference;"Particle ; Particle: Negative";9/h3808;3808;not
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Plural";10/h0539;539;believe,
+Hab;Habakuk;1;5;KJV;en;reference;Conjunction;11/h3588;3588;though
+Hab;Habakuk;1;5;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";12/h5608;5608;it be told
+Hab;Habakuk;1;5;KJV;en;mot_ajoute;;;;you.
+Hab;Habakuk;1;6;KJV;en;reference;Conjunction;1/h3588;3588;For,
+Hab;Habakuk;1;6;KJV;en;reference;"Particle ; Particle: Demonstrative ; Suffix: Pronominal First Person Common Singular";2/h2005;2005;lo, I
+Hab;Habakuk;1;6;KJV;en;reference;"Verb ; Verb: Hiphil Participle Active Masculine Singular Absolute";3/h6965;6965;raise up
+Hab;Habakuk;1;6;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Proper Name";4/h3778;3778;the Chaldeans,
+Hab;Habakuk;1;6;KJV;en;mot_ajoute;;;;that
+Hab;Habakuk;1;6;KJV;en;reference;"Adjective ; Particle: Definite Article ; Adjective: Adjective Masculine Singular Absolute";6/h4751;4751;bitter
+Hab;Habakuk;1;6;KJV;en;reference;"Verb ; Conjunction ; Particle: Definite Article ; Verb: Niphal Participle Active Masculine Singular Absolute";7/h4116;4116;and hasty
+Hab;Habakuk;1;6;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";5/h1471;1471;nation,
+Hab;Habakuk;1;6;KJV;en;reference;"Verb ; Particle: Definite Article ; Verb: Qal Participle Active Masculine Singular Absolute";8/h1980;1980;which shall march
+Hab;Habakuk;1;6;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";9/h4800;4800;through the breadth
+Hab;Habakuk;1;6;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";10/h0776;776;of the land,
+Hab;Habakuk;1;6;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";11/h3423;3423;to possess
+Hab;Habakuk;1;6;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";12/h4908;4908;the dwellingplaces
+Hab;Habakuk;1;6;KJV;en;mot_ajoute;;;;that are
+Hab;Habakuk;1;6;KJV;en;reference;"Particle ; Particle: Negative";13/h3808;3808;not
+Hab;Habakuk;1;6;KJV;en;mot_outil;;;;theirs.
+Hab;Habakuk;1;7;KJV;en;reference;"Pronoun ; Pronoun: Personal 3rd Person Masculine Singular";3/h1931;1931;They
+Hab;Habakuk;1;7;KJV;en;mot_ajoute;;;;are
+Hab;Habakuk;1;7;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";1/h0366;366;terrible
+Hab;Habakuk;1;7;KJV;en;reference;"Verb ; Conjunction ; Verb: Niphal Participle Active Masculine Singular Absolute";2/h3372;3372;and dreadful:
+Hab;Habakuk;1;7;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h4941;4941;their judgment
+Hab;Habakuk;1;7;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";6/h7613;7613;and their dignity
+Hab;Habakuk;1;7;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";7/h3318;3318;shall proceed
+Hab;Habakuk;1;7;KJV;en;reference;"Preposition ; Suffix: Pronominal First Person Common Plural";4/h4480;4480;of themselves.
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";3/h5483;5483;Their horses
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";1/h7043;7043;also are swifter
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Absolute";2/h5246;5246;than the leopards,
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";4/h2300;2300;and are more fierce
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";5/h2061;2061;than
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h6153;6153;the evening
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";5/h2061;2061;wolves:
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";7/h6335;6335;and
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";8/h6571;6571;their horsemen
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";7/h6335;6335;shall spread themselves,
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";9/h6571;6571;and their horsemen
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";11/h0935;935;shall come
+Hab;Habakuk;1;8;KJV;en;reference;"Adjective ; Preposition ; Adjective: Adjective Masculine Singular Absolute";10/h7350;7350;"from far;"
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";12/h5774;5774;they shall fly
+Hab;Habakuk;1;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";13/h5404;5404;as the eagle
+Hab;Habakuk;1;8;KJV;en;mot_ajoute;;;;that
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";14/h2363;2363;hasteth
+Hab;Habakuk;1;8;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";15/h0398;398;to eat.
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";1/h3605;3605;They
+Hab;Habakuk;1;9;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";3/h0935;935;shall come
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";1/h3605;3605;all
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";2/h2555;2555;for violence:
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Both Plural Construct ; Suffix: Pronominal 3rd Person Masculine Plural";5/h6440;6440;their faces
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct";4/h4041;4041;shall sup up
+Hab;Habakuk;1;9;KJV;en;mot_ajoute;;;;as
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute ; Suffix: Directional He";6/h6921;6921;the east wind,
+Hab;Habakuk;1;9;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";7/h0622;622;and they shall gather
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";9/h7628;7628;the captivity
+Hab;Habakuk;1;9;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";8/h2344;2344;as the sand.
+Hab;Habakuk;1;10;KJV;en;reference;"Pronoun ; Conjunction ; Pronoun: Personal 3rd Person Masculine Singular";1/h1931;1931;And they
+Hab;Habakuk;1;10;KJV;en;reference;"Verb ; Verb: Hithpael Imperfect (yiqtol) 3rd Person Masculine Singular";3/h7046;7046;shall scoff
+Hab;Habakuk;1;10;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Plural Absolute";2/h4428;4428;at the kings,
+Hab;Habakuk;1;10;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Participle Active Masculine Plural Absolute";4/h7336;7336;and the princes shall be
+Hab;Habakuk;1;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h4890;4890;a scorn
+Hab;Habakuk;1;10;KJV;en;mot_outil;;;;unto them:
+Hab;Habakuk;1;10;KJV;en;reference;"Pronoun ; Pronoun: Personal 3rd Person Masculine Singular";6/h1931;1931;they
+Hab;Habakuk;1;10;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";9/h7832;7832;shall deride
+Hab;Habakuk;1;10;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";7/h3605;3605;every
+Hab;Habakuk;1;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";8/h4013;4013;"strong hold;"
+Hab;Habakuk;1;10;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";10/h6651;6651;for they shall heap
+Hab;Habakuk;1;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";11/h6083;6083;dust,
+Hab;Habakuk;1;10;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Feminine Singular";12/h3920;3920;and take it.
+Hab;Habakuk;1;11;KJV;en;reference;Adverb;1/h0227;227;Then
+Hab;Habakuk;1;11;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";2/h2498;2498;shall
+Hab;Habakuk;1;11;KJV;en;mot_ajoute;;;;his
+Hab;Habakuk;1;11;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";3/h7307;7307;mind
+Hab;Habakuk;1;11;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";2/h2498;2498;change,
+Hab;Habakuk;1;11;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";4/h5674;5674;and he shall pass over,
+Hab;Habakuk;1;11;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";5/h0816;816;and offend,
+Hab;Habakuk;1;11;KJV;en;mot_ajoute;;;;imputing
+Hab;Habakuk;1;11;KJV;en;reference;"Particle ; Particle: Relative";6/h2098;2098;this
+Hab;Habakuk;1;11;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";7/h3581;3581;his power
+Hab;Habakuk;1;11;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";8/h0430;430;unto his god.
+Hab;Habakuk;1;12;KJV;en;mot_ajoute;;;;Art
+Hab;Habakuk;1;12;KJV;en;reference;"Pronoun ; Pronoun: Personal 2nd Person Masculine Singular";2/h0859;859;thou
+Hab;Habakuk;1;12;KJV;en;reference;"Particle ; Particle: Interrogative ; Particle: Negative";1/h3808;3808;not
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";3/h6924;6924;from everlasting,
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Noun: Proper Name";4/h3068;3068;O LORD
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal First Person Common Singular";5/h0430;430;my God,
+Hab;Habakuk;1;12;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Construct ; Suffix: Pronominal First Person Common Singular";6/h6918;6918;mine Holy One?
+Hab;Habakuk;1;12;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) First Person Common Plural";8/h4191;4191;we shall
+Hab;Habakuk;1;12;KJV;en;reference;"Particle ; Particle: Negative";7/h3808;3808;not
+Hab;Habakuk;1;12;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) First Person Common Plural";8/h4191;4191;die.
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Noun: Proper Name";9/h3068;3068;O LORD,
+Hab;Habakuk;1;12;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";11/h7760;7760;thou hast ordained them
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";10/h4941;4941;"for judgment;"
+Hab;Habakuk;1;12;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";12/h6697;6697;and, O mighty God,
+Hab;Habakuk;1;12;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";14/h3245;3245;thou hast established them
+Hab;Habakuk;1;12;KJV;en;reference;"Verb ; Preposition ; Verb: Hiphil Infinitive Construct";13/h3198;3198;for correction.
+Hab;Habakuk;1;13;KJV;en;mot_ajoute;;;;Thou art
+Hab;Habakuk;1;13;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Construct";1/h2890;2890;of purer
+Hab;Habakuk;1;13;KJV;en;reference;"Noun ; Noun: Common Both Dual Absolute";2/h5869;5869;eyes
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";3/h7200;7200;than to behold
+Hab;Habakuk;1;13;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";4/h7451;7451;evil,
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Infinitive Construct";5/h5027;5027;and
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";9/h3201;3201;canst
+Hab;Habakuk;1;13;KJV;en;reference;"Particle ; Particle: Negative";8/h3808;3808;not
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Infinitive Construct";5/h5027;5027;look
+Hab;Habakuk;1;13;KJV;en;reference;Preposition;6/h0413;413;on
+Hab;Habakuk;1;13;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";7/h5999;5999;iniquity:
+Hab;Habakuk;1;13;KJV;en;reference;"Particle ; Preposition ; Particle: Interrogative";10/h4100;4100;wherefore
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular";11/h5027;5027;lookest thou
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Plural Absolute";12/h0898;898;upon them that deal treacherously,
+Hab;Habakuk;1;13;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 2nd Person Masculine Singular";13/h2790;2790;holdest thy tongue
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Preposition ; Verb: Piel Infinitive Construct";14/h1104;1104;when
+Hab;Habakuk;1;13;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";15/h7563;7563;the wicked
+Hab;Habakuk;1;13;KJV;en;reference;"Verb ; Preposition ; Verb: Piel Infinitive Construct";14/h1104;1104;devoureth
+Hab;Habakuk;1;13;KJV;en;mot_ajoute;;;;the man that is
+Hab;Habakuk;1;13;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";16/h6662;6662;more righteous
+Hab;Habakuk;1;13;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";17/h4480;4480;than he?
+Hab;Habakuk;1;14;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 2nd Person Masculine Singular";1/h6213;6213;And makest
+Hab;Habakuk;1;14;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";2/h0120;120;men
+Hab;Habakuk;1;14;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";3/h1709;1709;as the fishes
+Hab;Habakuk;1;14;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";4/h3220;3220;of the sea,
+Hab;Habakuk;1;14;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";5/h7431;7431;as the creeping things,
+Hab;Habakuk;1;14;KJV;en;mot_ajoute;;;;that have
+Hab;Habakuk;1;14;KJV;en;reference;"Particle ; Particle: Negative";6/h3808;3808;no
+Hab;Habakuk;1;14;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";7/h4910;4910;ruler
+Hab;Habakuk;1;14;KJV;en;mot_outil;;;;over them?
+Hab;Habakuk;1;15;KJV;en;reference;"Verb ; Verb: Hiphil Perfect (qatal) 3rd Person Masculine Singular";3/h5927;5927;They take up
+Hab;Habakuk;1;15;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";1/h3605;3605;all of them
+Hab;Habakuk;1;15;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Absolute";2/h2443;2443;with the angle,
+Hab;Habakuk;1;15;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";4/h1641;1641;they catch them
+Hab;Habakuk;1;15;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h2764;2764;in their net,
+Hab;Habakuk;1;15;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";6/h0622;622;and gather them
+Hab;Habakuk;1;15;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";7/h4365;4365;in their drag:
+Hab;Habakuk;1;15;KJV;en;reference;Preposition;8/h5921;5921, 3651;therefore
+Hab;Habakuk;1;15;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";9/h8055;8055;they rejoice
+Hab;Habakuk;1;15;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";10/h1523;1523;and are glad.
+Hab;Habakuk;1;16;KJV;en;reference;Preposition;1/h5921;5921, 3651;Therefore
+Hab;Habakuk;1;16;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";2/h2076;2076;they sacrifice
+Hab;Habakuk;1;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";3/h2764;2764;unto their net,
+Hab;Habakuk;1;16;KJV;en;reference;"Verb ; Conjunction ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";4/h6999;6999;and burn incense
+Hab;Habakuk;1;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h4365;4365;"unto their drag;"
+Hab;Habakuk;1;16;KJV;en;reference;Conjunction;6/h3588;3588;because
+Hab;Habakuk;1;16;KJV;en;reference;"Pronoun ; Preposition ; Pronoun: Personal 3rd Person Masculine Plural";7/h1992;1992;by them
+Hab;Habakuk;1;16;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";9/h2506;2506;their portion
+Hab;Habakuk;1;16;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;1;16;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";8/h8082;8082;fat,
+Hab;Habakuk;1;16;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";10/h3978;3978;and their meat
+Hab;Habakuk;1;16;KJV;en;reference;"Adjective ; Adjective: Adjective Feminine Singular Absolute";11/h1277;1277;plenteous.
+Hab;Habakuk;1;17;KJV;en;reference;"Preposition ; Particle: Interrogative";1/h5921;5921;Shall
+Hab;Habakuk;1;17;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular";3/h7324;7324;they
+Hab;Habakuk;1;17;KJV;en;reference;"Particle ; Particle: Demonstrative";2/h3651;3651;therefore
+Hab;Habakuk;1;17;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular";3/h7324;7324;empty
+Hab;Habakuk;1;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";4/h2764;2764;their net,
+Hab;Habakuk;1;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";5/h8548;8548;and
+Hab;Habakuk;1;17;KJV;en;reference;"Particle ; Particle: Negative";8/h3808;3808;not
+Hab;Habakuk;1;17;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";9/h2550;2550;spare
+Hab;Habakuk;1;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";5/h8548;8548;continually
+Hab;Habakuk;1;17;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";6/h2026;2026;to slay
+Hab;Habakuk;1;17;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";7/h1471;1471;the nations?
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Verb: Qal Cohortative First Person Common Singular";3/h5975;5975;I will stand
+Hab;Habakuk;2;1;KJV;en;reference;Preposition;1/h5921;5921;upon
+Hab;Habakuk;2;1;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal First Person Common Singular";2/h4931;4931;my watch,
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Conjunction ; Verb: Hithpael Cohortative First Person Common Singular";4/h3320;3320;and set me
+Hab;Habakuk;2;1;KJV;en;reference;Preposition;5/h5921;5921;upon
+Hab;Habakuk;2;1;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h4692;4692;the tower,
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Conjunction ; Verb: Piel Imperfect (yiqtol) First Person Common Singular";7/h6822;6822;and will watch
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";8/h7200;7200;to see
+Hab;Habakuk;2;1;KJV;en;reference;"Particle ; Particle: Interrogative";9/h4100;4100;what
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";10/h1696;1696;he will say
+Hab;Habakuk;2;1;KJV;en;mot_outil;;;;unto me,
+Hab;Habakuk;2;1;KJV;en;reference;"Particle ; Conjunction ; Particle: Interrogative";11/h4100;4100;and what
+Hab;Habakuk;2;1;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) First Person Common Singular";12/h7725;7725;I shall answer
+Hab;Habakuk;2;1;KJV;en;reference;Preposition;13/h5921;5921;when
+Hab;Habakuk;2;1;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal First Person Common Singular";14/h8433;8433;I am reproved.
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal First Person Common Singular";1/h6030;6030;And
+Hab;Habakuk;2;2;KJV;en;reference;"Noun ; Noun: Proper Name";2/h3068;3068;the LORD
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal First Person Common Singular";1/h6030;6030;answered me,
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";3/h0559;559;and said,
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Verb: Qal Imperative 2nd Person Masculine Singular";4/h3789;3789;Write
+Hab;Habakuk;2;2;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h2377;2377;the vision,
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Conjunction ; Verb: Piel Imperative 2nd Person Masculine Singular";6/h0874;874;and make it plain
+Hab;Habakuk;2;2;KJV;en;reference;Preposition;7/h5921;5921;upon
+Hab;Habakuk;2;2;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Plural Absolute";8/h3871;3871;tables,
+Hab;Habakuk;2;2;KJV;en;reference;Preposition;9/h4616;4616;that
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";10/h7323;7323;he may run
+Hab;Habakuk;2;2;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";11/h7121;7121;that readeth
+Hab;Habakuk;2;2;KJV;en;mot_outil;;;;it.
+Hab;Habakuk;2;3;KJV;en;reference;Conjunction;1/h3588;3588;For
+Hab;Habakuk;2;3;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h2377;2377;the vision
+Hab;Habakuk;2;3;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;2;3;KJV;en;reference;Adverb;2/h5750;5750;yet
+Hab;Habakuk;2;3;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";4/h4150;4150;for an appointed time,
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular";5/h6315;6315;but
+Hab;Habakuk;2;3;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";6/h7093;7093;at the end
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular";5/h6315;6315;it shall speak,
+Hab;Habakuk;2;3;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";7/h3808;3808;and not
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";8/h3576;3576;lie:
+Hab;Habakuk;2;3;KJV;en;reference;Conjunction;9/h0518;518;though
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Hithpalpel Imperfect (yiqtol) 3rd Person Masculine Singular";10/h4102;4102;it tarry,
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Piel Imperative 2nd Person Masculine Singular";11/h2442;2442;wait
+Hab;Habakuk;2;3;KJV;en;mot_outil;;;;"for it;"
+Hab;Habakuk;2;3;KJV;en;reference;Conjunction;12/h3588;3588;because
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";14/h0935;935;it will
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Qal Infinitive Absolute";13/h0935;935;surely
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";14/h0935;935;come,
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";16/h0309;309;it will
+Hab;Habakuk;2;3;KJV;en;reference;"Particle ; Particle: Negative";15/h3808;3808;not
+Hab;Habakuk;2;3;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular";16/h0309;309;tarry.
+Hab;Habakuk;2;4;KJV;en;reference;"Particle ; Particle: Demonstrative";1/h2009;2009;Behold,
+Hab;Habakuk;2;4;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h5315;5315;his soul
+Hab;Habakuk;2;4;KJV;en;mot_ajoute;;;;which
+Hab;Habakuk;2;4;KJV;en;reference;"Verb ; Verb: Piel Perfect (qatal) 3rd Person Feminine Singular";2/h6075;6075;is lifted up
+Hab;Habakuk;2;4;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Feminine Singular";4/h3474;3474;is
+Hab;Habakuk;2;4;KJV;en;reference;"Particle ; Particle: Negative";3/h3808;3808;not
+Hab;Habakuk;2;4;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Feminine Singular";4/h3474;3474;upright
+Hab;Habakuk;2;4;KJV;en;mot_outil;;;;in him:
+Hab;Habakuk;2;4;KJV;en;reference;"Adjective ; Conjunction ; Adjective: Adjective Masculine Singular Absolute";6/h6662;6662;but the just
+Hab;Habakuk;2;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";8/h2421;2421;shall live
+Hab;Habakuk;2;4;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";7/h0530;530;by his faith.
+Hab;Habakuk;2;5;KJV;en;reference;"Adverb ; Conjunction";1/h0637;637;Yea also,
+Hab;Habakuk;2;5;KJV;en;reference;Conjunction;2/h3588;3588;because
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";4/h0898;898;he transgresseth
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";3/h3196;3196;by wine,
+Hab;Habakuk;2;5;KJV;en;mot_ajoute;;;;he is
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h1397;1397;a
+Hab;Habakuk;2;5;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";6/h3093;3093;proud
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h1397;1397;man,
+Hab;Habakuk;2;5;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";7/h3808;3808;neither
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";8/h5115;5115;keepeth at home,
+Hab;Habakuk;2;5;KJV;en;reference;"Particle ; Particle: Relative";9/h0834;834;who
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Verb: Hiphil Perfect (qatal) 3rd Person Masculine Singular";10/h7337;7337;enlargeth
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";12/h5315;5315;his desire
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Preposition ; Noun: Proper Name";11/h7585;7585;as hell,
+Hab;Habakuk;2;5;KJV;en;reference;"Pronoun ; Conjunction ; Pronoun: Personal 3rd Person Masculine Singular";13/h1931;1931;and
+Hab;Habakuk;2;5;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";14/h4194;4194;as death,
+Hab;Habakuk;2;5;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";15/h3808;3808;and cannot
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";16/h7646;7646;be satisfied,
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";17/h0622;622;but gathereth
+Hab;Habakuk;2;5;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";18/h0413;413;unto him
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";19/h3605;3605;all
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Plural Absolute";20/h1471;1471;nations,
+Hab;Habakuk;2;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";21/h6908;6908;and heapeth
+Hab;Habakuk;2;5;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";22/h0413;413;unto him
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";23/h3605;3605;all
+Hab;Habakuk;2;5;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Plural Absolute";24/h5971;5971;people:
+Hab;Habakuk;2;6;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";6/h5375;5375;Shall
+Hab;Habakuk;2;6;KJV;en;reference;"Particle ; Particle: Interrogative ; Particle: Negative";1/h3808;3808;not
+Hab;Habakuk;2;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Plural";3/h3605;3605;all
+Hab;Habakuk;2;6;KJV;en;reference;"Pronoun ; Pronoun: Demonstrative Common Plural";2/h0428;428;these
+Hab;Habakuk;2;6;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";6/h5375;5375;take up
+Hab;Habakuk;2;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h4912;4912;a parable
+Hab;Habakuk;2;6;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";4/h5921;5921;against him,
+Hab;Habakuk;2;6;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Absolute";7/h4426;4426;and a taunting
+Hab;Habakuk;2;6;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Absolute";8/h2420;2420;proverb
+Hab;Habakuk;2;6;KJV;en;mot_outil;;;;against him,
+Hab;Habakuk;2;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";9/h0559;559;and say,
+Hab;Habakuk;2;6;KJV;en;reference;"Particle ; Particle: Interjection";10/h1945;1945;Woe
+Hab;Habakuk;2;6;KJV;en;reference;"Verb ; Particle: Definite Article ; Verb: Hiphil Participle Active Masculine Singular Absolute";11/h7235;7235;to him that increaseth
+Hab;Habakuk;2;6;KJV;en;mot_ajoute;;;;that which is
+Hab;Habakuk;2;6;KJV;en;reference;"Particle ; Particle: Negative";12/h3808;3808;not
+Hab;Habakuk;2;6;KJV;en;mot_outil;;;;his!
+Hab;Habakuk;2;6;KJV;en;reference;Preposition;13/h5704;5704, 4970;how long?
+Hab;Habakuk;2;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Participle Active Masculine Singular Absolute";14/h3513;3513;and to him that ladeth
+Hab;Habakuk;2;6;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";15/h5921;5921;himself
+Hab;Habakuk;2;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";16/h5671;5671;with thick clay!
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";3/h6965;6965;Shall they
+Hab;Habakuk;2;7;KJV;en;reference;"Particle ; Particle: Interrogative ; Particle: Negative";1/h3808;3808;not
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";3/h6965;6965;rise up
+Hab;Habakuk;2;7;KJV;en;reference;Adverb;2/h6621;6621;suddenly
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";4/h5391;5391;that shall bite thee,
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";5/h6974;6974;and awake
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Verb: Pilpel Participle Active Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";6/h2111;2111;that shall vex thee,
+Hab;Habakuk;2;7;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential Perfect (weqatal) 2nd Person Masculine Singular";7/h1961;1961;and thou shalt be
+Hab;Habakuk;2;7;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Plural Absolute";8/h4933;4933;for booties
+Hab;Habakuk;2;7;KJV;en;mot_outil;;;;unto them?
+Hab;Habakuk;2;8;KJV;en;reference;Conjunction;1/h3588;3588;Because
+Hab;Habakuk;2;8;KJV;en;reference;"Pronoun ; Pronoun: Personal 2nd Person Masculine Singular";2/h0859;859;thou
+Hab;Habakuk;2;8;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";3/h7997;7997;hast spoiled
+Hab;Habakuk;2;8;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Plural Absolute";5/h7227;7227;many
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";4/h1471;1471;nations,
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";7/h3605;3605;all
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";8/h3499;3499;the remnant
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";9/h5971;5971;of the people
+Hab;Habakuk;2;8;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural ; Suffix: Pronominal 2nd Person Masculine Singular";6/h7997;7997;"shall spoil thee;"
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";10/h1818;1818;because of
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";11/h0120;120;men's
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";10/h1818;1818;blood,
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";12/h2555;2555;and for the violence
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";13/h0776;776;of the land,
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";14/h7151;7151;of the city,
+Hab;Habakuk;2;8;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";15/h3605;3605;and of all
+Hab;Habakuk;2;8;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Plural Construct";16/h3427;3427;that dwell
+Hab;Habakuk;2;8;KJV;en;mot_outil;;;;therein.
+Hab;Habakuk;2;9;KJV;en;reference;"Particle ; Particle: Interjection";1/h1945;1945;Woe
+Hab;Habakuk;2;9;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";2/h1214;1214;to him that coveteth
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h1215;1215;an
+Hab;Habakuk;2;9;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";4/h7451;7451;evil
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h1215;1215;covetousness
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h1004;1004;to his house,
+Hab;Habakuk;2;9;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";6/h7760;7760;that he may set
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";8/h7064;7064;his nest
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";7/h4791;4791;on high,
+Hab;Habakuk;2;9;KJV;en;reference;"Verb ; Preposition ; Verb: Niphal Infinitive Construct";9/h5337;5337;that he may be delivered
+Hab;Habakuk;2;9;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct";10/h3709;3709;from the power
+Hab;Habakuk;2;9;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";11/h7451;7451;of evil!
+Hab;Habakuk;2;10;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";1/h3289;3289;Thou hast consulted
+Hab;Habakuk;2;10;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";2/h1322;1322;shame
+Hab;Habakuk;2;10;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";3/h1004;1004;to thy house
+Hab;Habakuk;2;10;KJV;en;reference;"Verb ; Verb: Qal Infinitive Construct";4/h7096;7096;by cutting off
+Hab;Habakuk;2;10;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Plural Absolute";6/h7227;7227;many
+Hab;Habakuk;2;10;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";5/h5971;5971;people,
+Hab;Habakuk;2;10;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Participle Active Masculine Singular Absolute";7/h2398;2398;and hast sinned
+Hab;Habakuk;2;10;KJV;en;mot_ajoute;;;;against
+Hab;Habakuk;2;10;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";8/h5315;5315;thy soul.
+Hab;Habakuk;2;11;KJV;en;reference;Conjunction;1/h3588;3588;For
+Hab;Habakuk;2;11;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";2/h0068;68;the stone
+Hab;Habakuk;2;11;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";4/h2199;2199;shall cry out
+Hab;Habakuk;2;11;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";3/h7023;7023;of the wall,
+Hab;Habakuk;2;11;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";5/h3714;3714;and the beam
+Hab;Habakuk;2;11;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";6/h6086;6086;out of the timber
+Hab;Habakuk;2;11;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Feminine Singular";7/h6030;6030;shall answer it.
+Hab;Habakuk;2;12;KJV;en;reference;"Particle ; Particle: Interjection";1/h1945;1945;Woe
+Hab;Habakuk;2;12;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";2/h1129;1129;to him that buildeth
+Hab;Habakuk;2;12;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";3/h5892;5892;a town
+Hab;Habakuk;2;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Absolute";4/h1818;1818;with blood,
+Hab;Habakuk;2;12;KJV;en;reference;"Verb ; Conjunction ; Verb: Polel Sequential Perfect (weqatal) 3rd Person Masculine Singular";5/h3559;3559;and stablisheth
+Hab;Habakuk;2;12;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";6/h7151;7151;a city
+Hab;Habakuk;2;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Singular Absolute";7/h5766;5766;by iniquity!
+Hab;Habakuk;2;13;KJV;en;reference;"Particle ; Particle: Demonstrative";2/h2009;2009;Behold,
+Hab;Habakuk;2;13;KJV;en;mot_ajoute;;;;is it
+Hab;Habakuk;2;13;KJV;en;reference;"Particle ; Particle: Interrogative ; Particle: Negative";1/h3808;3808;not
+Hab;Habakuk;2;13;KJV;en;reference;Preposition;3/h0854;854;of
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Noun: Proper Name";4/h3068;3068;the LORD
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Noun: Common Both Plural Absolute";5/h6635;6635;of hosts
+Hab;Habakuk;2;13;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";6/h3021;3021;that
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";7/h5971;5971;the people
+Hab;Habakuk;2;13;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";6/h3021;3021;shall labour
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";8/h1767;1767;in the very
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";9/h0784;784;fire,
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Plural Absolute";10/h3816;3816;and the people
+Hab;Habakuk;2;13;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";13/h3286;3286;shall weary themselves
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";11/h1767;1767;for very
+Hab;Habakuk;2;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";12/h7385;7385;vanity?
+Hab;Habakuk;2;14;KJV;en;reference;Conjunction;1/h3588;3588;For
+Hab;Habakuk;2;14;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Both Singular Absolute";3/h0776;776;the earth
+Hab;Habakuk;2;14;KJV;en;reference;"Verb ; Verb: Niphal Imperfect (yiqtol) 3rd Person Feminine Singular";2/h4390;4390;shall be filled
+Hab;Habakuk;2;14;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";4/h3045;3045;with the knowledge
+Hab;Habakuk;2;14;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct";5/h3519;3519;of the glory
+Hab;Habakuk;2;14;KJV;en;reference;"Noun ; Noun: Proper Name";6/h3068;3068;of the LORD,
+Hab;Habakuk;2;14;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Plural Absolute";7/h4325;4325;as the waters
+Hab;Habakuk;2;14;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Plural";8/h3680;3680;cover
+Hab;Habakuk;2;14;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";9/h3220;3220;the sea.
+Hab;Habakuk;2;15;KJV;en;reference;"Particle ; Particle: Interjection";1/h1945;1945;Woe
+Hab;Habakuk;2;15;KJV;en;reference;"Verb ; Verb: Hiphil Participle Active Masculine Singular Construct";2/h8248;8248;unto him that giveth
+Hab;Habakuk;2;15;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";3/h7453;7453;his neighbour
+Hab;Habakuk;2;15;KJV;en;reference;"Verb ; Verb: Hiphil Participle Active Masculine Singular Construct";2/h8248;8248;drink,
+Hab;Habakuk;2;15;KJV;en;reference;"Verb ; Verb: Piel Participle Active Masculine Singular Absolute";4/h5596;5596;that puttest
+Hab;Habakuk;2;15;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";5/h2573;2573;thy bottle
+Hab;Habakuk;2;15;KJV;en;reference;"Adverb ; Conjunction";6/h0637;637;to
+Hab;Habakuk;2;15;KJV;en;mot_ajoute;;;;him,
+Hab;Habakuk;2;15;KJV;en;reference;"Verb ; Verb: Piel Infinitive Absolute";7/h7937;7937;and makest him drunken
+Hab;Habakuk;2;15;KJV;en;reference;"Adverb ; Conjunction";6/h0637;637;also,
+Hab;Habakuk;2;15;KJV;en;reference;Preposition;8/h4616;4616;that
+Hab;Habakuk;2;15;KJV;en;reference;"Verb ; Verb: Hiphil Infinitive Construct";9/h5027;5027;thou mayest look
+Hab;Habakuk;2;15;KJV;en;reference;Preposition;10/h5921;5921;on
+Hab;Habakuk;2;15;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Plural";11/h4589;4589;their nakedness!
+Hab;Habakuk;2;16;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";1/h7646;7646;Thou art filled
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";2/h7036;7036;with shame
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Singular Absolute";3/h3519;3519;for glory:
+Hab;Habakuk;2;16;KJV;en;reference;"Verb ; Verb: Qal Imperative 2nd Person Masculine Singular";4/h8354;8354;drink
+Hab;Habakuk;2;16;KJV;en;reference;"Pronoun ; Pronoun: Personal 2nd Person Masculine Singular";6/h0859;859;thou
+Hab;Habakuk;2;16;KJV;en;reference;Adverb;5/h1571;1571;also,
+Hab;Habakuk;2;16;KJV;en;reference;"Verb ; Conjunction ; Verb: Niphal Imperative 2nd Person Masculine Singular";7/h6188;6188;and let thy foreskin be uncovered:
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct";10/h3563;3563;the cup
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct";11/h3225;3225;of the
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Proper Name";12/h3068;3068;LORD'S
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct";11/h3225;3225;right hand
+Hab;Habakuk;2;16;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";8/h5437;5437;shall be turned
+Hab;Habakuk;2;16;KJV;en;reference;"Preposition ; Suffix: Pronominal 2nd Person Masculine Singular";9/h5921;5921;unto thee,
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";13/h7022;7022;and shameful spewing
+Hab;Habakuk;2;16;KJV;en;mot_ajoute;;;;shall be
+Hab;Habakuk;2;16;KJV;en;reference;Preposition;14/h5921;5921;on
+Hab;Habakuk;2;16;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";15/h3519;3519;thy glory.
+Hab;Habakuk;2;17;KJV;en;reference;Conjunction;1/h3588;3588;For
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";2/h2555;2555;the violence
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Proper Name";3/h3844;3844;of Lebanon
+Hab;Habakuk;2;17;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 2nd Person Masculine Singular";4/h3680;3680;shall cover thee,
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";5/h7701;7701;and the spoil
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Absolute";6/h0929;929;of beasts,
+Hab;Habakuk;2;17;KJV;en;mot_ajoute;;;;which
+Hab;Habakuk;2;17;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Feminine Plural";7/h2865;2865;made them afraid,
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";8/h1818;1818;because of
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";9/h0120;120;men's
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";8/h1818;1818;blood,
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";10/h2555;2555;and for the violence
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";11/h0776;776;of the land,
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";12/h7151;7151;of the city,
+Hab;Habakuk;2;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";13/h3605;3605;and of all
+Hab;Habakuk;2;17;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Plural Construct";14/h3427;3427;that dwell
+Hab;Habakuk;2;17;KJV;en;mot_outil;;;;therein.
+Hab;Habakuk;2;18;KJV;en;reference;"Particle ; Particle: Interrogative";1/h4100;4100;What
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Verb: Hiphil Perfect (qatal) 3rd Person Masculine Singular";2/h3276;3276;profiteth
+Hab;Habakuk;2;18;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h6459;6459;the graven image
+Hab;Habakuk;2;18;KJV;en;reference;Conjunction;4/h3588;3588;that
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";6/h3336;3336;the maker thereof
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";5/h6458;6458;"hath graven it;"
+Hab;Habakuk;2;18;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";7/h4541;4541;the molten image,
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Participle Active Masculine Singular Absolute";8/h3384;3384;and a teacher
+Hab;Habakuk;2;18;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";9/h8267;8267;of lies,
+Hab;Habakuk;2;18;KJV;en;reference;Conjunction;10/h3588;3588;that
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";12/h3335;3335;the maker
+Hab;Habakuk;2;18;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";13/h3336;3336;of his work
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";11/h0982;982;trusteth
+Hab;Habakuk;2;18;KJV;en;reference;"Preposition ; Suffix: Pronominal 3rd Person Masculine Singular";14/h5921;5921;therein,
+Hab;Habakuk;2;18;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";15/h6213;6213;to make
+Hab;Habakuk;2;18;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Plural Absolute";17/h0483;483;dumb
+Hab;Habakuk;2;18;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";16/h0457;457;idols?
+Hab;Habakuk;2;19;KJV;en;reference;"Particle ; Particle: Interjection";1/h1945;1945;Woe
+Hab;Habakuk;2;19;KJV;en;reference;"Verb ; Verb: Qal Participle Active Masculine Singular Absolute";2/h0559;559;unto him that saith
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";3/h6086;6086;to the wood,
+Hab;Habakuk;2;19;KJV;en;reference;"Verb ; Verb: Hiphil Imperative 2nd Person Masculine Singular ; Suffix: Paragogic He";4/h6974;6974;"Awake;"
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct";6/h0068;68;to
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";7/h1748;1748;the dumb
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct";6/h0068;68;stone,
+Hab;Habakuk;2;19;KJV;en;reference;"Verb ; Verb: Qal Imperative 2nd Person Feminine Singular";5/h5782;5782;Arise,
+Hab;Habakuk;2;19;KJV;en;reference;"Pronoun ; Pronoun: Personal 3rd Person Masculine Singular";8/h1931;1931;it
+Hab;Habakuk;2;19;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular";9/h3384;3384;shall teach!
+Hab;Habakuk;2;19;KJV;en;reference;"Particle ; Particle: Demonstrative";10/h2009;2009;Behold,
+Hab;Habakuk;2;19;KJV;en;reference;"Pronoun ; Pronoun: Personal 3rd Person Masculine Singular";11/h1931;1931;it
+Hab;Habakuk;2;19;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;2;19;KJV;en;reference;"Verb ; Verb: Qal Participle Passive Masculine Singular Absolute";12/h8610;8610;laid over
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";13/h2091;2091;with gold
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Absolute";14/h3701;3701;and silver,
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";15/h3605;3605;and
+Hab;Habakuk;2;19;KJV;en;mot_ajoute;;;;there is
+Hab;Habakuk;2;19;KJV;en;reference;"Particle ; Particle: Negative";17/h0369;369;no
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";16/h7307;7307;breath
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Masculine Singular Construct";15/h3605;3605;at all
+Hab;Habakuk;2;19;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";18/h7130;7130;in the midst of it.
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Conjunction ; Noun: Proper Name";1/h3068;3068;But the LORD
+Hab;Habakuk;2;20;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";2/h1964;1964;in
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";3/h6944;6944;his holy
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";2/h1964;1964;temple:
+Hab;Habakuk;2;20;KJV;en;reference;"Particle ; Particle: Interjection";4/h2013;2013;let
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";6/h3605;3605;all
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Both Singular Absolute";7/h0776;776;the earth
+Hab;Habakuk;2;20;KJV;en;reference;"Particle ; Particle: Interjection";4/h2013;2013;keep silence
+Hab;Habakuk;2;20;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h6440;6440;before him.
+Hab;Habakuk;3;1;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";1/h8605;8605;A prayer
+Hab;Habakuk;3;1;KJV;en;reference;"Noun ; Preposition ; Noun: Proper Name";2/h2265;2265;of Habakkuk
+Hab;Habakuk;3;1;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Masculine Singular Absolute";3/h5030;5030;the prophet
+Hab;Habakuk;3;1;KJV;en;reference;Preposition;4/h5921;5921;upon
+Hab;Habakuk;3;1;KJV;en;reference;"Noun ; Noun: Proper Name";5/h7692;7692;Shigionoth.
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Proper Name";1/h3068;3068;O LORD,
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) First Person Common Singular";2/h8085;8085;I have heard
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";3/h8088;8088;thy speech,
+Hab;Habakuk;3;2;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) First Person Common Singular";4/h3372;3372;was afraid:
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Proper Name";5/h3068;3068;O LORD,
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Piel Imperative 2nd Person Masculine Singular ; Suffix: Pronominal 3rd Person Masculine Singular";9/h2421;2421;revive
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";6/h6467;6467;thy work
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";7/h7130;7130;in the midst
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Absolute";8/h8141;8141;of the years,
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";10/h7130;7130;in the midst
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Absolute";11/h8141;8141;of the years
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Hiphil Jussive 2nd Person Masculine Singular";12/h3045;3045;"make known;"
+Hab;Habakuk;3;2;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";13/h7267;7267;in wrath
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Qal Jussive 2nd Person Masculine Singular";15/h2142;2142;remember
+Hab;Habakuk;3;2;KJV;en;reference;"Verb ; Verb: Piel Infinitive Absolute";14/h7355;7355;mercy.
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";1/h0433;433;God
+Hab;Habakuk;3;3;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";3/h0935;935;came
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Preposition ; Noun: Proper Name";2/h8487;8487;from Teman,
+Hab;Habakuk;3;3;KJV;en;reference;"Adjective ; Conjunction ; Adjective: Adjective Masculine Singular Absolute";4/h6918;6918;and the Holy One
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";5/h2022;2022;from mount
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Noun: Proper Name";6/h6290;6290;Paran.
+Hab;Habakuk;3;3;KJV;en;reference;"Particle ; Particle: Interjection";7/h5542;5542;Selah.
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";10/h1935;1935;His glory
+Hab;Habakuk;3;3;KJV;en;reference;"Verb ; Verb: Piel Perfect (qatal) 3rd Person Masculine Singular";8/h3680;3680;covered
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";9/h8064;8064;the heavens,
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";11/h8416;8416;and
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Particle: Definite Article ; Noun: Common Both Singular Absolute";13/h0776;776;the earth
+Hab;Habakuk;3;3;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Feminine Singular";12/h4390;4390;was full
+Hab;Habakuk;3;3;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";11/h8416;8416;of his praise.
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Absolute";1/h5051;5051;And
+Hab;Habakuk;3;4;KJV;en;mot_ajoute;;;;his
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Singular Absolute";1/h5051;5051;brightness
+Hab;Habakuk;3;4;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";3/h1961;1961;was
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Both Singular Absolute";2/h0216;216;"as the light;"
+Hab;Habakuk;3;4;KJV;en;mot_outil;;;;he had
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Noun: Common Both Dual Absolute";4/h7161;7161;horns
+Hab;Habakuk;3;4;KJV;en;mot_ajoute;;;;coming
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";5/h3027;3027;out of his hand:
+Hab;Habakuk;3;4;KJV;en;reference;"Adverb ; Conjunction";6/h8033;8033;and there
+Hab;Habakuk;3;4;KJV;en;mot_ajoute;;;;was
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";7/h2253;2253;the hiding
+Hab;Habakuk;3;4;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";8/h5797;5797;of his power.
+Hab;Habakuk;3;5;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";1/h6440;6440;Before him
+Hab;Habakuk;3;5;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";2/h3212;3212;went
+Hab;Habakuk;3;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";3/h1698;1698;the pestilence,
+Hab;Habakuk;3;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";4/h3318;3318;and
+Hab;Habakuk;3;5;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";5/h7565;7565;burning coals
+Hab;Habakuk;3;5;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";4/h3318;3318;went forth
+Hab;Habakuk;3;5;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Dual Construct ; Suffix: Pronominal 3rd Person Masculine Singular";6/h7272;7272;at his feet.
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";1/h5975;5975;He stood,
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Polel Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";2/h4128;4128;and measured
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";3/h0776;776;the earth:
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";4/h7200;7200;he beheld,
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Hiphil Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";5/h5425;5425;and drove asunder
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";6/h1471;1471;"the nations;"
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Hithpolel Sequential imperfect (wayyiqtol) 3rd Person Masculine Plural";7/h6327;6327;and
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct";8/h2042;2042;the
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";9/h5703;5703;everlasting
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct";8/h2042;2042;mountains
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Conjunction ; Verb: Hithpolel Sequential imperfect (wayyiqtol) 3rd Person Masculine Plural";7/h6327;6327;were scattered,
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct";11/h1389;1389;the
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";12/h5769;5769;perpetual
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct";11/h1389;1389;hills
+Hab;Habakuk;3;6;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";10/h7817;7817;did bow:
+Hab;Habakuk;3;6;KJV;en;mot_outil;;;;his
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct";13/h1979;1979;ways
+Hab;Habakuk;3;6;KJV;en;mot_ajoute;;;;are
+Hab;Habakuk;3;6;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";14/h5769;5769;everlasting.
+Hab;Habakuk;3;7;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) First Person Common Singular";3/h7200;7200;I saw
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct";4/h0168;168;the tents
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Proper Name";5/h3572;3572;of Cushan
+Hab;Habakuk;3;7;KJV;en;reference;Preposition;1/h8478;8478;in
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";2/h0205;205;affliction:
+Hab;Habakuk;3;7;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct";7/h3407;3407;the curtains
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Common Both Singular Construct";8/h0776;776;of the land
+Hab;Habakuk;3;7;KJV;en;reference;"Noun ; Noun: Proper Name";9/h4080;4080;of Midian
+Hab;Habakuk;3;7;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural ; Suffix: Paragogic Nun";6/h7264;7264;did tremble.
+Hab;Habakuk;3;8;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";2/h2734;2734;Was
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Proper Name";3/h3068;3068;the LORD
+Hab;Habakuk;3;8;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";2/h2734;2734;displeased
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Particle: Interrogative ; Preposition ; Noun: Common Masculine Plural Absolute";1/h5104;5104;against the rivers?
+Hab;Habakuk;3;8;KJV;en;mot_ajoute;;;;was
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";5/h0639;639;thine anger
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Plural Absolute";4/h5104;5104;against the rivers?
+Hab;Habakuk;3;8;KJV;en;mot_ajoute;;;;was
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";7/h5678;5678;thy wrath
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";6/h3220;3220;against the sea,
+Hab;Habakuk;3;8;KJV;en;reference;Conjunction;8/h3588;3588;that
+Hab;Habakuk;3;8;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";9/h7392;7392;thou didst ride
+Hab;Habakuk;3;8;KJV;en;reference;Preposition;10/h5921;5921;upon
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";11/h5483;5483;thine horses
+Hab;Habakuk;3;8;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";12/h4818;4818;thy chariots
+Hab;Habakuk;3;8;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";13/h3444;3444;of salvation?
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";3/h7198;7198;Thy bow
+Hab;Habakuk;3;9;KJV;en;reference;"Verb ; Verb: Niphal Imperfect (yiqtol) 3rd Person Feminine Singular";2/h5783;5783;was made
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";1/h6181;6181;quite
+Hab;Habakuk;3;9;KJV;en;reference;"Verb ; Verb: Niphal Imperfect (yiqtol) 3rd Person Feminine Singular";2/h5783;5783;naked,
+Hab;Habakuk;3;9;KJV;en;mot_ajoute;;;;according
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Absolute";4/h7621;7621;to the oaths
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";5/h4294;4294;of the tribes,
+Hab;Habakuk;3;9;KJV;en;mot_ajoute;;;;even thy
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h0562;562;word.
+Hab;Habakuk;3;9;KJV;en;reference;"Particle ; Particle: Interjection";7/h5542;5542;Selah.
+Hab;Habakuk;3;9;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 2nd Person Masculine Singular";9/h1234;1234;Thou didst cleave
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";10/h0776;776;the earth
+Hab;Habakuk;3;9;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";8/h5104;5104;with rivers.
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";3/h2022;2022;The mountains
+Hab;Habakuk;3;10;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Common Plural ; Suffix: Pronominal 2nd Person Masculine Singular";1/h7200;7200;saw thee,
+Hab;Habakuk;3;10;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;10;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";2/h2342;2342;they trembled:
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";4/h2230;2230;the overflowing
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";5/h4325;4325;of the water
+Hab;Habakuk;3;10;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";6/h5674;5674;passed by:
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";8/h8415;8415;the deep
+Hab;Habakuk;3;10;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";7/h5414;5414;uttered
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Singular";9/h6963;6963;his voice,
+Hab;Habakuk;3;10;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;10;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";12/h5375;5375;lifted up
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Both Dual Construct ; Suffix: Pronominal 3rd Person Masculine Singular";11/h3027;3027;his hands
+Hab;Habakuk;3;10;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";10/h7315;7315;on high.
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";1/h8121;8121;The sun
+Hab;Habakuk;3;11;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";2/h3394;3394;moon
+Hab;Habakuk;3;11;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";3/h5975;5975;stood still
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute ; Suffix: Directional He";4/h2073;2073;in their habitation:
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Singular Construct";5/h0216;216;at the light
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";6/h2671;2671;of thine arrows
+Hab;Habakuk;3;11;KJV;en;reference;"Verb ; Verb: Piel Imperfect (yiqtol) 3rd Person Masculine Plural";7/h1980;1980;they went,
+Hab;Habakuk;3;11;KJV;en;mot_ajoute;;;;and
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Singular Construct";8/h5051;5051;at the shining
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";9/h1300;1300;of
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";10/h2595;2595;thy
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";9/h1300;1300;glittering
+Hab;Habakuk;3;11;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";10/h2595;2595;spear.
+Hab;Habakuk;3;12;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";2/h6805;6805;Thou didst march through
+Hab;Habakuk;3;12;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";3/h0776;776;the land
+Hab;Habakuk;3;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";1/h2195;2195;in indignation,
+Hab;Habakuk;3;12;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 2nd Person Masculine Singular";5/h1758;1758;thou didst thresh
+Hab;Habakuk;3;12;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";6/h1471;1471;the heathen
+Hab;Habakuk;3;12;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";4/h0639;639;in anger.
+Hab;Habakuk;3;13;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";1/h3318;3318;Thou wentest forth
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";2/h3468;3468;for the salvation
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";3/h5971;5971;of thy people,
+Hab;Habakuk;3;13;KJV;en;mot_ajoute;;;;even
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";4/h3468;3468;for salvation
+Hab;Habakuk;3;13;KJV;en;reference;Preposition;5/h0854;854;with
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal 2nd Person Masculine Singular";6/h4899;4899;"thine anointed;"
+Hab;Habakuk;3;13;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";7/h4272;4272;thou woundedst
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";8/h7218;7218;the head
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";9/h1004;1004;out of the house
+Hab;Habakuk;3;13;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";10/h7563;7563;of the wicked,
+Hab;Habakuk;3;13;KJV;en;reference;"Verb ; Verb: Piel Infinitive Absolute";11/h6168;6168;by discovering
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";12/h3247;3247;the foundation
+Hab;Habakuk;3;13;KJV;en;reference;Preposition;13/h5704;5704;unto
+Hab;Habakuk;3;13;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";14/h6677;6677;the neck.
+Hab;Habakuk;3;13;KJV;en;reference;"Particle ; Particle: Interjection";15/h5542;5542;Selah.
+Hab;Habakuk;3;14;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";1/h5344;5344;Thou didst strike through
+Hab;Habakuk;3;14;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";2/h4294;4294;with his staves
+Hab;Habakuk;3;14;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";3/h7218;7218;the head
+Hab;Habakuk;3;14;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 3rd Person Masculine Singular";4/h6518;6518;of his villages:
+Hab;Habakuk;3;14;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Plural";5/h5590;5590;they came out as a whirlwind
+Hab;Habakuk;3;14;KJV;en;reference;"Verb ; Preposition ; Verb: Hiphil Infinitive Construct ; Suffix: Pronominal First Person Common Singular";6/h6327;6327;to scatter me:
+Hab;Habakuk;3;14;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal 3rd Person Masculine Plural";7/h5951;5951;their rejoicing
+Hab;Habakuk;3;14;KJV;en;mot_ajoute;;;;was
+Hab;Habakuk;3;14;KJV;en;reference;Preposition;8/h3644;3644;as
+Hab;Habakuk;3;14;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";9/h0398;398;to devour
+Hab;Habakuk;3;14;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Singular Absolute";10/h6041;6041;the poor
+Hab;Habakuk;3;14;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";11/h4565;4565;secretly.
+Hab;Habakuk;3;15;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 2nd Person Masculine Singular";1/h1869;1869;Thou didst walk
+Hab;Habakuk;3;15;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Singular Absolute";2/h3220;3220;through the sea
+Hab;Habakuk;3;15;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal 2nd Person Masculine Singular";3/h5483;5483;with thine horses,
+Hab;Habakuk;3;15;KJV;en;mot_ajoute;;;;through
+Hab;Habakuk;3;15;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";4/h2563;2563;the heap
+Hab;Habakuk;3;15;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";5/h4325;4325;of
+Hab;Habakuk;3;15;KJV;en;reference;"Adjective ; Adjective: Adjective Masculine Plural Absolute";6/h7227;7227;great
+Hab;Habakuk;3;15;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Absolute";5/h4325;4325;waters.
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) First Person Common Singular";1/h8085;8085;When I heard,
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Construct ; Suffix: Pronominal First Person Common Singular";3/h0990;990;my belly
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Feminine Singular";2/h7264;7264;"trembled;"
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Noun: Common Feminine Dual Construct ; Suffix: Pronominal First Person Common Singular";6/h8193;8193;my lips
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Common Plural";5/h6750;6750;quivered
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";4/h6963;6963;at the voice:
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";8/h7538;7538;rottenness
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular";7/h0935;935;entered
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Plural Construct ; Suffix: Pronominal First Person Common Singular";9/h6106;6106;into my bones,
+Hab;Habakuk;3;16;KJV;en;reference;"Preposition ; Conjunction ; Suffix: Pronominal First Person Common Singular";10/h8478;8478;and
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) First Person Common Singular";11/h7264;7264;I trembled
+Hab;Habakuk;3;16;KJV;en;reference;"Preposition ; Conjunction ; Suffix: Pronominal First Person Common Singular";10/h8478;8478;in myself,
+Hab;Habakuk;3;16;KJV;en;reference;"Particle ; Particle: Relative";12/h0834;834;that
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) First Person Common Singular";13/h5117;5117;I might rest
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Construct";14/h3117;3117;in the day
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";15/h6869;6869;of trouble:
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Preposition ; Verb: Qal Infinitive Construct";16/h5927;5927;when he cometh up
+Hab;Habakuk;3;16;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Singular Absolute";17/h5971;5971;unto the people,
+Hab;Habakuk;3;16;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal First Person Common Plural";18/h1464;1464;he will invade them with his troops.
+Hab;Habakuk;3;17;KJV;en;reference;Conjunction;1/h3588;3588;Although
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Feminine Singular Absolute";2/h8384;8384;the fig tree
+Hab;Habakuk;3;17;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";4/h6524;6524;shall
+Hab;Habakuk;3;17;KJV;en;reference;"Particle ; Particle: Negative";3/h3808;3808;not
+Hab;Habakuk;3;17;KJV;en;reference;"Verb ; Verb: Qal Imperfect (yiqtol) 3rd Person Feminine Singular";4/h6524;6524;blossom,
+Hab;Habakuk;3;17;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";5/h0369;369;neither
+Hab;Habakuk;3;17;KJV;en;mot_ajoute;;;;shall
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";6/h2981;2981;fruit
+Hab;Habakuk;3;17;KJV;en;mot_ajoute;;;;be
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Both Plural Absolute";7/h1612;1612;"in the vines;"
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct";9/h4639;4639;the labour
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";10/h2132;2132;of the olive
+Hab;Habakuk;3;17;KJV;en;reference;"Verb ; Verb: Piel Perfect (qatal) 3rd Person Masculine Singular";8/h3584;3584;shall fail,
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Conjunction ; Noun: Common Feminine Plural Absolute";11/h7709;7709;and the fields
+Hab;Habakuk;3;17;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";13/h6213;6213;shall yield
+Hab;Habakuk;3;17;KJV;en;reference;"Particle ; Particle: Negative";12/h3808;3808;no
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Absolute";14/h0400;400;"meat;"
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";17/h6629;6629;the flock
+Hab;Habakuk;3;17;KJV;en;reference;"Verb ; Verb: Qal Perfect (qatal) 3rd Person Masculine Singular";15/h1504;1504;shall be cut off
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Preposition ; Noun: Common Both Singular Absolute";16/h4356;4356;from the fold,
+Hab;Habakuk;3;17;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";18/h0369;369;and
+Hab;Habakuk;3;17;KJV;en;mot_ajoute;;;;there shall be
+Hab;Habakuk;3;17;KJV;en;reference;"Particle ; Conjunction ; Particle: Negative";18/h0369;369;no
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Noun: Common Both Singular Absolute";19/h1241;1241;herd
+Hab;Habakuk;3;17;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Masculine Plural Absolute";20/h7517;7517;in the stalls:
+Hab;Habakuk;3;18;KJV;en;reference;"Pronoun ; Conjunction ; Pronoun: Personal First Person Common Singular";1/h0589;589;Yet I
+Hab;Habakuk;3;18;KJV;en;reference;"Verb ; Verb: Qal Cohortative First Person Common Singular";3/h5937;5937;will rejoice
+Hab;Habakuk;3;18;KJV;en;reference;"Noun ; Preposition ; Noun: Proper Name";2/h3068;3068;in the LORD,
+Hab;Habakuk;3;18;KJV;en;reference;"Verb ; Verb: Qal Cohortative First Person Common Singular";4/h1523;1523;I will joy
+Hab;Habakuk;3;18;KJV;en;reference;"Noun ; Preposition ; Noun: Common Masculine Plural Construct";5/h0430;430;in the God
+Hab;Habakuk;3;18;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal First Person Common Singular";6/h3468;3468;of my salvation.
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Noun: Proper Name";1/h3069;3069;The LORD
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Noun: Common Masculine Plural Construct ; Suffix: Pronominal First Person Common Singular";2/h0136;136;God
+Hab;Habakuk;3;19;KJV;en;mot_ajoute;;;;is
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Noun: Common Masculine Singular Construct ; Suffix: Pronominal First Person Common Singular";3/h2428;2428;my strength,
+Hab;Habakuk;3;19;KJV;en;reference;"Verb ; Conjunction ; Verb: Qal Sequential imperfect (wayyiqtol) 3rd Person Masculine Singular";4/h7760;7760;and he will make
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Noun: Common Feminine Dual Construct ; Suffix: Pronominal First Person Common Singular";5/h7272;7272;my feet
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Preposition: Definite Article ; Noun: Common Feminine Plural Absolute";6/h0355;355;like hinds'
+Hab;Habakuk;3;19;KJV;en;mot_ajoute;;;;feet,
+Hab;Habakuk;3;19;KJV;en;reference;"Preposition ; Conjunction";7/h5921;5921;and
+Hab;Habakuk;3;19;KJV;en;reference;"Verb ; Verb: Hiphil Imperfect (yiqtol) 3rd Person Masculine Singular ; Suffix: Pronominal First Person Common Singular";9/h1869;1869;he will make me to walk
+Hab;Habakuk;3;19;KJV;en;reference;"Preposition ; Conjunction";7/h5921;5921;upon
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Noun: Common Feminine Plural Construct ; Suffix: Pronominal First Person Common Singular";8/h1116;1116;mine high places.
+Hab;Habakuk;3;19;KJV;en;reference;"Verb ; Preposition: Definite Article ; Verb: Piel Participle Active Masculine Singular Absolute";10/h5329;5329;To the chief singer
+Hab;Habakuk;3;19;KJV;en;reference;"Noun ; Preposition ; Noun: Common Feminine Plural Absolute";11/h5058;5058;on my stringed instruments.

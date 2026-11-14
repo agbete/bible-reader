@@ -14,6 +14,8 @@ interface BookSearchSelectProps {
   testamentNames: Map<number, string>;
   classificationNames: Map<number, string>;
   compact?: boolean;
+  /** Côté d'alignement de la liste des livres (« right » pour une colonne au bord droit de l'écran) */
+  dropdownAlign?: 'left' | 'right';
 }
 
 interface TestamentColumn {
@@ -30,7 +32,8 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
   classificationsList,
   testamentNames,
   classificationNames,
-  compact = false
+  compact = false,
+  dropdownAlign = 'left'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,10 +92,10 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
     <div ref={containerRef} className="relative w-full">
       {/* Trigger: previous book · book name · next book */}
       <div
-        className={`w-full flex items-center gap-1 ${compact ? 'h-11 px-1 xl:h-6 xl:px-0.5 xl:rounded-md' : 'h-11 px-1 rounded-2xl'} border bg-white/10 text-white text-[18px] leading-none transition-all ${
+        className={`w-full flex items-center gap-1 ${compact ? 'h-11 px-1 xl:h-6 xl:px-0.5 xl:rounded-md' : 'h-11 px-1 rounded-2xl'} bg-white/10 text-white text-[18px] leading-none transition-all ${
           isOpen
-            ? 'border-white ring-2 ring-white/30'
-            : 'border-white/30 hover:border-white/60'
+            ? 'ring-2 ring-white/30'
+            : 'hover:bg-white/20'
         }`}
       >
         {/* PREVIOUS BOOK - Always visible, disabled if no prev book */}
@@ -139,7 +142,7 @@ export const BookSearchSelect: React.FC<BookSearchSelectProps> = ({
 
       {/* Dropdown Panel */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 z-50 w-full min-w-[min(40rem,calc(100vw-2rem))] bg-card text-foreground border border-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className={`absolute top-full ${dropdownAlign === 'right' ? 'right-0' : 'left-0'} mt-2 z-50 w-full min-w-[min(40rem,calc(100vw-2rem))] bg-card text-foreground border border-border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200`}>
           <div className="max-h-[70vh] overflow-y-auto p-3">
             {testamentColumns.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
