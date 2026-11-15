@@ -306,7 +306,9 @@ export const STRONG_LINKS_VERSION_CODE = 'LSG';
  * Versions de la base (bible_versions.code) qui ont des codes Strong, et valeur de la colonne
  * strong_code_bible_links.version correspondante. Ajouter une ligne ici quand une version est importée.
  */
-const STRONG_LINK_VERSIONS: Record<string, string> = { LSG: 'Sg1910', KJV: 'KJV', DBY90: 'DBY90' };
+const STRONG_LINK_VERSIONS: Record<string, string> = {
+  LSG: 'Sg1910', KJV: 'KJV', DBY90: 'DBY90', DBY91: 'DarbyR', WLC: 'WLC', WLCT: 'WLCt',
+};
 
 /** La version (code de la base : LSG, KJV…) a-t-elle des codes Strong ? */
 export function hasStrongLinks(versionCode: string | null | undefined): boolean {
@@ -363,22 +365,27 @@ export function fixMojibake(text: string): string {
 const linksCache = new Map<string, Map<number, StrongWordLink[]>>();
 
 /**
- * Segond 1910 : mots consécutifs d'un verset portant le même code (« jusqu' à ce que » = H5704).
- * Le fichier public/data/strong-groupes-lsg.json (scripts/strong_groupes_lsg.py, d'après les mots
+ * Segond 1910 et Darby française : mots consécutifs d'un verset portant le même code (« jusqu' à ce que » = H5704).
+ * Les fichiers public/data/strong-groupes-lsg.json et strong-groupes-dby91.json
+ * (scripts/strong_groupes_lsg.py [--version DarbyR], d'après les mots
  * KJV du même code) indique, par verset (« Gen.3.19 »), les suites de mots à n'afficher qu'avec un code :
  *   [début, fin]     locution entière : un seul mot « jusqu'à ce que », code après la locution
  *   [début, fin, 1]  code gardé sur le dernier mot seulement
  * Indices dans la liste des mots du verset (lignes avec contenu, dans l'ordre des id). Affichage seulement.
  */
 type StrongGroupRange = [number, number] | [number, number, number];
-let lsgGroupsPromise: Promise<Record<string, StrongGroupRange[]>> | null = null;
-function getLsgStrongGroups(): Promise<Record<string, StrongGroupRange[]>> {
-  if (!lsgGroupsPromise) {
-    lsgGroupsPromise = fetch(`${import.meta.env.BASE_URL}data/strong-groupes-lsg.json`)
+/** Fichier de groupes de chaque version (strong_code_bible_links.version) : Segond 1910 et Darby française */
+const STRONG_GROUP_FILES: Record<string, string> = { Sg1910: 'strong-groupes-lsg.json', DarbyR: 'strong-groupes-dby91.json' };
+const groupsPromises = new Map<string, Promise<Record<string, StrongGroupRange[]>>>();
+function getStrongGroups(linkVersion: string): Promise<Record<string, StrongGroupRange[]>> {
+  const file = STRONG_GROUP_FILES[linkVersion];
+  if (!file) return Promise.resolve({});
+  if (!groupsPromises.has(file)) {
+    groupsPromises.set(file, fetch(`${import.meta.env.BASE_URL}data/${file}`)
       .then(res => (res.ok ? res.json() : {}))
-      .catch(() => ({}));
+      .catch(() => ({})));
   }
-  return lsgGroupsPromise;
+  return groupsPromises.get(file)!;
 }
 
 /** Locution : « jusqu’ » + « à » → « jusqu’à » ; « Tiglath- » + « Piléser » → « Tiglath-Piléser » ; sinon une espace */
@@ -433,9 +440,9 @@ export async function getStrongLinksForChapter(
     });
     if (!data || data.length < 1000) break;
   }
-  if (linkVersion === STRONG_PAGES_LINK_VERSION) {
-    // Segond : un seul code par locution (« jusqu'à ce que » H5704), d'après la King James
-    const groups = await getLsgStrongGroups();
+  if (STRONG_GROUP_FILES[linkVersion]) {
+    // Segond, Darby française : un seul code par locution (« jusqu'à ce que » H5704), d'après la King James
+    const groups = await getStrongGroups(linkVersion);
     byVerse.forEach((words, verse) => {
       const ranges = groups[`${osis}.${chapter}.${verse}`];
       if (ranges) byVerse.set(verse, applyStrongGroups(words, ranges));

@@ -1,0 +1,143 @@
+﻿JOURNAL D'EXTRACTION DE LA CONCORDANCE BIBLIQUE (version rapide)
+Date : 2026-11-15 18:59:51
+Versions : DarbyR
+Chapitres : reference_lsg.csv (+1 de réserve par livre)
+Numérotation : celle du site (alignement sur la base : correction_bible.py)
+============================================================
+
+IGNORÉ  - Gen ch.51: page inexistante sur le site (le site renvoie le chapitre 50)
+Gen    (Genèse                   ):  50 chapitres sur le site (base : 50),  1533 versets,   37,883 entrées, 19533 codes Strong, 343 ◎ -> Gen.csv
+IGNORÉ  - Exod ch.41: page inexistante sur le site (le site renvoie le chapitre 40)
+Exod   (Exode                    ):  40 chapitres sur le site (base : 40),  1213 versets,   31,687 entrées, 15738 codes Strong, 175 ◎ -> Exod.csv
+IGNORÉ  - Lev ch.28: page inexistante sur le site (le site renvoie le chapitre 27)
+Lev    (Lévitique                ):  27 chapitres sur le site (base : 27),   859 versets,   24,835 entrées, 11725 codes Strong, 61 ◎ -> Lev.csv
+IGNORÉ  - Num ch.37: page inexistante sur le site (le site renvoie le chapitre 36)
+Num    (Nombres                  ):  36 chapitres sur le site (base : 36),  1289 versets,   31,428 entrées, 15357 codes Strong, 124 ◎ -> Num.csv
+IGNORÉ  - Deut ch.35: page inexistante sur le site (le site renvoie le chapitre 34)
+Deut   (Deutéronome              ):  34 chapitres sur le site (base : 34),   959 versets,   29,310 entrées, 13346 codes Strong, 60 ◎ -> Deut.csv
+IGNORÉ  - Josh ch.25: page inexistante sur le site (le site renvoie le chapitre 24)
+Josh   (Josué                    ):  24 chapitres sur le site (base : 24),   658 versets,   18,406 entrées, 9397 codes Strong, 82 ◎ -> Josh.csv
+IGNORÉ  - Judg ch.22: page inexistante sur le site (le site renvoie le chapitre 21)
+Judg   (Juges                    ):  21 chapitres sur le site (base : 21),   618 versets,   18,603 entrées, 9272 codes Strong, 75 ◎ -> Judg.csv
+IGNORÉ  - Ruth ch.5: page inexistante sur le site (le site renvoie le chapitre 4)
+Ruth   (Ruth                     ):   4 chapitres sur le site (base : 4),    85 versets,    2,572 entrées, 1216 codes Strong, 15 ◎ -> Ruth.csv
+IGNORÉ  - 1Sam ch.32: page inexistante sur le site (le site renvoie le chapitre 31)
+1Sam   (1 Samuel                 ):  31 chapitres sur le site (base : 31),   811 versets,   25,025 entrées, 12735 codes Strong, 117 ◎ -> 1Sam.csv
+IGNORÉ  - 2Sam ch.25: page inexistante sur le site (le site renvoie le chapitre 24)
+2Sam   (2 Samuel                 ):  24 chapitres sur le site (base : 24),   695 versets,   20,679 entrées, 10562 codes Strong, 102 ◎ -> 2Sam.csv
+IGNORÉ  - 1Kgs ch.23: page inexistante sur le site (le site renvoie le chapitre 22)
+1Kgs   (1 Rois                   ):  22 chapitres sur le site (base : 22),   817 versets,   24,725 entrées, 12444 codes Strong, 125 ◎ -> 1Kgs.csv
+IGNORÉ  - 2Kgs ch.26: page inexistante sur le site (le site renvoie le chapitre 25)
+2Kgs   (2 Rois                   ):  25 chapitres sur le site (base : 25),   719 versets,   23,203 entrées, 11724 codes Strong, 105 ◎ -> 2Kgs.csv
+IGNORÉ  - 1Chr ch.30: page inexistante sur le site (le site renvoie le chapitre 29)
+1Chr   (1 Chroniques             ):  29 chapitres sur le site (base : 29),   943 versets,   19,314 entrées, 10051 codes Strong, 44 ◎ -> 1Chr.csv
+IGNORÉ  - 2Chr ch.37: page inexistante sur le site (le site renvoie le chapitre 36)
+2Chr   (2 Chroniques             ):  36 chapitres sur le site (base : 36),   822 versets,   26,332 entrées, 12623 codes Strong, 69 ◎ -> 2Chr.csv
+IGNORÉ  - Ezra ch.11: page inexistante sur le site (le site renvoie le chapitre 10)
+Ezra   (Esdras                   ):  10 chapitres sur le site (base : 10),   280 versets,    7,155 entrées, 3526 codes Strong, 23 ◎ -> Ezra.csv
+IGNORÉ  - Neh ch.14: page inexistante sur le site (le site renvoie le chapitre 13)
+Neh    (Néhémie                  ):  13 chapitres sur le site (base : 13),   405 versets,   10,538 entrées, 4950 codes Strong, 19 ◎ -> Neh.csv
+IGNORÉ  - Esth ch.11: page inexistante sur le site (le site renvoie le chapitre 10)
+Esth   (Esther                   ):  10 chapitres sur le site (base : 10),   167 versets,    5,804 entrées, 2876 codes Strong, 27 ◎ -> Esth.csv
+IGNORÉ  - Job ch.43: page inexistante sur le site (le site renvoie le chapitre 42)
+Job    (Job                      ):  42 chapitres sur le site (base : 42),  1070 versets,   19,425 entrées, 8297 codes Strong, 38 ◎ -> Job.csv
+IGNORÉ  - Ps ch.151: page inexistante sur le site (le site renvoie le chapitre 150)
+Ps     (Psaumes                  ): 150 chapitres sur le site (base : 150),  2527 versets,   45,860 entrées, 19406 codes Strong, 51 ◎ -> Ps.csv
+IGNORÉ  - Prov ch.32: page inexistante sur le site (le site renvoie le chapitre 31)
+Prov   (Proverbes                ):  31 chapitres sur le site (base : 31),   915 versets,   16,220 entrées, 6896 codes Strong, 15 ◎ -> Prov.csv
+IGNORÉ  - Eccl ch.13: page inexistante sur le site (le site renvoie le chapitre 12)
+Eccl   (Ecclésiaste              ):  12 chapitres sur le site (base : 12),   222 versets,    6,206 entrées, 2886 codes Strong, 15 ◎ -> Eccl.csv
+IGNORÉ  - Song ch.9: page inexistante sur le site (le site renvoie le chapitre 8)
+Song   (Cantique des Cantiques   ):   8 chapitres sur le site (base : 8),   117 versets,    2,772 entrées, 1206 codes Strong, 3 ◎ -> Song.csv
+IGNORÉ  - Isa ch.67: page inexistante sur le site (le site renvoie le chapitre 66)
+Isa    (Ésaïe                    ):  66 chapitres sur le site (base : 66),  1291 versets,   38,136 entrées, 16650 codes Strong, 62 ◎ -> Isa.csv
+IGNORÉ  - Jer ch.53: page inexistante sur le site (le site renvoie le chapitre 52)
+Jer    (Jérémie                  ):  52 chapitres sur le site (base : 52),  1364 versets,   43,992 entrées, 20993 codes Strong, 105 ◎ -> Jer.csv
+IGNORÉ  - Lam ch.6: page inexistante sur le site (le site renvoie le chapitre 5)
+Lam    (Lamentations             ):   5 chapitres sur le site (base : 5),   154 versets,    3,698 entrées, 1543 codes Strong, 6 ◎ -> Lam.csv
+IGNORÉ  - Ezek ch.49: page inexistante sur le site (le site renvoie le chapitre 48)
+Ezek   (Ézéchiel                 ):  48 chapitres sur le site (base : 48),  1273 versets,   40,282 entrées, 18219 codes Strong, 100 ◎ -> Ezek.csv
+IGNORÉ  - Dan ch.13: page inexistante sur le site (le site renvoie le chapitre 12)
+Dan    (Daniel                   ):  12 chapitres sur le site (base : 12),   357 versets,   12,129 entrées, 5797 codes Strong, 46 ◎ -> Dan.csv
+IGNORÉ  - Hos ch.15: page inexistante sur le site (le site renvoie le chapitre 14)
+Hos    (Osée                     ):  14 chapitres sur le site (base : 14),   197 versets,    5,321 entrées, 2291 codes Strong, 8 ◎ -> Hos.csv
+Joel   (Joël                     ):   4 chapitres sur le site (base : 3),    73 versets,    2,020 entrées, 949 codes Strong, 5 ◎ -> Joel.csv
+IGNORÉ  - Amos ch.10: page inexistante sur le site (le site renvoie le chapitre 9)
+Amos   (Amos                     ):   9 chapitres sur le site (base : 9),   146 versets,    4,449 entrées, 2038 codes Strong, 6 ◎ -> Amos.csv
+IGNORÉ  - Obad ch.2: page inexistante sur le site (le site renvoie le chapitre 1)
+Obad   (Abdias                   ):   1 chapitres sur le site (base : 1),    21 versets,      675 entrées, 276 codes Strong, 0 ◎ -> Obad.csv
+IGNORÉ  - Jonah ch.5: page inexistante sur le site (le site renvoie le chapitre 4)
+Jonah  (Jonas                    ):   4 chapitres sur le site (base : 4),    48 versets,    1,343 entrées, 658 codes Strong, 13 ◎ -> Jonah.csv
+IGNORÉ  - Mic ch.8: page inexistante sur le site (le site renvoie le chapitre 7)
+Mic    (Michée                   ):   7 chapitres sur le site (base : 7),   105 versets,    3,223 entrées, 1395 codes Strong, 6 ◎ -> Mic.csv
+IGNORÉ  - Nah ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+Nah    (Nahum                    ):   3 chapitres sur le site (base : 3),    47 versets,    1,274 entrées, 553 codes Strong, 6 ◎ -> Nah.csv
+IGNORÉ  - Hab ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+Hab    (Habakuk                  ):   3 chapitres sur le site (base : 3),    56 versets,    1,545 entrées, 671 codes Strong, 3 ◎ -> Hab.csv
+IGNORÉ  - Zeph ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+Zeph   (Sophonie                 ):   3 chapitres sur le site (base : 3),    53 versets,    1,679 entrées, 750 codes Strong, 3 ◎ -> Zeph.csv
+IGNORÉ  - Hag ch.3: page inexistante sur le site (le site renvoie le chapitre 2)
+Hag    (Aggée                    ):   2 chapitres sur le site (base : 2),    38 versets,    1,150 entrées, 586 codes Strong, 6 ◎ -> Hag.csv
+IGNORÉ  - Zech ch.15: page inexistante sur le site (le site renvoie le chapitre 14)
+Zech   (Zacharie                 ):  14 chapitres sur le site (base : 14),   211 versets,    6,404 entrées, 3013 codes Strong, 15 ◎ -> Zech.csv
+IGNORÉ  - Mal ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+IGNORÉ  - Mal ch.5: page inexistante sur le site (le site renvoie le chapitre 3)
+Mal    (Malachie                 ):   3 chapitres sur le site (base : 4),    55 versets,    1,883 entrées, 845 codes Strong, 5 ◎ -> Mal.csv
+IGNORÉ  - Matt ch.29: page inexistante sur le site (le site renvoie le chapitre 28)
+Matt   (Matthieu                 ):  28 chapitres sur le site (base : 28),  1071 versets,   24,924 entrées, 18020 codes Strong, 854 ◎ -> Matt.csv
+IGNORÉ  - Mark ch.17: page inexistante sur le site (le site renvoie le chapitre 16)
+Mark   (Marc                     ):  16 chapitres sur le site (base : 16),   678 versets,   15,784 entrées, 11193 codes Strong, 647 ◎ -> Mark.csv
+IGNORÉ  - Luke ch.25: page inexistante sur le site (le site renvoie le chapitre 24)
+Luke   (Luc                      ):  24 chapitres sur le site (base : 24),  1151 versets,   26,764 entrées, 18886 codes Strong, 884 ◎ -> Luke.csv
+IGNORÉ  - John ch.22: page inexistante sur le site (le site renvoie le chapitre 21)
+John   (Jean                     ):  21 chapitres sur le site (base : 21),   879 versets,   20,733 entrées, 15159 codes Strong, 570 ◎ -> John.csv
+IGNORÉ  - Acts ch.29: page inexistante sur le site (le site renvoie le chapitre 28)
+Acts   (Actes                    ):  28 chapitres sur le site (base : 28),  1007 versets,   25,652 entrées, 17466 codes Strong, 794 ◎ -> Acts.csv
+IGNORÉ  - Rom ch.17: page inexistante sur le site (le site renvoie le chapitre 16)
+Rom    (Romains                  ):  16 chapitres sur le site (base : 16),   433 versets,   10,772 entrées, 7047 codes Strong, 143 ◎ -> Rom.csv
+IGNORÉ  - 1Cor ch.17: page inexistante sur le site (le site renvoie le chapitre 16)
+1Cor   (1 Corinthiens            ):  16 chapitres sur le site (base : 16),   437 versets,   10,722 entrées, 6865 codes Strong, 167 ◎ -> 1Cor.csv
+IGNORÉ  - 2Cor ch.14: page inexistante sur le site (le site renvoie le chapitre 13)
+2Cor   (2 Corinthiens            ):  13 chapitres sur le site (base : 13),   256 versets,    6,961 entrées, 4376 codes Strong, 62 ◎ -> 2Cor.csv
+IGNORÉ  - Gal ch.7: page inexistante sur le site (le site renvoie le chapitre 6)
+Gal    (Galates                  ):   6 chapitres sur le site (base : 6),   149 versets,    3,527 entrées, 2294 codes Strong, 32 ◎ -> Gal.csv
+IGNORÉ  - Eph ch.7: page inexistante sur le site (le site renvoie le chapitre 6)
+Eph    (Éphésiens                ):   6 chapitres sur le site (base : 6),   155 versets,    3,417 entrées, 2388 codes Strong, 25 ◎ -> Eph.csv
+IGNORÉ  - Phil ch.5: page inexistante sur le site (le site renvoie le chapitre 4)
+Phil   (Philippiens              ):   4 chapitres sur le site (base : 4),   104 versets,    2,509 entrées, 1617 codes Strong, 36 ◎ -> Phil.csv
+IGNORÉ  - Col ch.5: page inexistante sur le site (le site renvoie le chapitre 4)
+Col    (Colossiens               ):   4 chapitres sur le site (base : 4),    95 versets,    2,255 entrées, 1577 codes Strong, 31 ◎ -> Col.csv
+IGNORÉ  - 1Thess ch.6: page inexistante sur le site (le site renvoie le chapitre 5)
+1Thess (1 Thessaloniciens        ):   5 chapitres sur le site (base : 5),    89 versets,    2,135 entrées, 1476 codes Strong, 46 ◎ -> 1Thess.csv
+IGNORÉ  - 2Thess ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+2Thess (2 Thessaloniciens        ):   3 chapitres sur le site (base : 3),    47 versets,    1,177 entrées, 796 codes Strong, 15 ◎ -> 2Thess.csv
+IGNORÉ  - 1Tim ch.7: page inexistante sur le site (le site renvoie le chapitre 6)
+1Tim   (1 Timothée               ):   6 chapitres sur le site (base : 6),   113 versets,    2,618 entrées, 1651 codes Strong, 31 ◎ -> 1Tim.csv
+IGNORÉ  - 2Tim ch.5: page inexistante sur le site (le site renvoie le chapitre 4)
+2Tim   (2 Timothée               ):   4 chapitres sur le site (base : 4),    83 versets,    1,820 entrées, 1231 codes Strong, 16 ◎ -> 2Tim.csv
+IGNORÉ  - Titus ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+Titus  (Tite                     ):   3 chapitres sur le site (base : 3),    46 versets,    1,037 entrées, 680 codes Strong, 7 ◎ -> Titus.csv
+IGNORÉ  - Phlm ch.2: page inexistante sur le site (le site renvoie le chapitre 1)
+Phlm   (Philémon                 ):   1 chapitres sur le site (base : 1),    25 versets,      507 entrées, 337 codes Strong, 8 ◎ -> Phlm.csv
+IGNORÉ  - Heb ch.14: page inexistante sur le site (le site renvoie le chapitre 13)
+Heb    (Hébreux                  ):  13 chapitres sur le site (base : 13),   303 versets,    7,751 entrées, 4875 codes Strong, 60 ◎ -> Heb.csv
+IGNORÉ  - Jas ch.6: page inexistante sur le site (le site renvoie le chapitre 5)
+Jas    (Jacques                  ):   5 chapitres sur le site (base : 5),   108 versets,    2,581 entrées, 1718 codes Strong, 34 ◎ -> Jas.csv
+IGNORÉ  - 1Pet ch.6: page inexistante sur le site (le site renvoie le chapitre 5)
+1Pet   (1 Pierre                 ):   5 chapitres sur le site (base : 5),   105 versets,    2,721 entrées, 1690 codes Strong, 20 ◎ -> 1Pet.csv
+IGNORÉ  - 2Pet ch.4: page inexistante sur le site (le site renvoie le chapitre 3)
+2Pet   (2 Pierre                 ):   3 chapitres sur le site (base : 3),    61 versets,    1,705 entrées, 1091 codes Strong, 19 ◎ -> 2Pet.csv
+IGNORÉ  - 1John ch.6: page inexistante sur le site (le site renvoie le chapitre 5)
+1John  (1 Jean                   ):   5 chapitres sur le site (base : 5),   105 versets,    2,761 entrées, 2077 codes Strong, 25 ◎ -> 1John.csv
+IGNORÉ  - 2John ch.2: page inexistante sur le site (le site renvoie le chapitre 1)
+2John  (2 Jean                   ):   1 chapitres sur le site (base : 1),    13 versets,      340 entrées, 248 codes Strong, 3 ◎ -> 2John.csv
+IGNORÉ  - 3John ch.2: page inexistante sur le site (le site renvoie le chapitre 1)
+3John  (3 Jean                   ):   1 chapitres sur le site (base : 1),    15 versets,      319 entrées, 214 codes Strong, 5 ◎ -> 3John.csv
+IGNORÉ  - Jude ch.2: page inexistante sur le site (le site renvoie le chapitre 1)
+Jude   (Jude                     ):   1 chapitres sur le site (base : 1),    25 versets,      695 entrées, 437 codes Strong, 10 ◎ -> Jude.csv
+IGNORÉ  - Rev ch.23: page inexistante sur le site (le site renvoie le chapitre 22)
+Rev    (Apocalypse               ):  22 chapitres sur le site (base : 22),   405 versets,   12,671 entrées, 9267 codes Strong, 463 ◎ -> Rev.csv
+
+Entrées totales : 812,043
+Erreurs de téléchargement : 0
+Durée : 164 s

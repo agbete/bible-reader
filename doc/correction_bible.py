@@ -15,6 +15,8 @@ La base n'est jamais modifiée ; elle est seulement lue pour créer reference_ls
   python correction_bible.py --exporter-reference     (re)crée reference_lsg.csv depuis la base locale
   python correction_bible.py                          aligne tous les livres
   python correction_bible.py Joel Mal                 seulement ces livres
+Autre version du site : ajouter  --version DarbyR  (texte de référence : Darby DBY91 de la base,
+fichiers extraction_concordance_DarbyR/ -> extraction_concordance_DarbyR_dby91/, reference_dby91.csv).
 """
 import bisect
 import csv
@@ -27,11 +29,17 @@ from collections import defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-DOSSIER_ENTREE = 'extraction_concordance_Sg1910'
-DOSSIER_SORTIE = 'extraction_concordance_Sg1910_lsg'
-FICHIER_REFERENCE = 'reference_lsg.csv'
-FICHIER_CORRECTIONS = 'corrections.csv'
-FICHIER_LOG = 'correction_bible.log'
+# Version du site -> version de la base dont le texte sert de référence (--version, Sg1910 par défaut)
+VERSIONS = {'Sg1910': ('LSG', 'lsg'), 'DarbyR': ('DBY91', 'dby91')}
+VERSION = sys.argv[sys.argv.index('--version') + 1] if '--version' in sys.argv else 'Sg1910'
+if VERSION not in VERSIONS:
+    sys.exit(f"❌ --version : {VERSION} inconnue (connues : {', '.join(VERSIONS)})")
+VERSION_BASE, SUFFIXE = VERSIONS[VERSION]
+DOSSIER_ENTREE = f'extraction_concordance_{VERSION}'
+DOSSIER_SORTIE = f'extraction_concordance_{VERSION}_{SUFFIXE}'
+FICHIER_REFERENCE = f'reference_{SUFFIXE}.csv'
+FICHIER_CORRECTIONS = 'corrections.csv' if VERSION == 'Sg1910' else f'corrections_{VERSION}.csv'
+FICHIER_LOG = 'correction_bible.log' if VERSION == 'Sg1910' else f'correction_bible_{VERSION}.log'
 CONTENEUR_BASE = 'supabase_db_bible-reader'
 
 OSIS = ('Gen Exod Lev Num Deut Josh Judg Ruth 1Sam 2Sam 1Kgs 2Kgs 1Chr 2Chr Ezra Neh Esth Job Ps Prov Eccl Song '
@@ -44,7 +52,7 @@ def exporter_reference():
     requete = ("\\copy (select b.order_index as ordre, b.code as code_base, c.number as chapitre, "
                "v.verse_number as verset, vt.text as texte from books b join chapters c on c.book_id = b.id "
                "join verses v on v.chapter_id = c.id join verse_texts vt on vt.verse_id = v.id "
-               "join bible_versions bv on bv.id = vt.version_id and bv.code = 'LSG' order by 1, 3, 4) "
+               f"join bible_versions bv on bv.id = vt.version_id and bv.code = '{VERSION_BASE}' order by 1, 3, 4) "
                "to stdout with (format csv, header, delimiter ';')")
     sortie = subprocess.run(['docker', 'exec', CONTENEUR_BASE, 'psql', '-U', 'postgres', '-At', '-c', requete],
                             capture_output=True, text=True, encoding='utf-8')
@@ -151,6 +159,23 @@ def corriger_livre(livre, reference, log, rapport):
     for n in range(len(lignes)):  # verset du site sans aucun mot retrouvé : suit la ligne précédente
         if verset_ligne[n] is None:
             verset_ligne[n] = verset_ligne[n - 1] if n else 0
+    # Verset de la base resté vide alors que le site a ce même verset, rangé dans un verset voisin
+    # (texte formulé autrement, ex. DarbyR « L’Éternel dit à Moïse : » / base « Et l'Éternel parla à Moïse,
+    # disant: ») : le verset du site garde son numéro
+    indice_verset = {(ch, v): i for i, (ch, v, _) in enumerate(versets)}
+    remplis = set(verset_ligne)
+    lignes_du_site = defaultdict(list)
+    for n, s in enumerate(site):
+        lignes_du_site[s].append(n)
+    for (ch_s, v_s), membres in lignes_du_site.items():
+        cible = indice_verset.get((int(ch_s), int(v_s)))
+        if cible is None or cible in remplis:
+            continue
+        actuels = {verset_ligne[n] for n in membres}
+        if actuels <= {cible - 1, cible + 1}:
+            for n in membres:
+                verset_ligne[n] = cible
+            remplis.add(cible)
 
     # Mots du site absents de la base (signalés)
     non_trouves = [m for m, j in enumerate(correspondance) if j is None]
@@ -204,7 +229,7 @@ def main():
         exporter_reference()
         return
     reference = lire_reference()
-    livres = [a for a in sys.argv[1:] if not a.startswith('-')] or OSIS
+    livres = [a for a in sys.argv[1:] if not a.startswith('-') and a != VERSION] or OSIS
     inconnus = [l for l in livres if l not in OSIS]
     if inconnus:
         sys.exit(f"❌ Livres inconnus : {', '.join(inconnus)}")

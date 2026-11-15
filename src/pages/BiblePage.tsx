@@ -1052,6 +1052,15 @@ setSelectedChapter(chapter);
     return nodes;
   };
 
+  // ─── Hébreu (WLC) : lecture de droite à gauche, texte aligné à droite ───
+  const isRtlVersion = (versionCode: string) => versionCode?.toUpperCase() === 'WLC';
+  const rtlProps = (versionCode: string) =>
+    (isRtlVersion(versionCode) ? { dir: 'rtl' as const, lang: 'he' } : {});
+  const rtlClass = (versionCode: string) => (isRtlVersion(versionCode) ? 'font-hebrew text-right' : '');
+  /** Police du lecteur, sauf pour l'hébreu (police hébraïque de font-hebrew) */
+  const readerStyleFor = (versionCode: string): React.CSSProperties =>
+    (isRtlVersion(versionCode) ? { ...readerTextStyle, fontFamily: undefined } : readerTextStyle);
+
   // ─── Verset sans texte : lien « Voir Luc 3:1 » vers le dernier verset non vide qui précède ───
   const renderVerseText = (verse: any, versionCode: string) => {
     if (!verse.is_missing) {
@@ -1513,7 +1522,8 @@ setSelectedChapter(chapter);
                           <div
                             data-verse-body={number}
                             onClick={() => handleVerseClick(verse, code)}
-                            className="flex items-start gap-[3px] px-1 py-0.5 rounded-md hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-colors"
+                            {...rtlProps(code)}
+                            className={`flex items-start gap-[3px] px-1 py-0.5 rounded-md hover:bg-amber-500/10 dark:hover:bg-amber-500/15 cursor-pointer transition-colors ${rtlClass(code)}`}
                             title="Cliquez pour voir les Références & Trésors"
                           >
                             <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400 select-none pt-px shrink-0 min-w-[0.75rem]">
@@ -1590,7 +1600,7 @@ setSelectedChapter(chapter);
                   <span className="text-xs">Aucun verset trouvé pour ce chapitre dans cette version.</span>
                 </div>
               ) : displayMode === 'list' ? (
-                <div className="space-y-0.5 font-serif text-sm sm:text-base leading-snug flex-1" style={readerTextStyle}>
+                <div {...rtlProps(versionCode)} className={`space-y-0.5 font-serif text-sm sm:text-base leading-snug flex-1 ${rtlClass(versionCode)}`} style={readerStyleFor(versionCode)}>
                   {verses.map((verse, verseIndex) => (
                     <div key={verse.id || verse.verse_number} data-verse-number={verse.verse_number} className="group scroll-mt-[70px] xl:scroll-mt-[100px]">
                       {renderVerseTitles(verse.id, versionCode, verseIndex > 0)}
@@ -1621,7 +1631,7 @@ setSelectedChapter(chapter);
                   ))}
                 </div>
               ) : (
-                <div className="font-serif text-sm sm:text-base leading-relaxed text-foreground text-justify flex-1" style={readerTextStyle}>
+                <div {...rtlProps(versionCode)} className={`font-serif text-sm sm:text-base leading-relaxed text-foreground text-justify flex-1 ${rtlClass(versionCode)}`} style={readerStyleFor(versionCode)}>
                   {verses.map((verse, verseIndex) => {
                     const titlesHeader = renderVerseTitles(verse.id, versionCode, verseIndex > 0);
                     return (

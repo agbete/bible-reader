@@ -33,6 +33,9 @@ dist-ssr
 # Cache Python
 __pycache__/
 
+# Pages téléchargées par les scripts d'extraction des dictionnaires (reprise)
+doc/Dictionnaires/*/.cache_*/
+
 # Copies locales de la base Supabase (volumineuses)
 supabase/*.sql
 supabase/.temp/

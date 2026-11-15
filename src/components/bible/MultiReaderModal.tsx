@@ -429,7 +429,12 @@ const ReaderColumn: React.FC<ReaderColumnProps> = ({
         ) : verses.length === 0 ? (
           <div className="py-12 text-center text-xs text-muted-foreground">Aucun verset trouvé pour ce chapitre dans cette version.</div>
         ) : (
-          <div className="space-y-0.5 font-serif leading-snug" style={readerTextStyle}>
+          <div
+            // Hébreu (WLC) : de droite à gauche, police hébraïque
+            {...(column.versionCode?.toUpperCase() === 'WLC' ? { dir: 'rtl' as const, lang: 'he' } : {})}
+            className={`space-y-0.5 font-serif leading-snug ${column.versionCode?.toUpperCase() === 'WLC' ? 'font-hebrew text-right' : ''}`}
+            style={column.versionCode?.toUpperCase() === 'WLC' ? { ...readerTextStyle, fontFamily: undefined } : readerTextStyle}
+          >
             {verses.map((verse, verseIndex) => {
               const words = strongWords?.get(verse.verse_number);
               return (

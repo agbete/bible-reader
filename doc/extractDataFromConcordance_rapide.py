@@ -12,6 +12,7 @@
 Usage (depuis le dossier doc) :
   python extractDataFromConcordance_rapide.py              toute la Bible
   python extractDataFromConcordance_rapide.py Matt Mark    seulement ces livres
+  python extractDataFromConcordance_rapide.py --version DarbyR    Darby révisée (-> extraction_concordance_DarbyR/)
 """
 import csv
 import os
@@ -29,10 +30,16 @@ from urllib3.util.retry import Retry
 sys.stdout.reconfigure(encoding='utf-8')
 
 # --- Configuration ---
-versions = ["Sg1910"]
+# Version du site (--version, Sg1910 par défaut) ; la liste des chapitres vient de la base (même découpage)
+VERSION = sys.argv[sys.argv.index('--version') + 1] if '--version' in sys.argv else 'Sg1910'
+VERSIONS_CONNUES = ('Sg1910', 'DarbyR', 'WLC', 'WLCt')
+if VERSION not in VERSIONS_CONNUES:
+    sys.exit(f"❌ --version : {VERSION} inconnue (connues : {', '.join(VERSIONS_CONNUES)})")
+HEBREU = VERSION in ('WLC', 'WLCt')  # Ancien Testament seulement
+versions = [VERSION]
 versions_str = "_".join(versions)
-TELECHARGEMENTS_SIMULTANES = 8
-dossier_sortie = 'extraction_concordance_Sg1910'
+TELECHARGEMENTS_SIMULTANES = 24 if HEBREU else 8
+dossier_sortie = f'extraction_concordance_{VERSION}'
 fichier_reference = 'reference_lsg.csv'
 os.makedirs(dossier_sortie, exist_ok=True)
 
@@ -57,9 +64,10 @@ with open(fichier_reference, encoding='utf-8-sig') as f:
     for ligne in csv.DictReader(f, delimiter=';'):
         code = OSIS[int(ligne['ordre']) - 1]
         nb_chapitres[code] = max(nb_chapitres.get(code, 0), int(ligne['chapitre']))
-structure_bible = {code: {'nom': NOMS[i], 'chapitres': nb_chapitres[code]} for i, code in enumerate(OSIS)}
+structure_bible = {code: {'nom': NOMS[i], 'chapitres': nb_chapitres[code]} for i, code in enumerate(OSIS)
+                   if not HEBREU or i < 39}
 
-livres_demandes = sys.argv[1:]
+livres_demandes = [a for a in sys.argv[1:] if not a.startswith('-') and a != VERSION]
 if livres_demandes:
     inconnus = [code for code in livres_demandes if code not in structure_bible]
     if inconnus:
@@ -107,6 +115,13 @@ def parcourir(element, sortie):
             texte = ESPACES.sub(' ', enfant.get_text()).strip()
             if texte:
                 sortie.append(('note', texte))
+        elif enfant.name == 'a' and 'note' in (enfant.get('class') or []):
+            # Appel de note DarbyR (« parole<a class="note" data-bs-content="litt. : la bouche">d</a> ») :
+            # le texte de la note, pas la lettre d'appel (qui se collerait au mot : « paroled »)
+            contenu = BeautifulSoup(enfant.get('data-bs-content') or '', 'lxml').get_text()
+            texte = ESPACES.sub(' ', contenu).strip()
+            if texte:
+                sortie.append(('note', texte))
         else:  # span.strong-untranslated, hi, seg sans code… : on descend
             parcourir(enfant, sortie)
     return sortie
@@ -143,6 +158,8 @@ def elements_du_verset(td):
             resultats.append({'type_entite': 'note', 'data_lm': None, 'data_pa': None, 'data_ns': None, 'contenu': valeur})
         else:
             texte = ESPACES.sub(' ', valeur)
+            if HEBREU:  # marques de paragraphe massorétiques פ / ס (WLCt : p / s), seules entre deux espaces : pas du texte
+                texte = re.sub(r'(?<!\S)[פסps](?!\S)', ' ', texte)
             if not texte.strip():
                 continue
             ouvrante = ''
@@ -259,4 +276,5 @@ with open(fichier_log, 'w', encoding='utf-8-sig') as log:
 
 print(f"\n✅ Terminé en {time.time() - debut:.0f} s : {total:,} entrées, {len(erreurs)} erreur(s) de téléchargement")
 print(f"📁 Résultats : {dossier_sortie}/  —  journal : {fichier_log}")
-print("➡️  Étape suivante : python correction_bible.py")
+print("➡️  Étape suivante : python correction_bible.py" + (f" --exporter-reference --version {VERSION}  puis  "
+      f"python correction_bible.py --version {VERSION}" if VERSION != 'Sg1910' else ''))

@@ -32,8 +32,11 @@ from collections import defaultdict
 sys.stdout.reconfigure(encoding='utf-8')
 
 CONTENEUR = 'supabase_db_bible-reader'
-SORTIE_JSON = os.path.join('public', 'data', 'strong-groupes-lsg.json')
-SORTIE_CSV = os.path.join('doc', 'groupes_codes_lsg_kjv.csv')
+# --version DarbyR : même traitement pour la Darby française (DBY91 dans la base)
+VERSION = sys.argv[sys.argv.index('--version') + 1] if '--version' in sys.argv else 'Sg1910'
+SUFFIXE = {'Sg1910': 'lsg', 'DarbyR': 'dby91'}.get(VERSION) or sys.exit(f'❌ --version {VERSION} inconnue')
+SORTIE_JSON = os.path.join('public', 'data', f'strong-groupes-{SUFFIXE}.json')
+SORTIE_CSV = os.path.join('doc', f'groupes_codes_{SUFFIXE}_kjv.csv')
 MARQUEUR = '◎'
 PONCTUATION_FIN = re.compile(r'[,;:.!?»)\]]\s*$')
 
@@ -58,8 +61,8 @@ def position(data_pa):
 
 
 def main():
-    print('Lecture de la Segond 1910 et de la KJV (lecture seule)…')
-    lsg = lire('Sg1910')
+    print(f'Lecture de {VERSION} et de la KJV (lecture seule)…')
+    lsg = lire(VERSION)
     kjv = lire('KJV', avec_codes_seulement=True)
 
     # KJV : mots portant chaque code, par verset
